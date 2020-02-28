@@ -7,4 +7,4 @@ I file validi sono:
   3)UseCase-diagram.png
   4)Progetto_19_20.pdf (la traccia del progetto)
   
-Tutti gli altri file dovrebbero essere cancellati in quanto potrebbero mantenere dati non validi.
+Tutti gli altri file dovrebbero essere cancellati in quanto potrebbero mantenere dati non validi. Escluse le cartelle.
