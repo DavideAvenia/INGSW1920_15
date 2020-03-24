@@ -167,7 +167,7 @@
 											"top": 436,
 											"width": 557.45751953125,
 											"height": 13,
-											"text": "+registrati(String nome, String cognome, String cellulare, String email, String password): boolean",
+											"text": "+registrati(String nome, String cognome, String cellulare, String email, String password): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -186,13 +186,30 @@
 											"height": 13,
 											"text": "+mostraErroreForm(String errore): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFxDf3RKGVWkdA=",
+											"_parent": {
+												"$ref": "AAAAAAFxDbIcHVnCkkc="
+											},
+											"model": {
+												"$ref": "AAAAAAFxDf3RBmVTq8M="
+											},
+											"font": "Arial;13;0",
+											"left": 293,
+											"top": 466,
+											"width": 557.45751953125,
+											"height": 13,
+											"text": "+mostraLoginForm(): void",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 288,
 									"top": 416,
 									"width": 567.45751953125,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2304,8 +2321,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFxDbYVNV++wtM="
 									},
-									"name": "String email",
-									"type": ""
+									"name": "String email"
 								},
 								{
 									"_type": "UMLParameter",
@@ -2313,8 +2329,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFxDbYVNV++wtM="
 									},
-									"name": "String password",
-									"type": ""
+									"name": "String password"
 								},
 								{
 									"_type": "UMLParameter",
@@ -2322,7 +2337,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFxDbYVNV++wtM="
 									},
-									"type": "boolean",
+									"type": "void",
 									"direction": "return"
 								}
 							]
@@ -2349,6 +2364,25 @@
 									"_id": "AAAAAAFxDcDIZWTvfzQ=",
 									"_parent": {
 										"$ref": "AAAAAAFxDbYfP2AALAo="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFxDf3RBmVTq8M=",
+							"_parent": {
+								"$ref": "AAAAAAFxDbIcHFm56U8="
+							},
+							"name": "mostraLoginForm",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFxDf3pd2WWWiE=",
+									"_parent": {
+										"$ref": "AAAAAAFxDf3RBmVTq8M="
 									},
 									"type": "void",
 									"direction": "return"
