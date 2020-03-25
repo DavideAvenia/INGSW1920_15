@@ -25,7 +25,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
-							"name": "SequenceDiagram1",
+							"name": "Recensioni Strutture",
 							"ownedViews": [
 								{
 									"_type": "UMLFrameView",
@@ -46,9 +46,9 @@
 											"font": "Arial;13;0",
 											"left": 70.97900390625,
 											"top": 10,
-											"width": 115.9052734375,
+											"width": 118.78076171875,
 											"height": 13,
-											"text": "SequenceDiagram1"
+											"text": "Recensioni Strutture"
 										},
 										{
 											"_type": "LabelView",
@@ -101,10 +101,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFw/kkU5ejy+ps="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": -240,
-													"height": 13
+													"left": 21,
+													"top": 45,
+													"width": 62.736328125,
+													"height": 13,
+													"text": "«Actor»"
 												},
 												{
 													"_type": "LabelView",
@@ -114,7 +116,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 21,
-													"top": 47,
+													"top": 60,
 													"width": 62.736328125,
 													"height": 13,
 													"text": "Utente"
@@ -217,10 +219,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFw/kliYukVhIA="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": -48,
-													"height": 13
+													"left": 189,
+													"top": 45,
+													"width": 166.74267578125,
+													"height": 13,
+													"text": "«Boundary»"
 												},
 												{
 													"_type": "LabelView",
@@ -230,7 +234,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 189,
-													"top": 47,
+													"top": 60,
 													"width": 166.74267578125,
 													"height": 13,
 													"text": "RecensioniStruttureForm"
@@ -444,10 +448,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFw/koXu+lP2qc="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": 416,
-													"height": 13
+													"left": 693,
+													"top": 45,
+													"width": 180.498046875,
+													"height": 13,
+													"text": "«Controller»"
 												},
 												{
 													"_type": "LabelView",
@@ -457,7 +463,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 693,
-													"top": 47,
+													"top": 60,
 													"width": 180.498046875,
 													"height": 13,
 													"text": "ScriviRecensioneController"
@@ -671,10 +677,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFw/kuPU+mKCxA="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": 608,
-													"height": 13
+													"left": 1053,
+													"top": 113,
+													"width": 150.88623046875,
+													"height": 13,
+													"text": "«Boundary»"
 												},
 												{
 													"_type": "LabelView",
@@ -684,7 +692,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 1053,
-													"top": 115,
+													"top": 128,
 													"width": 150.88623046875,
 													"height": 13,
 													"text": "ScriviRecensioneForm"
@@ -1346,10 +1354,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFw/mDF+esOmqM="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": -48,
-													"height": 13
+													"left": 421,
+													"top": 281,
+													"width": 82.97265625,
+													"height": 13,
+													"text": "«Object»"
 												},
 												{
 													"_type": "LabelView",
@@ -1359,7 +1369,7 @@
 													},
 													"font": "Arial;13;1",
 													"left": 421,
-													"top": 283,
+													"top": 296,
 													"width": 82.97265625,
 													"height": 13,
 													"text": "Recensioni"
@@ -2177,6 +2187,7 @@
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
 							"name": "Utente",
+							"stereotype": "Actor",
 							"represent": {
 								"$ref": "AAAAAAFw/kkU5OjvfWU="
 							},
@@ -2189,6 +2200,7 @@
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
 							"name": "RecensioniStruttureForm",
+							"stereotype": "Boundary",
 							"represent": {
 								"$ref": "AAAAAAFw/kliYekS1TQ="
 							},
@@ -2201,6 +2213,7 @@
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
 							"name": "ScriviRecensioneController",
+							"stereotype": "Controller",
 							"represent": {
 								"$ref": "AAAAAAFw/koXuulM/oY="
 							},
@@ -2213,6 +2226,7 @@
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
 							"name": "ScriviRecensioneForm",
+							"stereotype": "Boundary",
 							"represent": {
 								"$ref": "AAAAAAFw/kuPUumHaho="
 							},
@@ -2225,6 +2239,7 @@
 								"$ref": "AAAAAAFw/ki41Ojg0iU="
 							},
 							"name": "Recensioni",
+							"stereotype": "Object",
 							"represent": {
 								"$ref": "AAAAAAFw/mDF+esLCew="
 							},
