@@ -150,7 +150,7 @@
 											"top": 413,
 											"width": 358.7568359375,
 											"height": 13,
-											"text": "+mostraRecensioniStrutture(Struttura struttura): void",
+											"text": "+mostraRecensioniStrutture(struttura : Struttura): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -167,7 +167,7 @@
 											"top": 428,
 											"width": 358.7568359375,
 											"height": 13,
-											"text": "+mostraDialogRecensione(Recensione recensione): void",
+											"text": "+mostraDialogRecensione(recensione : Recensione): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3689,7 +3689,10 @@
 									"_parent": {
 										"$ref": "AAAAAAFxCNROB04Ip9U="
 									},
-									"name": "Struttura struttura"
+									"name": "struttura ",
+									"type": {
+										"$ref": "AAAAAAFxCNY1LU9CqSU="
+									}
 								}
 							]
 						},
@@ -3707,7 +3710,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFxCNXEjk7EcYY="
 									},
-									"name": "Recensione recensione"
+									"name": "recensione ",
+									"type": "Recensione"
 								},
 								{
 									"_type": "UMLParameter",
