@@ -675,9 +675,9 @@
 												"$ref": "AAAAAAFxvjJZNP+hsD4="
 											},
 											"font": "Arial;13;0",
-											"left": 251,
+											"left": 215,
 											"top": 120,
-											"width": 189.2998046875,
+											"width": 261.5615234375,
 											"height": 13,
 											"alpha": 3.141589153589793,
 											"distance": 4,
@@ -685,7 +685,7 @@
 												"$ref": "AAAAAAFxvjJZNf+ir4k="
 											},
 											"edgePosition": 1,
-											"text": "2 : bottoneRicercaPremuto(view)"
+											"text": "2 : onOptionsItemSelected(item)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -3687,13 +3687,14 @@
 							"_parent": {
 								"$ref": "AAAAAAFxOJ00eBxvx2Y="
 							},
-							"name": "bottoneRicercaPremuto(view)",
+							"name": "onOptionsItemSelected",
 							"source": {
 								"$ref": "AAAAAAFxOJ1l8Ryeur4="
 							},
 							"target": {
 								"$ref": "AAAAAAFxOJ1l8Ryeur4="
-							}
+							},
+							"arguments": "item"
 						},
 						{
 							"_type": "UMLMessage",

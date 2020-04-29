@@ -199,12 +199,47 @@
 											"model": {
 												"$ref": "AAAAAAFxt24/qACZ464="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 365,
 											"top": 241,
 											"width": 711.13427734375,
 											"height": 13,
 											"text": "+bottoneRicercaPremuto(View view): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFxw881yvYOqhk=",
+											"_parent": {
+												"$ref": "AAAAAAFxOH0BvHAKkag="
+											},
+											"model": {
+												"$ref": "AAAAAAFxw881tPYLQ00="
+											},
+											"font": "Arial;13;0",
+											"left": 365,
+											"top": 241,
+											"width": 711.13427734375,
+											"height": 13,
+											"text": "+onCreateOptionsMenu(Menu menu): boolean",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFxw875JfV7U3A=",
+											"_parent": {
+												"$ref": "AAAAAAFxOH0BvHAKkag="
+											},
+											"model": {
+												"$ref": "AAAAAAFxw8748/V41Jg="
+											},
+											"font": "Arial;13;0",
+											"left": 365,
+											"top": 256,
+											"width": 711.13427734375,
+											"height": 13,
+											"text": "+onOptionsItemSelected(ItemMenu item): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -218,7 +253,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 365,
-											"top": 256,
+											"top": 271,
 											"width": 711.13427734375,
 											"height": 13,
 											"text": "+aggiornaMappa(listaNomi: String, listaLatidutini: float, listaLongitudini[], listaValutazioni: int, listaOrariApertura: String): void",
@@ -229,7 +264,7 @@
 									"left": 360,
 									"top": 221,
 									"width": 721.13427734375,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -3355,6 +3390,62 @@
 						},
 						{
 							"_type": "UMLOperation",
+							"_id": "AAAAAAFxw881tPYLQ00=",
+							"_parent": {
+								"$ref": "AAAAAAFxOH0Bu3ABbrc="
+							},
+							"name": "onCreateOptionsMenu",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFxw89ByvY/CYo=",
+									"_parent": {
+										"$ref": "AAAAAAFxw881tPYLQ00="
+									},
+									"name": "Menu menu",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFxw89ByvZADik=",
+									"_parent": {
+										"$ref": "AAAAAAFxw881tPYLQ00="
+									},
+									"type": "boolean",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFxw8748/V41Jg=",
+							"_parent": {
+								"$ref": "AAAAAAFxOH0Bu3ABbrc="
+							},
+							"name": "onOptionsItemSelected",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFxw88EA/Ws658=",
+									"_parent": {
+										"$ref": "AAAAAAFxw8748/V41Jg="
+									},
+									"name": "ItemMenu item",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFxw88EA/Wtu1A=",
+									"_parent": {
+										"$ref": "AAAAAAFxw8748/V41Jg="
+									},
+									"type": "boolean",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
 							"_id": "AAAAAAFxOH6L8HLCeeI=",
 							"_parent": {
 								"$ref": "AAAAAAFxOH0Bu3ABbrc="
@@ -3394,7 +3485,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFxOH6L8HLCeeI="
 									},
-									"name": "listaLongitudini[]"
+									"name": "listaLongitudini[]",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
