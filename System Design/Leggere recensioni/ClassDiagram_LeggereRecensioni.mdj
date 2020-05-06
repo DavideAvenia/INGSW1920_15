@@ -120,11 +120,31 @@
 									"model": {
 										"$ref": "AAAAAAFxCNJqZktDGAU="
 									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFx57Z8lpQnJ30=",
+											"_parent": {
+												"$ref": "AAAAAAFxCNJqZ0tLCqc="
+											},
+											"model": {
+												"$ref": "AAAAAAFx57Z8e5Qk7A0="
+											},
+											"font": "Arial;13;0",
+											"left": 861,
+											"top": 475,
+											"width": 540.8203125,
+											"height": 13,
+											"underline": true,
+											"text": "+leggereRecensioniController: LeggereRecensioniController",
+											"horizontalAlignment": 0
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 856,
 									"top": 470,
 									"width": 550.8203125,
-									"height": 10
+									"height": 23
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -147,7 +167,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 861,
-											"top": 485,
+											"top": 498,
 											"width": 540.8203125,
 											"height": 13,
 											"text": "+mostraRecensioniStrutture(nomeStruttura: String, viaStruttura: String, context: Context): void",
@@ -164,7 +184,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 861,
-											"top": 500,
+											"top": 513,
 											"width": 540.8203125,
 											"height": 13,
 											"text": "+mostraDialogRecensione(idRecensione : int): void",
@@ -181,18 +201,53 @@
 											},
 											"font": "Arial;13;0",
 											"left": 861,
-											"top": 515,
+											"top": 528,
 											"width": 540.8203125,
 											"height": 13,
 											"text": "+checkForNickname(userId: String): boolean",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFx57bMlpUfSZU=",
+											"_parent": {
+												"$ref": "AAAAAAFxCNJqZ0tM4Mo="
+											},
+											"model": {
+												"$ref": "AAAAAAFx57bMjZUc/tE="
+											},
+											"font": "Arial;13;0",
+											"left": 861,
+											"top": 543,
+											"width": 540.8203125,
+											"height": 13,
+											"underline": true,
+											"text": "+getLeggereRecensioniController(): LeggereRecensioniController",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFx57cg15YAxHM=",
+											"_parent": {
+												"$ref": "AAAAAAFxCNJqZ0tM4Mo="
+											},
+											"model": {
+												"$ref": "AAAAAAFx57cgzZX9s+E="
+											},
+											"font": "Arial;13;0",
+											"left": 861,
+											"top": 558,
+											"width": 540.8203125,
+											"height": 13,
+											"text": "-LeggereRecensioniController()",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 856,
-									"top": 480,
+									"top": 493,
 									"width": 550.8203125,
-									"height": 53
+									"height": 83
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -7318,6 +7373,20 @@
 						}
 					],
 					"stereotype": "Controller",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFx57Z8e5Qk7A0=",
+							"_parent": {
+								"$ref": "AAAAAAFxCNJqZktDGAU="
+							},
+							"name": "leggereRecensioniController",
+							"isStatic": true,
+							"type": {
+								"$ref": "AAAAAAFxCNJqZktDGAU="
+							}
+						}
+					],
 					"operations": [
 						{
 							"_type": "UMLOperation",
@@ -7420,6 +7489,37 @@
 									"direction": "return"
 								}
 							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFx57bMjZUc/tE=",
+							"_parent": {
+								"$ref": "AAAAAAFxCNJqZktDGAU="
+							},
+							"name": "getLeggereRecensioniController",
+							"isStatic": true,
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFx57cLcZWbmQc=",
+									"_parent": {
+										"$ref": "AAAAAAFx57bMjZUc/tE="
+									},
+									"type": {
+										"$ref": "AAAAAAFxCNJqZktDGAU="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFx57cgzZX9s+E=",
+							"_parent": {
+								"$ref": "AAAAAAFxCNJqZktDGAU="
+							},
+							"name": "LeggereRecensioniController",
+							"visibility": "private"
 						}
 					]
 				},
