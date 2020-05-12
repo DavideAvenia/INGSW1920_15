@@ -796,9 +796,9 @@
 												"$ref": "AAAAAAFyAYjVy3qjaF0="
 											},
 											"font": "Arial;13;0",
-											"left": 662,
+											"left": 654,
 											"top": 136,
-											"width": 153.89892578125,
+											"width": 169.29833984375,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -806,7 +806,7 @@
 												"$ref": "AAAAAAFyAYjVy3qkBsg="
 											},
 											"edgePosition": 1,
-											"text": "3 : newUtenteDao(service)"
+											"text": "3 : new AWSCognito(service)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -1376,14 +1376,15 @@
 							"_parent": {
 								"$ref": "AAAAAAFyAYZBg3mgJaM="
 							},
-							"name": "newUtenteDao(service)",
+							"name": "new AWSCognito",
 							"source": {
 								"$ref": "AAAAAAFyAYgmOXo4M2Y="
 							},
 							"target": {
 								"$ref": "AAAAAAFyAYgt4HpXpJ0="
 							},
-							"messageSort": "createMessage"
+							"messageSort": "createMessage",
+							"arguments": "service"
 						},
 						{
 							"_type": "UMLMessage",
@@ -1516,7 +1517,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyAYZBg3mfv+o="
 					},
-					"name": "Role1"
+					"name": "Role1",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -1524,7 +1526,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyAYZBg3mfv+o="
 					},
-					"name": "Role2"
+					"name": "Role2",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -1532,7 +1535,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyAYZBg3mfv+o="
 					},
-					"name": "Role3"
+					"name": "Role3",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -1540,7 +1544,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyAYZBg3mfv+o="
 					},
-					"name": "Role4"
+					"name": "Role4",
+					"type": ""
 				}
 			]
 		}
