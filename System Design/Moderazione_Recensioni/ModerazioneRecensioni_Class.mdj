@@ -241,13 +241,30 @@
 											"height": 13,
 											"text": "+mostraModerazioneRecensioniForm(): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFyR5OWqEPts24=",
+											"_parent": {
+												"$ref": "AAAAAAFxmFAsXTBd0wk="
+											},
+											"model": {
+												"$ref": "AAAAAAFyR5OWiEPq8PU="
+											},
+											"font": "Arial;13;0",
+											"left": 469,
+											"top": 533,
+											"width": 403.203125,
+											"height": 13,
+											"text": "+caricaRecensioni(): ArrayList",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 464,
 									"top": 453,
 									"width": 413.203125,
-									"height": 83
+									"height": 98
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -6701,6 +6718,25 @@
 										"$ref": "AAAAAAFyQvwSntKyc7Q="
 									},
 									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFyR5OWiEPq8PU=",
+							"_parent": {
+								"$ref": "AAAAAAFxmFAsWjBUzj8="
+							},
+							"name": "caricaRecensioni",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFyR54yiUTJ3dY=",
+									"_parent": {
+										"$ref": "AAAAAAFyR5OWiEPq8PU="
+									},
+									"type": "ArrayList",
 									"direction": "return"
 								}
 							]
