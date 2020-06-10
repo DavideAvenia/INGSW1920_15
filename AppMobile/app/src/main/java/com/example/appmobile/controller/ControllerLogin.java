@@ -1,12 +1,20 @@
 package com.example.appmobile.controller;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.example.appmobile.Dao.DaoFactory;
+import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.MainFrameForm;
+import com.example.appmobile.R;
+import com.example.appmobile.boundary.LoginForm;
+import com.example.appmobile.boundary.RegistrazioneForm;
 
 public class ControllerLogin {
 
     private MainFrameForm mainFrameForm;
+    private LoginForm loginForm;
+    private RegistrazioneForm registrazioneForm;
 
     private static ControllerLogin controllerLogin = null;
 
@@ -14,7 +22,7 @@ public class ControllerLogin {
 
     }
 
-    public ControllerLogin getControllerLogin(){
+    public static ControllerLogin getControllerLogin(){
         if(controllerLogin == null){
             controllerLogin = new ControllerLogin();
         }
@@ -22,11 +30,27 @@ public class ControllerLogin {
     }
 
     public void mostraLoginForm(Context context){
-        //fare startActivity di LoginForm
+        context.startActivity(new Intent(context, LoginForm.class));
     }
 
     public void mostraRegistrazioneForm(Context context){
-        //fare startActivity di RegistrazioneForm
+        context.startActivity(new Intent(context,RegistrazioneForm.class));
+    }
+
+    public void login(String userId, String password, Context context){
+        String service = context.getString(R.string.cloudService);
+
+        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
+
+        servizioUtente.login(userId,password,context);
+    }
+
+    public void registrazione(String userId, String nome, String cognome, String cellulare, String email, String password, Context context){
+        String service = context.getString(R.string.cloudService);
+
+        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
+
+        servizioUtente.registration(userId,nome,cognome,cellulare,email,password,context);
     }
 
 

@@ -34,6 +34,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private GoogleMap mMap;
     private static boolean isLogged; //mantiene l'info sullo stato di login dell'utente
     private Menu menu;
+    private LocationManager locationManager = null;
+
 
     //Controllers
     private ControllerLogin controllerLogin;
@@ -55,7 +57,30 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
 
         isLogged = false;
+        controllerLogin = ControllerLogin.getControllerLogin();
     }
+
+    private final LocationListener LOCATION_LISTENER = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            LatLng currenLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
 
     /**
@@ -77,22 +102,15 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //Controlla se il gps è abilitato
-        if(!locationManager.isProviderEnabled(Context.LOCATION_SERVICE)){
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             enableGpsMessage();
-
-            LatLng defaultLocation = new LatLng(40.863,14.2767);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,70));
-        }else{
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            LatLng currenLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currenLocation,70));
         }
 
-
+        LatLng defaultLocation = new LatLng(40.863,14.2767);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,10.0f));
     }
 
     @Override
@@ -109,10 +127,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         switch (item.getItemId()){
             case R.id.login:
                 if(isLogged == false){
-                    //open LoginForm
-                    Toast.makeText(this,"Sto aprendo la schermata di login",Toast.LENGTH_LONG).show();
-                    setIsLogged(true);
+                     controllerLogin.mostraLoginForm(this); //apre finestra di login
                 }else{
+                    //signout
                     Toast.makeText(this,"Logout effettuato",Toast.LENGTH_LONG).show();
                     setIsLogged(false);
                 }return true;
