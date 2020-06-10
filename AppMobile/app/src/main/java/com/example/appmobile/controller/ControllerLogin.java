@@ -9,6 +9,7 @@ import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
 import com.example.appmobile.boundary.LoginForm;
 import com.example.appmobile.boundary.RegistrazioneForm;
+import com.example.appmobile.boundary.ResetPasswordForm;
 
 public class ControllerLogin {
 
@@ -37,6 +38,10 @@ public class ControllerLogin {
         context.startActivity(new Intent(context,RegistrazioneForm.class));
     }
 
+    public void mostraResetPasswordForm(Context context){
+        context.startActivity(new Intent(context, ResetPasswordForm.class));
+    }
+
     public void login(String userId, String password, Context context){
         String service = context.getString(R.string.cloudService);
 
@@ -51,6 +56,22 @@ public class ControllerLogin {
         UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
 
         servizioUtente.registration(userId,nome,cognome,cellulare,email,password,context);
+    }
+
+    public void richiediCodiceResetPassword(Context context,String userId){
+        String service = context.getString(R.string.cloudService);
+
+        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
+
+        servizioUtente.recuperaCodiceResetPassword(context,userId);
+    }
+
+    public void resetPassword(Context context, String code, String password){
+        String service = context.getString(R.string.cloudService);
+
+        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
+
+        servizioUtente.resetPassword(code,password,context);
     }
 
 

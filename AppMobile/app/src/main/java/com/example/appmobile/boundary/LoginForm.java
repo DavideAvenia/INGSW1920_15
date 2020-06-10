@@ -46,7 +46,7 @@ public class LoginForm extends AppCompatActivity {
     }
 
     public void recuperaPasswordPremuto(View view){
-
+        controllerLogin.mostraResetPasswordForm(this);
     }
 
 }

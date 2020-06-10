@@ -17,8 +17,10 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ForgotPasswordContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
@@ -26,8 +28,12 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAtt
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
+import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
 import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
+import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
+import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException;
 import com.example.appmobile.Dao.UtenteDao;
 
 import java.util.List;
@@ -40,6 +46,7 @@ public class AWSCognito implements UtenteDao {
     private static AmazonCognitoIdentityProviderClient identityProviderClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), new ClientConfiguration());
     protected static CognitoUserPool userPool = null;
     protected static CognitoUser user = null;
+    private static ForgotPasswordContinuation resultContinuation;
     private final String USER_POOL_ID = "";
     private final String CLIENT_ID = "";
     private final String CLIENT_SECRET = "";
@@ -83,11 +90,9 @@ public class AWSCognito implements UtenteDao {
 
             @Override
             public void getMFACode(MultiFactorAuthenticationContinuation multiFactorAuthenticationContinuation) {
-                // Multi-factor authentication is required, get the verification code from user
-               /* apriMFAActivity(context);
-                multiFactorAuthenticationContinuation.setMfaCode(mfaVerificationCode);
-                // Allow the sign-in process to continue
-                multiFactorAuthenticationContinuation.continueTask();*/
+                /*
+                * Non implementato il login a più fattori
+                * */
             }
 
             @Override
@@ -97,9 +102,18 @@ public class AWSCognito implements UtenteDao {
 
             @Override
             public void onFailure(Exception exception) {
-                String errore = null;
+                String errore = "";
                 if(exception instanceof NotAuthorizedException){
                     errore = "Nome utente o password errati!";
+                }
+                if(exception instanceof UserNotFoundException){
+                    errore = "Non esiste un utente con questo nome!";
+                }
+                if(exception instanceof UserNotConfirmedException){
+                    errore = "Devi verificare la registrazione prima di poter accedere!";
+                }
+                if(exception == null){
+                    errore = "Assicurati di aver riempito tutti i campi";
                 }
                 showToast(context,"Login fallito: "+errore);
             }
@@ -139,7 +153,11 @@ public class AWSCognito implements UtenteDao {
 
             @Override
             public void onFailure(Exception exception) {
-                showToast(context,"Registrazione fallita!: "+exception);
+                String errore = "";
+                if(exception instanceof UsernameExistsException){
+                    errore = "Esiste già un utente con questo nome!";
+                }
+                showToast(context,"Registrazione fallita!: "+errore);
                 System.out.println(exception);
             }
         };
@@ -154,7 +172,51 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public void recuperaPassword() {
+    public void recuperaCodiceResetPassword(final Context context, String userId) {
+
+        CognitoUser cognitoUser = userPool.getUser(userId);
+
+        ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
+            @Override
+            public void onSuccess() {
+                showToast(context,"Password cambiata con successo!");
+                ((Activity)context).finish();
+            }
+
+            @Override
+            public void getResetCode(ForgotPasswordContinuation continuation) {
+                CognitoUserCodeDeliveryDetails codeSentHere = continuation.getParameters();
+                showToast(context, "Il codice è stato spedito a "+codeSentHere.getDestination());
+
+
+                resultContinuation = continuation;
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                String errore = "";
+                if(exception instanceof InvalidParameterException){
+                    errore = "Parametri non validi. Assicurati di aver riempito i campi opportuni!";
+                }
+                showToast(context,"Fallimento reset password: "+errore);
+            }
+        };
+
+        cognitoUser.forgotPasswordInBackground(forgotPasswordHandler);
 
     }
+
+    @Override
+    public void resetPassword(String code, String password,Context context) {
+        if(resultContinuation == null){
+            showToast(context,"Bisogna prima richiedere un codice di verifica!");
+        }else{
+            resultContinuation.setPassword(password);
+            resultContinuation.setVerificationCode(code);
+            resultContinuation.continueTask();
+        }
+        resultContinuation = null;
+    }
+
+
 }
