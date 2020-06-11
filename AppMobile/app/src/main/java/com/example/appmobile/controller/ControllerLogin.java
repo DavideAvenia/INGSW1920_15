@@ -74,5 +74,13 @@ public class ControllerLogin {
         servizioUtente.resetPassword(code,password,context);
     }
 
+    public void signout(Context context, String userId){
+        String service = context.getString(R.string.cloudService);
+
+        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
+
+        servizioUtente.signout(userId);
+    }
+
 
 }

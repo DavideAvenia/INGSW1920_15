@@ -35,6 +35,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private static boolean isLogged; //mantiene l'info sullo stato di login dell'utente
     private Menu menu;
     private LocationManager locationManager = null;
+    private static String userIdLogged = null;
 
 
     //Controllers
@@ -130,8 +131,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                      controllerLogin.mostraLoginForm(this); //apre finestra di login
                 }else{
                     //signout
-                    Toast.makeText(this,"Logout effettuato",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"Logout effettuato per: "+userIdLogged,Toast.LENGTH_LONG).show();
                     setIsLogged(false);
+                    controllerLogin.signout(this,userIdLogged);
                 }return true;
             case R.id.cerca:
                 //implementare la ricerca
@@ -160,5 +162,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     public static void setIsLogged(boolean value){
         isLogged = value;
+    }
+
+    public static void setUserIdLogged(String userId){
+        userIdLogged = userId;
     }
 }

@@ -47,8 +47,4 @@ public class ResetPasswordForm extends AppCompatActivity {
 
         controllerLogin.resetPassword(this,code,password);
     }
-
-    private void showToast(String message){
-        Toast.makeText(this,message,Toast.LENGTH_LONG);
-    }
 }

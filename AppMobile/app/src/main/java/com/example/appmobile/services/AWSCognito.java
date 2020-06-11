@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.appmobile.MainFrameForm.setIsLogged;
+import static com.example.appmobile.MainFrameForm.setUserIdLogged;
 
 public class AWSCognito implements UtenteDao {
 
@@ -69,6 +70,7 @@ public class AWSCognito implements UtenteDao {
             public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
                 showToast(context,"Login effettuato");
                 setIsLogged(true);
+                setUserIdLogged(usernameId);
 
                 //INCREMENTARE IL NUMERO DI LOGIN DELL'UTENTE
 
@@ -109,16 +111,17 @@ public class AWSCognito implements UtenteDao {
                 if(exception instanceof UserNotFoundException){
                     errore = "Non esiste un utente con questo nome!";
                 }
-                if(exception instanceof UserNotConfirmedException){
+                if(exception instanceof UserNotConfirmedException) {
                     errore = "Devi verificare la registrazione prima di poter accedere!";
                 }
-                if(exception == null){
-                    errore = "Assicurati di aver riempito tutti i campi";
+                if(exception instanceof InvalidParameterException){
+                    errore = "Assicurati di aver riempito tutti i campi!";
                 }
                 showToast(context,"Login fallito: "+errore);
             }
         };
         user.getSessionInBackground(authenticationHandler);
+
     }
 
     @Override
@@ -216,6 +219,11 @@ public class AWSCognito implements UtenteDao {
             resultContinuation.continueTask();
         }
         resultContinuation = null;
+    }
+
+    @Override
+    public void signout(String userId) {
+        userPool.getUser(userId).signOut();
     }
 
 
