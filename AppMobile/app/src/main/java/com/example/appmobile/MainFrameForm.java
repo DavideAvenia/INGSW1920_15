@@ -22,12 +22,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.appmobile.controller.ControllerLogin;
+import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -40,6 +43,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     //Controllers
     private ControllerLogin controllerLogin;
+    private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
 
 
     @Override
@@ -59,6 +63,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
         isLogged = false;
         controllerLogin = ControllerLogin.getControllerLogin();
+        ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
     }
 
     private final LocationListener LOCATION_LISTENER = new LocationListener() {
@@ -136,7 +141,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     controllerLogin.signout(this,userIdLogged);
                 }return true;
             case R.id.cerca:
-                //implementare la ricerca
+                ricercaStruttureRicettiveController.mostraRicercaStrutture(this);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -158,6 +164,10 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 });
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public static void aggiornaMappa(List<String> listaNomi, List<Float> listaLatidutini, List<Float> listaLongitudini,List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo){
+        //SCRIVERE CODICE PER AGGIORNARE LA MAPPA
     }
 
     public static void setIsLogged(boolean value){
