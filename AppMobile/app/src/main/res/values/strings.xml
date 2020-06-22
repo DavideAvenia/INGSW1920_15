@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">AppMobile</string>
     <string name="title_activity_maps">Map</string>
-    <string name="cloudService">AWS</string>
+    <string name="valutazione_text">Valutazione</string>
+    <string name="distanza_da_dispositivo_text">Distanza</string>
+    <string name="orario_apertura_text">Orario apertura</string>
 
+    <!-- Risorse per la registrazione-->
     <string-array name="prefissi">
         <item>+39</item>
         <item>+49</item>
@@ -14,4 +17,42 @@
         <item>+353</item>
         <item>+47</item>
     </string-array>
+
+    <!-- Risorse per la ricerca delle strutture-->
+    <string-array name="città">
+        <item>Napoli</item>
+        <item>Caserta</item>
+        <item>Pozzuoli</item>
+        <item>Castellammare di Stabia</item>
+        <item>Salerno</item>
+    </string-array>
+    <string-array name="distanzaDispositivo">
+        <item>500</item>
+        <item>1500</item>
+        <item>2000</item>
+    </string-array>
+    <string-array name="orarioApertura">
+        <item>8:00-13:00</item>
+        <item>14:00-19:00</item>
+        <item>20:00-00:00</item>
+    </string-array>
+    <string-array name="categoriaStruttura">
+        <item>Ristoranti</item>
+        <item>Parchi</item>
+        <item>Siti archeologici</item>
+        <item>Musei</item>
+        <item>Discoteche</item>
+        <item>Cinema</item>
+        <item>Hotel</item>
+        <item>Parco giochi</item>
+    </string-array>
+    <string-array name="rangePrezzo">
+        <item>Gratuito</item>
+        <item>5€-50€</item>
+        <item>50€-100€</item>
+        <item>100€-500€</item>
+        <item>500€+</item>
+    </string-array>
+
+    <string name="cloudService">AWS</string>
 </resources>
