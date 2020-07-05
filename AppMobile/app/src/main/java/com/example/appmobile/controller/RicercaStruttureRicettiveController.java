@@ -20,7 +20,9 @@ public class RicercaStruttureRicettiveController {
     private StruttureDao struttureDao;
 
     //metodo private
-    private RicercaStruttureRicettiveController(){}
+    private RicercaStruttureRicettiveController(){
+
+    }
 
     public static RicercaStruttureRicettiveController getRicercaStruttureRicettiveController(){
         if(ricercaStruttureRicettiveController == null){
@@ -38,11 +40,13 @@ public class RicercaStruttureRicettiveController {
 
         String service = context.getString(R.string.cloudService);
 
-        StruttureDao struttureDao = DaoFactory.getStruttureDao(service);
+        System.out.println("Siamo nel controller dopo aver cliccato cerca");
+        StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
 
         List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome,città,valutazioneMedia,distanzaDaDispositivo,orarioApertura,categoria,rangePrezzo);
 
 
+        //System.out.println("In teoria la query è stata fatta.");
         List<String> listaNomi = new ArrayList<String>();
         List<String> listaCittà = new ArrayList<String>();
         List<String> listaOrariApertura = new ArrayList<String>();

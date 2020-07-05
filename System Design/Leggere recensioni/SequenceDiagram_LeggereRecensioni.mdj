@@ -555,9 +555,9 @@
 												"$ref": "AAAAAAFxCkauHGHFpjQ="
 											},
 											"font": "Arial;13;0",
-											"left": 319,
+											"left": 300,
 											"top": 112,
-											"width": 307.06787109375,
+											"width": 345.3759765625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -565,7 +565,7 @@
 												"$ref": "AAAAAAFxCkauHGHGtug="
 											},
 											"edgePosition": 1,
-											"text": "2 : mostraRecensioniStruttura(nomeStruttura,via,this)"
+											"text": "2 : mostraRecensioniStruttura(nomeStruttura,posizione,this)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -915,7 +915,7 @@
 													"top": 163,
 													"width": 108.95361328125,
 													"height": 13,
-													"text": "AWSMySQLRds"
+													"text": "RecensioniDao"
 												},
 												{
 													"_type": "LabelView",
@@ -1234,9 +1234,9 @@
 												"$ref": "AAAAAAFxzEd4n8tCS9g="
 											},
 											"font": "Arial;13;0",
-											"left": 735,
+											"left": 696,
 											"top": 235,
-											"width": 329.97021484375,
+											"width": 406.09130859375,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -1244,7 +1244,7 @@
 												"$ref": "AAAAAAFxzEd4n8tDJLI="
 											},
 											"edgePosition": 1,
-											"text": "6 : getRecensioniByNomeViaStruttura(nomeStruttura,via)"
+											"text": "6 : getRecensioniByNomeStrutturaPosizione(nomeStruttura,posizione)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4270,7 +4270,7 @@
 							"target": {
 								"$ref": "AAAAAAFxCkZaX2GlAkU="
 							},
-							"arguments": "nomeStruttura,via,this"
+							"arguments": "nomeStruttura,posizione,this"
 						},
 						{
 							"_type": "UMLMessage",
@@ -4323,14 +4323,14 @@
 							"_parent": {
 								"$ref": "AAAAAAFxCkWDAmE7nHI="
 							},
-							"name": "getRecensioniByNomeViaStruttura",
+							"name": "getRecensioniByNomeStrutturaPosizione",
 							"source": {
 								"$ref": "AAAAAAFxCkZaX2GlAkU="
 							},
 							"target": {
 								"$ref": "AAAAAAFxzEZBc8ryjso="
 							},
-							"arguments": "nomeStruttura,via"
+							"arguments": "nomeStruttura,posizione"
 						},
 						{
 							"_type": "UMLMessage",
@@ -4657,7 +4657,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxCkWDAmE7nHI="
 							},
-							"name": "AWSMySQLRds",
+							"name": "RecensioniDao",
 							"represent": {
 								"$ref": "AAAAAAFxzEZBc8rxvlA="
 							},
@@ -4816,7 +4816,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role4"
+					"name": "Role4",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4868,7 +4869,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role10"
+					"name": "Role10",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4876,7 +4878,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role11"
+					"name": "Role11",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4884,7 +4887,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role12"
+					"name": "Role12",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4892,7 +4896,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role13"
+					"name": "Role13",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4900,7 +4905,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role14"
+					"name": "Role14",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4908,7 +4914,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role15"
+					"name": "Role15",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -4916,7 +4923,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFxCkWDAWE68KE="
 					},
-					"name": "Role16"
+					"name": "Role16",
+					"type": ""
 				}
 			]
 		}

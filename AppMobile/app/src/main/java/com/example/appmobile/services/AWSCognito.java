@@ -11,7 +11,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
@@ -22,9 +21,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Mult
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPasswordHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAttributesHandler;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
@@ -35,9 +32,7 @@ import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedExce
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException;
 import com.example.appmobile.Dao.UtenteDao;
-
-import java.util.List;
-import java.util.Map;
+import com.example.appmobile.entity.Utente;
 
 import static com.example.appmobile.MainFrameForm.setIsLogged;
 import static com.example.appmobile.MainFrameForm.setUserIdLogged;
@@ -224,6 +219,11 @@ public class AWSCognito implements UtenteDao {
     @Override
     public void signout(String userId) {
         userPool.getUser(userId).signOut();
+    }
+
+    @Override
+    public Utente getUtenteByUserId(String userId) {
+        return null;
     }
 
 

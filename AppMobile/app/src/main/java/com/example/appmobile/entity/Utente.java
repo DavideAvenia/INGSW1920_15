@@ -9,6 +9,7 @@ public class Utente {
     private String cellulare;
     private String email;
     private String password;
+    private boolean useNick;
     private boolean isMod;
     private int numeroLogin;
 
@@ -111,5 +112,11 @@ public class Utente {
         this.numeroLogin = numeroLogin;
     }
 
+    public boolean isUseNick() {
+        return useNick;
+    }
 
+    public void setUseNick(boolean useNick) {
+        this.useNick = useNick;
+    }
 }

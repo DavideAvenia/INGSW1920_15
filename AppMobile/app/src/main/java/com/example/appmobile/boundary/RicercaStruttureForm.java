@@ -82,7 +82,16 @@ public class RicercaStruttureForm extends AppCompatActivity {
         valutazioneMediaRicerca.setNumStars(5);
         valutazioneMediaRicerca.setRating(3);
 
+        bottoneRicerca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottoneRicercaPremuto(v);
+            }
+        });
+
     }
+
+
 
     public void bottoneRicercaPremuto(View view){
         String nome = nomeStrutturaRicerca.getText().toString();
@@ -93,7 +102,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         int distanza = Integer.parseInt(distanzaDaDispositivoRicerca.getSelectedItem().toString());
         float valutazioneMedia = valutazioneMediaRicerca.getRating();
 
-        ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,rangePrezzo);
+        ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,rangePrezzo,this);
         this.finish();
     }
 

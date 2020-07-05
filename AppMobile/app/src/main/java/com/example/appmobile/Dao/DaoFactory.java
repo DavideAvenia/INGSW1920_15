@@ -18,10 +18,21 @@ public abstract class DaoFactory {
         }
     }
 
-    public static StruttureDao getStruttureDao(String service){
+    public static StruttureDao getStruttureDao(String service, Context context){
         switch(service){
             case "AWS":
-                return new AWSMySQLRds();
+                return new AWSMySQLRds(context);
+            default:
+                return null;
+
+        }
+    }
+
+    public static RecensioniDao getRecensioniDao(String service, Context context){
+
+        switch(service){
+            case "AWS":
+                return new AWSMySQLRds(context);
             default:
                 return null;
 

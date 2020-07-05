@@ -1,5 +1,7 @@
 package com.example.appmobile.Dao;
 
+import android.content.Context;
+
 import com.example.appmobile.entity.Strutture;
 
 import java.util.List;

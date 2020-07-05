@@ -2004,13 +2004,30 @@
 											"height": 13,
 											"text": "+setUserIdLogged(userId: String): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFysk+pNwbtfOg=",
+											"_parent": {
+												"$ref": "AAAAAAFwkeGYIyVhkVc="
+											},
+											"model": {
+												"$ref": "AAAAAAFysk+pHQbneLk="
+											},
+											"font": "Arial;13;0",
+											"left": 813,
+											"top": 375,
+											"width": 294.46142578125,
+											"height": 13,
+											"text": "+signout(): void",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 808,
 									"top": 248,
 									"width": 304.46142578125,
-									"height": 130
+									"height": 145
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -2050,7 +2067,7 @@
 							"left": 808,
 							"top": 112,
 							"width": 304.46142578125,
-							"height": 266,
+							"height": 281,
 							"nameCompartment": {
 								"$ref": "AAAAAAFwkeGYIyVbEeI="
 							},
@@ -2088,8 +2105,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1196,
-									"top": 359,
+									"left": 1193,
+									"top": 361,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2109,8 +2126,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 1204,
-									"top": 346,
+									"left": 1200,
+									"top": 348,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2130,8 +2147,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1181,
-									"top": 384,
+									"left": 1178,
+									"top": 388,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2152,7 +2169,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1141,
-									"top": 328,
+									"top": 332,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -2173,7 +2190,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1150,
-									"top": 317,
+									"top": 322,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -2194,7 +2211,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1124,
-									"top": 349,
+									"top": 354,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -2214,7 +2231,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1251,
+									"left": 1244,
 									"top": 391,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -2234,7 +2251,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1255,
+									"left": 1249,
 									"top": 378,
 									"height": 13,
 									"alpha": -0.7853981633974483,
@@ -2254,8 +2271,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1241,
-									"top": 416,
+									"left": 1235,
+									"top": 417,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -2300,7 +2317,7 @@
 								"$ref": "AAAAAAFwkeGYIyVa9e4="
 							},
 							"lineStyle": 1,
-							"points": "1112:334;1266:423",
+							"points": "1112:339;1260:423",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFwkeHrgyXFF2M="
@@ -6763,6 +6780,25 @@
 									"direction": "return"
 								}
 							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFysk+pHQbneLk=",
+							"_parent": {
+								"$ref": "AAAAAAFwkeGYIiVY4tA="
+							},
+							"name": "signout",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFysk/GoAcqxKw=",
+									"_parent": {
+										"$ref": "AAAAAAFysk+pHQbneLk="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -7696,7 +7732,8 @@
 								"$ref": "AAAAAAFyoOWQ0GTV1Rw="
 							},
 							"name": "bottoneRichiediCodice",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -7705,7 +7742,8 @@
 								"$ref": "AAAAAAFyoOWQ0GTV1Rw="
 							},
 							"name": "bottoneResetPassword",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
