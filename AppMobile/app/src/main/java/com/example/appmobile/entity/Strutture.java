@@ -9,19 +9,20 @@ public class Strutture {
     private String rangePrezzo;
     private String orarioApertura;
     private String categoria;
-    private float Latitudine;
-    private float Longitudine;
+    private float latitudine;
+    private float longitudine;
+    private String descrizione;
 
-
-    public Strutture(String nome, String città, float valutazioneMedia, String rangePrezzo, String orarioApertura, String categoria, float latitudine, float longitudine) {
+    public Strutture(String nome, String città, float valutazioneMedia, String rangePrezzo, String orarioApertura, String categoria, float latitudine, float longitudine, String descrizione) {
         this.nome = nome;
         this.città = città;
         this.valutazioneMedia = valutazioneMedia;
         this.rangePrezzo = rangePrezzo;
         this.orarioApertura = orarioApertura;
         this.categoria = categoria;
-        Latitudine = latitudine;
-        Longitudine = longitudine;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
+        this.descrizione = descrizione;
     }
 
     public String getNome() {
@@ -73,18 +74,26 @@ public class Strutture {
     }
 
     public float getLatitudine() {
-        return Latitudine;
+        return latitudine;
     }
 
     public void setLatitudine(float latitudine) {
-        Latitudine = latitudine;
+        this.latitudine = latitudine;
     }
 
     public float getLongitudine() {
-        return Longitudine;
+        return longitudine;
     }
 
     public void setLongitudine(float longitudine) {
-        Longitudine = longitudine;
+        this.longitudine = longitudine;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 }

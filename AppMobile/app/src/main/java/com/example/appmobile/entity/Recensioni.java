@@ -1,19 +1,27 @@
 package com.example.appmobile.entity;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Recensioni {
 
     private String testoRecensione;
     private String urlImmagine;
     private float valutazione;
-    private String userNameUtente; //probabilmente sarà un id?
-    private String nomeStruttura; //probabilmente sarà id?
+    private String userNameUtente; //nel database è la chiave secondaria che si associa all'utente corrispondente
 
-    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura) {
+    /*Nel database costituiscono una chiave secondaria alla struttura corrispondente*/
+    private String nomeStruttura;
+    private float latitudine;
+    private float longitudine;
+
+    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, float latitudine, float longitudine) {
         this.testoRecensione = testoRecensione;
         this.urlImmagine = urlImmagine;
         this.valutazione = valutazione;
         this.userNameUtente = userNameUtente;
         this.nomeStruttura = nomeStruttura;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
     }
 
     public String getTestoRecensione() {
@@ -54,5 +62,21 @@ public class Recensioni {
 
     public void setNomeStruttura(String nomeStruttura) {
         this.nomeStruttura = nomeStruttura;
+    }
+
+    public float getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(float latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public float getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(float longitudine) {
+        this.longitudine = longitudine;
     }
 }
