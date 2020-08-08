@@ -20,6 +20,7 @@
 
     <!-- Risorse per la ricerca delle strutture-->
     <string-array name="città">
+        <item>Qualunque</item>
         <item>Napoli</item>
         <item>Caserta</item>
         <item>Pozzuoli</item>
@@ -32,28 +33,37 @@
         <item>2000</item>
     </string-array>
     <string-array name="orarioApertura">
-        <item>8:00-13:00</item>
-        <item>14:00-19:00</item>
-        <item>20:00-00:00</item>
+        <item>Qualunque</item>
         <item>Sempre aperto</item>
+        <item>8:00-13:00</item>
+        <item>9:00-15:00</item>
+        <item>12:00-18:00</item>
+        <item>14:00-19:00</item>
+        <item>18:00-00:00</item>
+        <item>20:00-00:00</item>
     </string-array>
     <string-array name="categoriaStruttura">
+        <item>Qualunque</item>
         <item>Ristoranti</item>
         <item>Parchi</item>
-        <item>Siti archeologici</item>
+        <item>Cultura</item>
         <item>Musei</item>
         <item>Discoteche</item>
         <item>Cinema</item>
         <item>Hotel</item>
         <item>Parco giochi</item>
     </string-array>
-    <string-array name="rangePrezzo">
+    <string-array name="maxPrezzo">
+        <item>Qualunque</item>
         <item>Gratuito</item>
-        <item>5€-50€</item>
-        <item>50€-100€</item>
-        <item>100€-500€</item>
-        <item>500€+</item>
+        <item>10</item>
+        <item>50</item>
+        <item>75</item>
+        <item>150</item>
+        <item>300</item>
+        <item>500+</item>
     </string-array>
+
 
     <string name="cloudService">AWS</string>
 </resources>

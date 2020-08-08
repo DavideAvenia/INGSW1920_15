@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class RecensioniStruttureForm extends AppCompatActivity {
 
     private TextView nomeStrutturaLeggereRecensioni;
@@ -51,12 +53,21 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         scrollViewDescrizioneLeggereRecensione = findViewById(R.id.scrollViewDescrizioneLeggereRecensioni);
         linearLayoutDescrizioneLeggereRecensione = findViewById(R.id.linearLayoutDescrizioneLeggereRecensioni);
 
+    }
+
+
+    private void initView(){
         Intent i = getIntent();
 
         latLng = new LatLng(i.getDoubleExtra("latitudine",0.0),i.getDoubleExtra("longitudine",0.0));
         nomeStruttura = i.getStringExtra("nomeStruttura");
         nomeStrutturaLeggereRecensioni.setText(nomeStruttura);
 
+        List<String> listaTestiRecensioni = i.getStringArrayListExtra("listaTestiRecensioni");
+        List<String> listaUrlFoto = i.getStringArrayListExtra("listaUrlFoto");
+        List<String> nomiRecensori = i.getStringArrayListExtra("nomiRecensori");
+        String descrizione = i.getStringExtra("descrizione");
+        float valutazione = i.getFloatExtra("valutazione",0.0f);
     }
 
 }

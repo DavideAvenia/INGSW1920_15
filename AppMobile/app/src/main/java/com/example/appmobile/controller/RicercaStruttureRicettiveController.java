@@ -36,14 +36,14 @@ public class RicercaStruttureRicettiveController {
         context.startActivity(new Intent(context, RicercaStruttureForm.class));
     }
 
-    public void cercaStrutture(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String rangePrezzo, Context context){
+    public void cercaStrutture(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String maxPrezzo, Context context){
 
         String service = context.getString(R.string.cloudService);
 
         System.out.println("Siamo nel controller dopo aver cliccato cerca");
         StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
 
-        List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome,città,valutazioneMedia,distanzaDaDispositivo,orarioApertura,categoria,rangePrezzo);
+        List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome,città,valutazioneMedia,distanzaDaDispositivo,orarioApertura,categoria,maxPrezzo);
 
 
         //System.out.println("In teoria la query è stata fatta.");
@@ -59,7 +59,7 @@ public class RicercaStruttureRicettiveController {
             listaNomi.add(s.getNome());
             listaCittà.add(s.getCittà());
             listaOrariApertura.add(s.getOrarioApertura());
-            listaRangePrezzo.add(s.getRangePrezzo());
+            listaRangePrezzo.add(s.getMaxPrezzo());
             listaLatitudini.add(s.getLatitudine());
             listaLogitudini.add(s.getLongitudine());
             listaValutazioni.add(s.getValutazioneMedia());

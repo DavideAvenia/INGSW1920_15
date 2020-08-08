@@ -45,10 +45,10 @@
         android:id="@+id/distanzaDaDispositivoRicerca"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
         app:layout_constraintEnd_toStartOf="@+id/orarioAperturaRicerca"
-        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -66,11 +66,11 @@
         android:id="@+id/distanzaText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/distanza_da_dispositivo_text"
         app:layout_constraintBottom_toTopOf="@+id/distanzaDaDispositivoRicerca"
         app:layout_constraintEnd_toStartOf="@+id/orarioAperturaText"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
@@ -78,7 +78,7 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -97,20 +97,20 @@
         android:id="@+id/rangePrezzoRicerca"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/categoriaRicerca"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/categoriaRicerca"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/bottoneRicerca"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -124,5 +124,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_search_black_24dp" />
+
+    <TextView
+        android:id="@+id/maxPrezzoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max prezzo €"
+        app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanzaDaDispositivoRicerca"
+        app:layout_constraintVertical_bias="0.72" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

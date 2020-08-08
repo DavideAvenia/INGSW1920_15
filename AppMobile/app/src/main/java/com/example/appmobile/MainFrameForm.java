@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,6 +65,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         isLogged = false;
         controllerLogin = ControllerLogin.getControllerLogin();
@@ -196,10 +200,11 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         MarkerOptions marker = null;
         String snippet = null;
 
+        mMap.clear();
         for(int i = 0;i < listaNomi.size(); i++){
             snippet = "Città: "+listaCittà.get(i)+ "\n"+
                     "Orario apertura: "+listaOrariApertura.get(i)+"\n"+
-                    "Prezzo: "+listaRangePrezzo.get(i)+"\n"+
+                    "Prezzo: "+listaRangePrezzo.get(i)+"€\n"+
                     "Valutazione(1-5): "+listaValutazioni.get(i);
             marker = new MarkerOptions().position(new LatLng(listaLatidutini.get(i),listaLongitudini.get(i))).title(listaNomi.get(i)).snippet(snippet);
             mMap.addMarker(marker);

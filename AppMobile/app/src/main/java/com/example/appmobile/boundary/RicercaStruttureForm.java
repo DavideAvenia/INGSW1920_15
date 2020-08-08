@@ -30,6 +30,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
     private TextView valutazioneText;
     private TextView distanzaText;
     private TextView orarioAperturaText;
+    private TextView maxPrezzoText;
 
 
     @Override
@@ -48,6 +49,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         valutazioneText = findViewById(R.id.valutazioneText);
         distanzaText = findViewById(R.id.distanzaText);
         orarioAperturaText = findViewById(R.id.orarioAperturaText);
+        maxPrezzoText = findViewById(R.id.maxPrezzoText);
 
         ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
 
@@ -63,7 +65,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         distanzaDaDispositivoRicerca.setAdapter(spinnerDistanza);
 
         //spinner rangePrezzo
-        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this,R.array.rangePrezzo,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this,R.array.maxPrezzo,android.R.layout.simple_spinner_item);
         spinnerPrezzo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rangePrezzoRicerca.setAdapter(spinnerPrezzo);
 
@@ -97,12 +99,12 @@ public class RicercaStruttureForm extends AppCompatActivity {
         String nome = nomeStrutturaRicerca.getText().toString();
         String città = cittàRicerca.getSelectedItem().toString();
         String orarioApertura = orarioAperturaRicerca.getSelectedItem().toString();
-        String rangePrezzo = rangePrezzoRicerca.getSelectedItem().toString();
+        String maxPrezzo = rangePrezzoRicerca.getSelectedItem().toString();
         String categoria = categoriaRicerca.getSelectedItem().toString();
         int distanza = Integer.parseInt(distanzaDaDispositivoRicerca.getSelectedItem().toString());
         float valutazioneMedia = valutazioneMediaRicerca.getRating();
 
-        ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,rangePrezzo,this);
+        ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,maxPrezzo,this);
         this.finish();
     }
 

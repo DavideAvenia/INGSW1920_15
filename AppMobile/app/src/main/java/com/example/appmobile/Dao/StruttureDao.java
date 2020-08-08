@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface StruttureDao {
 
+    final String URLAPIGETSTRUTTUREBYFILTRI="";
+
     public List<Strutture> getStruttureByFiltri(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String rangePrezzo);
     public Strutture getStrutturaByNomePosizione(String nome, LatLng posizione);
     public void incrementaNumeroVisitatori(String nome, LatLng posizione);

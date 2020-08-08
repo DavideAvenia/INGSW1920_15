@@ -1,4 +1,4 @@
-package com.example.appmobile.entity;
+package org.example.Entity;
 
 public class Strutture {
 

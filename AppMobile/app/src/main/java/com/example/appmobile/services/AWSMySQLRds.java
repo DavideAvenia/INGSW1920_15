@@ -6,11 +6,17 @@ import android.widget.Toast;
 
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
+import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.entity.Recensioni;
 import com.example.appmobile.entity.StatisticheStrutture;
 import com.example.appmobile.entity.Strutture;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,81 +24,95 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     private Context context;
-    Connection conn = null;
-
-
-    private final String URL = "";
-    private final String PORT = "3306";
-    private final String USERNAME = "";
-    private final String PASSWORD = "";
 
     public AWSMySQLRds(Context context){
         this.context = context;
     }
 
     @Override
-    public List<Strutture> getStruttureByFiltri(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String rangePrezzo) {
-        /*System.out.println("stiamo recuperando le strutture");
+    public List<Strutture> getStruttureByFiltri(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String maxPrezzo) {
+        final List<Strutture> listaStrutture = new ArrayList<Strutture>();
+
+        OkHttpClient client = new OkHttpClient();
+
+        JSONObject jsonObject = new JSONObject();
 
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://i");
-            Statement stmt = conn.createStatement();
-
-            int i = stmt.executeUpdate("insert into test value('Davide','Android');");
-        } catch (SQLException e) {
+            if(nome.length()!=0){
+                jsonObject.put("nome",nome);
+            }else{
+                jsonObject.put("nome","");
+            }
+            jsonObject.put("città",città);
+            jsonObject.put("valutazioneMedia",valutazioneMedia);
+            jsonObject.put("orarioApertura",orarioApertura);
+            jsonObject.put("categoria",categoria);
+            jsonObject.put("maxPrezzo",maxPrezzo);
+        } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        List<Strutture> listaStrutture = new ArrayList<Strutture>();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
+        Request request = new Request.Builder().url(URLAPIGETSTRUTTUREBYFILTRI).post(requestBody).build();
 
-        listaStrutture.add(new Strutture("Stadio San Paolo","Napoli",4.0f,"50-300€","20:00-23:00","Intrattenimento",40.827967f,14.193008f,
-                "Lo stadio San Paolo, già del Sole, è il principale impianto polisportivo della città" +
-                        " di Napoli. Di proprietà del Comune di Napoli, è situato a Fuorigrotta, quartiere della X" +
-                        " Municipalità. Dotato di palestre polifunzionali, spazi per le arti marziali e di un campo da" +
-                        " pallacanestro, è conosciuto soprattutto dal punto di vista calcistico, essendo sede degli" +
-                        " incontri interni della squadra del Napoli."));
-        listaStrutture.add(new Strutture("Anfiteatro Flavio","Pozzuoli",3.9f,"5-20€","9:00-18:00","Museo",40.82336f,14.12434f,
-                "L'Anfiteatro Flavio è uno dei due anfiteatri romani esistenti a Pozzuoli e risale alla seconda metà " +
-                        "del I secolo d.C. Venne realizzato per far fronte all'incremento demografico di Puteoli, che aveva reso " +
-                        "inadatto il vecchio edificio adibito per spettacoli pubblici in età repubblicana. Secondo solo al Colosseo" +
-                        " e all'anfiteatro Campano in quanto capacità di capienza, sorge in concomitanza della convergenza di due" +
-                        " vie principali, la Via Domitiana e la via per Napoli"));
-        listaStrutture.add(new Strutture("Pompei","Pompei",2.9f,"10-50€","9:00-21:00","Museo",40.749183654785156f,14.500738143920898f,"" +
-                "Pompei (in latino: Pompeii) è una città dell'evo antico, corrispondente all'attuale Pompei," +
-                " la cui storia ha origine dal IX secolo a.C. per terminare nel 79, quando, a seguito dell'eruzione" +
-                " del Vesuvio, viene ricoperta sotto una coltre di ceneri e lapilli alta circa sei metri. La sua" +
-                " riscoperta e i relativi scavi, iniziati nel 1748, hanno riportato alla luce un sito archeologico che" +
-                " nel 1997 è entrato a far parte della lista dei patrimoni dell'umanità dell'UNESCO, e che è il secondo " +
-                "monumento italiano per visite dopo il sistema museale del Colosseo, Foro Romano e Palatino["));
-        listaStrutture.add(new Strutture("Piazza del Plebiscito","Napoli",3.5f,"Gratuito","8:00-18:00","Cultura",40.85299f,14.24789f,
-                "Piazza del Plebiscito (già largo di Palazzo o Foro Regio) è una piazza di Napoli posizionata al termine di via Toledo, non appena oltrepassata piazza Trieste e Trento.\n" +
-                        "\n" +
-                        "Ubicata nel centro storico, tra il lungomare e via Toledo, con una superficie di circa 25 000 metri" +
-                        " quadrati la piazza si presenta come una delle più grandi della città e d'Italia e per questo è quella" +
-                        " più utilizzata per le grandi manifestazioni."));
-        listaStrutture.add(new Strutture("Teatro San Carlo","Napoli",5.0f,"50-120€","18:00-23:00","Intrattenimento",40.85299f,14.24789f,
-                "l Teatro di San Carlo, noto semplicemente come Teatro San Carlo, è un teatro " +
-                        "lirico di Napoli, tra i più famosi e prestigiosi al mondo, fondato nel 1737.[1]" +
-                        " Può ospitare 1386 spettatori[2] e conta una vasta platea (22×28×23 m), cinque ordini" +
-                        " di palchi disposti a ferro di cavallo più un ampio palco reale, un loggione ed un palcoscenico" +
-                        " (34×33 m).[3][4] Date le sue dimensioni, struttura e antichità è stato modello per i successivi teatri d'Europa."));
-        listaStrutture.add(new Strutture("Castel dell'ovo","Napoli",4.9f,"Gratuito","8:00-21:00","Culto",40.827222f,14.248611f,
-                "Il castel dell'Ovo (castrum Ovi, in latino), è il castello più antico della città di Napoli[1] ed è uno degli elementi che spiccano maggiormente nel celebre panorama del golfo. Si trova tra i quartieri di San Ferdinando e Chiaia, di fronte a via Partenope.\n" +
-                        "\n" +
-                        "A causa di diversi eventi che hanno in parte distrutto l'originario aspetto normanno e grazie ai successivi lavori di" +
-                        " ricostruzione avvenuti durante il periodo angioino ed aragonese, la linea architettonica del castello mutò drasticamente" +
-                        " fino a giungere allo stato in cui si presenta oggi."));
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(response.isSuccessful()) {
+            try {
+                JSONArray jsonArray = new JSONArray(response.body().string());
 
-        listaStruttureDatabase = listaStrutture;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject struttura = jsonArray.getJSONObject(i);
+
+                    String nomes = struttura.get("nome").toString();
+                    String cittàs = struttura.get("città").toString();
+                    float valutaziones = Float.parseFloat(struttura.get("valutazioneMedia").toString());
+                    String prezzos = struttura.get("maxPrezzo").toString();
+                    String orarios = struttura.get("orarioApertura").toString();
+                    String categorias = struttura.get("categoria").toString();
+                    float lats = Float.parseFloat(struttura.get("latitudine").toString());
+                    float lans = Float.parseFloat(struttura.get("longitudine").toString());
+                    String descrs = struttura.get("descrizione").toString();
+
+                    Strutture s = new Strutture(nomes, cittàs, valutaziones, prezzos, orarios, categorias, lats, lans, descrs);
+                    listaStrutture.add(s);
+                }
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(this.context,"Errore recupero dati!\n",Toast.LENGTH_LONG).show();
+        }
+
         initDatabase();
         return listaStrutture;
     }
 
     @Override
     public Strutture getStrutturaByNomePosizione(String nome, LatLng posizione) {
+
+        /*Scrivere il codice che si connette al database*/
+
+
+        /*IL CODICE QUI SOTTO E' SOLO PER FARE TEST*/
+
         return null;
     }
 
@@ -103,7 +123,19 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     @Override
     public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, LatLng posizione) {
-        return null;
+        List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
+
+        /*Scrivere il codice che si connette al database*/
+
+
+        /*IL CODICE QUI SOTTO E' SOLO PER FARE TEST*/
+        for(Recensioni r: listaRecensioniDatabase){
+            if(r.getUserNameUtente().equals(nomeStruttura) && r.getLatitudine() == posizione.latitude && r.getLongitudine() == posizione.longitude){
+                listaRecensioni.add(r);
+            }
+        }
+
+        return listaRecensioni;
     }
 
 
@@ -114,7 +146,6 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     *
     * */
 
-    protected static List<Strutture> listaStruttureDatabase;
     protected static List<Recensioni> listaRecensioniDatabase = new ArrayList<Recensioni>();
 
     private void initDatabase(){
@@ -132,10 +163,10 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         listaRecensioniDatabase.add(new Recensioni("Ma come hanno fatto i romani a costruire tutto ciò? :O","https://www.beniculturali.it/mibac/multimedia/MiBAC/images/small/72/3a9bc83e2df59271821109b781461b781f44b.jpg",3.7f,"Marco","Anfiteatro Flavio",40.82336f,14.12434f));
         listaRecensioniDatabase.add(new Recensioni("Adoro le costruzioni Romane","https://www.lacooltura.com/wp-content/uploads/2015/04/Sotterranei-Anfiteatro-Flavio.jpeg",4.1f,"Marco","Anfiteatro Flavio",40.82336f,14.12434f));
 
-        /*listaRecensioniDatabase.add(new Recensioni());
-        listaRecensioniDatabase.add(new Recensioni());
-        listaRecensioniDatabase.add(new Recensioni());
-        listaRecensioniDatabase.add(new Recensioni());
-        listaRecensioniDatabase.add(new Recensioni());*/
+        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era stupendo","https://www.teatrosancarlo.it/files/TSC03.jpg",5.0f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
+        listaRecensioniDatabase.add(new Recensioni("Il teatro San Carlo è il più bello d'Italia!!","https://tuttodanzaweb.it/wp-content/uploads/2020/06/Teatro-San-Carlo-di-Napoli-Stagione-202021_.jpg",4.9f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
+        listaRecensioniDatabase.add(new Recensioni("Non mi piace questo teatro","https://ecampania.it/wp-content/uploads/2020/03/teatro-san-carlo-napoli-1130x650.jpg",5.0f,"Marco","Teatro San Carlo",40.85299f,14.24789f));
+        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era stupendo","https://www.farodiroma.it/wp-content/uploads/2019/12/101728121-1e70f7dd-9e10-48cc-9959-86e332b2ad28.jpg",4.5f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
+        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era grandioso","https://www.napolidavivere.it/wp-content/uploads/bfi_thumb/Teatro-San-Carlo-festa-della-musica-5sbnlydbvd512i2xc32w0efmcx5drr9vtzi7755te44.jpg",4.5f,"Marco","Teatro San Carlo",40.85299f,14.24789f));
     }
 }
