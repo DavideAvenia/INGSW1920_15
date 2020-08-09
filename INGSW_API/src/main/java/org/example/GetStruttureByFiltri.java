@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, List<Strutture>> {
 
-    public final String URLDB = "";
+    private final String URLDB = "";
 
     @Override
     public List<Strutture> handleRequest(Map<String, String> requestBody, Context context) {
@@ -49,7 +49,7 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
 
         System.out.println(query);
         /*Recupero delle struttre*/
-        Connection conn;
+        Connection conn = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(URLDB);

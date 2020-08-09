@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RecensioniDao {
 
+    String URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE = "";
     public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, LatLng posizione);
 }

@@ -100,8 +100,6 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         }else{
             Toast.makeText(this.context,"Errore recupero dati!\n",Toast.LENGTH_LONG).show();
         }
-
-        initDatabase();
         return listaStrutture;
     }
 
@@ -123,50 +121,51 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     @Override
     public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, LatLng posizione) {
-        List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
+        final List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
 
-        /*Scrivere il codice che si connette al database*/
+        /*Costruzione body richiesta http api*/
+        OkHttpClient client = new OkHttpClient();
+
+        JSONObject jsonObject = new JSONObject();
+
+        double lat = posizione.latitude;
+        double lon = posizione.longitude;
+        try{
+            jsonObject.put("nomeStruttura",nomeStruttura);
+            jsonObject.put("latitudine",lat);
+            jsonObject.put("longitudine",lon);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /*Invio richiesta http*/
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
+        Request request = new Request.Builder().url(URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE).post(requestBody).build();
+
+        Response response = null;
+        try{
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(response.isSuccessful()){
+            /*Parsing recensioni*/
+
+            Recensioni recensione = null;
+            listaRecensioni.add(recensione);
+        }
+
 
 
         /*IL CODICE QUI SOTTO E' SOLO PER FARE TEST*/
-        for(Recensioni r: listaRecensioniDatabase){
-            if(r.getUserNameUtente().equals(nomeStruttura) && r.getLatitudine() == posizione.latitude && r.getLongitudine() == posizione.longitude){
-                listaRecensioni.add(r);
-            }
-        }
+
 
         return listaRecensioni;
     }
 
 
-    /*
-    *
-    *   LA PARTE SOTTOSTANTE E' USATA SEMPLICEMENTE PER SOPPERIRE ALLA MANCAZA DELLE REALI IMPLEMENTAZIONI CHE DOVREBBERO FORNIRE TALI DATI.
-    *   ALLA FINE DELLO SVILUPPO TALE PARTE VERRA' CANCELLATA.
-    *
-    * */
 
-    protected static List<Recensioni> listaRecensioniDatabase = new ArrayList<Recensioni>();
 
-    private void initDatabase(){
-        listaRecensioniDatabase.add(new Recensioni("Lo stadio San Paolo è fighissimo!!","https://www.diretta-napoli.com/wp-content/uploads/2020/03/stadio-san-paolo-di-napoli-oggi.jpg",4.0f,"Giuseppe","Stadio San Paolo",40.827967f,14.193008f));
-        listaRecensioniDatabase.add(new Recensioni("Grande la partita","https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Stadio_San_Paolo_Panoramica_Champions_League.jpg/900px-Stadio_San_Paolo_Panoramica_Champions_League.jpg",4.0f,"Marco","Stadio San Paolo",40.827967f,14.193008f));
-        listaRecensioniDatabase.add(new Recensioni("Che figata lo stadio nuovo","https://www.ilpost.it/wp-content/uploads/2019/06/stadio-san-paolo-napoli.jpg",3.9f,"Giuseppe","Stadio San Paolo",40.827967f,14.193008f));
-        listaRecensioniDatabase.add(new Recensioni("Nice ;)","https://www.stadi.online/wp-content/uploads/sites/108/stadio-san-paolo-napoli-3d.jpg",4.1f,"Marco","Stadio San Paolo",40.827967f,14.193008f));
-
-        listaRecensioniDatabase.add(new Recensioni("Non mi piace molto Pompei :(","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG",2.5f,"Giuseppe","Pompei",40.749183654785156f,14.500738143920898f));
-        listaRecensioniDatabase.add(new Recensioni("Bella Pompei!!","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG",3.3f,"Marco","Pompei",40.749183654785156f,14.500738143920898f));
-
-        listaRecensioniDatabase.add(new Recensioni("Molto bello castell dell'ovo","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Castelo_do_Ovo.jpg/1200px-Castelo_do_Ovo.jpg",4.9f,"Giuseppe","Castel dell'ovo",40.827222f,14.248611f));
-
-        listaRecensioniDatabase.add(new Recensioni("L'anfiteatro della mia città è figo!","https://lh3.googleusercontent.com/proxy/Ny7s7MCWrUe4y7QHrOPyytvEJ4X_B0l9ZIuOgOcckw9wUCwVlqO2UABcdU-eLnYMzQsRFWtbIZXiODRbXjF6EBeaZ26UqFjv2CiYCNNMxQyq-Fx22b2TltrdtoCRrCBLMDifi4sDfabOYkHMgE5OML1UDgu8",3.9f,"Giuseppe","Anfiteatro Flavio",40.82336f,14.12434f));
-        listaRecensioniDatabase.add(new Recensioni("Ma come hanno fatto i romani a costruire tutto ciò? :O","https://www.beniculturali.it/mibac/multimedia/MiBAC/images/small/72/3a9bc83e2df59271821109b781461b781f44b.jpg",3.7f,"Marco","Anfiteatro Flavio",40.82336f,14.12434f));
-        listaRecensioniDatabase.add(new Recensioni("Adoro le costruzioni Romane","https://www.lacooltura.com/wp-content/uploads/2015/04/Sotterranei-Anfiteatro-Flavio.jpeg",4.1f,"Marco","Anfiteatro Flavio",40.82336f,14.12434f));
-
-        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era stupendo","https://www.teatrosancarlo.it/files/TSC03.jpg",5.0f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
-        listaRecensioniDatabase.add(new Recensioni("Il teatro San Carlo è il più bello d'Italia!!","https://tuttodanzaweb.it/wp-content/uploads/2020/06/Teatro-San-Carlo-di-Napoli-Stagione-202021_.jpg",4.9f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
-        listaRecensioniDatabase.add(new Recensioni("Non mi piace questo teatro","https://ecampania.it/wp-content/uploads/2020/03/teatro-san-carlo-napoli-1130x650.jpg",5.0f,"Marco","Teatro San Carlo",40.85299f,14.24789f));
-        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era stupendo","https://www.farodiroma.it/wp-content/uploads/2019/12/101728121-1e70f7dd-9e10-48cc-9959-86e332b2ad28.jpg",4.5f,"Giuseppe","Teatro San Carlo",40.85299f,14.24789f));
-        listaRecensioniDatabase.add(new Recensioni("Lo spettacolo era grandioso","https://www.napolidavivere.it/wp-content/uploads/bfi_thumb/Teatro-San-Carlo-festa-della-musica-5sbnlydbvd512i2xc32w0efmcx5drr9vtzi7755te44.jpg",4.5f,"Marco","Teatro San Carlo",40.85299f,14.24789f));
-    }
 }
