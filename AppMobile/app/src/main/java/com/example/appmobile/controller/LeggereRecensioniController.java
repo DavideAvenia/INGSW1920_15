@@ -46,22 +46,23 @@ public class LeggereRecensioniController {
         ArrayList<String> nomiRecensiori = new ArrayList<String>();
         ArrayList<String> listaUrlFoto = new ArrayList<String>();
         ArrayList<String> listaTestiRecensioni = new ArrayList<String>();
-        ArrayList<Float> listaValutazioni = new ArrayList<Float>();
         String descrizione = null;
         float valutasione;
 
         List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura,latitudine,longitudine);
+        float listaValutazioni[] = new float[listaRecensioni.size()];
 
+        int k=0;
         for(Recensioni r:listaRecensioni){
 
             /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
             //nomiRecensiori.add(getNickName(r,utenteDao));
             nomiRecensiori.add(r.getUserNameUtente());
-
             /***********************************************************************/
+
             listaUrlFoto.add(r.getUrlImmagine());
             listaTestiRecensioni.add(r.getTestoRecensione());
-            listaValutazioni.add(r.getValutazione());
+            listaValutazioni[k++] = r.getValutazione();
         }
 
         /*Recupero di tutte le informazioni della Struttra corrente*/
@@ -77,7 +78,7 @@ public class LeggereRecensioniController {
         intent.putExtra("longitudine",longitudine);
         intent.putExtra("valutazione",valutasione);
         intent.putExtra("descrizione",descrizione);
-        intent.putExtra("nomiRecensiori",nomiRecensiori);
+        intent.putExtra("nomiRecensori",nomiRecensiori);
         intent.putExtra("listaUrlFoto",listaUrlFoto);
         intent.putExtra("listaTestiRecensioni",listaTestiRecensioni);
         intent.putExtra("listaValutazioni",listaValutazioni);
