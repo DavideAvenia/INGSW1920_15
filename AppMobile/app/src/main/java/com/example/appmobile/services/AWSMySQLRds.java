@@ -1,14 +1,11 @@
 package com.example.appmobile.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
-import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.entity.Recensioni;
-import com.example.appmobile.entity.StatisticheStrutture;
 import com.example.appmobile.entity.Strutture;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -17,17 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -46,9 +36,9 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         final List<Strutture> listaStrutture = new ArrayList<Strutture>();
 
         OkHttpClient client = new OkHttpClient();
-
         JSONObject jsonObject = new JSONObject();
 
+        /*Creazione body richiesta*/
         try {
             if(nome.length()!=0){
                 jsonObject.put("nome",nome);
@@ -63,10 +53,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
-        Request request = new Request.Builder().url(URLAPIGETSTRUTTUREBYFILTRI).post(requestBody).build();
+        /*Invio richiesta http*/
+        Request request = createRequest(jsonObject,URLAPIGETSTRUTTUREBYFILTRI);
 
         Response response = null;
         try {
@@ -74,6 +62,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if(response.isSuccessful()) {
             try {
                 JSONArray jsonArray = new JSONArray(response.body().string());
@@ -104,44 +93,21 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     }
 
     @Override
-    public Strutture getStrutturaByNomePosizione(String nome, LatLng posizione) {
-
-        /*Scrivere il codice che si connette al database*/
-
-
-        /*IL CODICE QUI SOTTO E' SOLO PER FARE TEST*/
-
-        return null;
-    }
-
-    @Override
-    public void incrementaNumeroVisitatori(String nome, LatLng posizione) {
-
-    }
-
-    @Override
-    public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, LatLng posizione) {
-        final List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
-
-        /*Costruzione body richiesta http api*/
+    public Strutture getStrutturaByNomePosizione(String nome, String latitudine, String longitudine) {
+        Strutture strutt = null;
         OkHttpClient client = new OkHttpClient();
-
         JSONObject jsonObject = new JSONObject();
 
-        double lat = posizione.latitude;
-        double lon = posizione.longitude;
+        /*Creazione body richiesta*/
         try{
-            jsonObject.put("nomeStruttura",nomeStruttura);
-            jsonObject.put("latitudine",lat);
-            jsonObject.put("longitudine",lon);
+            jsonObject.put("nomeStruttura",nome);
+            jsonObject.put("latitudine",latitudine);
+            jsonObject.put("longitudine",longitudine);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         /*Invio richiesta http*/
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
-        Request request = new Request.Builder().url(URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE).post(requestBody).build();
+        Request request = createRequest(jsonObject,URLAPIGETSTRUTTURABYNOMEPOSIZIONE);
 
         Response response = null;
         try{
@@ -150,21 +116,117 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
             e.printStackTrace();
         }
 
-        if(response.isSuccessful()){
-            /*Parsing recensioni*/
 
-            Recensioni recensione = null;
-            listaRecensioni.add(recensione);
+        if(response.isSuccessful()){
+            try{
+                /*Parsing struttura*/
+                JSONObject struttura = new JSONObject(response.body().string());
+
+                String nomes = struttura.get("nome").toString();
+                String cittàs = struttura.get("città").toString();
+                float valutaziones = Float.parseFloat(struttura.get("valutazioneMedia").toString());
+                String prezzos = struttura.get("maxPrezzo").toString();
+                String orarios = struttura.get("orarioApertura").toString();
+                String categorias = struttura.get("categoria").toString();
+                float lats = Float.parseFloat(struttura.get("latitudine").toString());
+                float lans = Float.parseFloat(struttura.get("longitudine").toString());
+                String descrs = struttura.get("descrizione").toString();
+
+                strutt = new Strutture(nomes, cittàs, valutaziones, prezzos, orarios, categorias, lats, lans, descrs);
+
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return strutt;
+    }
+
+    @Override
+    public void incrementaNumeroVisitatori(String nome, String latitudine, String longitudine) {
+
+        OkHttpClient client = new OkHttpClient();
+        JSONObject jsonObject = new JSONObject();
+
+        /*Creazione body richiesta*/
+        try{
+            jsonObject.put("nomeStruttura",nome);
+            jsonObject.put("latitudine",latitudine);
+            jsonObject.put("longitudine",longitudine);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /*Invio richiesta http*/
+        Request request = createRequest(jsonObject,URLAPIINCREMENTANUMEROVISITATORI);
+
+        Response response = null;
+        try{
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, String latitudine, String longitudine) {
+        final List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
+
+        /*Costruzione body richiesta http api*/
+        OkHttpClient client = new OkHttpClient();
+
+        JSONObject jsonObject = new JSONObject();
+
+        /*Creazione body richiesta*/
+        Double lat = Double.parseDouble(latitudine);
+        Double lon = Double.parseDouble(longitudine);
+        try{
+            jsonObject.put("nomeStruttura",nomeStruttura);
+            jsonObject.put("latitudine",latitudine);
+            jsonObject.put("longitudine",longitudine);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /*Invio richiesta http*/
+        Request request = createRequest(jsonObject,URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE);
+
+        Response response = null;
+        try{
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
+        if(response.isSuccessful()){
+            /*Parsing recensioni*/
+            try{
+                JSONArray jsonArray = new JSONArray(response.body().string());
 
-        /*IL CODICE QUI SOTTO E' SOLO PER FARE TEST*/
+                for (int i = 0; i < jsonArray.length(); i++) {
+                   JSONObject recensioneJSON = jsonArray.getJSONObject(i);
 
+                    String testoRecensione = recensioneJSON.get("testoRecensione").toString();
+                    String urlImmagine = recensioneJSON.get("urlImmagine").toString();
+                    Float valutazione = Float.parseFloat(recensioneJSON.get("valutazione").toString());
+                    String usernameUtente = recensioneJSON.get("userNameUtente").toString();
 
+                    Recensioni recensione = new Recensioni(testoRecensione,urlImmagine,valutazione,usernameUtente,nomeStruttura,lat,lon);
+                    listaRecensioni.add(recensione);
+                }
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return listaRecensioni;
     }
 
+    private Request createRequest(JSONObject jsonObject, final String API){
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
+        return new Request.Builder().url(API).post(requestBody).build();
+    }
 
 
 

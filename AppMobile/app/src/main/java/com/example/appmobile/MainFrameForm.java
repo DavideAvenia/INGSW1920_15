@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
@@ -117,7 +116,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                leggereRecensioniController.mostraRecensioniStrutture(marker.getTitle(),marker.getPosition(),MainFrameForm.this);
+                String snippet = marker.getSnippet();
+                String tokens[] = snippet.split("\n");
+                leggereRecensioniController.mostraRecensioniStrutture(marker.getTitle(),tokens[4],tokens[5],MainFrameForm.this);
             }
         });
 
@@ -205,7 +206,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
             snippet = "Città: "+listaCittà.get(i)+ "\n"+
                     "Orario apertura: "+listaOrariApertura.get(i)+"\n"+
                     "Prezzo: "+listaRangePrezzo.get(i)+"€\n"+
-                    "Valutazione(1-5): "+listaValutazioni.get(i);
+                    "Valutazione(1-5): "+listaValutazioni.get(i)+"\n"+
+                    listaLatidutini.get(i)+"\n"+
+                    listaLongitudini.get(i);
             marker = new MarkerOptions().position(new LatLng(listaLatidutini.get(i),listaLongitudini.get(i))).title(listaNomi.get(i)).snippet(snippet);
             mMap.addMarker(marker);
 
@@ -215,6 +218,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public static void setIsLogged(boolean value){
         isLogged = value;
     }
+
+    public static boolean isUserLogged(){ return isLogged;}
 
     public static void setUserIdLogged(String userId){
         userIdLogged = userId;

@@ -33,7 +33,7 @@ public class LeggereRecensioniController {
         }
     }
 
-    public void mostraRecensioniStrutture(String nomeStruttura, LatLng posizione, Context context){
+    public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context){
 
         String service = context.getString(R.string.cloudService);
 
@@ -50,26 +50,31 @@ public class LeggereRecensioniController {
         String descrizione = null;
         float valutasione;
 
-        List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura,posizione);
+        List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura,latitudine,longitudine);
 
         for(Recensioni r:listaRecensioni){
-            nomiRecensiori.add(getNickName(r,utenteDao));
+
+            /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
+            //nomiRecensiori.add(getNickName(r,utenteDao));
+            nomiRecensiori.add(r.getUserNameUtente());
+
+            /***********************************************************************/
             listaUrlFoto.add(r.getUrlImmagine());
             listaTestiRecensioni.add(r.getTestoRecensione());
             listaValutazioni.add(r.getValutazione());
         }
 
         /*Recupero di tutte le informazioni della Struttra corrente*/
-        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura,posizione);
+        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura,latitudine,longitudine);
         descrizione = struttura.getDescrizione();
-        struttureDao.incrementaNumeroVisitatori(nomeStruttura,posizione);
+        struttureDao.incrementaNumeroVisitatori(nomeStruttura,latitudine,longitudine);
         valutasione = struttura.getValutazioneMedia();
 
         /*Creazione intent e passaggio tramite esso di tutte le informazioni raccolte della struttura corrente*/
         Intent intent = new Intent(context, RecensioniStruttureForm.class);
         intent.putExtra("nomeStruttura",nomeStruttura);
-        intent.putExtra("latitudine",posizione.latitude);
-        intent.putExtra("longitudine",posizione.longitude);
+        intent.putExtra("latitudine",latitudine);
+        intent.putExtra("longitudine",longitudine);
         intent.putExtra("valutazione",valutasione);
         intent.putExtra("descrizione",descrizione);
         intent.putExtra("nomiRecensiori",nomiRecensiori);

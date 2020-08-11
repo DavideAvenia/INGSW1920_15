@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, List<Strutture>> {
 
-    private final String URLDB = "";
+    private final String URLDB = "jdbc:mysql://ingswdatabase.czrrnx3ltups.eu-west-1.rds.amazonaws.com:3306/ingsw?user=admin&password=6x1li30di3IoU2Mgwaoy";
 
     @Override
     public List<Strutture> handleRequest(Map<String, String> requestBody, Context context) {
@@ -27,36 +27,32 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
         String filtroCategoria = requestBody.get("categoria");
 
         if(filtroNome.length() != 0){
-            query = query+"nome='"+filtroNome+"' AND ";
+            query = query+"nome=\""+filtroNome+"\" AND ";
         }
 
         if(!filtroCittà.equals("Qualunque")){
-            query = query+"città='"+filtroCittà+"' AND ";
+            query = query+"città=\""+filtroCittà+"\" AND ";
         }
 
         if(!filtroMaxPrezzo.equals("Qualunque")){
-            query = query+"maxPrezzo<='"+filtroMaxPrezzo+"' AND ";
+            query = query+"maxPrezzo<=\""+filtroMaxPrezzo+"\" AND ";
         }
 
         if(!filtroOrarioApertura.equals("Qualunque")){
-            query = query+"orarioApertura='"+filtroOrarioApertura+"' AND ";
+            query = query+"orarioApertura=\""+filtroOrarioApertura+"\" AND ";
         }
 
         if(!filtroCategoria.equals("Qualunque")){
-            query = query +"categoria='"+filtroCategoria+"' AND ";
+            query = query +"categoria=\""+filtroCategoria+"\" AND ";
         }
-        query = query+"valutazioneMedia>='"+filtroValutazione+"';";
+        query = query+"valutazioneMedia>=\""+filtroValutazione+"\";";
 
-        System.out.println(query);
+
         /*Recupero delle struttre*/
-        Connection conn = null;
+        DatabaseConnection databaseConnection = new DatabaseConnection();
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URLDB);
 
-            Statement stm = conn.createStatement();
-
-            ResultSet resultSet = stm.executeQuery(query);
+            ResultSet resultSet = databaseConnection.eseguiQuery(query);
             while(resultSet.next()){
                 String nome = resultSet.getString(1);
                 String città = resultSet.getString(2);
@@ -72,8 +68,6 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
                 listaStrutture.add(struttura);
 
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

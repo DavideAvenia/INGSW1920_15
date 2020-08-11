@@ -9,10 +9,10 @@ public class Recensioni {
 
     /*Nel database costituiscono una chiave secondaria alla struttura corrispondente*/
     private String nomeStruttura;
-    private float latitudine;
-    private float longitudine;
+    private Double latitudine;
+    private Double longitudine;
 
-    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, float latitudine, float longitudine) {
+    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, Double latitudine, Double longitudine) {
         this.testoRecensione = testoRecensione;
         this.urlImmagine = urlImmagine;
         this.valutazione = valutazione;
@@ -62,19 +62,19 @@ public class Recensioni {
         this.nomeStruttura = nomeStruttura;
     }
 
-    public float getLatitudine() {
+    public Double getLatitudine() {
         return latitudine;
     }
 
-    public void setLatitudine(float latitudine) {
+    public void setLatitudine(Double latitudine) {
         this.latitudine = latitudine;
     }
 
-    public float getLongitudine() {
+    public Double getLongitudine() {
         return longitudine;
     }
 
-    public void setLongitudine(float longitudine) {
+    public void setLongitudine(Double longitudine) {
         this.longitudine = longitudine;
     }
 }
