@@ -29,8 +29,8 @@ public class GetStrutturaByNomePosizione implements RequestHandler<Map<String,St
                 String maxPrezzo = resultSet.getString(4);
                 String orarioApertura = resultSet.getString(5);
                 String categoria = resultSet.getString(6);
-                float latitudine = resultSet.getFloat(7);
-                float longitudine = resultSet.getFloat(8);
+                String latitudine = resultSet.getString(7);
+                String longitudine = resultSet.getString(8);
                 String descrizione = resultSet.getString(9);
 
                 struttura = new Strutture(nome,città,valutazioneMedia,maxPrezzo,orarioApertura,categoria,latitudine,longitudine,descrizione);

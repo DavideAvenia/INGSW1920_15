@@ -3,6 +3,8 @@ package com.example.appmobile.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.RecensioniDao;

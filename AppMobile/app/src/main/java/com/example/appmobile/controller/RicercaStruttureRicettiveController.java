@@ -2,6 +2,8 @@ package com.example.appmobile.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.os.SystemClock;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.StruttureDao;
@@ -40,7 +42,6 @@ public class RicercaStruttureRicettiveController {
 
         String service = context.getString(R.string.cloudService);
 
-        System.out.println("Siamo nel controller dopo aver cliccato cerca");
         StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
 
         List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome,città,valutazioneMedia,distanzaDaDispositivo,orarioApertura,categoria,maxPrezzo);
@@ -52,17 +53,32 @@ public class RicercaStruttureRicettiveController {
         List<String> listaOrariApertura = new ArrayList<String>();
         List<String> listaRangePrezzo = new ArrayList<String>();
         List<Float> listaValutazioni = new ArrayList<Float>();
-        List<Float> listaLatitudini = new ArrayList<Float>();
-        List<Float> listaLogitudini = new ArrayList<Float>();
+        List<String> listaLatitudini = new ArrayList<String>();
+        List<String> listaLogitudini = new ArrayList<String>();
 
+        Location currentLocation = MainFrameForm.getCurrentLocation();
         for(Strutture s:listaStrutture){
-            listaNomi.add(s.getNome());
-            listaCittà.add(s.getCittà());
-            listaOrariApertura.add(s.getOrarioApertura());
-            listaRangePrezzo.add(s.getMaxPrezzo());
-            listaLatitudini.add(s.getLatitudine());
-            listaLogitudini.add(s.getLongitudine());
-            listaValutazioni.add(s.getValutazioneMedia());
+            String latitudine = s.getLatitudine();
+            String longitudine = s.getLongitudine();
+            float distance = 0.0f;
+
+            if(currentLocation != null){
+                /*Calcolando distanza tra dispositivo e struttura corrente*/
+                Location markerLocation = new Location("");
+                markerLocation.setLatitude(Double.parseDouble(latitudine));
+                markerLocation.setLongitude(Double.parseDouble(longitudine));
+                distance = currentLocation.distanceTo(markerLocation);
+            }
+            /*Se il GPS è disattivo la distanza sarà a 0 => tutte le strutture recuperate verranno visualizzate*/
+            if(distance <= distanzaDaDispositivo){
+                listaNomi.add(s.getNome());
+                listaCittà.add(s.getCittà());
+                listaOrariApertura.add(s.getOrarioApertura());
+                listaRangePrezzo.add(s.getMaxPrezzo());
+                listaLatitudini.add(latitudine);
+                listaLogitudini.add(longitudine);
+                listaValutazioni.add(s.getValutazioneMedia());
+            }
         }
 
         MainFrameForm.aggiornaMappa(listaNomi,listaLatitudini,listaLogitudini,listaCittà,listaValutazioni,listaOrariApertura,listaRangePrezzo);

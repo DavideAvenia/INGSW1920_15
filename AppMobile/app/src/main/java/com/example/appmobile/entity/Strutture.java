@@ -9,11 +9,11 @@ public class Strutture {
     private String maxPrezzo;
     private String orarioApertura;
     private String categoria;
-    private float latitudine;
-    private float longitudine;
+    private String latitudine;
+    private String longitudine;
     private String descrizione;
 
-    public Strutture(String nome, String città, float valutazioneMedia, String maxPrezzo, String orarioApertura, String categoria, float latitudine, float longitudine, String descrizione) {
+    public Strutture(String nome, String città, float valutazioneMedia, String maxPrezzo, String orarioApertura, String categoria, String latitudine, String longitudine, String descrizione) {
         this.nome = nome;
         this.città = città;
         this.valutazioneMedia = valutazioneMedia;
@@ -73,19 +73,19 @@ public class Strutture {
         this.categoria = categoria;
     }
 
-    public float getLatitudine() {
+    public String getLatitudine() {
         return latitudine;
     }
 
-    public void setLatitudine(float latitudine) {
+    public void setLatitudine(String latitudine) {
         this.latitudine = latitudine;
     }
 
-    public float getLongitudine() {
+    public String getLongitudine() {
         return longitudine;
     }
 
-    public void setLongitudine(float longitudine) {
+    public void setLongitudine(String longitudine) {
         this.longitudine = longitudine;
     }
 

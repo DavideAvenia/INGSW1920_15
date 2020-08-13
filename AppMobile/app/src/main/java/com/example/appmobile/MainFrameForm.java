@@ -13,18 +13,26 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.appmobile.Adapters.CustomInfoWindowAdapter;
 import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,7 +40,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.Date;
 import java.util.List;
 
 public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallback {
@@ -42,6 +52,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private Menu menu;
     private LocationManager locationManager = null;
     private static String userIdLogged = null;
+    private ProgressBar progressBar;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private static Location currentLocation;
 
 
     //Controllers
@@ -72,7 +85,24 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         controllerLogin = ControllerLogin.getControllerLogin();
         ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
         leggereRecensioniController = LeggereRecensioniController.getLeggereRecensioniController();
+        progressBar = findViewById(R.id.progressBarMap);
+        progressBar.setVisibility(View.INVISIBLE);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null){
+                    System.out.println("Current location data da fusedLocation: "+location.toString());
+                    setCurrentLocation(location);
+                }
+            }
+        });
+
+    }
+
+    private void setCurrentLocation(Location location){
+        currentLocation = location;
     }
 
     private final LocationListener LOCATION_LISTENER = new LocationListener() {
@@ -117,8 +147,30 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
             @Override
             public void onInfoWindowClick(Marker marker) {
                 String snippet = marker.getSnippet();
-                String tokens[] = snippet.split("\n");
-                leggereRecensioniController.mostraRecensioniStrutture(marker.getTitle(),tokens[4],tokens[5],MainFrameForm.this);
+                String title = marker.getTitle();
+
+                new AsyncTask<String,Boolean,Boolean>(){
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    protected Boolean doInBackground(String... strings) {
+                        String snippet = strings[1];
+                        String tokens[] = snippet.split("\n");
+                        leggereRecensioniController.mostraRecensioniStrutture(strings[0],tokens[4],tokens[5],MainFrameForm.this);
+                        return true;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean aBoolean) {
+                        super.onPostExecute(aBoolean);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                }.execute(title,snippet);
             }
         });
 
@@ -135,6 +187,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
         LatLng defaultLocation = new LatLng(40.863,14.2767);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,10.0f));
+
+
     }
 
     @Override
@@ -155,7 +209,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 }else{
                     //signout con dialog di avvertimento
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("Il gps non è abilitato, vuoi abilitarlo?").setCancelable(false)
+                    builder.setMessage("Effettuare il logout?").setCancelable(false)
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -180,7 +234,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     private void enableGpsMessage(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Il gps non è abilitato, vuoi abilitarlo?").setCancelable(false)
+        builder.setMessage("Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare").setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -197,7 +251,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         alertDialog.show();
     }
 
-    public static void aggiornaMappa(List<String> listaNomi, List<Float> listaLatidutini, List<Float> listaLongitudini,List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo){
+    public static void aggiornaMappa(List<String> listaNomi, List<String> listaLatidutini, List<String> listaLongitudini,List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo){
         MarkerOptions marker = null;
         String snippet = null;
 
@@ -209,7 +263,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     "Valutazione(1-5): "+listaValutazioni.get(i)+"\n"+
                     listaLatidutini.get(i)+"\n"+
                     listaLongitudini.get(i);
-            marker = new MarkerOptions().position(new LatLng(listaLatidutini.get(i),listaLongitudini.get(i))).title(listaNomi.get(i)).snippet(snippet);
+            marker = new MarkerOptions().position(new LatLng(Float.parseFloat(listaLatidutini.get(i)),Float.parseFloat(listaLongitudini.get(i)))).title(listaNomi.get(i)).snippet(snippet);
             mMap.addMarker(marker);
 
         }
@@ -229,5 +283,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         Toast.makeText(this,"Logout effettuato per: "+userIdLogged,Toast.LENGTH_LONG).show();
         setIsLogged(false);
         controllerLogin.signout(this,userIdLogged);
+    }
+
+    public static Location getCurrentLocation(){
+        return currentLocation;
     }
 }

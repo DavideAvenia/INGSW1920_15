@@ -76,8 +76,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                     String prezzos = struttura.get("maxPrezzo").toString();
                     String orarios = struttura.get("orarioApertura").toString();
                     String categorias = struttura.get("categoria").toString();
-                    float lats = Float.parseFloat(struttura.get("latitudine").toString());
-                    float lans = Float.parseFloat(struttura.get("longitudine").toString());
+                    String lats = struttura.get("latitudine").toString();
+                    String lans = struttura.get("longitudine").toString();
                     String descrs = struttura.get("descrizione").toString();
 
                     Strutture s = new Strutture(nomes, cittàs, valutaziones, prezzos, orarios, categorias, lats, lans, descrs);
@@ -128,8 +128,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                 String prezzos = struttura.get("maxPrezzo").toString();
                 String orarios = struttura.get("orarioApertura").toString();
                 String categorias = struttura.get("categoria").toString();
-                float lats = Float.parseFloat(struttura.get("latitudine").toString());
-                float lans = Float.parseFloat(struttura.get("longitudine").toString());
+                String lats = struttura.get("latitudine").toString();
+                String lans = struttura.get("longitudine").toString();
                 String descrs = struttura.get("descrizione").toString();
 
                 strutt = new Strutture(nomes, cittàs, valutaziones, prezzos, orarios, categorias, lats, lans, descrs);

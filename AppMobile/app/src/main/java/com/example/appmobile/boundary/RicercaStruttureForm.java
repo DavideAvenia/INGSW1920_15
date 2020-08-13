@@ -2,12 +2,14 @@ package com.example.appmobile.boundary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
     private Spinner categoriaRicerca;
     private RatingBar valutazioneMediaRicerca;
     private ImageButton bottoneRicerca;
+    private ProgressBar progressBar;
     private TextView valutazioneText;
     private TextView distanzaText;
     private TextView orarioAperturaText;
@@ -50,6 +53,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         distanzaText = findViewById(R.id.distanzaText);
         orarioAperturaText = findViewById(R.id.orarioAperturaText);
         maxPrezzoText = findViewById(R.id.maxPrezzoText);
+        progressBar = findViewById(R.id.progressBarRicercaStrutture);
 
         ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
 
@@ -78,6 +82,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         ArrayAdapter<CharSequence> spinnerApertura = ArrayAdapter.createFromResource(this,R.array.orarioApertura,android.R.layout.simple_spinner_item);
         spinnerApertura.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         orarioAperturaRicerca.setAdapter(spinnerApertura);
+
         /*******************************************************/
 
         //Inizializzazione RatingBar
@@ -104,7 +109,9 @@ public class RicercaStruttureForm extends AppCompatActivity {
         int distanza = Integer.parseInt(distanzaDaDispositivoRicerca.getSelectedItem().toString());
         float valutazioneMedia = valutazioneMediaRicerca.getRating();
 
+        progressBar.setVisibility(View.VISIBLE);
         ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,maxPrezzo,this);
+        progressBar.setVisibility(View.GONE);
         this.finish();
     }
 

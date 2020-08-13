@@ -35,7 +35,7 @@ public class RecyclerViewFotoRecensioniAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(@NonNull FotoViewHolder holder, int position) {
 
-        Picasso.get().load(listaFoto.get(position)).resize(148,139).into(holder.foto1);
+        Picasso.get().load(listaFoto.get(position)).resize(175,151).into(holder.foto1);
     }
 
     @Override
