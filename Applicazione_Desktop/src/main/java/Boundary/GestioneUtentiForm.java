@@ -19,7 +19,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/GestioneUtentiForm.fxml"));
         primaryStage.setTitle("Gestione Utenti");
-        primaryStage.setScene(new Scene(root,1024,768));
+        primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.show();
     }
 

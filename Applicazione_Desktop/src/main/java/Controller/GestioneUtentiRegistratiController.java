@@ -8,20 +8,20 @@ import java.io.IOException;
 
 public class GestioneUtentiRegistratiController {
 
+    private static GestioneUtentiRegistratiController gestioneUtentiRegistratiController = null;
     /*Forms*/
     private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
     private GestioneUtentiForm gestioneUtentiForm;
 
-    private static GestioneUtentiRegistratiController gestioneUtentiRegistratiController = null;
-
-    private GestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm){
+    private GestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
         this.paginaPrincipaleAdminForm = paginaPrincipaleAdminForm;
     }
 
-    public static GestioneUtentiRegistratiController gestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm){
-        if(gestioneUtentiRegistratiController == null){
+    public static GestioneUtentiRegistratiController gestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
+        if (gestioneUtentiRegistratiController == null) {
             return new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
-        }return gestioneUtentiRegistratiController;
+        }
+        return gestioneUtentiRegistratiController;
     }
 
     public void mostraGestioneUtentiForm() throws IOException {

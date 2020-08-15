@@ -45,6 +45,7 @@ public class StatisticheStrutture {
     public void setNumClienti(int numClienti) {
         this.numClienti = numClienti;
     }
+
     public String getNome() {
         return nome;
     }
