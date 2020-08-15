@@ -7,8 +7,7 @@ import java.util.List;
 public interface StatisticheStruttureDAO {
     public List<StatisticheStrutture> getStatisticheStruttureByFiltro(String filtro);
 
-    public List<StatisticheStrutture> getAllStatisticheStrutture(List<StatisticheStrutture> L1);
+    public List<StatisticheStrutture> getAllStatisticheStrutture();
 
-    public void aggiornaStatistiche();
 }
 

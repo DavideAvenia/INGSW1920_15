@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0"
           vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          fx:controller="Controller.StatisticheStruttureController">
+          fx:controller="Boundary.StatisticheStruttureForm">
     <children>
         <AnchorPane fx:id="pane" prefHeight="493.0" prefWidth="448.0">
             <children>
@@ -32,7 +32,7 @@
                         <TableColumn fx:id="minicolumn1" prefWidth="113.0" text=" Nome Struttura"/>
                     </columns>
                 </TableView>
-                <Button fx:id="aggiorna" layoutX="305.0" layoutY="454.0" mnemonicParsing="false" text="Aggiorna"/>
+                <Button fx:id="aggiorna" layoutX="305.0" layoutY="454.0" mnemonicParsing="false" text="Aggiorna" onAction="#aggiornaPremuto"/>
             </children>
         </AnchorPane>
     </children>

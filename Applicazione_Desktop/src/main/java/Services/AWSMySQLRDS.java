@@ -18,8 +18,8 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO {
     }
 
     @Override
-    public List<StatisticheStrutture> getAllStatisticheStrutture(List<StatisticheStrutture> L1) {
-        L1 = new ArrayList<>();
+    public List<StatisticheStrutture> getAllStatisticheStrutture() {
+        List<StatisticheStrutture> L1 = new ArrayList<>();
 
         JSONObject tmp = new JSONObject();
         try {
@@ -59,11 +59,5 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO {
 
         }
         return L1;
-    }
-
-    @Override
-    public void aggiornaStatistiche() {
-        List<StatisticheStrutture> update = null;
-        getAllStatisticheStrutture(update);
     }
 }
