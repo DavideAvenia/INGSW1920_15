@@ -14,8 +14,9 @@ import java.util.List;
 public class AWSMySQLRDS implements StatisticheStruttureDAO {
 
     @Override
-    public List<StatisticheStrutture> getStatisticheStrutture() {
-    return null;
+    public List<StatisticheStrutture> getStatisticheStruttureByFiltro(String filtro) {
+        
+        return null;
     }
 
     @Override
@@ -64,11 +65,7 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO {
 
     @Override
     public void aggiornaStatistiche() {
-
+    getAllStatisticheStrutture();
     }
 
-    @Override
-    public boolean cancellaStatisticheStruttureById(int Id) {
-        return false;
-    }
 }

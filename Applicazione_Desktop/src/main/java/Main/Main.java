@@ -1,6 +1,6 @@
 package Main;
 
-import Boundary.LoginForm;
+import Controller.StatisticheStruttureController;
 import javafx.application.Application;
 
 public class Main {
