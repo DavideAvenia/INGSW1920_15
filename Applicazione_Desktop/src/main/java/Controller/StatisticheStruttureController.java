@@ -2,7 +2,6 @@ package Controller;
 
 import DAO.DAOfactory;
 import DAO.StatisticheStruttureDAO;
-import Entity.StatisticheStrutture;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +16,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
-public class Controller extends Application {
+public class StatisticheStruttureController extends Application {
     public Button indietro;
     public MenuButton filtro;
     public TableView statistiche;
@@ -31,7 +29,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/StatsStructuresForm.fxml"));
         primaryStage.setTitle("Nome_Software");
         mostraStatistiche();
         primaryStage.setScene(new Scene(root, 500, 500));
@@ -42,7 +40,14 @@ public class Controller extends Application {
         BufferedReader br = new BufferedReader(new FileReader((file)));
         String file1 = br.readLine();
         StatisticheStruttureDAO S = DAOfactory.getStatisticheStruttureDAO(file1);
-        List<StatisticheStrutture> L2 = S.getAllStatisticheStrutture();
+        //List<StatisticheStrutture> L2 = S.getAllStatisticheStrutture();
+
+        /*Guido, mi sono dimenticato di dirti che questa è una classe boundary, non è un controller.
+        * Devi spostare questa classe nel pacchetto boundary e tutto il codice che hai scritto qua sopra
+        * lo deve fare la classe controller di questo caso d'uso. Se vedi hai scritto la classe controller
+        * e c'è anche il metodo che deve andare a creare questa finestra da qua. Per vedere come creare una
+        * finestra da un controller, basta che apri il controller GestioneUtentiREgistrati e sta il metodo
+        * "mostraGestioneUtentiForm. E non dimenticari di fare quel controller come un singleton!"*/
     }
 
 

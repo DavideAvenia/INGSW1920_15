@@ -25,7 +25,6 @@ Client è suddiviso in:
 Guido:
 	Visualizza statistiche strutture
 	Visualizza statistiche visitatori
-	Login Desktop
 	Gestione Profilo
 
 Peppe:
@@ -35,6 +34,7 @@ Peppe:
 	Gestione Utenti Registrati
 
 Davide: 
+	Login Desktop
 	Moderazione Recensioni
 	Scrivere Recensioni
 	Ricerca Strutture ricettive Desktop
