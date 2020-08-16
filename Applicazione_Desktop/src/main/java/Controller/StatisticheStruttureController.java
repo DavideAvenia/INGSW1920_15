@@ -4,13 +4,12 @@ import Boundary.StatisticheStruttureForm;
 import DAO.DAOfactory;
 import DAO.StatisticheStruttureDAO;
 import Entity.StatisticheStrutture;
-import Services.AWSMySQLRDS;
-import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticheStruttureController {
@@ -34,16 +33,22 @@ public class StatisticheStruttureController {
         StatisticheStruttureDAO S = DAOfactory.getStatisticheStruttureDAO(file1);
         List<StatisticheStrutture> L2 = S.getAllStatisticheStrutture(); /*hai recuperato la lista di statistiche*/
 
+
         /*PARTE DUE: sistemi le informazioni come ti servono*/
-        /*
-        * codice
-        *
-        * */
+        List<StatisticheStrutture> numeri = new ArrayList<>();
+        List<String> nomi = new ArrayList<>();
+        for (String value : nomi){
+            nomi.add(value);
+        }
+        for(StatisticheStrutture value : numeri){
+            numeri.add(value);
+
+
 
         /*PARTE TRE: Passi le informazioni sistemate ad un metodo dell'interfaccia per aggiornarla*/
-        StatisticheStruttureForm.popolaInterfaccia(/*passi tutte le liste che hai creato*/);
+        StatisticheStruttureForm.popolaInterfaccia(nomi,numeri);
 
     }
 
 
-}
+}}

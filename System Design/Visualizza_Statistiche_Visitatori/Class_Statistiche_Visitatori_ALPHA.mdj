@@ -216,6 +216,7 @@
 											"model": {
 												"$ref": "AAAAAAFyCYb6/CVdZk8="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 381,
 											"top": 142,
@@ -229,7 +230,7 @@
 									"left": 376,
 									"top": 62,
 									"width": 849.236328125,
-									"height": 98
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -270,16 +271,16 @@
 											},
 											"font": "Arial;13;0",
 											"left": 381,
-											"top": 167,
+											"top": 152,
 											"width": 839.236328125,
 											"height": 13,
-											"text": "+StatisticheUtenti(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int, numCol: int): StatisticheUtenti",
+											"text": "+StatisticheUtenti(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int): StatisticheUtenti",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 376,
-									"top": 160,
+									"top": 145,
 									"width": 849.236328125,
 									"height": 25
 								},
@@ -469,7 +470,7 @@
 											"top": 517,
 											"width": 727.25732421875,
 											"height": 13,
-											"text": "+Aggiorna(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int, numCol: int): void",
+											"text": "+Aggiorna(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -985,7 +986,7 @@
 											"top": 358,
 											"width": 727.25732421875,
 											"height": 13,
-											"text": "+Aggiorna(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int, numCol: int): void",
+											"text": "+Aggiorna(numUtenti: int, percentageNumReviews: int, avgScore: int, loginCounter: int, numTotReviews: int): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2851,15 +2852,6 @@
 								},
 								{
 									"_type": "UMLParameter",
-									"_id": "AAAAAAFyCYktIiV8L0I=",
-									"_parent": {
-										"$ref": "AAAAAAFyCYhumCVun4A="
-									},
-									"name": "numCol",
-									"type": "int"
-								},
-								{
-									"_type": "UMLParameter",
 									"_id": "AAAAAAFyCYktIiV9lRQ=",
 									"_parent": {
 										"$ref": "AAAAAAFyCYhumCVun4A="
@@ -2976,15 +2968,6 @@
 										"$ref": "AAAAAAFyCYF9SiRet0Q="
 									},
 									"name": "numTotReviews",
-									"type": "int"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFyCYIK+iRro6A=",
-									"_parent": {
-										"$ref": "AAAAAAFyCYF9SiRet0Q="
-									},
-									"name": "numCol",
 									"type": "int"
 								},
 								{
@@ -3130,7 +3113,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFyMui+HtCCZuM="
 									},
-									"name": "Stage primarystage"
+									"name": "Stage primarystage",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3303,15 +3287,6 @@
 										"$ref": "AAAAAAFyDWj13uafFQo="
 									},
 									"name": "numTotReviews",
-									"type": "int"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFyDWkRxub5RHI=",
-									"_parent": {
-										"$ref": "AAAAAAFyDWj13uafFQo="
-									},
-									"name": "numCol",
 									"type": "int"
 								},
 								{
