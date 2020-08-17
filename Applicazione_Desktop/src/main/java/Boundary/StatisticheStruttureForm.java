@@ -1,7 +1,7 @@
 package Boundary;
 
 import Controller.StatisticheStruttureController;
-import Entity.StatisticheStrutture;
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,31 +22,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class StatisticheStruttureForm extends Application implements Initializable {
+public class StatisticheStruttureForm extends Application implements Initializable{
     @FXML
     private static TextField search;
     @FXML
-    private static TableColumn minicolumn1;
+    private static TableColumn minicolumn1 = new TableColumn();
     @FXML
-    private static TableView<String> lista;
+    private static TableView<String> lista = new TableView<>();
     @FXML
     private static Button aggiorna;
     @FXML
     private static Button indietro;
     @FXML
-    private static TableView<OggettoTabella> statistiche;
+    private static TableView<OggettoTabella> statistiche = new TableView<>();
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nospiti;
+    private static TableColumn<OggettoTabella, Integer> nospiti = new TableColumn<>();
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nreview;
+    private static TableColumn<OggettoTabella, Integer> nreview = new TableColumn<>();
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nclient;
+    private static TableColumn<OggettoTabella, Integer> nclient = new TableColumn<>();
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nstar;
+    private static TableColumn<OggettoTabella, Integer> nstar = new TableColumn<>();
+    @FXML
+    private AnchorPane pane;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/StatsStructuresForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatsStructuresForm.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Nome_Software");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
@@ -60,7 +64,7 @@ public class StatisticheStruttureForm extends Application implements Initializab
         }
     }
 
-    public static class OggettoTabella{
+    public static class OggettoTabella {
         /*Inserisci gli attributi che ti servono e crea il costrutture con getter e setter*/
         private int numVisitatori;
         private int numClienti;
@@ -72,6 +76,11 @@ public class StatisticheStruttureForm extends Application implements Initializab
             this.numClienti = numClienti;
             this.numReviews = numReviews;
         }
+
+        public OggettoTabella(String s) {
+            this.nomeStruttura = nomeStruttura;
+        }
+
 
         public int getNumVisitatori() {
             return numVisitatori;
@@ -103,31 +112,24 @@ public class StatisticheStruttureForm extends Application implements Initializab
        // Popoli una lista di OggettoTabella con i valori delle liste prese in input
         List<OggettoTabella> listaTabellanumVisitatori = new ArrayList<OggettoTabella>();
         List<OggettoTabella> listaTabellaNomi = new ArrayList<>();
+        ObservableList<String> oblistNomi = FXCollections.observableArrayList();
+        ObservableList<OggettoTabella> oblistNumeri = FXCollections.observableArrayList();
         for(int i=0;i<numVisitatori.size();i++){
             OggettoTabella og = new OggettoTabella(numVisitatori.get(i),numClienti.get(i),numReviews.get(i));
-            System.out.println(nomiStrutture.get(i) +" "+numVisitatori.get(i) +" "+ numClienti.get(i) +" "+ numReviews.get(i));
+           System.out.println(nomiStrutture.get(i) +" "+numVisitatori.get(i) +" "+ numClienti.get(i) +" "+ numReviews.get(i));
             listaTabellanumVisitatori.add(og);
-        }
-        //ObservableList<OggettoTabella> oblistNumeri = FXCollections.observableArrayList(listaTabellanumVisitatori);
-       ObservableList<String> oblistNomi = FXCollections.observableList(nomiStrutture);
-        for(int i=0;i<nomiStrutture.size();i++){
-        oblistNomi.setAll(nomiStrutture.get(i));
-       System.out.println(oblistNomi.get(i));
+            oblistNomi.add(nomiStrutture.get(i));
+            oblistNumeri.add(og);
+            System.out.println(oblistNomi.get(i));
+            System.out.println(oblistNumeri.get(i));
         }
         //Inizializzazione tabella piccola
-      //  minicolumn1.setCellValueFactory((new PropertyValueFactory<>("Lista Strutture")));
-      //  lista.setItems(oblistNomi);
-      //  lista.getColumns().add(minicolumn1);
-       /* // Inizializzazione tabella grande
-        nospiti.setCellValueFactory(new PropertyValueFactory<>("numVisitatori"));
-        nclient.setCellValueFactory((new PropertyValueFactory<>("numClienti")));
-        nreview.setCellValueFactory((new PropertyValueFactory<>("numReviews")));
+        lista.setItems(oblistNomi);
+        // Inizializzazione tabella grande
         statistiche.setItems(oblistNumeri);
-        statistiche.getColumns().addAll(nospiti, nclient, nreview); */
     }
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resources) {
         StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
         try{
             statisticheStruttureController.mostraStatistiche();
@@ -136,3 +138,4 @@ public class StatisticheStruttureForm extends Application implements Initializab
         }
     }
 }
+
