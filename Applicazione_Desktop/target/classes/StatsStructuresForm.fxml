@@ -1,45 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0"
-          vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          fx:controller="Boundary.StatisticheStruttureForm">
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.StatisticheStruttureForm">
     <children>
         <AnchorPane fx:id="pane" prefHeight="493.0" prefWidth="448.0">
             <children>
-                <Button fx:id="indietro" layoutX="376.0" layoutY="454.0" mnemonicParsing="false" text="Indietro"/>
-                <MenuButton fx:id="filtro" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0"
-                            prefWidth="114.0" text="Filtro">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1"/>
-                        <MenuItem mnemonicParsing="false" text="Action 2"/>
-                    </items>
-                </MenuButton>
+                <Button fx:id="indietro" layoutX="376.0" layoutY="454.0" mnemonicParsing="false" text="Indietro" />
                 <TableView fx:id="statistiche" layoutX="126.0" layoutY="14.0" prefHeight="427.0" prefWidth="310.0">
                     <columns>
-                        <TableColumn fx:id="nospiti" prefWidth="75.0" text="N. Ospiti"/>
-                        <TableColumn fx:id="nreview" prefWidth="85.0" text="N. Recensioni"/>
-                        <TableColumn fx:id="nclient" prefWidth="65.0" text="N. Clienti"/>
-                        <TableColumn fx:id="nstar" prefWidth="84.0" text="N. Stelle"/>
+                        <TableColumn fx:id="nospiti" prefWidth="75.0" text="N. Ospiti" />
+                        <TableColumn fx:id="nreview" prefWidth="85.0" text="N. Recensioni" />
+                        <TableColumn fx:id="nclient" prefWidth="65.0" text="N. Clienti" />
+                        <TableColumn fx:id="nstar" prefWidth="84.0" text="N. Stelle" />
                     </columns>
                 </TableView>
                 <TableView fx:id="lista" layoutX="12.0" layoutY="39.0" prefHeight="402.0" prefWidth="114.0">
                     <columns>
-                        <TableColumn fx:id="minicolumn1" prefWidth="113.0" text=" Nome Struttura"/>
+                        <TableColumn fx:id="minicolumn1" prefWidth="113.0" text=" Nome Struttura" />
                     </columns>
                 </TableView>
-                <Button fx:id="aggiorna" layoutX="305.0" layoutY="454.0" mnemonicParsing="false" text="Aggiorna" onAction="#aggiornaPremuto"/>
+                <Button fx:id="aggiorna" layoutX="305.0" layoutY="454.0" mnemonicParsing="false" onAction="#aggiornaPremuto" text="Aggiorna" />
+            <TextField fx:id="search" layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="114.0" />
             </children>
         </AnchorPane>
     </children>
     <columnConstraints>
-        <ColumnConstraints/>
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
+        <RowConstraints />
     </rowConstraints>
 </GridPane>

@@ -23,29 +23,29 @@ import java.util.ResourceBundle;
 
 public class StatisticheStruttureForm extends Application implements Initializable {
     @FXML
-    private TextField search;
+    private static TextField search;
     @FXML
-    private TableColumn minicolumn1;
+    private static TableColumn minicolumn1;
     @FXML
-    private TableView lista;
+    private static TableView<String> lista;
     @FXML
-    private Button aggiorna;
+    private static Button aggiorna;
     @FXML
-    private Button indietro;
+    private static Button indietro;
     @FXML
-    private TableView<StatisticheStrutture> statistiche;
+    private static TableView<OggettoTabella> statistiche;
     @FXML
-    private TableColumn<StatisticheStrutture, Integer> nospiti;
+    private static TableColumn<OggettoTabella, Integer> nospiti;
     @FXML
-    private TableColumn<StatisticheStrutture, Integer> nreview;
+    private static TableColumn<OggettoTabella, Integer> nreview;
     @FXML
-    private TableColumn<StatisticheStrutture, Integer> nclient;
+    private static TableColumn<OggettoTabella, Integer> nclient;
     @FXML
-    private TableColumn<StatisticheStrutture, Integer> nstar;
+    private static TableColumn<OggettoTabella, Integer> nstar;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/StatsStructuresForm.fxml"));
         primaryStage.setTitle("Nome_Software");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
@@ -73,10 +73,6 @@ public class StatisticheStruttureForm extends Application implements Initializab
             this.numReviews = numReviews;
         }
 
-        public OggettoTabella(String s) {
-            this.nomeStruttura = nomeStruttura;
-        }
-
         public int getNumVisitatori() {
             return numVisitatori;
         }
@@ -102,37 +98,32 @@ public class StatisticheStruttureForm extends Application implements Initializab
         }
     }
 
-    public void initializeBigTable(ObservableList<StatisticheStrutture> obl2) {
+    public static void popolaInterfaccia(List<String> nomiStrutture, List<Integer> numVisitatori, List<Integer> numClienti, List<Integer> numReviews){
+
+       // Popoli una lista di OggettoTabella con i valori delle liste prese in input
+        List<OggettoTabella> listaTabellanumVisitatori = new ArrayList<OggettoTabella>();
+        List<OggettoTabella> listaTabellaNomi = new ArrayList<>();
+        for(int i=0;i<numVisitatori.size();i++){
+            OggettoTabella og = new OggettoTabella(numVisitatori.get(i),numClienti.get(i),numReviews.get(i));
+            System.out.println(nomiStrutture.get(i) +" "+numVisitatori.get(i) +" "+ numClienti.get(i) +" "+ numReviews.get(i));
+            listaTabellanumVisitatori.add(og);
+        }
+        //ObservableList<OggettoTabella> oblistNumeri = FXCollections.observableArrayList(listaTabellanumVisitatori);
+       ObservableList<String> oblistNomi = FXCollections.observableList(nomiStrutture);
+        for(int i=0;i<nomiStrutture.size();i++){
+        oblistNomi.setAll(nomiStrutture.get(i));
+       System.out.println(oblistNomi.get(i));
+        }
+        //Inizializzazione tabella piccola
+      //  minicolumn1.setCellValueFactory((new PropertyValueFactory<>("Lista Strutture")));
+      //  lista.setItems(oblistNomi);
+      //  lista.getColumns().add(minicolumn1);
+       /* // Inizializzazione tabella grande
         nospiti.setCellValueFactory(new PropertyValueFactory<>("numVisitatori"));
         nclient.setCellValueFactory((new PropertyValueFactory<>("numClienti")));
         nreview.setCellValueFactory((new PropertyValueFactory<>("numReviews")));
-        statistiche.setItems(obl2);
-        statistiche.getColumns().addAll(nospiti, nclient, nreview);
-    }
-
-    public void initializeSmallTable(ObservableList<StatisticheStrutture> obl1) {
-        minicolumn1.setCellValueFactory((new PropertyValueFactory<>("Lista Strutture")));
-        lista.setItems(obl1);
-        lista.getColumns().add(minicolumn1);
-    }
-
-    public static void popolaInterfaccia(List<String> nomiStrutture, List<StatisticheStrutture> numeri){
-
-       // Popoli una lista di OggettoTabella con i valori delle liste prese in input
-        List<OggettoTabella> listaTabellaNumeri = new ArrayList<OggettoTabella>();
-        List<OggettoTabella> listaTabellaNomi = new ArrayList<>();
-        for(int i=0;i<numeri.size();i++){
-            OggettoTabella og = new OggettoTabella(Integer.parseInt(String.valueOf(numeri.get(i))),Integer.parseInt(String.valueOf(numeri.get(i))),Integer.parseInt(String.valueOf(numeri.get(i))));
-            listaTabellaNumeri.add(og);
-        }
-        for(int i=0;i<nomiStrutture.size();i++){
-            OggettoTabella ogg = new OggettoTabella(nomiStrutture.get(i));
-            listaTabellaNomi.add(ogg);
-        }
-
-        ObservableList<OggettoTabella> oblistNumeri = FXCollections.observableArrayList(listaTabellaNumeri);
-        ObservableList<OggettoTabella> oblistNomi = FXCollections.observableArrayList(listaTabellaNomi);
-
+        statistiche.setItems(oblistNumeri);
+        statistiche.getColumns().addAll(nospiti, nclient, nreview); */
     }
 
     @Override

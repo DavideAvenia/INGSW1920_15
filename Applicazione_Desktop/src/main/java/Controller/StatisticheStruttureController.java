@@ -35,18 +35,18 @@ public class StatisticheStruttureController {
 
 
         /*PARTE DUE: sistemi le informazioni come ti servono*/
-        List<StatisticheStrutture> numeri = new ArrayList<>();
+        List<Integer> numVisitatori = new ArrayList<>();
+        List<Integer> numClienti = new ArrayList<>();
+        List<Integer> numReviews = new ArrayList<>();
         List<String> nomi = new ArrayList<>();
-        for (String value : nomi){
-            nomi.add(value);
-        }
-        for(StatisticheStrutture value : numeri){
-            numeri.add(value);
-
-
-
+        for(int i = 0; i < L2.size(); i++){
+            StatisticheStrutture value = L2.get(i);
+            numVisitatori.add(value.getNumVisitatori());
+            numClienti.add(value.getNumClienti());
+            numReviews.add(value.getNumReviews());
+            nomi.add(value.getNome());
         /*PARTE TRE: Passi le informazioni sistemate ad un metodo dell'interfaccia per aggiornarla*/
-        StatisticheStruttureForm.popolaInterfaccia(nomi,numeri);
+        StatisticheStruttureForm.popolaInterfaccia(nomi,numVisitatori,numClienti,numReviews);
 
     }
 
