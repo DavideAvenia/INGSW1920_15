@@ -53,7 +53,7 @@ public class AWSCognito implements UtenteDao {
         AdminGetUserRequest adminGetUserRequest = new AdminGetUserRequest().withUserPoolId(USERPOOLID).withUsername(username);
 
         AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
-
+        
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
 
         String nome = listaAttributiUtente.get(5).getValue();
