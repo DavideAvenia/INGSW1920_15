@@ -6,7 +6,9 @@ import DAO.StatisticheStruttureDAO;
 import Entity.StatisticheStrutture;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -49,16 +51,18 @@ public class StatisticheStruttureController {
             numReviews.add(value.getNumReviews());
             nomi.add(value.getNome());
         }
-        ObservableList<StatisticheStruttureForm.OggettoTabella> oblistNumeri = FXCollections.observableArrayList();
+        ObservableList<StatisticheStruttureForm.OggettoTabella> oblist = FXCollections.observableArrayList();
         for (int i = 0; i < numVisitatori.size(); i++) {
-            StatisticheStruttureForm.OggettoTabella og = new StatisticheStruttureForm.OggettoTabella(numVisitatori.get(i), numClienti.get(i), numReviews.get(i));
-            oblistNumeri.add(og);
+            StatisticheStruttureForm.OggettoTabella og = new StatisticheStruttureForm.OggettoTabella(nomi.get(i), numVisitatori.get(i), numClienti.get(i), numReviews.get(i));
+            oblist.add(og);
         }
-        ObservableList<String> oblistNomi = FXCollections.observableArrayList(nomi);
-        TableView<String> tabella = statisticheStruttureForm.getTable();
         TableView<StatisticheStruttureForm.OggettoTabella> tableStats = statisticheStruttureForm.getStatisticheTable();
-        tableStats.setItems(oblistNumeri);
-        tabella.setItems(oblistNomi);
-
+        tableStats.setItems(oblist);
+        FilteredList<StatisticheStruttureForm.OggettoTabella> filtro = new FilteredList<>(oblist, p -> true);
+        tableStats.setItems(filtro);
+        TextField txt = statisticheStruttureForm.getTextField();
+        txt.setPromptText("Scrivi qui!");
+        txt.setOnKeyReleased(keyEvent ->
+                filtro.setPredicate(p -> p.getNomeStruttura().toLowerCase().contains(txt.getText().toLowerCase().trim())));
     }
 }

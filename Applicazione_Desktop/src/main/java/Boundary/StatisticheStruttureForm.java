@@ -8,12 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,9 +22,13 @@ import java.util.ResourceBundle;
 
 public class StatisticheStruttureForm extends Application implements Initializable {
     @FXML
-    private TextField search;
+    private Label label;
     @FXML
-    private TableColumn<String, String> minicolumn1;
+    private Button cerca;
+    @FXML
+    private TextField cercabox;
+    @FXML
+    private TableColumn<OggettoTabella, String> nome;
     @FXML
     private TableView<String> lista;
     @FXML
@@ -64,19 +66,19 @@ public class StatisticheStruttureForm extends Application implements Initializab
         }
     }
 
-    public TableView<String> getTable() {
-        return lista;
-    }
-
     public TableView<OggettoTabella> getStatisticheTable() {
         return statistiche;
+    }
+
+    public TextField getTextField() {
+        return cercabox;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
         try {
-            minicolumn1.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+            nome.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("nomeStruttura"));
             nospiti.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numVisitatori"));
             nclient.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numClienti"));
             nreview.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numReviews"));
@@ -86,23 +88,36 @@ public class StatisticheStruttureForm extends Application implements Initializab
         }
     }
 
+    public void indietroPremuto(ActionEvent actionEvent) {
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+
     public static class OggettoTabella {
-        /*Inserisci gli attributi che ti servono e crea il costrutture con getter e setter*/
         private SimpleIntegerProperty numVisitatori;
         private SimpleIntegerProperty numClienti;
         private SimpleIntegerProperty numReviews;
-        private String nomeStruttura;
+        private SimpleStringProperty nomeStruttura;
 
-        public OggettoTabella(int numVisitatori, int numClienti, int numReviews) {
+        public OggettoTabella(String nomeStruttura, int numVisitatori, int numClienti, int numReviews) {
             this.numVisitatori = new SimpleIntegerProperty(numVisitatori);
             this.numClienti = new SimpleIntegerProperty(numClienti);
             this.numReviews = new SimpleIntegerProperty(numReviews);
+            this.nomeStruttura = new SimpleStringProperty(nomeStruttura);
         }
 
-        public OggettoTabella(String s) {
-            this.nomeStruttura = nomeStruttura;
+        public String getNomeStruttura() {
+            return nomeStruttura.get();
         }
 
+        public void setNomeStruttura(String nomeStruttura) {
+            this.nomeStruttura.set(nomeStruttura);
+        }
+
+        public SimpleStringProperty nomeStrutturaProperty() {
+            return nomeStruttura;
+        }
 
         public int getNumVisitatori() {
             return numVisitatori.get();
