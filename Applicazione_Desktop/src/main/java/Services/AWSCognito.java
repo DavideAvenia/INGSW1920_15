@@ -13,15 +13,14 @@ import java.util.List;
 
 public class AWSCognito implements UtenteDao {
 
-    private AWSCognitoIdentityProvider identityProvider;
     private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private AWSCognitoIdentityProvider identityProvider;
 
-    public AWSCognito(){
+    public AWSCognito() {
         ClasspathPropertiesFileCredentialsProvider propertiesFileCredentialsProvider = new ClasspathPropertiesFileCredentialsProvider();
         identityProvider = AWSCognitoIdentityProviderClientBuilder.standard().withCredentials(propertiesFileCredentialsProvider).withRegion(Regions.EU_WEST_1).build();
 
     }
-
 
 
     @Override
@@ -31,12 +30,12 @@ public class AWSCognito implements UtenteDao {
         ListUsersRequest listUsersRequest = new ListUsersRequest().withUserPoolId(USERPOOLID);
         ListUsersResult listUsersResult = identityProvider.listUsers(listUsersRequest);
 
-        if(filtro.equals("Username")){
-            for(UserType user: listUsersResult.getUsers()){
+        if (filtro.equals("Username")) {
+            for (UserType user : listUsersResult.getUsers()) {
                 listaUsername.add(user.getUsername());
             }
-        }else{
-            switch (filtro){
+        } else {
+            switch (filtro) {
                 case "Cognome":
                     break;
                 case "Email":
@@ -60,17 +59,17 @@ public class AWSCognito implements UtenteDao {
         String cognome = listaAttributiUtente.get(8).getValue();
         String nickname = listaAttributiUtente.get(6).getValue();
         String cellulare = listaAttributiUtente.get(7).getValue();
-        String email  = listaAttributiUtente.get(10).getValue();
+        String email = listaAttributiUtente.get(10).getValue();
         boolean isMod = false;
         boolean useNick = false;
 
-        if(Integer.parseInt(listaAttributiUtente.get(4).getValue()) == 1){
+        if (Integer.parseInt(listaAttributiUtente.get(4).getValue()) == 1) {
             isMod = true;
         }
-        if(Integer.parseInt(listaAttributiUtente.get(9).getValue()) == 1){
+        if (Integer.parseInt(listaAttributiUtente.get(9).getValue()) == 1) {
             useNick = true;
         }
-        Utente utente = new Utente(username,nome,cognome,nickname,cellulare,email,useNick,isMod);
+        Utente utente = new Utente(username, nome, cognome, nickname, cellulare, email, useNick, isMod);
 
         return utente;
     }

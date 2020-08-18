@@ -13,8 +13,8 @@ public abstract class DAOfactory {
         return null;
     }
 
-    public static UtenteDao getUtenteDao(String service){
-        switch (service){
+    public static UtenteDao getUtenteDao(String service) {
+        switch (service) {
             case "AWS":
                 return new AWSCognito();
         }

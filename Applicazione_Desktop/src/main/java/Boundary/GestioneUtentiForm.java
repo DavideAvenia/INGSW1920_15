@@ -1,9 +1,6 @@
 package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
-import DAO.DAOfactory;
-import DAO.UtenteDao;
-import Entity.Utente;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,20 +27,33 @@ import java.util.ResourceBundle;
 public class GestioneUtentiForm extends Application implements Initializable {
 
 
-    @FXML private ListView<String> listaNomiUtenti;
-    @FXML private ComboBox<String> filtri;
-    @FXML private Button cancellaUtente;
-    @FXML private Button aggiornaUtente;
-    @FXML private Button indietro;
+    @FXML
+    private ListView<String> listaNomiUtenti;
+    @FXML
+    private ComboBox<String> filtri;
+    @FXML
+    private Button cancellaUtente;
+    @FXML
+    private Button aggiornaUtente;
+    @FXML
+    private Button indietro;
 
-    @FXML private TableView<UtenteModel> infoUtente;
-    @FXML private TableColumn<UtenteModel,String> colonnaNome;
-    @FXML private TableColumn<UtenteModel,String> colonnaCognome;
-    @FXML private TableColumn<UtenteModel,String> colonnaNickname;
-    @FXML private TableColumn<UtenteModel,String> colonnaEmail;
-    @FXML private TableColumn<UtenteModel,String> colonnaCellulare;
-    @FXML private TableColumn<UtenteModel,Boolean> colonnaMod;
-    @FXML private TableColumn<UtenteModel,Boolean> colonnaUseNick;
+    @FXML
+    private TableView<UtenteModel> infoUtente;
+    @FXML
+    private TableColumn<UtenteModel, String> colonnaNome;
+    @FXML
+    private TableColumn<UtenteModel, String> colonnaCognome;
+    @FXML
+    private TableColumn<UtenteModel, String> colonnaNickname;
+    @FXML
+    private TableColumn<UtenteModel, String> colonnaEmail;
+    @FXML
+    private TableColumn<UtenteModel, String> colonnaCellulare;
+    @FXML
+    private TableColumn<UtenteModel, Boolean> colonnaMod;
+    @FXML
+    private TableColumn<UtenteModel, Boolean> colonnaUseNick;
 
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
 
@@ -68,20 +78,20 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gestioneUtentiRegistratiController = GestioneUtentiRegistratiController.gestioneUtentiRegistratiController(null);
 
-        ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username","Cognome","Email","Cellulare");
+        ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username", "Cognome", "Email", "Cellulare");
         filtri.setItems(listaFiltri);
         filtri.getSelectionModel().selectFirst();
 
         ObservableList<String> listaUsername = FXCollections.observableArrayList(gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem()));
         listaNomiUtenti.setItems(listaUsername);
 
-        colonnaNome.setCellValueFactory(new PropertyValueFactory<UtenteModel,String>("nome"));
-        colonnaCognome.setCellValueFactory(new PropertyValueFactory<UtenteModel,String>("cognome"));
-        colonnaCellulare.setCellValueFactory(new PropertyValueFactory<UtenteModel,String>("cellulare"));
-        colonnaEmail.setCellValueFactory(new PropertyValueFactory<UtenteModel,String>("email"));
-        colonnaNickname.setCellValueFactory(new PropertyValueFactory<UtenteModel,String>("nickname"));
-        colonnaMod.setCellValueFactory(new PropertyValueFactory<UtenteModel,Boolean>("isMod"));
-        colonnaUseNick.setCellValueFactory(new PropertyValueFactory<UtenteModel,Boolean>("useNick"));
+        colonnaNome.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("nome"));
+        colonnaCognome.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("cognome"));
+        colonnaCellulare.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("cellulare"));
+        colonnaEmail.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("email"));
+        colonnaNickname.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("nickname"));
+        colonnaMod.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("isMod"));
+        colonnaUseNick.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("useNick"));
 
     }
 
@@ -94,19 +104,19 @@ public class GestioneUtentiForm extends Application implements Initializable {
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
 
         gestioneUtentiRegistratiController.mostraInfoUtente(username);
-        Node node = (Node)mouseEvent.getSource();
-        Stage stage = (Stage)node.getScene().getWindow();
+        Node node = (Node) mouseEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
 
-    public void aggiornaTabella(String nome,String cognome,String cellulare, String email, String nickname, boolean isMod, boolean useNick){
+    public void aggiornaTabella(String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
-        try{
+        try {
             Parent root = (Parent) fxmlLoader.load();
             GestioneUtentiForm gestioneUtentiForm = fxmlLoader.getController();
 
-            UtenteModel utenteModel = new UtenteModel(nome,cognome,cellulare,email,nickname,isMod,useNick);
+            UtenteModel utenteModel = new UtenteModel(nome, cognome, cellulare, email, nickname, isMod, useNick);
             ArrayList<UtenteModel> listaUtenteModel = new ArrayList<UtenteModel>();
             listaUtenteModel.add(utenteModel);
 
@@ -124,7 +134,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         }
     }
 
-    public class UtenteModel{
+    public class UtenteModel {
 
         private SimpleStringProperty nome;
         private SimpleStringProperty cognome;

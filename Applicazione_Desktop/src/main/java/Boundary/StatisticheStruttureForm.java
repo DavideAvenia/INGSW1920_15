@@ -1,48 +1,48 @@
 package Boundary;
 
 import Controller.StatisticheStruttureController;
-import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-public class StatisticheStruttureForm extends Application implements Initializable{
+public class StatisticheStruttureForm extends Application implements Initializable {
     @FXML
-    private static TextField search;
+    private TextField search;
     @FXML
-    private static TableColumn minicolumn1 = new TableColumn();
+    private TableColumn<String, String> minicolumn1;
     @FXML
-    private static TableView<String> lista = new TableView<>();
+    private TableView<String> lista;
     @FXML
-    private static Button aggiorna;
+    private Button aggiorna;
     @FXML
-    private static Button indietro;
+    private Button indietro;
     @FXML
-    private static TableView<OggettoTabella> statistiche = new TableView<>();
+    private TableView<OggettoTabella> statistiche;
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nospiti = new TableColumn<>();
+    private TableColumn<OggettoTabella, Integer> nospiti;
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nreview = new TableColumn<>();
+    private TableColumn<OggettoTabella, Integer> nreview;
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nclient = new TableColumn<>();
+    private TableColumn<OggettoTabella, Integer> nclient;
     @FXML
-    private static TableColumn<OggettoTabella, Integer> nstar = new TableColumn<>();
+    private TableColumn<OggettoTabella, Integer> nstar;
     @FXML
     private AnchorPane pane;
 
@@ -56,8 +56,30 @@ public class StatisticheStruttureForm extends Application implements Initializab
     }
 
     public void aggiornaPremuto(ActionEvent actionEvent) {
-        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
-        try{
+        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
+        try {
+            statisticheStruttureController.mostraStatistiche();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public TableView<String> getTable() {
+        return lista;
+    }
+
+    public TableView<OggettoTabella> getStatisticheTable() {
+        return statistiche;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resources) {
+        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
+        try {
+            minicolumn1.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+            nospiti.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numVisitatori"));
+            nclient.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numClienti"));
+            nreview.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numReviews"));
             statisticheStruttureController.mostraStatistiche();
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,15 +88,15 @@ public class StatisticheStruttureForm extends Application implements Initializab
 
     public static class OggettoTabella {
         /*Inserisci gli attributi che ti servono e crea il costrutture con getter e setter*/
-        private int numVisitatori;
-        private int numClienti;
-        private int numReviews;
+        private SimpleIntegerProperty numVisitatori;
+        private SimpleIntegerProperty numClienti;
+        private SimpleIntegerProperty numReviews;
         private String nomeStruttura;
 
         public OggettoTabella(int numVisitatori, int numClienti, int numReviews) {
-            this.numVisitatori = numVisitatori;
-            this.numClienti = numClienti;
-            this.numReviews = numReviews;
+            this.numVisitatori = new SimpleIntegerProperty(numVisitatori);
+            this.numClienti = new SimpleIntegerProperty(numClienti);
+            this.numReviews = new SimpleIntegerProperty(numReviews);
         }
 
         public OggettoTabella(String s) {
@@ -83,58 +105,27 @@ public class StatisticheStruttureForm extends Application implements Initializab
 
 
         public int getNumVisitatori() {
-            return numVisitatori;
+            return numVisitatori.get();
         }
 
         public void setNumVisitatori(int numVisitatori) {
-            this.numVisitatori = numVisitatori;
+            this.numVisitatori = new SimpleIntegerProperty(numVisitatori);
         }
 
         public int getNumClienti() {
-            return numClienti;
+            return numClienti.get();
         }
 
         public void setNumClienti(int numClienti) {
-            this.numClienti = numClienti;
+            this.numClienti = new SimpleIntegerProperty(numClienti);
         }
 
         public int getNumReviews() {
-            return numReviews;
+            return numReviews.get();
         }
 
         public void setNumReviews(int numReviews) {
-            this.numReviews = numReviews;
-        }
-    }
-
-    public static void popolaInterfaccia(List<String> nomiStrutture, List<Integer> numVisitatori, List<Integer> numClienti, List<Integer> numReviews){
-
-       // Popoli una lista di OggettoTabella con i valori delle liste prese in input
-        List<OggettoTabella> listaTabellanumVisitatori = new ArrayList<OggettoTabella>();
-        List<OggettoTabella> listaTabellaNomi = new ArrayList<>();
-        ObservableList<String> oblistNomi = FXCollections.observableArrayList();
-        ObservableList<OggettoTabella> oblistNumeri = FXCollections.observableArrayList();
-        for(int i=0;i<numVisitatori.size();i++){
-            OggettoTabella og = new OggettoTabella(numVisitatori.get(i),numClienti.get(i),numReviews.get(i));
-           System.out.println(nomiStrutture.get(i) +" "+numVisitatori.get(i) +" "+ numClienti.get(i) +" "+ numReviews.get(i));
-            listaTabellanumVisitatori.add(og);
-            oblistNomi.add(nomiStrutture.get(i));
-            oblistNumeri.add(og);
-            System.out.println(oblistNomi.get(i));
-            System.out.println(oblistNumeri.get(i));
-        }
-        //Inizializzazione tabella piccola
-        lista.setItems(oblistNomi);
-        // Inizializzazione tabella grande
-        statistiche.setItems(oblistNumeri);
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle resources) {
-        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
-        try{
-            statisticheStruttureController.mostraStatistiche();
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.numReviews = new SimpleIntegerProperty(numReviews);
         }
     }
 }
