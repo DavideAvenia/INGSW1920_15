@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.GestioneUtentiForm">
+
+<AnchorPane prefHeight="488.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.GestioneUtentiForm">
     <children>
-        <ListView fx:id="listaNomiUtenti" layoutX="14.0" layoutY="57.0" prefHeight="326.0" prefWidth="163.0"/>
-        <ComboBox fx:id="filtri" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="163.0"/>
-        <Button fx:id="cancellaUtente" layoutX="190.0" layoutY="356.0" mnemonicParsing="false" text="Cancella"
-                onAction="#bottoneCancellaCliccato"/>
-        <Button fx:id="aggiornaUtente" layoutX="436.0" layoutY="356.0" mnemonicParsing="false" text="Applica"
-                onAction="#bottoneApplicaCliccato"/>
-        <Button fx:id="indietro" layoutX="515.0" layoutY="356.0" mnemonicParsing="false" text="Indietro"
-                onAction="#bottoneIndietroPremuto"/>
-        <TableView fx:id="infoUtente" layoutX="190.0" layoutY="128.0" prefHeight="92.0" prefWidth="399.0">
+        <ListView fx:id="listaNomiUtenti" layoutX="14.0" layoutY="57.0" onMouseClicked="#nomeListaCliccato" prefHeight="418.0" prefWidth="163.0" />
+        <ComboBox fx:id="filtri" layoutX="14.0" layoutY="14.0" onAction="#filtroCambiato" prefHeight="30.0" prefWidth="163.0" />
+        <Button fx:id="cancellaUtente" layoutX="190.0" layoutY="447.0" mnemonicParsing="false" onAction="#bottoneCancellaCliccato" text="Cancella" />
+        <Button fx:id="aggiornaUtente" layoutX="668.0" layoutY="447.0" mnemonicParsing="false" onAction="#bottoneApplicaCliccato" text="Applica" />
+        <Button fx:id="indietro" layoutX="741.0" layoutY="447.0" mnemonicParsing="false" onAction="#bottoneIndietroPremuto" text="Indietro" />
+        <TableView fx:id="infoUtente" layoutX="190.0" layoutY="128.0" prefHeight="94.0" prefWidth="615.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1"/>
-                <TableColumn prefWidth="75.0" text="C2"/>
+            <TableColumn fx:id="colonnaNome" prefWidth="75.0" text="Nome" />
+                <TableColumn fx:id="colonnaCognome" prefWidth="75.0" text="Cognome" />
+                <TableColumn fx:id="colonnaNickname" prefWidth="84.0" text="Nickname" />
+            <TableColumn fx:id="colonnaEmail" prefWidth="169.0" text="Email" />
+            <TableColumn fx:id="colonnaCellulare" prefWidth="102.0" text="Cellulare" />
+            <TableColumn fx:id="colonnaMod" prefWidth="55.0" text="Mod" />
+            <TableColumn fx:id="colonnaUseNick" prefWidth="54.0" text="useNick" />
             </columns>
         </TableView>
     </children>

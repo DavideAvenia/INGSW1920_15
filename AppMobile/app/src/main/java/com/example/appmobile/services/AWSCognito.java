@@ -132,8 +132,10 @@ public class AWSCognito implements UtenteDao {
         userAttributes.addAttribute("name",nome);
         userAttributes.addAttribute("family_name",cognome);
         userAttributes.addAttribute("phone_number",cellulare);
+        userAttributes.addAttribute("nickname","no_nickname");
         userAttributes.addAttribute("custom:numeroLogin","0");
         userAttributes.addAttribute("custom:isMod","0");
+        userAttributes.addAttribute("custom:useNick","0");
 
         GenericHandler confirmationCallback = new GenericHandler() {
             @Override
@@ -160,6 +162,8 @@ public class AWSCognito implements UtenteDao {
                 String errore = "";
                 if(exception instanceof UsernameExistsException){
                     errore = "Esiste già un utente con questo nome!";
+                }else{
+                    errore = exception.toString();
                 }
                 showToast(context,"Registrazione fallita!: "+errore);
                 System.out.println(exception);

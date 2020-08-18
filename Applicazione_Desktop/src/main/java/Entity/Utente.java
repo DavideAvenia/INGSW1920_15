@@ -1,4 +1,4 @@
-package com.example.appmobile.entity;
+package Entity;
 
 public class Utente {
 
@@ -32,6 +32,8 @@ public class Utente {
         this.nickname = nickname;
         this.cellulare = cellulare;
         this.email = email;
+        this.useNick = useNick;
+        this.isMod = isMod;
     }
 
     public String getUserId() {
