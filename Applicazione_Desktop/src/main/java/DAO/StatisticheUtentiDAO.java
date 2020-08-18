@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface StatisticheUtentiDAO {
     List<StatisticheUtenti> getStats();
+
     void aggiorna();
 }

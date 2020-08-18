@@ -11,15 +11,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GestioneUtentiRegistratiController {
 
     private static GestioneUtentiRegistratiController gestioneUtentiRegistratiController = null;
+    private static GestioneUtentiForm gestioneUtentiForm;
     /*Forms*/
     private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
-    private static GestioneUtentiForm gestioneUtentiForm;
     private UtenteDao utenteDao;
     private DAOfactory daOfactory;
 
@@ -42,7 +41,7 @@ public class GestioneUtentiRegistratiController {
 
     }
 
-    public List<String> aggiornaLista(String filtro){
+    public List<String> aggiornaLista(String filtro) {
         String service = "";
 
         File file = new File("config.txt");
@@ -58,13 +57,13 @@ public class GestioneUtentiRegistratiController {
         return utenteDao.getAllUtenti(filtro);
     }
 
-    public void mostraInfoUtente(String username){
+    public void mostraInfoUtente(String username) {
         Utente utente = utenteDao.getUtenteByUserID(username);
 
         //System.out.println(utente.getNome()+utente.getCognome()+utente.getCellulare()+utente.getEmail()+utente.getNickname()+utente.isMod()+utente.isUseNick());
-        if(gestioneUtentiForm != null){
-            gestioneUtentiForm.aggiornaTabella(utente.getNome(),utente.getCognome(),utente.getCellulare(),utente.getEmail(),utente.getNickname(),utente.isMod(),utente.isUseNick());
-        }else{
+        if (gestioneUtentiForm != null) {
+            gestioneUtentiForm.aggiornaTabella(utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
+        } else {
             System.out.println("é null!");
         }
     }

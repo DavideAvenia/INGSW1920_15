@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.PaginaPrincipaleAdminForm">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.PaginaPrincipaleAdminForm">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneGestioneAccountPremuto" text="Gestione utenti registrati" />
-        <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Modera recensioni" />
-        <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneStrutturePremuto" text="Strutture" />
-      <TableView fx:id="statsutenti" layoutX="14.0" layoutY="58.0" prefHeight="328.0" prefWidth="474.0">
-        <columns>
-          <TableColumn fx:id="nutenti" prefWidth="88.0" text="N.Utenti" />
-          <TableColumn fx:id="pernreviews" prefWidth="84.0" text="\%N.Reviews" />
-            <TableColumn fx:id="avgscore" prefWidth="83.0" text="Score Medio" />
-            <TableColumn fx:id="logincount" prefWidth="87.0" text="Login Count" />
-            <TableColumn fx:id="nreview" prefWidth="131.0" text="N. Recensioni" />
-        </columns>
-      </TableView>
-      <Button fx:id="ricarica" layoutX="524.0" layoutY="325.0" mnemonicParsing="false" text="Ricarica" />
-      <Button fx:id="logout" layoutX="524.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Logout" />
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneGestioneAccountPremuto"
+                text="Gestione utenti registrati"/>
+        <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Modera recensioni"/>
+        <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneStrutturePremuto"
+                text="Strutture"/>
+        <TableView fx:id="statsutenti" layoutX="14.0" layoutY="58.0" prefHeight="328.0" prefWidth="474.0">
+            <columns>
+                <TableColumn fx:id="nutenti" prefWidth="88.0" text="N.Utenti"/>
+                <TableColumn fx:id="pernreviews" prefWidth="84.0" text="\%N.Reviews"/>
+                <TableColumn fx:id="avgscore" prefWidth="83.0" text="Score Medio"/>
+                <TableColumn fx:id="logincount" prefWidth="87.0" text="Login Count"/>
+                <TableColumn fx:id="nreview" prefWidth="131.0" text="N. Recensioni"/>
+            </columns>
+        </TableView>
+        <Button fx:id="ricarica" layoutX="524.0" layoutY="325.0" mnemonicParsing="false" text="Ricarica"/>
+        <Button fx:id="logout" layoutX="524.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0"
+                prefWidth="57.0" text="Logout"/>
     </children>
 </AnchorPane>
