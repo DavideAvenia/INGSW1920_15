@@ -7,6 +7,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
+import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,14 @@ public class AWSCognito implements UtenteDao {
         
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
 
+        String tokens[] = username.split("_");
+
+        if(tokens[0].equals("admin")){
+            String cellulare = listaAttributiUtente.get(3).getValue();
+            String email = listaAttributiUtente.get(4).getValue();
+            return new Utente(username,cellulare,email);
+        }
+
         String nome = listaAttributiUtente.get(5).getValue();
         String cognome = listaAttributiUtente.get(8).getValue();
         String nickname = listaAttributiUtente.get(6).getValue();
@@ -81,6 +90,10 @@ public class AWSCognito implements UtenteDao {
 
     @Override
     public boolean cancellaUtente(String utente) {
-        return false;
+
+        AdminDeleteUserRequest adminDeleteUserRequest = new AdminDeleteUserRequest().withUserPoolId(USERPOOLID).withUsername(utente);
+
+        identityProvider.adminDeleteUser(adminDeleteUserRequest);
+        return true;
     }
 }

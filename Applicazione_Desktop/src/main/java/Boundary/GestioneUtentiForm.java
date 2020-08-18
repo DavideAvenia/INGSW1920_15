@@ -66,9 +66,17 @@ public class GestioneUtentiForm extends Application implements Initializable {
     }
 
     public void bottoneCancellaCliccato(ActionEvent actionEvent) {
+        String userId = listaNomiUtenti.getSelectionModel().getSelectedItem();
+
+        gestioneUtentiRegistratiController.cancellaUtente(userId);
+
+        gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem());
     }
 
     public void bottoneIndietroPremuto(ActionEvent actionEvent) {
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
     }
 
     public void bottoneApplicaCliccato(ActionEvent actionEvent) {
@@ -109,7 +117,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         stage.close();
     }
 
-    public void aggiornaTabella(String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
+    public void aggiornaTabella(String userId,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
         try {
@@ -123,6 +131,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
             ObservableList<UtenteModel> observableList = FXCollections.observableArrayList(listaUtenteModel);
 
             gestioneUtentiForm.infoUtente.setItems(observableList);
+            gestioneUtentiForm.listaNomiUtenti.getSelectionModel().select(userId);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

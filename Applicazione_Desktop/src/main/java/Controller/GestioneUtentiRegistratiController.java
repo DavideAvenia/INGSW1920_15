@@ -29,7 +29,8 @@ public class GestioneUtentiRegistratiController {
 
     public static GestioneUtentiRegistratiController gestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
         if (gestioneUtentiRegistratiController == null) {
-            return new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
+            gestioneUtentiRegistratiController = new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
+            return gestioneUtentiRegistratiController;
         }
         return gestioneUtentiRegistratiController;
     }
@@ -60,11 +61,14 @@ public class GestioneUtentiRegistratiController {
     public void mostraInfoUtente(String username) {
         Utente utente = utenteDao.getUtenteByUserID(username);
 
-        //System.out.println(utente.getNome()+utente.getCognome()+utente.getCellulare()+utente.getEmail()+utente.getNickname()+utente.isMod()+utente.isUseNick());
         if (gestioneUtentiForm != null) {
-            gestioneUtentiForm.aggiornaTabella(utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
+            gestioneUtentiForm.aggiornaTabella(username,utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
         } else {
             System.out.println("é null!");
         }
+    }
+
+    public boolean cancellaUtente(String username){
+        return utenteDao.cancellaUtente(username);
     }
 }

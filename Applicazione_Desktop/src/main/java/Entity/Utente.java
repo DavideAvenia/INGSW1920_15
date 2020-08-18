@@ -13,16 +13,15 @@ public class Utente {
     private boolean isMod;
     private int numeroLogin;
 
-    public Utente(String userId, String nome, String cognome, String nickname, String cellulare, String email, String password, boolean isMod, int numeroLogin) {
+    public Utente(String userId, String cellulare, String email) { //forse da modificare se Davide crea un sottoclasse di utente per l'admin
         this.userId = userId;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.nickname = nickname;
         this.cellulare = cellulare;
         this.email = email;
-        this.password = password;
-        this.isMod = isMod;
-        this.numeroLogin = numeroLogin;
+        this.nome = "";
+        this.cognome = "";
+        this.nickname = "";
+        this.isMod = true;
+        this.useNick = false;
     }
 
     public Utente(String userId, String nome, String cognome, String nickname, String cellulare, String email, boolean useNick, boolean isMod) {
