@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
+import Entity.Utente;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,7 +15,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -68,9 +71,26 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void bottoneCancellaCliccato(ActionEvent actionEvent) {
         String userId = listaNomiUtenti.getSelectionModel().getSelectedItem();
 
-        gestioneUtentiRegistratiController.cancellaUtente(userId);
+        boolean result = gestioneUtentiRegistratiController.cancellaUtente(userId);
 
-        gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem());
+        if(result == true){
+            /*Chiusura vecchia UI*/
+            Node node = (Node) actionEvent.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.close(); //GC will free memory
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
+            try {
+                Parent root = (Parent) fxmlLoader.load();
+                Stage newStage = new Stage();
+                newStage.initModality(Modality.APPLICATION_MODAL);
+                newStage.setTitle("Gestione Utenti");
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void bottoneIndietroPremuto(ActionEvent actionEvent) {
@@ -80,7 +100,16 @@ public class GestioneUtentiForm extends Application implements Initializable {
     }
 
     public void bottoneApplicaCliccato(ActionEvent actionEvent) {
+
+        String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
+        UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();
+        System.out.println(utente.getNome()+" "+utente.getEmail()+" "+utente.getCellulare()+" "+utente.getNickname()+" "+utente.isIsMod());
+
+        gestioneUtentiRegistratiController.aggiornaUtente(username,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),utente.isUseNick(),utente.isIsMod());
     }
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -93,6 +122,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
         ObservableList<String> listaUsername = FXCollections.observableArrayList(gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem()));
         listaNomiUtenti.setItems(listaUsername);
 
+        /*Inizializzazione colonne tableView*/
+        infoUtente.setEditable(true);
         colonnaNome.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("nome"));
         colonnaCognome.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("cognome"));
         colonnaCellulare.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("cellulare"));
@@ -100,6 +131,21 @@ public class GestioneUtentiForm extends Application implements Initializable {
         colonnaNickname.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("nickname"));
         colonnaMod.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("isMod"));
         colonnaUseNick.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("useNick"));
+
+        colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
+        colonnaNome.setEditable(true);
+        colonnaCognome.setEditable(true);
+        colonnaCognome.setCellFactory(TextFieldTableCell.forTableColumn());
+        colonnaCellulare.setEditable(true);
+        colonnaCellulare.setCellFactory(TextFieldTableCell.forTableColumn());
+        colonnaEmail.setEditable(true);
+        colonnaEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+        colonnaNickname.setEditable(true);
+        colonnaNickname.setCellFactory(TextFieldTableCell.forTableColumn());
+        colonnaMod.setCellFactory(utenteModelBooleanTableColumn -> new CheckBoxTableCell<>());
+        colonnaMod.setEditable(true);
+        colonnaUseNick.setEditable(true);
+        colonnaUseNick.setCellFactory(utenteModelBooleanTableColumn -> new CheckBoxTableCell<>());
 
     }
 
@@ -110,15 +156,17 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
     public void nomeListaCliccato(MouseEvent mouseEvent) {
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
-
         gestioneUtentiRegistratiController.mostraInfoUtente(username);
+
+        /*Chiusura UI*/
         Node node = (Node) mouseEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
 
-    public void aggiornaTabella(String userId,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
+    public void aggiornaTabella(String username,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
 
+        /*Aggiornamento UI*/
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
         try {
             Parent root = (Parent) fxmlLoader.load();
@@ -131,7 +179,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
             ObservableList<UtenteModel> observableList = FXCollections.observableArrayList(listaUtenteModel);
 
             gestioneUtentiForm.infoUtente.setItems(observableList);
-            gestioneUtentiForm.listaNomiUtenti.getSelectionModel().select(userId);
+            gestioneUtentiForm.listaNomiUtenti.getSelectionModel().select(username);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -141,6 +189,34 @@ public class GestioneUtentiForm extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void nomeEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setNome(cellEdited.getNewValue());
+    }
+
+    public void cognomeEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setCognome(cellEdited.getNewValue());
+    }
+
+    public void nicknameEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setNickname(cellEdited.getNewValue());
+    }
+
+    public void emailEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setEmail(cellEdited.getNewValue());
+    }
+
+    public void cellulareEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setCellulare(cellEdited.getNewValue());
+    }
+
+    public void isModEdited(TableColumn.CellEditEvent<UtenteModel, Boolean> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setIsMod(cellEdited.getNewValue());
+    }
+
+    public void useNickEdited(TableColumn.CellEditEvent<UtenteModel, Boolean> cellEdited) {
+        cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setUseNick(cellEdited.getNewValue());
     }
 
     public class UtenteModel {

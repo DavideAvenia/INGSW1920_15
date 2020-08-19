@@ -17,13 +17,13 @@
                 onAction="#bottoneIndietroPremuto" text="Indietro"/>
         <TableView fx:id="infoUtente" layoutX="190.0" layoutY="128.0" prefHeight="94.0" prefWidth="615.0">
             <columns>
-                <TableColumn fx:id="colonnaNome" prefWidth="75.0" text="Nome"/>
-                <TableColumn fx:id="colonnaCognome" prefWidth="75.0" text="Cognome"/>
-                <TableColumn fx:id="colonnaNickname" prefWidth="84.0" text="Nickname"/>
-                <TableColumn fx:id="colonnaEmail" prefWidth="169.0" text="Email"/>
-                <TableColumn fx:id="colonnaCellulare" prefWidth="102.0" text="Cellulare"/>
-                <TableColumn fx:id="colonnaMod" prefWidth="55.0" text="Mod"/>
-                <TableColumn fx:id="colonnaUseNick" prefWidth="54.0" text="useNick"/>
+                <TableColumn fx:id="colonnaNome" prefWidth="75.0" text="Nome" onEditCommit="#nomeEdited"/>
+                <TableColumn fx:id="colonnaCognome" prefWidth="75.0" text="Cognome" onEditCommit="#cognomeEdited"/>
+                <TableColumn fx:id="colonnaNickname" prefWidth="84.0" text="Nickname" onEditCommit="#nicknameEdited"/>
+                <TableColumn fx:id="colonnaEmail" prefWidth="169.0" text="Email" onEditCommit="#emailEdited"/>
+                <TableColumn fx:id="colonnaCellulare" prefWidth="102.0" text="Cellulare" onEditCommit="#cellulareEdited"/>
+                <TableColumn fx:id="colonnaMod" prefWidth="55.0" text="Mod" onEditCommit="#isModEdited"/>
+                <TableColumn fx:id="colonnaUseNick" prefWidth="54.0" text="useNick" onEditCommit="#useNickEdited"/>
             </columns>
         </TableView>
     </children>

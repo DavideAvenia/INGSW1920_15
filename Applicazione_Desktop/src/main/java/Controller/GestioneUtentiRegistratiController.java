@@ -1,6 +1,7 @@
 package Controller;
 
 import Boundary.GestioneUtentiForm;
+import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
@@ -71,4 +72,28 @@ public class GestioneUtentiRegistratiController {
     public boolean cancellaUtente(String username){
         return utenteDao.cancellaUtente(username);
     }
+
+    public void aggiornaUtente(String userId, String nome, String cognome, String nickname, String cellulare, String email, boolean useNick, boolean isMod){
+
+        if (checkCellulare(cellulare) && checkEmail(email)) {
+
+
+        }else{
+            Messaggio messaggio = new Messaggio("Errore","L'email e/o il cellulare iseriti non sono validi!");
+            try {
+                messaggio.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean checkEmail(String email){
+        return false;
+    }
+
+    private boolean checkCellulare(String cellulare){
+        return false;
+    }
+
 }
