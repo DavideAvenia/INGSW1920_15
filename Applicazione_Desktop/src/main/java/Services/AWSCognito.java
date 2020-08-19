@@ -7,20 +7,23 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
-import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AWSCognito implements UtenteDao {
 
     private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
         ClasspathPropertiesFileCredentialsProvider propertiesFileCredentialsProvider = new ClasspathPropertiesFileCredentialsProvider();
         identityProvider = AWSCognitoIdentityProviderClientBuilder.standard().withCredentials(propertiesFileCredentialsProvider).withRegion(Regions.EU_WEST_1).build();
-
     }
 
 
@@ -84,8 +87,54 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public boolean aggiornaUtente(String utente) {
-        return false;
+    public boolean aggiornaUtente(Utente utente) {
+
+        Collection<AttributeType> attributeTypes = new ArrayList<AttributeType>();
+        AttributeType nome = new AttributeType();
+        AttributeType cognome = new AttributeType();
+        AttributeType nickname = new AttributeType();
+        AttributeType email = new AttributeType();
+        AttributeType cellulare = new AttributeType();
+        AttributeType isMod = new AttributeType();
+        AttributeType useNick = new AttributeType();
+
+        nome.setName("name");
+        nome.setValue(utente.getNome());
+        cognome.setName("family_name");
+        cognome.setValue(utente.getCognome());
+        nickname.setName("nickname");
+        nickname.setValue(utente.getNickname());
+        email.setName("email");
+        email.setValue(utente.getEmail());
+        cellulare.setName("phone_number");
+        cellulare.setValue(utente.getCellulare());
+        isMod.setName("custom:isMod");
+        if(utente.isMod()){
+            isMod.setValue("1");
+        }else{
+            isMod.setValue("0");
+        }
+        useNick.setName("custom:useNick");
+        if(utente.isUseNick()){
+            useNick.setValue("1");
+        }else{
+            useNick.setValue("0");
+        }
+
+        Collection<AttributeType> attributiUtente = new ArrayList<AttributeType>();
+        attributiUtente.add(nome);
+        attributiUtente.add(cognome);
+        attributiUtente.add(nickname);
+        attributiUtente.add(email);
+        attributiUtente.add(cellulare);
+        attributiUtente.add(isMod);
+        attributiUtente.add(useNick);
+
+        AdminUpdateUserAttributesRequest request = new AdminUpdateUserAttributesRequest().withUsername(utente.getUserId()).withUserPoolId(USERPOOLID).withUserAttributes(attributiUtente);
+
+        identityProvider.adminUpdateUserAttributes(request);
+
+        return true;
     }
 
     @Override
@@ -95,5 +144,24 @@ public class AWSCognito implements UtenteDao {
 
         identityProvider.adminDeleteUser(adminDeleteUserRequest);
         return true;
+    }
+
+    @Override
+    public void effettuaLogin(String email, String password) {
+        AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
+        final Map authMap = new HashMap<String,String>();
+        authMap.put("username", email);
+        authMap.put("password", password);
+
+        request.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
+                .withUserPoolId(USERPOOLID)
+                .withClientId(CLIENTID)
+                .withAuthParameters(authMap);
+
+        AdminInitiateAuthResult authenticationResult = identityProvider.adminInitiateAuth(request);
+
+        AuthenticationResultType authenticationResultType = authenticationResult.getAuthenticationResult();
+
+        //da finire, cosa serve il type?
     }
 }

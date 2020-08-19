@@ -6,13 +6,17 @@ import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
 import Entity.Utente;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GestioneUtentiRegistratiController {
 
@@ -64,8 +68,6 @@ public class GestioneUtentiRegistratiController {
 
         if (gestioneUtentiForm != null) {
             gestioneUtentiForm.aggiornaTabella(username,utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
-        } else {
-            System.out.println("é null!");
         }
     }
 
@@ -77,6 +79,8 @@ public class GestioneUtentiRegistratiController {
 
         if (checkCellulare(cellulare) && checkEmail(email)) {
 
+            Utente utente = new Utente(userId,nome,cognome,nickname,cellulare,email,useNick,isMod);
+            utenteDao.aggiornaUtente(utente);
 
         }else{
             Messaggio messaggio = new Messaggio("Errore","L'email e/o il cellulare iseriti non sono validi!");
@@ -89,11 +93,24 @@ public class GestioneUtentiRegistratiController {
     }
 
     private boolean checkEmail(String email){
-        return false;
+
+        if(email==null || email.equals("")){
+            return false;
+        }
+        //EmailValidator provides email address validation according to RFC 822 standards.
+        //Documentazione Apache
+        EmailValidator emailValidator = EmailValidator.getInstance();
+
+        return emailValidator.isValid(email);
     }
 
     private boolean checkCellulare(String cellulare){
-        return false;
+
+        //Validazione cellulare secondo standar internazionale E.123 dell'International Telecommunications Union
+        Pattern pattern = Pattern.compile("^\\+(?:[0-9] ?){6,14}[0-9]$");
+        Matcher matcher = pattern.matcher(cellulare);
+
+        return matcher.matches();
     }
 
 }

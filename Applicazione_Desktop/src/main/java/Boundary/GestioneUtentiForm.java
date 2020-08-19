@@ -1,10 +1,11 @@
 package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
-import Entity.Utente;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,9 +56,9 @@ public class GestioneUtentiForm extends Application implements Initializable {
     @FXML
     private TableColumn<UtenteModel, String> colonnaCellulare;
     @FXML
-    private TableColumn<UtenteModel, Boolean> colonnaMod;
+    private TableColumn<UtenteModel, String> colonnaMod;
     @FXML
-    private TableColumn<UtenteModel, Boolean> colonnaUseNick;
+    private TableColumn<UtenteModel, String> colonnaUseNick;
 
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
 
@@ -103,9 +105,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
         UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();
-        System.out.println(utente.getNome()+" "+utente.getEmail()+" "+utente.getCellulare()+" "+utente.getNickname()+" "+utente.isIsMod());
 
-        gestioneUtentiRegistratiController.aggiornaUtente(username,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),utente.isUseNick(),utente.isIsMod());
+        gestioneUtentiRegistratiController.aggiornaUtente(username,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),Boolean.parseBoolean(utente.getUseNick()),Boolean.parseBoolean(utente.getIsMod()));
     }
 
 
@@ -129,8 +130,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
         colonnaCellulare.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("cellulare"));
         colonnaEmail.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("email"));
         colonnaNickname.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("nickname"));
-        colonnaMod.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("isMod"));
-        colonnaUseNick.setCellValueFactory(new PropertyValueFactory<UtenteModel, Boolean>("useNick"));
+        colonnaMod.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("isMod"));
+        colonnaUseNick.setCellValueFactory(new PropertyValueFactory<UtenteModel, String>("useNick"));
 
         colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
         colonnaNome.setEditable(true);
@@ -142,10 +143,10 @@ public class GestioneUtentiForm extends Application implements Initializable {
         colonnaEmail.setCellFactory(TextFieldTableCell.forTableColumn());
         colonnaNickname.setEditable(true);
         colonnaNickname.setCellFactory(TextFieldTableCell.forTableColumn());
-        colonnaMod.setCellFactory(utenteModelBooleanTableColumn -> new CheckBoxTableCell<>());
+        colonnaMod.setCellFactory(TextFieldTableCell.forTableColumn());
         colonnaMod.setEditable(true);
         colonnaUseNick.setEditable(true);
-        colonnaUseNick.setCellFactory(utenteModelBooleanTableColumn -> new CheckBoxTableCell<>());
+        colonnaUseNick.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
 
@@ -172,7 +173,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             GestioneUtentiForm gestioneUtentiForm = fxmlLoader.getController();
 
-            UtenteModel utenteModel = new UtenteModel(nome, cognome, cellulare, email, nickname, isMod, useNick);
+            UtenteModel utenteModel = new UtenteModel(nome, cognome, cellulare, email, nickname, String.valueOf(isMod), String.valueOf(useNick));
             ArrayList<UtenteModel> listaUtenteModel = new ArrayList<UtenteModel>();
             listaUtenteModel.add(utenteModel);
 
@@ -211,13 +212,16 @@ public class GestioneUtentiForm extends Application implements Initializable {
         cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setCellulare(cellEdited.getNewValue());
     }
 
-    public void isModEdited(TableColumn.CellEditEvent<UtenteModel, Boolean> cellEdited) {
+    public void isModEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
         cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setIsMod(cellEdited.getNewValue());
+
     }
 
-    public void useNickEdited(TableColumn.CellEditEvent<UtenteModel, Boolean> cellEdited) {
+    public void useNickEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
         cellEdited.getTableView().getItems().get(cellEdited.getTablePosition().getRow()).setUseNick(cellEdited.getNewValue());
+
     }
+
 
     public class UtenteModel {
 
@@ -226,17 +230,17 @@ public class GestioneUtentiForm extends Application implements Initializable {
         private SimpleStringProperty cellulare;
         private SimpleStringProperty email;
         private SimpleStringProperty nickname;
-        private SimpleBooleanProperty isMod;
-        private SimpleBooleanProperty useNick;
+        private SimpleStringProperty isMod;
+        private SimpleStringProperty useNick;
 
-        public UtenteModel(String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
+        public UtenteModel(String nome, String cognome, String cellulare, String email, String nickname, String isMod, String useNick) {
             this.nome = new SimpleStringProperty(nome);
             this.cognome = new SimpleStringProperty(cognome);
             this.cellulare = new SimpleStringProperty(cellulare);
             this.email = new SimpleStringProperty(email);
             this.nickname = new SimpleStringProperty(nickname);
-            this.isMod = new SimpleBooleanProperty(isMod);
-            this.useNick = new SimpleBooleanProperty(useNick);
+            this.isMod = new SimpleStringProperty(isMod);
+            this.useNick = new SimpleStringProperty(useNick);
         }
 
         public String getNome() {
@@ -279,20 +283,20 @@ public class GestioneUtentiForm extends Application implements Initializable {
             this.nickname = new SimpleStringProperty(nickname);
         }
 
-        public boolean isIsMod() {
+        public String getIsMod() {
             return isMod.get();
         }
 
-        public void setIsMod(boolean isMod) {
-            this.isMod = new SimpleBooleanProperty(isMod);
+        public void setIsMod(String isMod) {
+            this.isMod = new SimpleStringProperty(isMod);;
         }
 
-        public boolean isUseNick() {
+        public String getUseNick() {
             return useNick.get();
         }
 
-        public void setUseNick(boolean useNick) {
-            this.useNick = new SimpleBooleanProperty(useNick);
+        public void setUseNick(String useNick) {
+            this.useNick = new SimpleStringProperty(useNick);;
         }
     }
 }
