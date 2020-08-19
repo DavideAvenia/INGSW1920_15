@@ -21,9 +21,12 @@ import java.util.regex.Pattern;
 public class GestioneUtentiRegistratiController {
 
     private static GestioneUtentiRegistratiController gestioneUtentiRegistratiController = null;
-    private static GestioneUtentiForm gestioneUtentiForm;
+
     /*Forms*/
     private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
+    private static GestioneUtentiForm gestioneUtentiForm;
+    private Messaggio messaggio;
+
     private UtenteDao utenteDao;
     private DAOfactory daOfactory;
 
@@ -63,11 +66,11 @@ public class GestioneUtentiRegistratiController {
         return utenteDao.getAllUtenti(filtro);
     }
 
-    public void mostraInfoUtente(String username) {
+    public void mostraInfoUtente(String username,String filtro) {
         Utente utente = utenteDao.getUtenteByUserID(username);
 
         if (gestioneUtentiForm != null) {
-            gestioneUtentiForm.aggiornaTabella(username,utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
+            gestioneUtentiForm.aggiornaTabella(username,utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick(),filtro);
         }
     }
 

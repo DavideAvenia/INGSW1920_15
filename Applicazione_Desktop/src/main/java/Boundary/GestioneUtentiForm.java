@@ -61,6 +61,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
     private TableColumn<UtenteModel, String> colonnaUseNick;
 
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
+    private static String lastFiltro = "Username";
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -104,9 +105,11 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void bottoneApplicaCliccato(ActionEvent actionEvent) {
 
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
+        String tokens[] = username.split(" ");
+        String userId = tokens[0];
         UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();
 
-        gestioneUtentiRegistratiController.aggiornaUtente(username,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),Boolean.parseBoolean(utente.getUseNick()),Boolean.parseBoolean(utente.getIsMod()));
+        gestioneUtentiRegistratiController.aggiornaUtente(userId,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),Boolean.parseBoolean(utente.getUseNick()),Boolean.parseBoolean(utente.getIsMod()));
     }
 
 
@@ -118,7 +121,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
         ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username", "Cognome", "Email", "Cellulare");
         filtri.setItems(listaFiltri);
-        filtri.getSelectionModel().selectFirst();
+        filtri.getSelectionModel().select(lastFiltro);
 
         ObservableList<String> listaUsername = FXCollections.observableArrayList(gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem()));
         listaNomiUtenti.setItems(listaUsername);
@@ -157,7 +160,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
     public void nomeListaCliccato(MouseEvent mouseEvent) {
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
-        gestioneUtentiRegistratiController.mostraInfoUtente(username);
+        gestioneUtentiRegistratiController.mostraInfoUtente(username,filtri.getSelectionModel().getSelectedItem());
+
 
         /*Chiusura UI*/
         Node node = (Node) mouseEvent.getSource();
@@ -165,10 +169,11 @@ public class GestioneUtentiForm extends Application implements Initializable {
         stage.close();
     }
 
-    public void aggiornaTabella(String username,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick) {
+    public void aggiornaTabella(String username,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick,String filtro) {
 
         /*Aggiornamento UI*/
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
+        lastFiltro = filtro;
         try {
             Parent root = (Parent) fxmlLoader.load();
             GestioneUtentiForm gestioneUtentiForm = fxmlLoader.getController();
@@ -181,6 +186,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
             gestioneUtentiForm.infoUtente.setItems(observableList);
             gestioneUtentiForm.listaNomiUtenti.getSelectionModel().select(username);
+            gestioneUtentiForm.filtri.getSelectionModel().select(filtro);
+
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
