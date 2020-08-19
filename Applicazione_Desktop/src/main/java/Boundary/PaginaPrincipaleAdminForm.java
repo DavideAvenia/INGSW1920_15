@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
+import Controller.StatisticheStruttureController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,8 +48,7 @@ public class PaginaPrincipaleAdminForm extends Application {
     }
 
     public void bottoneStrutturePremuto(ActionEvent actionEvent) throws Exception {
-        /*Guido, devi creare il controller e chiamare queste due funzioni da un metodo del controller
-         * di statistiche strutture. Come sta nel metodo subito sopra a questo*/
+        StatisticheStruttureController controller = StatisticheStruttureController.getStatisticheStruttureController(null);
         StatisticheStruttureForm statisticheStruttureForm = new StatisticheStruttureForm();
         statisticheStruttureForm.start(new Stage());
     }

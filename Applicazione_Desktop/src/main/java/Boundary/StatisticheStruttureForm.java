@@ -59,6 +59,7 @@ public class StatisticheStruttureForm extends Application implements Initializab
 
     public void aggiornaPremuto(ActionEvent actionEvent) {
         StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
+        statisticheStruttureController.setStatisticheStruttureForm(this);
         try {
             statisticheStruttureController.mostraStatistiche();
         } catch (IOException e) {
