@@ -7,20 +7,22 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
-import org.w3c.dom.Attr;
+import com.sun.javafx.geom.transform.Identity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AWSCognito implements UtenteDao {
 
     private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
         ClasspathPropertiesFileCredentialsProvider propertiesFileCredentialsProvider = new ClasspathPropertiesFileCredentialsProvider();
         identityProvider = AWSCognitoIdentityProviderClientBuilder.standard().withCredentials(propertiesFileCredentialsProvider).withRegion(Regions.EU_WEST_1).build();
-
     }
 
 
@@ -95,5 +97,24 @@ public class AWSCognito implements UtenteDao {
 
         identityProvider.adminDeleteUser(adminDeleteUserRequest);
         return true;
+    }
+
+    @Override
+    public void effettuaLogin(String email, String password) {
+        AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
+        final Map authMap = new HashMap<String,String>();
+        authMap.put("username", email);
+        authMap.put("password", password);
+
+        request.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
+                .withUserPoolId(USERPOOLID)
+                .withClientId(CLIENTID)
+                .withAuthParameters(authMap);
+
+        AdminInitiateAuthResult authenticationResult = identityProvider.adminInitiateAuth(request);
+
+        AuthenticationResultType authenticationResultType = authenticationResult.getAuthenticationResult();
+
+        //da finire, cosa serve il type?
     }
 }
