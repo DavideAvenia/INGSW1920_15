@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AWSMySQLRDS implements StatisticheStruttureDAO {
-    @Override
-    public List<StatisticheStrutture> getStatisticheStruttureByFiltro(String filtro) {
-        return null;
-    }
 
     @Override
     public List<StatisticheStrutture> getAllStatisticheStrutture() {

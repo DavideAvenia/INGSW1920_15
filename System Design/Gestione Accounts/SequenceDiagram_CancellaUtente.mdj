@@ -528,7 +528,7 @@
 											"left": 113,
 											"top": 148,
 											"width": 14,
-											"height": 237
+											"height": 229
 										}
 									],
 									"font": "Arial;13;0",
@@ -1010,7 +1010,7 @@
 									"left": 32,
 									"top": 256,
 									"width": 601,
-									"height": 249,
+									"height": 188,
 									"nameLabel": {
 										"$ref": "AAAAAAFyBGEg88QhVXs="
 									},
@@ -1022,66 +1022,17 @@
 									}
 								},
 								{
-									"_type": "UMLInteractionUseView",
-									"_id": "AAAAAAFyBGLiGMRO5Fg=",
-									"_parent": {
-										"$ref": "AAAAAAFyBFnTkMM/v4I="
-									},
-									"model": {
-										"$ref": "AAAAAAFyBGLiF8RMcv8="
-									},
-									"subViews": [
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFyBGLiGMRP3vc=",
-											"_parent": {
-												"$ref": "AAAAAAFyBGLiGMRO5Fg="
-											},
-											"font": "Arial;13;0",
-											"left": 200.318359375,
-											"top": 346.5,
-											"width": 280.36328125,
-											"height": 13,
-											"text": "(Recupera utenti da Database): listaUserIdUtenti"
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAFyBGLiGMRQWFg=",
-											"_parent": {
-												"$ref": "AAAAAAFyBGLiGMRO5Fg="
-											},
-											"font": "Arial;13;0",
-											"left": 101,
-											"top": 333,
-											"width": 16.1708984375,
-											"height": 13,
-											"text": "ref"
-										}
-									],
-									"font": "Arial;13;0",
-									"left": 96,
-									"top": 328,
-									"width": 489,
-									"height": 50,
-									"nameLabel": {
-										"$ref": "AAAAAAFyBGLiGMRP3vc="
-									},
-									"frameTypeLabel": {
-										"$ref": "AAAAAAFyBGLiGMRQWFg="
-									}
-								},
-								{
 									"_type": "UMLNoteView",
 									"_id": "AAAAAAFyBGs2n8RhZNk=",
 									"_parent": {
 										"$ref": "AAAAAAFyBFnTkMM/v4I="
 									},
 									"font": "Arial;13;0",
-									"left": 152,
-									"top": 432,
-									"width": 369,
+									"left": 136,
+									"top": 312,
+									"width": 441,
 									"height": 41,
-									"text": "La lista non è stata cambiata, non c'è bisogno di aggiornarla"
+									"text": "L'UI si aggiorna tramite metodi di JavaFx, non ci sono metodi del sistema da invocare."
 								},
 								{
 									"_type": "UMLSeqMessageView",
@@ -1351,16 +1302,6 @@
 									"guard": "else"
 								}
 							]
-						},
-						{
-							"_type": "UMLInteractionUse",
-							"_id": "AAAAAAFyBGLiF8RMcv8=",
-							"_parent": {
-								"$ref": "AAAAAAFyBFnTkMM+R3Q="
-							},
-							"name": "Recupera utenti da Database",
-							"arguments": "Recupera utenti da Database",
-							"returnValue": "listaUserIdUtenti"
 						}
 					]
 				}
@@ -1372,7 +1313,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyBFnTkMM9YpE="
 					},
-					"name": "Role1"
+					"name": "Role1",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -1380,7 +1322,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyBFnTkMM9YpE="
 					},
-					"name": "Role2"
+					"name": "Role2",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -1388,7 +1331,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFyBFnTkMM9YpE="
 					},
-					"name": "Role3"
+					"name": "Role3",
+					"type": ""
 				}
 			]
 		}

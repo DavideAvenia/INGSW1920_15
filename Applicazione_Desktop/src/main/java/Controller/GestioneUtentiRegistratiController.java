@@ -1,6 +1,7 @@
 package Controller;
 
 import Boundary.GestioneUtentiForm;
+import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
@@ -29,7 +30,8 @@ public class GestioneUtentiRegistratiController {
 
     public static GestioneUtentiRegistratiController gestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
         if (gestioneUtentiRegistratiController == null) {
-            return new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
+            gestioneUtentiRegistratiController = new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
+            return gestioneUtentiRegistratiController;
         }
         return gestioneUtentiRegistratiController;
     }
@@ -60,11 +62,38 @@ public class GestioneUtentiRegistratiController {
     public void mostraInfoUtente(String username) {
         Utente utente = utenteDao.getUtenteByUserID(username);
 
-        //System.out.println(utente.getNome()+utente.getCognome()+utente.getCellulare()+utente.getEmail()+utente.getNickname()+utente.isMod()+utente.isUseNick());
         if (gestioneUtentiForm != null) {
-            gestioneUtentiForm.aggiornaTabella(utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
+            gestioneUtentiForm.aggiornaTabella(username,utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick());
         } else {
             System.out.println("é null!");
         }
     }
+
+    public boolean cancellaUtente(String username){
+        return utenteDao.cancellaUtente(username);
+    }
+
+    public void aggiornaUtente(String userId, String nome, String cognome, String nickname, String cellulare, String email, boolean useNick, boolean isMod){
+
+        if (checkCellulare(cellulare) && checkEmail(email)) {
+
+
+        }else{
+            Messaggio messaggio = new Messaggio("Errore","L'email e/o il cellulare iseriti non sono validi!");
+            try {
+                messaggio.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean checkEmail(String email){
+        return false;
+    }
+
+    private boolean checkCellulare(String cellulare){
+        return false;
+    }
+
 }

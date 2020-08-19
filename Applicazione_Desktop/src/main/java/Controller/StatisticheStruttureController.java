@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,13 +23,16 @@ public class StatisticheStruttureController {
     private static StatisticheStruttureController statisticheStruttureController = null;
     private StatisticheStruttureForm statisticheStruttureForm;
 
-    private StatisticheStruttureController(StatisticheStruttureForm S) {
-        this.statisticheStruttureForm = S;
+    public void setStatisticheStruttureForm(StatisticheStruttureForm statisticheStruttureForm) {
+        this.statisticheStruttureForm = statisticheStruttureForm;
     }
 
-    public static StatisticheStruttureController getStatisticheStruttureController(StatisticheStruttureForm S) {
+    private StatisticheStruttureController() {
+    }
+
+    public static StatisticheStruttureController getStatisticheStruttureController() {
         if (statisticheStruttureController == null) {
-            statisticheStruttureController = new StatisticheStruttureController(S);
+            statisticheStruttureController = new StatisticheStruttureController();
             return statisticheStruttureController;
         }
         return statisticheStruttureController;
@@ -64,5 +68,9 @@ public class StatisticheStruttureController {
         txt.setPromptText("Scrivi qui!");
         txt.setOnKeyReleased(keyEvent ->
                 filtro.setPredicate(p -> p.getNomeStruttura().toLowerCase().contains(txt.getText().toLowerCase().trim())));
+    }
+    public void mostra() throws IOException {
+        StatisticheStruttureForm statisticheStruttureForm = new StatisticheStruttureForm();
+        statisticheStruttureForm.start(new Stage());
     }
 }
