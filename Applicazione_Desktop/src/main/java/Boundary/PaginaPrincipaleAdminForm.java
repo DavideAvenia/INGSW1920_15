@@ -48,8 +48,7 @@ public class PaginaPrincipaleAdminForm extends Application {
     }
 
     public void bottoneStrutturePremuto(ActionEvent actionEvent) throws Exception {
-        StatisticheStruttureController controller = StatisticheStruttureController.getStatisticheStruttureController(null);
-        StatisticheStruttureForm statisticheStruttureForm = new StatisticheStruttureForm();
-        statisticheStruttureForm.start(new Stage());
+        StatisticheStruttureController controller = StatisticheStruttureController.getStatisticheStruttureController();
+        controller.mostra();
     }
 }

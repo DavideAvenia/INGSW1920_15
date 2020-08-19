@@ -27,13 +27,12 @@ public class StatisticheStruttureController {
         this.statisticheStruttureForm = statisticheStruttureForm;
     }
 
-    private StatisticheStruttureController(StatisticheStruttureForm S) {
-        this.statisticheStruttureForm = S;
+    private StatisticheStruttureController() {
     }
 
-    public static StatisticheStruttureController getStatisticheStruttureController(StatisticheStruttureForm S) {
+    public static StatisticheStruttureController getStatisticheStruttureController() {
         if (statisticheStruttureController == null) {
-            statisticheStruttureController = new StatisticheStruttureController(S);
+            statisticheStruttureController = new StatisticheStruttureController();
             return statisticheStruttureController;
         }
         return statisticheStruttureController;

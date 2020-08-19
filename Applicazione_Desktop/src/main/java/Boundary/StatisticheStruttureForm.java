@@ -58,8 +58,7 @@ public class StatisticheStruttureForm extends Application implements Initializab
     }
 
     public void aggiornaPremuto(ActionEvent actionEvent) {
-        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
-        statisticheStruttureController.setStatisticheStruttureForm(this);
+        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
         try {
             statisticheStruttureController.mostraStatistiche();
         } catch (IOException e) {
@@ -77,7 +76,8 @@ public class StatisticheStruttureForm extends Application implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
-        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController(this);
+        StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
+        statisticheStruttureController.setStatisticheStruttureForm(this);
         try {
             nome.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("nomeStruttura"));
             nospiti.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numVisitatori"));
