@@ -1,7 +1,9 @@
 package Services;
 
 import DAO.StatisticheStruttureDAO;
+import DAO.StatisticheUtentiDAO;
 import Entity.StatisticheStrutture;
+import Entity.StatisticheUtenti;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AWSMySQLRDS implements StatisticheStruttureDAO {
+public class AWSMySQLRDS implements StatisticheStruttureDAO , StatisticheUtentiDAO {
 
     @Override
     public List<StatisticheStrutture> getAllStatisticheStrutture() {
@@ -55,5 +57,10 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO {
 
         }
         return L1;
+    }
+
+    @Override
+    public List<StatisticheUtenti> getStats() {
+        return null;
     }
 }

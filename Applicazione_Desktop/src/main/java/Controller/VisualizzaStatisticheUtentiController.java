@@ -1,18 +1,23 @@
 package Controller;
 
-import DAO.StatisticheUtentiDAO;
-import Entity.StatisticheUtenti;
+import Boundary.PaginaPrincipaleAdminForm;
 
-import java.util.List;
+public class VisualizzaStatisticheUtentiController {
+    private static VisualizzaStatisticheUtentiController visualizzaStatisticheUtentiController = null;
+    private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
 
-public class VisualizzaStatisticheUtentiController implements StatisticheUtentiDAO {
-    @Override
-    public List<StatisticheUtenti> getStats() {
-        return null;
+    private VisualizzaStatisticheUtentiController(){}
+
+    public static VisualizzaStatisticheUtentiController getVisualizzaStatisticheUtentiController(){
+        if(visualizzaStatisticheUtentiController == null){
+            visualizzaStatisticheUtentiController = new VisualizzaStatisticheUtentiController();
+            return visualizzaStatisticheUtentiController;
+        }
+        return visualizzaStatisticheUtentiController;
     }
 
-    @Override
-    public void aggiorna() {
+    public void mostraStatisticheUtenti(){
 
     }
+
 }
