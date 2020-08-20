@@ -5,16 +5,12 @@ import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
-import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthRequest;
-import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginDesktopController {
 
@@ -24,7 +20,7 @@ public class LoginDesktopController {
 
     private LoginDesktopController(){}
 
-    public LoginDesktopController getInstanza(){
+    public static LoginDesktopController getInstanzaLoginDesktopController(){
         if(instanza==null)
             instanza = new LoginDesktopController();
         return instanza;
@@ -36,8 +32,13 @@ public class LoginDesktopController {
         messaggio.start(new Stage());
     }
 
+    public void mostraMessaggioTesting(String test) throws Exception{
+        Messaggio messaggio = new Messaggio("Test", test);
+        messaggio.start(new Stage());
+    }
+
     //Controlla le credenziali se sono presenti (SOLO ADMIN E MOD)
-    public void ControllaCredenzialiPerLogin(String email, String password) throws Exception {
+    public void controllaCredenzialiPerLogin(String email, String password) throws Exception {
         String service = "";
 
         File file = new File("config.txt");
@@ -47,22 +48,33 @@ public class LoginDesktopController {
         } catch (IOException e) {
             System.out.println("Non è stato trovato il file di configurazione!");
         }
+
         UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
 
         if(this.isAdmin(email)){
-            utenteDao.effettuaLogin(email, password);
-            paginaAdmin.start(new Stage());
-        }else /*if (this.isMod(email))*/
+            String test = utenteDao.effettuaLogin(email, password);
+            this.mostraMessaggioTesting(test);
+        }else /*if (this.isMod(email)) quello che c'è scritto sopra ma con il mod, se l'if è true, mostrerà la paginaMod*/
             this.mostraMessaggioFallimentoLogin();
     }
 
     private boolean isMod(String email) {
-        return email.toLowerCase().contains("mod_".toLowerCase());
+        String tokens[] = email.split("_");
+        tokens[0].toLowerCase();
+        if(tokens[0].equals("mod"))
+            return true;
+        else
+            return false;
     }
 
     //Deve restiuire un Boolean, controlla se nel nome è presente la parola ADMIN, ricorda il delimitatore tra ADMIN e l'email
     public boolean isAdmin(String email){
-        return email.toLowerCase().contains("admin_".toLowerCase());
+       String tokens[] = email.split("_");
+       tokens[0].toLowerCase();
+       if(tokens[0].equals("admin"))
+           return true;
+       else
+           return false;
     }
 
 }

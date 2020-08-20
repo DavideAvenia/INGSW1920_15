@@ -15,6 +15,6 @@ public interface UtenteDao {
 
     public boolean cancellaUtente(String utente);
 
-    public void effettuaLogin(String email, String password);
+    public String effettuaLogin(String email, String password);
 
 }

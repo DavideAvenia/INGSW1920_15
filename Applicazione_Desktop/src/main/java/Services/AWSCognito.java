@@ -146,7 +146,7 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public void effettuaLogin(String email, String password) {
+    public String effettuaLogin(String email, String password) {
         AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
         final Map authMap = new HashMap<String,String>();
         authMap.put("username", email);
@@ -161,6 +161,6 @@ public class AWSCognito implements UtenteDao {
 
         AuthenticationResultType authenticationResultType = authenticationResult.getAuthenticationResult();
 
-        //da finire, cosa serve il type?
+        return authenticationResultType.toString();
     }
 }
