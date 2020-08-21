@@ -7,13 +7,18 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
+import com.amazonaws.util.StringUtils;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
     private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
     private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -141,21 +146,45 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public String effettuaLogin(String email, String password) {
+    public boolean effettuaLogin(String email, String password) {
+        AuthenticationResultType authenticationResult = null;
         AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
-        final Map authMap = new HashMap<String, String>();
-        authMap.put("username", email);
-        authMap.put("password", password);
 
-        request.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
-                .withUserPoolId(USERPOOLID)
+        SecretKeySpec signingKey = new SecretKeySpec(
+                SECRET.getBytes(StandardCharsets.UTF_8),
+                "HmacSHA256");
+
+        String SECRET_HASH = new String();
+
+        try {
+            final Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(signingKey);
+            mac.update(email.getBytes(StringUtils.UTF8));
+            final byte[] rawHmac = mac.doFinal(CLIENTID.getBytes(StringUtils.UTF8));
+            SECRET_HASH = Base64.getEncoder().encodeToString(rawHmac);
+        } catch (final Exception e) {
+            throw new RuntimeException("errors in HMAC calculation");
+        }
+
+
+        final Map authMap = new HashMap<String, String>();
+        authMap.put("USERNAME", email);
+        authMap.put("PASSWORD", password);
+        authMap.put("SECRET_HASH", SECRET_HASH);
+
+
+        final AdminInitiateAuthRequest authRequest = new AdminInitiateAuthRequest();
+        authRequest.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
                 .withClientId(CLIENTID)
+                .withUserPoolId(USERPOOLID)
                 .withAuthParameters(authMap);
 
-        AdminInitiateAuthResult authenticationResult = identityProvider.adminInitiateAuth(request);
+        try{
+            AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
+            return true;
+        }catch(NotAuthorizedException exception){
+            return false;
+        }
 
-        AuthenticationResultType authenticationResultType = authenticationResult.getAuthenticationResult();
-
-        return authenticationResultType.toString();
     }
 }

@@ -1,5 +1,6 @@
 package Boundary;
 
+import Controller.LoginDesktopController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,18 +31,14 @@ public class LoginForm extends Application {
 
     public void loginPremuto(ActionEvent actionEvent) throws IOException {
         //Messo solo per aprire la pagina degli admin. Bisogna scrivere il codice correttamente
-      /*  LoginDesktopController controller = LoginDesktopController.getInstanzaLoginDesktopController();
+        LoginDesktopController controller = LoginDesktopController.getInstanzaLoginDesktopController();
 
         try {
-            if(controller == null){
-                System.out.println("Non fnonzia");
-            }
             controller.controllaCredenzialiPerLogin(username.getText(), password.getText());
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
-        PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
-        p.start(new Stage());
+
     }
 }
