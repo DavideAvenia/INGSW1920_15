@@ -1,8 +1,6 @@
 package DAO;
 
 import Entity.Utente;
-import Services.AWSCognito;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 
 import java.util.List;
 

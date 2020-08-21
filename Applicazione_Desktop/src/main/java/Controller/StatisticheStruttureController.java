@@ -23,10 +23,6 @@ public class StatisticheStruttureController {
     private static StatisticheStruttureController statisticheStruttureController = null;
     private StatisticheStruttureForm statisticheStruttureForm;
 
-    public void setStatisticheStruttureForm(StatisticheStruttureForm statisticheStruttureForm) {
-        this.statisticheStruttureForm = statisticheStruttureForm;
-    }
-
     private StatisticheStruttureController() {
     }
 
@@ -36,6 +32,10 @@ public class StatisticheStruttureController {
             return statisticheStruttureController;
         }
         return statisticheStruttureController;
+    }
+
+    public void setStatisticheStruttureForm(StatisticheStruttureForm statisticheStruttureForm) {
+        this.statisticheStruttureForm = statisticheStruttureForm;
     }
 
     public void mostraStatistiche() throws IOException {
@@ -69,6 +69,7 @@ public class StatisticheStruttureController {
         txt.setOnKeyReleased(keyEvent ->
                 filtro.setPredicate(p -> p.getNomeStruttura().toLowerCase().contains(txt.getText().toLowerCase().trim())));
     }
+
     public void mostra() throws IOException {
         StatisticheStruttureForm statisticheStruttureForm = new StatisticheStruttureForm();
         statisticheStruttureForm.start(new Stage());

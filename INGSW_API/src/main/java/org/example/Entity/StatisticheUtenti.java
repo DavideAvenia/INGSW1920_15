@@ -1,41 +1,41 @@
 package org.example.Entity;
 
 public class StatisticheUtenti {
-    private int numUtenti;
-    private int percentageNumReviews;
-    private int avgScore;
+    private String userID;
+    private int livello;
+    private float avgScore;
     private int loginCounter;
     private int numTotReviews;
 
-    public StatisticheUtenti(int numUtenti, int percentageNumReviews, int avgScore, int loginCounter, int numTotReviews) {
-        this.numUtenti = numUtenti;
-        this.percentageNumReviews = percentageNumReviews;
+    public StatisticheUtenti(String userID, int livello, float avgScore, int loginCounter, int numTotReviews) {
+        this.userID = userID;
+        this.livello = livello;
         this.avgScore = avgScore;
         this.loginCounter = loginCounter;
         this.numTotReviews = numTotReviews;
     }
 
-    public int getNumUtenti() {
-        return numUtenti;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setNumUtenti(int numUtenti) {
-        this.numUtenti = numUtenti;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
-    public int getPercentageNumReviews() {
-        return percentageNumReviews;
+    public int getLivello() {
+        return livello;
     }
 
-    public void setPercentageNumReviews(int percentageNumReviews) {
-        this.percentageNumReviews = percentageNumReviews;
+    public void setLivello(int livello) {
+        this.livello = livello;
     }
 
-    public int getAvgScore() {
+    public float getAvgScore() {
         return avgScore;
     }
 
-    public void setAvgScore(int avgScore) {
+    public void setAvgScore(float avgScore) {
         this.avgScore = avgScore;
     }
 
