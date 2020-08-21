@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DatabaseConnection {
 
-    private String URLDB = "jdbc:mysql://ingswdatabase.czrrnx3ltups.eu-west-1.rds.amazonaws.com:3306/ingsw?user=admin&password=6x1li30di3IoU2Mgwaoy";
+    private String URLDB = "";
     private Connection conn;
     private Statement stmt;
 
