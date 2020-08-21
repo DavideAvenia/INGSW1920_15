@@ -8,7 +8,12 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AWSCognito implements UtenteDao {
 
@@ -34,17 +39,17 @@ public class AWSCognito implements UtenteDao {
                 listaUtenti.add(user.getUsername());
             }
         } else {
-            for (UserType user : listUsersResult.getUsers()) {
+            for(UserType user : listUsersResult.getUsers()){
                 List<AttributeType> attributiUtente = user.getAttributes();
                 switch (filtro) {
                     case "Cognome":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(8).getValue());
+                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(8).getValue());
                         break;
                     case "Email":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(10).getValue());
+                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(10).getValue());
                         break;
                     case "Cellulare":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(7).getValue());
+                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(7).getValue());
                         break;
                 }
             }
@@ -59,7 +64,7 @@ public class AWSCognito implements UtenteDao {
 
         AdminGetUserRequest adminGetUserRequest = new AdminGetUserRequest().withUserPoolId(USERPOOLID).withUsername(userId);
         AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
-
+        
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
         String nome = listaAttributiUtente.get(4).getValue();
         String cognome = listaAttributiUtente.get(8).getValue();
@@ -103,15 +108,15 @@ public class AWSCognito implements UtenteDao {
         cellulare.setName("phone_number");
         cellulare.setValue(utente.getCellulare());
         isMod.setName("custom:isMod");
-        if (utente.isMod()) {
+        if(utente.isMod()){
             isMod.setValue("1");
-        } else {
+        }else{
             isMod.setValue("0");
         }
         useNick.setName("custom:useNick");
-        if (utente.isUseNick()) {
+        if(utente.isUseNick()){
             useNick.setValue("1");
-        } else {
+        }else{
             useNick.setValue("0");
         }
 
@@ -143,7 +148,7 @@ public class AWSCognito implements UtenteDao {
     @Override
     public String effettuaLogin(String email, String password) {
         AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
-        final Map authMap = new HashMap<String, String>();
+        final Map authMap = new HashMap<String,String>();
         authMap.put("username", email);
         authMap.put("password", password);
 

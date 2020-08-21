@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0"
-          vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          fx:controller="Boundary.StatisticheStruttureForm">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.StatisticheStruttureForm">
     <children>
         <AnchorPane fx:id="pane" prefHeight="493.0" prefWidth="448.0">
             <children>
-                <Button fx:id="indietro" layoutX="390.0" layoutY="467.0" mnemonicParsing="false"
-                        onAction="#indietroPremuto" text="Indietro"/>
+                <Button fx:id="indietro" layoutX="390.0" layoutY="467.0" mnemonicParsing="false" onAction="#indietroPremuto" text="Indietro" />
                 <TableView fx:id="statistiche" layoutX="7.0" layoutY="49.0" prefHeight="392.0" prefWidth="429.0">
                     <columns>
-                        <TableColumn fx:id="nome" prefWidth="190.0" text="Struttura"/>
-                        <TableColumn fx:id="nreview" minWidth="0.0" prefWidth="84.0" text="N. Recensioni"/>
-                        <TableColumn fx:id="nclient" prefWidth="67.0" text="N. Clienti"/>
-                        <TableColumn fx:id="nospiti" prefWidth="79.0" text="N. Visitatori"/>
+                        <TableColumn fx:id="nome" prefWidth="190.0" text="Struttura" />
+                        <TableColumn fx:id="nreview" minWidth="0.0" prefWidth="84.0" text="N. Recensioni" />
+                        <TableColumn fx:id="nclient" prefWidth="67.0" text="N. Clienti" />
+                        <TableColumn fx:id="nospiti" prefWidth="79.0" text="N. Visitatori" />
                     </columns>
                 </TableView>
-                <Button fx:id="aggiorna" layoutX="312.0" layoutY="467.0" mnemonicParsing="false"
-                        onAction="#aggiornaPremuto" text="Aggiorna"/>
-                <TextField fx:id="cercabox" layoutX="141.0" layoutY="14.0" prefHeight="25.0" prefWidth="295.0"/>
-                <Label fx:id="label" layoutX="8.0" layoutY="16.0" prefHeight="17.0" prefWidth="125.0"
-                       text="Ricerca per Struttura :">
-                </Label>
+                <Button fx:id="aggiorna" layoutX="312.0" layoutY="467.0" mnemonicParsing="false" onAction="#aggiornaPremuto" text="Aggiorna" />
+                <TextField fx:id="cercabox" layoutX="141.0" layoutY="14.0" prefHeight="25.0" prefWidth="295.0" />
+            <Label fx:id="label" layoutX="8.0" layoutY="16.0" prefHeight="17.0" prefWidth="125.0" text="Ricerca per Struttura">
+               <font>
+                  <Font name="Agency FB" size="18.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
     </children>
     <columnConstraints>
-        <ColumnConstraints/>
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
+        <RowConstraints />
     </rowConstraints>
 </GridPane>

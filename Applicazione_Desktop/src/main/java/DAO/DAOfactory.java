@@ -13,8 +13,8 @@ public abstract class DAOfactory {
         return null;
     }
 
-    public static StatisticheUtentiDAO getStatisticheUtentiDAO(String service) {
-        switch (service) {
+    public static StatisticheUtentiDAO getStatisticheUtentiDAO(String service){
+        switch (service){
             case "AWS":
                 return new AWSMySQLRDS();
         }

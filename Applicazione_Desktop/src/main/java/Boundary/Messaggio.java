@@ -8,7 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -19,8 +21,7 @@ public class Messaggio extends Application implements Initializable {
     private static String title;
     private static String messaggio;
 
-    @FXML
-    public Label messaggioLabel;
+    @FXML public Label messaggioLabel;
 
 
     public Messaggio(String title, String messaggio) {
@@ -28,7 +29,7 @@ public class Messaggio extends Application implements Initializable {
         this.messaggio = messaggio;
     }
 
-    public Messaggio() {
+    public Messaggio(){
 
     }
 

@@ -2,7 +2,10 @@ package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,11 +16,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +32,6 @@ import java.util.ResourceBundle;
 public class GestioneUtentiForm extends Application implements Initializable {
 
 
-    private static String lastFiltro = "Username";
     @FXML
     private ListView<String> listaNomiUtenti;
     @FXML
@@ -38,6 +42,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
     private Button aggiornaUtente;
     @FXML
     private Button indietro;
+
     @FXML
     private TableView<UtenteModel> infoUtente;
     @FXML
@@ -54,7 +59,9 @@ public class GestioneUtentiForm extends Application implements Initializable {
     private TableColumn<UtenteModel, String> colonnaMod;
     @FXML
     private TableColumn<UtenteModel, String> colonnaUseNick;
+
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
+    private static String lastFiltro = "Username";
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -69,7 +76,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
         boolean result = gestioneUtentiRegistratiController.cancellaUtente(userId);
 
-        if (result == true) {
+        if(result == true){
             /*Chiusura vecchia UI*/
             Node node = (Node) actionEvent.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
@@ -102,8 +109,10 @@ public class GestioneUtentiForm extends Application implements Initializable {
         String userId = tokens[0];
         UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();
 
-        gestioneUtentiRegistratiController.aggiornaUtente(userId, utente.getNome(), utente.getCognome(), utente.getNickname(), utente.getCellulare(), utente.getEmail(), Boolean.parseBoolean(utente.getUseNick()), Boolean.parseBoolean(utente.getIsMod()));
+        gestioneUtentiRegistratiController.aggiornaUtente(userId,utente.getNome(),utente.getCognome(),utente.getNickname(),utente.getCellulare(),utente.getEmail(),Boolean.parseBoolean(utente.getUseNick()),Boolean.parseBoolean(utente.getIsMod()));
     }
+
+
 
 
     @Override
@@ -151,7 +160,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
     public void nomeListaCliccato(MouseEvent mouseEvent) {
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
-        gestioneUtentiRegistratiController.mostraInfoUtente(username, filtri.getSelectionModel().getSelectedItem());
+        gestioneUtentiRegistratiController.mostraInfoUtente(username,filtri.getSelectionModel().getSelectedItem());
 
 
         /*Chiusura UI*/
@@ -160,7 +169,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         stage.close();
     }
 
-    public void aggiornaTabella(String username, String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick, String filtro) {
+    public void aggiornaTabella(String username,String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick,String filtro) {
 
         /*Aggiornamento UI*/
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
@@ -286,8 +295,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         }
 
         public void setIsMod(String isMod) {
-            this.isMod = new SimpleStringProperty(isMod);
-            ;
+            this.isMod = new SimpleStringProperty(isMod);;
         }
 
         public String getUseNick() {
@@ -295,8 +303,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         }
 
         public void setUseNick(String useNick) {
-            this.useNick = new SimpleStringProperty(useNick);
-            ;
+            this.useNick = new SimpleStringProperty(useNick);;
         }
     }
 }
