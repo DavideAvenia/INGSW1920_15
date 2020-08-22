@@ -36,7 +36,17 @@ import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsExcept
 import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.entity.Utente;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.example.appmobile.MainFrameForm.setIsLogged;
 import static com.example.appmobile.MainFrameForm.setUserIdLogged;
@@ -73,10 +83,28 @@ public class AWSCognito implements UtenteDao {
                 setIsLogged(true);
                 setUserIdLogged(usernameId);
 
-                //INCREMENTARE IL NUMERO DI LOGIN DELL'UTENTE
-
-                //chiude l'Activity "RegistrazioneForm
+                //chiude l'Activity Login
                 ((Activity)context).finish();
+
+                //Continua collegamento api incremento numero login utente in background
+                OkHttpClient client = new OkHttpClient();
+                JSONObject tmp = new JSONObject();
+                try {
+                    tmp.put("username", usernameId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+                Request req = new Request.Builder().url("https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha/incrementalogincounter").post(requestBody).build();
+
+                try {
+                    Response res = client.newCall(req).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -153,8 +181,27 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onSuccess(CognitoUser user, SignUpResult signUpResult) {
                 showToast(context,"Registrazione effettuata!");
-
                 ((Activity)context).finish();
+
+                //collegamento api creazione statistiche per l'utente utente
+                OkHttpClient client = new OkHttpClient();
+                JSONObject tmp = new JSONObject();
+                try {
+                    tmp.put("username", userId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+                Request req = new Request.Builder().url("https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha/insertnewstatisticheutente").post(requestBody).build();
+
+                try {
+                    Response res = client.newCall(req).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -233,14 +280,15 @@ public class AWSCognito implements UtenteDao {
 
     @Override
     public Utente getUtenteByUserId(String userId) {
+
+        /*DA COMPLETARE*/
         CognitoUser user = userPool.getUser(userId);
 
-        user.getDetailsInBackground(new GetDetailsHandler() {
+        user.getDetails(new GetDetailsHandler() {
             @Override
             public void onSuccess(CognitoUserDetails cognitoUserDetails) {
-
-                CognitoUserAttributes congitoAttributes = cognitoUserDetails.getAttributes();
-                Map<String,String> attributes = congitoAttributes.getAttributes();
+                Map<String,String> attributes = cognitoUserDetails.getAttributes().getAttributes();
+                System.out.println(attributes.get("nickname"));
             }
 
             @Override
@@ -248,7 +296,6 @@ public class AWSCognito implements UtenteDao {
 
             }
         });
-
         return null;
     }
 

@@ -67,7 +67,7 @@ public class RegistrazioneForm extends AppCompatActivity {
         if(userId == null || nome == null || cognome == null || cellulare == null || email == null || password == null){
             showToast("Tutti i campi sono obbligatori!");
         }else{
-            if(!checkEmail(email) || !checkPassword(password)){
+            if(!checkEmail(email) || !checkPassword(password) || !checkUsername(userId)){
                 showToast("Email e/o password non validi! Riprovare");
             }else{
                 cellulare = prefissiRegistrazione.getSelectedItem().toString() + cellulare;
@@ -80,9 +80,17 @@ public class RegistrazioneForm extends AppCompatActivity {
 
     public boolean checkEmail(String email){
 
-        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            return true;
-        }return false;
+        String tokens[] = email.split("_");
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() || tokens[0].equals("admin")){
+            return false;
+        }return true;
+    }
+
+    public boolean checkUsername(String username){
+        String tokens[] = username.split("_");
+        if(tokens[0].equals("admin")){
+            return false;
+        }return true;
     }
 
     public boolean checkPassword(String password){

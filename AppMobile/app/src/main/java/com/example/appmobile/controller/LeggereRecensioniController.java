@@ -58,7 +58,7 @@ public class LeggereRecensioniController {
         for(Recensioni r:listaRecensioni){
 
             /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
-            //nomiRecensiori.add(getNickName(r,utenteDao));
+            nomiRecensiori.add(getNickName(r,utenteDao));
             nomiRecensiori.add(r.getUserNameUtente());
             /***********************************************************************/
 

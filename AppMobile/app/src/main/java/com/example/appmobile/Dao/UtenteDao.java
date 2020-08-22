@@ -13,7 +13,6 @@ public interface UtenteDao {
     public void resetPassword(String code, String password,Context context);
     public void signout(String userId);
     public Utente getUtenteByUserId(String userId);
-    //incrementaNumeroLogin();
 
     //Operazioni di utilità
     public void showToast(Context context, String messaggio);
