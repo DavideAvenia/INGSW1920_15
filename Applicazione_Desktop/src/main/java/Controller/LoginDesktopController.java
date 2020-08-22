@@ -3,8 +3,10 @@ package Controller;
 import Boundary.LoginForm;
 import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
+import Boundary.PaginaPrincipaleModForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
+import Entity.Utente;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -47,12 +49,15 @@ public class LoginDesktopController {
 
         UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
 
+        Utente utente = utenteDao.getUtenteByUserID(userid);
+
         if(utenteDao.effettuaLogin(userid, password)){
             if (this.isAdmin(userid)) {
                     PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
                     p.start(new Stage());
-            }else if (this.isMod(userid)){
-                    //Guido farà cose domani mattina
+            }else if (utente.isMod()){
+                    PaginaPrincipaleModForm p = new PaginaPrincipaleModForm();
+                    p.start(new Stage());
             }else{
                 mostraMessaggio("Login fallito","Non sei un mod/admin, non puoi accedere");
             }
@@ -60,16 +65,6 @@ public class LoginDesktopController {
             mostraMessaggio("Login Fallito","UserId/Email oppure password incorretti");
         }
     }
-
-    //Da correggere, l'utente ha una var booleana che s'è true, è un mod
-        private boolean isMod (String userid){
-            String tokens[] = userid.split("_");
-            tokens[0].toLowerCase();
-            if (tokens[0].equals("mod"))
-                return true;
-            else
-                return false;
-        }
 
         //Deve restiuire un Boolean, controlla se nel nome è presente la parola ADMIN, ricorda il delimitatore tra ADMIN e l'email
         public boolean isAdmin (String userid){
