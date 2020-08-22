@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="302.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.PaginaPrincipaleModForm">
+   <children>
+      <Button fx:id="review" layoutX="111.0" layoutY="115.0" mnemonicParsing="false" onAction="#moderaPremuto" text="Modera Recensioni Utente" />
+      <Button fx:id="strutture" layoutX="111.0" layoutY="170.0" mnemonicParsing="false" onAction="#StrutturePremuto" text="Visualizza Statistiche Strutture" />
+      <Button fx:id="logout" layoutX="328.0" layoutY="263.0" mnemonicParsing="false" onAction="#logoutPremuto" text="Logout" />
+      <Label fx:id="label" layoutX="111.0" layoutY="22.0" text="Moderatore" textFill="RED">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

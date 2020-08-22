@@ -90,6 +90,14 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     }
 
     public void logoutPremuto(ActionEvent actionEvent) {
+        //In teoria qui, dovrebbe tornare alla schermata di LOGIN
+        Node node = (Node) actionEvent.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+
+        /* LoginForm login = new LoginForm();
+
+        login.start(); */
     }
 
     public void ricaricaPremuto(ActionEvent actionEvent) throws IOException {
