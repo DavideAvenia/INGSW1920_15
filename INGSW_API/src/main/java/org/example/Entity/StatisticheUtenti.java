@@ -1,5 +1,4 @@
-package Entity;
-
+package org.example.Entity;
 
 public class StatisticheUtenti {
     private String userID;

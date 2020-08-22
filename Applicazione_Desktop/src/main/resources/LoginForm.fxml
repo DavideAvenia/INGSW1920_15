@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
@@ -11,10 +10,11 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="1024.0">
                     <children>
-                        <Button layoutX="486.0" layoutY="257.0" mnemonicParsing="false" text="Login"
-                                onAction="#loginPremuto"/>
-                        <PasswordField layoutX="434.0" layoutY="214.0" AnchorPane.bottomAnchor="330.0"/>
-                        <TextField layoutX="434.0" layoutY="153.0" AnchorPane.bottomAnchor="390.0"/>
+                        <Button layoutX="486.0" layoutY="257.0" mnemonicParsing="false" onAction="#loginPremuto"
+                                text="Login"/>
+                        <PasswordField fx:id="password" layoutX="434.0" layoutY="214.0"
+                                       AnchorPane.bottomAnchor="330.0"/>
+                        <TextField fx:id="username" layoutX="434.0" layoutY="153.0" AnchorPane.bottomAnchor="390.0"/>
                         <Text layoutX="432.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username"
                               AnchorPane.bottomAnchor="420.0"/>
                         <Text layoutX="434.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password"
@@ -28,4 +28,10 @@
             </content>
         </TitledPane>
     </children>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
 </GridPane>

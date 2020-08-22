@@ -5,16 +5,12 @@ import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
 import DAO.UtenteDao;
-import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthRequest;
-import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginDesktopController {
 
@@ -22,22 +18,23 @@ public class LoginDesktopController {
     private LoginForm loginForm;
     private PaginaPrincipaleAdminForm paginaAdmin;
 
-    private LoginDesktopController(){}
+    private LoginDesktopController() {
+    }
 
-    public LoginDesktopController getInstanza(){
-        if(instanza==null)
+    public static LoginDesktopController getInstanzaLoginDesktopController() {
+        if (instanza == null)
             instanza = new LoginDesktopController();
         return instanza;
     }
 
     //Mostrerà una finestra/popup del login non effettuato
-    public void mostraMessaggioFallimentoLogin() throws Exception {
-        Messaggio messaggio = new Messaggio("Login Fallito","L'email o la password non sono corretti");
+    public void mostraMessaggio(String title, String msg) throws Exception {
+        Messaggio messaggio = new Messaggio(title, msg);
         messaggio.start(new Stage());
     }
 
     //Controlla le credenziali se sono presenti (SOLO ADMIN E MOD)
-    public void ControllaCredenzialiPerLogin(String email, String password) throws Exception {
+    public void controllaCredenzialiPerLogin(String userid, String password) throws Exception {
         String service = "";
 
         File file = new File("config.txt");
@@ -47,22 +44,41 @@ public class LoginDesktopController {
         } catch (IOException e) {
             System.out.println("Non è stato trovato il file di configurazione!");
         }
+
         UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
 
-        if(this.isAdmin(email)){
-            utenteDao.effettuaLogin(email, password);
-            paginaAdmin.start(new Stage());
-        }else /*if (this.isMod(email))*/
-            this.mostraMessaggioFallimentoLogin();
+        if(utenteDao.effettuaLogin(userid, password)){
+            if (this.isAdmin(userid)) {
+                    PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
+                    p.start(new Stage());
+            }else if (this.isMod(userid)){
+                    //Guido farà cose domani mattina
+            }else{
+                mostraMessaggio("Login fallito","Non sei un mod/admin, non puoi accedere");
+            }
+        }else{
+            mostraMessaggio("Login Fallito","UserId/Email oppure password incorretti");
+        }
     }
 
-    private boolean isMod(String email) {
-        return email.toLowerCase().contains("mod_".toLowerCase());
-    }
+    //Da correggere, l'utente ha una var booleana che s'è true, è un mod
+        private boolean isMod (String userid){
+            String tokens[] = userid.split("_");
+            tokens[0].toLowerCase();
+            if (tokens[0].equals("mod"))
+                return true;
+            else
+                return false;
+        }
 
-    //Deve restiuire un Boolean, controlla se nel nome è presente la parola ADMIN, ricorda il delimitatore tra ADMIN e l'email
-    public boolean isAdmin(String email){
-        return email.toLowerCase().contains("admin_".toLowerCase());
-    }
-
+        //Deve restiuire un Boolean, controlla se nel nome è presente la parola ADMIN, ricorda il delimitatore tra ADMIN e l'email
+        public boolean isAdmin (String userid){
+            String tokens[] = userid.split("_");
+            tokens[0].toLowerCase();
+            if (tokens[0].equals("admin"))
+                return true;
+            else
+                return false;
+        }
 }
+

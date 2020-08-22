@@ -7,18 +7,18 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
+import com.amazonaws.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
     private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
     private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -39,17 +39,17 @@ public class AWSCognito implements UtenteDao {
                 listaUtenti.add(user.getUsername());
             }
         } else {
-            for(UserType user : listUsersResult.getUsers()){
+            for (UserType user : listUsersResult.getUsers()) {
                 List<AttributeType> attributiUtente = user.getAttributes();
                 switch (filtro) {
                     case "Cognome":
-                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(8).getValue());
+                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(8).getValue());
                         break;
                     case "Email":
-                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(10).getValue());
+                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(10).getValue());
                         break;
                     case "Cellulare":
-                        listaUtenti.add(user.getUsername()+" "+attributiUtente.get(7).getValue());
+                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(7).getValue());
                         break;
                 }
             }
@@ -64,7 +64,7 @@ public class AWSCognito implements UtenteDao {
 
         AdminGetUserRequest adminGetUserRequest = new AdminGetUserRequest().withUserPoolId(USERPOOLID).withUsername(userId);
         AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
-        
+
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
         String nome = listaAttributiUtente.get(4).getValue();
         String cognome = listaAttributiUtente.get(8).getValue();
@@ -108,15 +108,15 @@ public class AWSCognito implements UtenteDao {
         cellulare.setName("phone_number");
         cellulare.setValue(utente.getCellulare());
         isMod.setName("custom:isMod");
-        if(utente.isMod()){
+        if (utente.isMod()) {
             isMod.setValue("1");
-        }else{
+        } else {
             isMod.setValue("0");
         }
         useNick.setName("custom:useNick");
-        if(utente.isUseNick()){
+        if (utente.isUseNick()) {
             useNick.setValue("1");
-        }else{
+        } else {
             useNick.setValue("0");
         }
 
@@ -146,21 +146,45 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public void effettuaLogin(String email, String password) {
+    public boolean effettuaLogin(String email, String password) {
+        AuthenticationResultType authenticationResult = null;
         AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
-        final Map authMap = new HashMap<String,String>();
-        authMap.put("username", email);
-        authMap.put("password", password);
 
-        request.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
-                .withUserPoolId(USERPOOLID)
+        SecretKeySpec signingKey = new SecretKeySpec(
+                SECRET.getBytes(StandardCharsets.UTF_8),
+                "HmacSHA256");
+
+        String SECRET_HASH = new String();
+
+        try {
+            final Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(signingKey);
+            mac.update(email.getBytes(StringUtils.UTF8));
+            final byte[] rawHmac = mac.doFinal(CLIENTID.getBytes(StringUtils.UTF8));
+            SECRET_HASH = Base64.getEncoder().encodeToString(rawHmac);
+        } catch (final Exception e) {
+            throw new RuntimeException("errors in HMAC calculation");
+        }
+
+
+        final Map authMap = new HashMap<String, String>();
+        authMap.put("USERNAME", email);
+        authMap.put("PASSWORD", password);
+        authMap.put("SECRET_HASH", SECRET_HASH);
+
+
+        final AdminInitiateAuthRequest authRequest = new AdminInitiateAuthRequest();
+        authRequest.withAuthFlow(AuthFlowType.ADMIN_NO_SRP_AUTH)
                 .withClientId(CLIENTID)
+                .withUserPoolId(USERPOOLID)
                 .withAuthParameters(authMap);
 
-        AdminInitiateAuthResult authenticationResult = identityProvider.adminInitiateAuth(request);
+        try{
+            AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
+            return true;
+        }catch(NotAuthorizedException exception){
+            return false;
+        }
 
-        AuthenticationResultType authenticationResultType = authenticationResult.getAuthenticationResult();
-
-        //da finire, cosa serve il type?
     }
 }
