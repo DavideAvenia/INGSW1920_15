@@ -2,7 +2,6 @@ package com.example.appmobile.entity;
 
 public class Strutture {
 
-
     private String nome;
     private String città;
     private float valutazioneMedia;

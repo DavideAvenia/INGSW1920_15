@@ -222,6 +222,12 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         return listaRecensioni;
     }
 
+    @Override
+    public boolean insertRecensioni(String nomeStruttura, float valutazione) {
+
+        return false;
+    }
+
     private Request createRequest(JSONObject jsonObject, final String API){
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
