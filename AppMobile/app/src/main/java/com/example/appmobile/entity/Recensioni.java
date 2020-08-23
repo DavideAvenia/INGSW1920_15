@@ -12,6 +12,8 @@ public class Recensioni {
     private Double latitudine;
     private Double longitudine;
 
+    private boolean pending;//Deve verificare se la recensione è stata pubblicata o meno
+
     public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, Double latitudine, Double longitudine) {
         this.testoRecensione = testoRecensione;
         this.urlImmagine = urlImmagine;
@@ -20,6 +22,7 @@ public class Recensioni {
         this.nomeStruttura = nomeStruttura;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
+        this.pending = true; //true di default perché ogni recensione deve necessariamente supervisionata, s'è false, allora la recensione ha passato la fase di pending
     }
 
     public String getTestoRecensione() {
