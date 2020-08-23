@@ -16,9 +16,9 @@ import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
-    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
-    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
+    private final String USERPOOLID = "";
+    private final String CLIENTID = "";
+    private final String SECRET = "";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -66,15 +66,15 @@ public class AWSCognito implements UtenteDao {
         AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
 
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
-        String nome = listaAttributiUtente.get(4).getValue();
+        String nome = listaAttributiUtente.get(5).getValue();
         String cognome = listaAttributiUtente.get(8).getValue();
-        String nickname = listaAttributiUtente.get(5).getValue();
+        String nickname = listaAttributiUtente.get(6).getValue();
         String cellulare = listaAttributiUtente.get(7).getValue();
         String email = listaAttributiUtente.get(10).getValue();
         boolean isMod = false;
         boolean useNick = false;
 
-        if (Integer.parseInt(listaAttributiUtente.get(3).getValue()) == 1) {
+        if (Integer.parseInt(listaAttributiUtente.get(4).getValue()) == 1) {
             isMod = true;
         }
         if (Integer.parseInt(listaAttributiUtente.get(9).getValue()) == 1) {
@@ -179,10 +179,10 @@ public class AWSCognito implements UtenteDao {
                 .withUserPoolId(USERPOOLID)
                 .withAuthParameters(authMap);
 
-        try{
+        try {
             AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
             return true;
-        }catch(NotAuthorizedException exception){
+        } catch (NotAuthorizedException exception) {
             return false;
         }
 

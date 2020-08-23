@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
+import Controller.LoginDesktopController;
 import Controller.StatisticheStruttureController;
 import Controller.VisualizzaStatisticheUtentiController;
 import javafx.application.Application;
@@ -90,14 +91,12 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     }
 
     public void logoutPremuto(ActionEvent actionEvent) {
-        //In teoria qui, dovrebbe tornare alla schermata di LOGIN
         Node node = (Node) actionEvent.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
 
-        /* LoginForm login = new LoginForm();
-
-        login.start(); */
+        LoginDesktopController loginControl2 = LoginDesktopController.getInstanzaLoginDesktopController();
+        loginControl2.mostraPaginaLogin();
     }
 
     public void ricaricaPremuto(ActionEvent actionEvent) throws IOException {

@@ -6,27 +6,23 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10"
           xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.LoginForm">
     <children>
-        <TitledPane animated="false" text="Effettua il Login">
-            <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="1024.0">
                     <children>
-                        <Button layoutX="486.0" layoutY="257.0" mnemonicParsing="false" onAction="#loginPremuto"
-                                text="Login"/>
-                        <PasswordField fx:id="password" layoutX="434.0" layoutY="214.0"
-                                       AnchorPane.bottomAnchor="330.0"/>
-                        <TextField fx:id="username" layoutX="434.0" layoutY="153.0" AnchorPane.bottomAnchor="390.0"/>
                         <Text layoutX="432.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username"
                               AnchorPane.bottomAnchor="420.0"/>
+                        <TextField fx:id="username" layoutX="434.0" layoutY="153.0" AnchorPane.bottomAnchor="390.0"/>
                         <Text layoutX="434.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password"
                               AnchorPane.bottomAnchor="360.0"/>
-                        <Button layoutX="434.0" layoutY="332.0" mnemonicParsing="false"
-                                text="Clicca qui per recuperarla"/>
+                        <PasswordField fx:id="password" layoutX="434.0" layoutY="214.0"
+                                       AnchorPane.bottomAnchor="330.0"/>
+                        <Button layoutX="486.0" layoutY="257.0" mnemonicParsing="false" onAction="#loginPremuto"
+                                text="Login"/>
                         <Text layoutX="431.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0"
                               text="Hai dimenticato la password?"/>
+                        <Button layoutX="434.0" layoutY="332.0" mnemonicParsing="false"
+                                text="Clicca qui per recuperarla"/>
                     </children>
                 </AnchorPane>
-            </content>
-        </TitledPane>
     </children>
     <columnConstraints>
         <ColumnConstraints/>

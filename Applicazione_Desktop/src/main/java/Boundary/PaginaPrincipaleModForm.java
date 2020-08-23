@@ -2,7 +2,6 @@ package Boundary;
 
 import Controller.LoginDesktopController;
 import Controller.StatisticheStruttureController;
-import com.amazonaws.services.dynamodbv2.xspec.L;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,9 +40,9 @@ public class PaginaPrincipaleModForm extends Application {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
 
-       /* LoginForm login = new LoginForm();
+        LoginDesktopController loginControl = LoginDesktopController.getInstanzaLoginDesktopController();
+        loginControl.mostraPaginaLogin();
 
-        login.start(); */
     }
 
     @Override

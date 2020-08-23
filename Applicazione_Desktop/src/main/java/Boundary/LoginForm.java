@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -30,11 +31,15 @@ public class LoginForm extends Application {
     }
 
     public void loginPremuto(ActionEvent actionEvent) throws IOException {
-        //Messo solo per aprire la pagina degli admin. Bisogna scrivere il codice correttamente
+        boolean islogged;
         LoginDesktopController controller = LoginDesktopController.getInstanzaLoginDesktopController();
-
         try {
-            controller.controllaCredenzialiPerLogin(username.getText(), password.getText());
+            islogged = controller.controllaCredenzialiPerLogin(username.getText(), password.getText());
+            if (islogged == true) {
+                Node node = (Node) actionEvent.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                stage.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
