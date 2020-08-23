@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import com.example.appmobile.Adapters.RecyclerViewFotoRecensioniAdapter;
 import com.example.appmobile.Adapters.RecyclerViewRecensioniAdapter;
 import com.example.appmobile.R;
-import com.google.android.gms.maps.model.LatLng;
+import com.example.appmobile.controller.ScrivereRecensioniController;
 
 import java.util.List;
 
@@ -87,6 +86,18 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         recyclerViewFotoRecensioni.setLayoutManager(fotoManager);
         RecyclerViewFotoRecensioniAdapter fotoAdapter = new RecyclerViewFotoRecensioniAdapter(this,listaUrlFoto);
         recyclerViewFotoRecensioni.setAdapter(fotoAdapter);
+
+        //Click su scrivere recensione
+        scrivereRecensioniLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScrivereRecensioniController controller = ScrivereRecensioniController.getScrivereRecensioniController();
+                controller.mostraScrivereStrutture(getApplicationContext());
+                //non so se effettivamente questo getApplicationContext sia corretto chiamarlo o chiamare un altro context
+                //Ma penso sia giusto
+                //Davide
+            }
+        });
 
     }
 

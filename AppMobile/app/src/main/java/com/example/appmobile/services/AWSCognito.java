@@ -76,7 +76,6 @@ public class AWSCognito implements UtenteDao {
 
         AuthenticationHandler authenticationHandler = new AuthenticationHandler() {
 
-
             @Override
             public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
                 showToast(context,"Login effettuato");

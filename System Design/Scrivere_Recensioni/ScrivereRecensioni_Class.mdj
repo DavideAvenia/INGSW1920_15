@@ -206,7 +206,7 @@
 											"top": 472,
 											"width": 716.4599609375,
 											"height": 13,
-											"text": "+pubblicaRecensione(String nomeStruttura, int valutazione, ArrayList, arrayMedia, String testo, String nomeUtente): boolean",
+											"text": "+inviaRecensione(String nomeStruttura, int valutazione, ArrayList, arrayMedia, String testo, String nomeUtente): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -494,7 +494,7 @@
 										},
 										{
 											"_type": "UMLOperationView",
-											"_id": "AAAAAAFydJbJJP0alWw=",
+											"_id": "AAAAAAF0HHTJpNg3voY=",
 											"_parent": {
 												"$ref": "AAAAAAFya6AswKsF6pQ="
 											},
@@ -4962,7 +4962,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFya5QQvKqNkl4="
 							},
-							"name": "pubblicaRecensione",
+							"name": "inviaRecensione",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -4970,8 +4970,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "String nomeStruttura",
-									"type": ""
+									"name": "String nomeStruttura"
 								},
 								{
 									"_type": "UMLParameter",
@@ -4979,8 +4978,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "int valutazione",
-									"type": ""
+									"name": "int valutazione"
 								},
 								{
 									"_type": "UMLParameter",
@@ -4988,8 +4986,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "ArrayList",
-									"type": ""
+									"name": "ArrayList"
 								},
 								{
 									"_type": "UMLParameter",
@@ -4997,8 +4994,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "arrayMedia",
-									"type": ""
+									"name": "arrayMedia"
 								},
 								{
 									"_type": "UMLParameter",
@@ -5006,8 +5002,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "String testo",
-									"type": ""
+									"name": "String testo"
 								},
 								{
 									"_type": "UMLParameter",
@@ -5015,8 +5010,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFycOvO0R3wyzc="
 									},
-									"name": "String nomeUtente",
-									"type": ""
+									"name": "String nomeUtente"
 								},
 								{
 									"_type": "UMLParameter",
@@ -5860,7 +5854,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFycNF+yvBomNU="
 									},
-									"name": "pending boolean"
+									"name": "pending boolean",
+									"type": ""
 								}
 							]
 						}

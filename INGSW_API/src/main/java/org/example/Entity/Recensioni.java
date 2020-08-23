@@ -12,6 +12,8 @@ public class Recensioni {
     private float latitudine;
     private float longitudine;
 
+    private boolean pending;
+
     public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, float latitudine, float longitudine) {
         this.testoRecensione = testoRecensione;
         this.urlImmagine = urlImmagine;
@@ -20,6 +22,7 @@ public class Recensioni {
         this.nomeStruttura = nomeStruttura;
         this.latitudine = latitudine;
         this.longitudine = longitudine;
+        this.pending = true;
     }
 
     public String getTestoRecensione() {
