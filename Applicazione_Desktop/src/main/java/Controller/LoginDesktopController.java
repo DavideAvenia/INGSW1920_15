@@ -35,6 +35,15 @@ public class LoginDesktopController {
         messaggio.start(new Stage());
     }
 
+    public void mostraPaginaLogin() {
+        LoginForm login = new LoginForm();
+        try {
+            login.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //Controlla le credenziali se sono presenti (SOLO ADMIN E MOD)
     public void controllaCredenzialiPerLogin(String userid, String password) throws Exception {
         String service = "";

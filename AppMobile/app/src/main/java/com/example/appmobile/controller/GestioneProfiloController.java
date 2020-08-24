@@ -1,5 +1,5 @@
 package com.example.appmobile.controller;
 
-public class ControllerGestioneProfilo {
+public class GestioneProfiloController {
 
 }
