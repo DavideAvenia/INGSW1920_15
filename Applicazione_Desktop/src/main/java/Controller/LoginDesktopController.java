@@ -45,7 +45,7 @@ public class LoginDesktopController {
     }
 
     //Controlla le credenziali se sono presenti (SOLO ADMIN E MOD)
-    public void controllaCredenzialiPerLogin(String userid, String password) throws Exception {
+    public boolean controllaCredenzialiPerLogin(String userid, String password) throws Exception {
         String service = "";
 
         File file = new File("config.txt");
@@ -62,27 +62,44 @@ public class LoginDesktopController {
 
         if(utenteDao.effettuaLogin(userid, password)){
             if (this.isAdmin(userid)) {
-                    PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
-                    p.start(new Stage());
-            }else if (utente.isMod()){
-                    PaginaPrincipaleModForm p = new PaginaPrincipaleModForm();
-                    p.start(new Stage());
-            }else{
-                mostraMessaggio("Login fallito","Non sei un mod/admin, non puoi accedere");
+                PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
+                p.start(new Stage());
+                return true;
+            } else if (this.isMod(userid)) {
+                PaginaPrincipaleModForm modp = new PaginaPrincipaleModForm();
+                modp.start(new Stage());
+                return true;
+            } else {
+                mostraMessaggio("Login fallito", "Non sei un mod/admin, non puoi accedere");
             }
         }else{
             mostraMessaggio("Login Fallito","UserId/Email oppure password incorretti");
         }
+        return false;
     }
-
-        //Deve restiuire un Boolean, controlla se nel nome è presente la parola ADMIN, ricorda il delimitatore tra ADMIN e l'email
-        public boolean isAdmin (String userid){
-            String tokens[] = userid.split("_");
-            tokens[0].toLowerCase();
-            if (tokens[0].equals("admin"))
-                return true;
-            else
-                return false;
+    private boolean isMod(String userid) {
+        String service = "";
+        File file = new File("config.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader((file)));
+            service = br.readLine();
+        } catch (IOException e) {
+            System.out.println("Non è stato trovato il file di configurazione!");
         }
+        UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
+        Utente u = utenteDao.getUtenteByUserID(userid);
+        if (u.isMod()) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isAdmin (String userid){
+        String tokens[] = userid.split("_");
+        tokens[0].toLowerCase();
+        if (tokens[0].equals("admin"))
+            return true;
+        else
+            return false;
+    }
 }
 
