@@ -131,8 +131,11 @@ public class AWSCognito implements UtenteDao {
 
         AdminUpdateUserAttributesRequest request = new AdminUpdateUserAttributesRequest().withUsername(utente.getUserId()).withUserPoolId(USERPOOLID).withUserAttributes(attributiUtente);
 
-        identityProvider.adminUpdateUserAttributes(request);
-
+        try{
+            identityProvider.adminUpdateUserAttributes(request);
+        }catch (Exception e){
+            return false;
+        }
         return true;
     }
 

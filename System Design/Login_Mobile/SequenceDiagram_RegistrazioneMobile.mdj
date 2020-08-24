@@ -1613,9 +1613,9 @@
 															"font": "Arial;13;0",
 															"left": 28,
 															"top": 894,
-															"width": 86.7216796875,
+															"width": 436.2109375,
 															"height": 13,
-															"text": "[dati non validi]"
+															"text": "[checkEmail == false || checkUsername == false || checkPassword == false]"
 														}
 													],
 													"font": "Arial;13;0",
@@ -2271,10 +2271,12 @@
 													"_parent": {
 														"$ref": "AAAAAAFxpI4ts1W/fUE="
 													},
-													"visible": false,
 													"font": "Arial;13;0",
-													"left": 64,
-													"height": 13
+													"left": 1549,
+													"top": 1161,
+													"width": 134.02685546875,
+													"height": 13,
+													"text": "«Interface»"
 												},
 												{
 													"_type": "LabelView",
@@ -2284,10 +2286,10 @@
 													},
 													"font": "Arial;13;1",
 													"left": 1549,
-													"top": 1163,
+													"top": 1176,
 													"width": 134.02685546875,
 													"height": 13,
-													"text": "AWSCognito"
+													"text": "UtenteDao"
 												},
 												{
 													"_type": "LabelView",
@@ -4398,7 +4400,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFxk1lTLqNwUAQ="
 							},
-							"name": "AWSCognito",
+							"name": "UtenteDao",
+							"stereotype": "Interface",
 							"represent": {
 								"$ref": "AAAAAAFxpI4tslW8KDw="
 							},
@@ -4422,7 +4425,7 @@
 										"$ref": "AAAAAAFxk5sNoaaPqIo="
 									},
 									"name": "Operand1",
-									"guard": "dati non validi"
+									"guard": "checkEmail == false || checkUsername == false || checkPassword == false"
 								},
 								{
 									"_type": "UMLInteractionOperand",
@@ -4537,8 +4540,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFxk1lTLqNvtm0="
 					},
-					"name": "Role8",
-					"type": ""
+					"name": "Role8"
 				},
 				{
 					"_type": "UMLAttribute",

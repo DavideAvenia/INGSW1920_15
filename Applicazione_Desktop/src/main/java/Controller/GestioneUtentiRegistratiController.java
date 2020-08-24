@@ -81,15 +81,14 @@ public class GestioneUtentiRegistratiController {
         if (checkCellulare(cellulare) && checkEmail(email)) {
 
             Utente utente = new Utente(userId, nome, cognome, nickname, cellulare, email, useNick, isMod);
-            utenteDao.aggiornaUtente(utente);
+            if(!utenteDao.aggiornaUtente(utente)){
+                mostraMessaggio("Errore", "Non è stato possibile modificare l'utente!");
+            }else{
+                mostraMessaggio("Successo", "Le informazioni dell'utente sono state aggiornate!");
+            }
 
         } else {
-            Messaggio messaggio = new Messaggio("Errore", "L'email e/o il cellulare iseriti non sono validi!");
-            try {
-                messaggio.start(new Stage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            mostraMessaggio("Errore", "L'email e/o il cellulare iseriti non sono validi!");
         }
     }
 
@@ -112,6 +111,15 @@ public class GestioneUtentiRegistratiController {
         Matcher matcher = pattern.matcher(cellulare);
 
         return matcher.matches();
+    }
+
+    private void mostraMessaggio(String title, String mess){
+        Messaggio messaggio = new Messaggio(title,mess);
+        try {
+            messaggio.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
