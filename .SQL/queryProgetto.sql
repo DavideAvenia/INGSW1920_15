@@ -12,15 +12,17 @@ descrizione varchar(1500),
 constraint PK_Strutture PRIMARY KEY(nome,latitudine,longitudine)
 );
 
-create table Recensioni(
-usernameUtente varchar(20) NOT NULL,
-nomeStruttura varchar(50) NOT NULL,
-latitudine varchar(30) NOT NULL,
-longitudine varchar(30) NOT NULL,
+create table `Recensioni`(
+`usernameUtente` varchar(20) NOT NULL,
+`nomeStruttura` varchar(50) NOT NULL,
+`latitudine` varchar(30) NOT NULL,
+`longitudine` varchar(30) NOT NULL,
 
-testoRecensione varchar(500) NOT NULL,
-urlFoto varchar(2083),
-valutazione varchar(3),
+`testoRecensione` varchar(500) NOT NULL,
+`urlFoto` varchar(2083),
+`valutazione` varchar(3),
+
+`pending` boolean,
 
 constraint PK_Recensioni PRIMARY KEY (usernameUtente, nomeStruttura,latitudine,longitudine)
 );
@@ -46,17 +48,17 @@ insert into StatisticheStrutture values("Piazza del Plebiscito","40.835896","14.
 insert into StatisticheStrutture values("Teatro San Carlo","40.85299","14.24789","0");
 insert into StatisticheStrutture values("Castel dell'Ovo","40.827222","14.248611","0");
 
-insert into Recensioni values("Giuseppe","Pompei","40.749183654785156","14.500738143920898","Non mi piace molto Pompei :(","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG","2.5");
-insert into Recensioni values("Marco","Pompei","40.749183654785156","14.500738143920898","Bella Pompei!!","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG","3.3");
-insert into Recensioni values("Giuseppe","Castel dell'Ovo","40.827222","14.248611","Molto bello castell dell'ovo","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Castelo_do_Ovo.jpg/1200px-Castelo_do_Ovo.jpg","4.9");
-insert into Recensioni values("Giuseppe","Anfiteatro Flavio","40.825869","14.125078","L'anfiteatro della mia città è figo!","https://lh3.googleusercontent.com/proxy/Ny7s7MCWrUe4y7QHrOPyytvEJ4X_B0l9ZIuOgOcckw9wUCwVlqO2UABcdU-eLnYMzQsRFWtbIZXiODRbXjF6EBeaZ26UqFjv2CiYCNNMxQyq-Fx22b2TltrdtoCRrCBLMDifi4sDfabOYkHMgE5OML1UDgu8","3.9");
-insert into Recensioni values("Marco","Anfiteatro Flavio","40.825869","14.125078","Ma come hanno fatto i romani a costruire tutto ciò? :O","https://www.beniculturali.it/mibac/multimedia/MiBAC/images/small/72/3a9bc83e2df59271821109b781461b781f44b.jpg","3.7");
-insert into Recensioni values("Gennaro","Anfiteatro Flavio","40.825869","14.125078","Adoro le costruzioni Romane","https://www.lacooltura.com/wp-content/uploads/2015/04/Sotterranei-Anfiteatro-Flavio.jpeg","4.1");
-insert into Recensioni values("Giuseppe","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era stupendo","https://www.teatrosancarlo.it/files/TSC03.jpg","5.0");
-insert into Recensioni values("Gennaro","Teatro San Carlo","40.85299","14.24789","Il teatro San Carlo è il più bello d'Italia!!","https://tuttodanzaweb.it/wp-content/uploads/2020/06/Teatro-San-Carlo-di-Napoli-Stagione-202021_.jpg","4.9");
-insert into Recensioni values("Marco","Teatro San Carlo","40.85299","14.24789","Non mi piace questo teatro","https://ecampania.it/wp-content/uploads/2020/03/teatro-san-carlo-napoli-1130x650.jpg","5.0");
-insert into Recensioni values("Francesca","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era stupendo","https://www.farodiroma.it/wp-content/uploads/2019/12/101728121-1e70f7dd-9e10-48cc-9959-86e332b2ad28.jpg","4.5");
-insert into Recensioni values("Maria","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era grandioso","https://www.napolidavivere.it/wp-content/uploads/bfi_thumb/Teatro-San-Carlo-festa-della-musica-5sbnlydbvd512i2xc32w0efmcx5drr9vtzi7755te44.jpg","4.5");
+insert into `Recensioni` values("Giuseppe","Pompei","40.749183654785156","14.500738143920898","Non mi piace molto Pompei :(","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG","2.5",false);
+insert into `Recensioni` values("Marco","Pompei","40.749183654785156","14.500738143920898","Bella Pompei!!","https://upload.wikimedia.org/wikipedia/commons/7/7b/Via_dell%27Abbondanza_1.JPG","3.3",false);
+insert into `Recensioni` values("Giuseppe","Castel dell'Ovo","40.827222","14.248611","Molto bello castell dell'ovo","https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Castelo_do_Ovo.jpg/1200px-Castelo_do_Ovo.jpg","4.9",false);
+insert into `Recensioni` values("Giuseppe","Anfiteatro Flavio","40.825869","14.125078","L'anfiteatro della mia città è figo!","https://lh3.googleusercontent.com/proxy/Ny7s7MCWrUe4y7QHrOPyytvEJ4X_B0l9ZIuOgOcckw9wUCwVlqO2UABcdU-eLnYMzQsRFWtbIZXiODRbXjF6EBeaZ26UqFjv2CiYCNNMxQyq-Fx22b2TltrdtoCRrCBLMDifi4sDfabOYkHMgE5OML1UDgu8","3.9",false);
+insert into `Recensioni` values("Marco","Anfiteatro Flavio","40.825869","14.125078","Ma come hanno fatto i romani a costruire tutto ciò? :O","https://www.beniculturali.it/mibac/multimedia/MiBAC/images/small/72/3a9bc83e2df59271821109b781461b781f44b.jpg","3.7",false);
+insert into `Recensioni` values("Gennaro","Anfiteatro Flavio","40.825869","14.125078","Adoro le costruzioni Romane","https://www.lacooltura.com/wp-content/uploads/2015/04/Sotterranei-Anfiteatro-Flavio.jpeg","4.1",false);
+insert into `Recensioni` values("Giuseppe","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era stupendo","https://www.teatrosancarlo.it/files/TSC03.jpg","5.0",false);
+insert into `Recensioni` values("Gennaro","Teatro San Carlo","40.85299","14.24789","Il teatro San Carlo è il più bello d'Italia!!","https://tuttodanzaweb.it/wp-content/uploads/2020/06/Teatro-San-Carlo-di-Napoli-Stagione-202021_.jpg","4.9",false);
+insert into `Recensioni` values("Marco","Teatro San Carlo","40.85299","14.24789","Non mi piace questo teatro","https://ecampania.it/wp-content/uploads/2020/03/teatro-san-carlo-napoli-1130x650.jpg","5.0",false);
+insert into `Recensioni` values("Francesca","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era stupendo","https://www.farodiroma.it/wp-content/uploads/2019/12/101728121-1e70f7dd-9e10-48cc-9959-86e332b2ad28.jpg","4.5",false);
+insert into `Recensioni` values("Maria","Teatro San Carlo","40.85299","14.24789","Lo spettacolo era grandioso","https://www.napolidavivere.it/wp-content/uploads/bfi_thumb/Teatro-San-Carlo-festa-della-musica-5sbnlydbvd512i2xc32w0efmcx5drr9vtzi7755te44.jpg","4.5", false);
 
 create table StatisticheUtenti (
 userID varchar(20) primary key,
