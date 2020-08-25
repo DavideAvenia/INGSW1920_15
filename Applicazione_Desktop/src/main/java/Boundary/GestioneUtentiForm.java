@@ -110,7 +110,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gestioneUtentiRegistratiController = GestioneUtentiRegistratiController.gestioneUtentiRegistratiController(null);
 
-        ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username", "Cognome", "Email", "Cellulare");
+        ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username", "Cognome", "Email", "Cellulare","Moderatori");
         filtri.setItems(listaFiltri);
         filtri.getSelectionModel().select(lastFiltro);
 

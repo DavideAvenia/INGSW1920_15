@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class GetStrutturaByNomePosizione implements RequestHandler<Map<String,String>, Strutture> {
 
-    private final String URLDB = "";
     @Override
     public Strutture handleRequest(Map<String, String> bodyRequest, Context context) {
         Strutture struttura = null;

@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, List<Strutture>> {
 
-    private final String URLDB = "jdbc:mysql://ingswdatabase.czrrnx3ltups.eu-west-1.rds.amazonaws.com:3306/ingsw?user=admin&password=6x1li30di3IoU2Mgwaoy";
-
     @Override
     public List<Strutture> handleRequest(Map<String, String> requestBody, Context context) {
         List<Strutture> listaStrutture = new ArrayList<Strutture>();
@@ -26,7 +24,7 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
         String filtroOrarioApertura = requestBody.get("orarioApertura");
         String filtroCategoria = requestBody.get("categoria");
 
-        if(filtroNome.length() != 0){
+        if(filtroNome.length() != 0 && !filtroNome.contains("\"")){
             query = query+"nome=\""+filtroNome+"\" AND ";
         }
 

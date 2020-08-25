@@ -16,9 +16,9 @@ import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "";
-    private final String CLIENTID = "";
-    private final String SECRET = "";
+    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -45,20 +45,28 @@ public class AWSCognito implements UtenteDao {
                 /*A causa dell'ordine degli attributi non mantenuto tra i singoli utenti, risulta
                 * necessario controllare il nome di ogni attributo di ogni singolo utente*/
                 for(int i = 0; i < attributiUtente.size(); i++){
+                    String nomeAttributo = attributiUtente.get(i).getName();
                     switch (filtro) {
                         case "Cognome":
-                            if(attributiUtente.get(i).getName().equals("family_name")){
+                            if(nomeAttributo.equals("family_name")){
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Email":
-                            if(attributiUtente.get(i).getName().equals("email")){
+                            if(nomeAttributo.equals("email")){
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Cellulare":
-                            if(attributiUtente.get(i).getName().equals("phone_number")){
+                            if(nomeAttributo.equals("phone_number")){
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                            }
+                            break;
+                        case "Moderatori":
+                            if(nomeAttributo.equals("custom:isMod")){
+                                if(Integer.parseInt(attributiUtente.get(i).getValue()) == 1){
+                                    listaUtenti.add(user.getUsername());
+                                }
                             }
                             break;
                     }
@@ -176,7 +184,6 @@ public class AWSCognito implements UtenteDao {
     public boolean cancellaUtente(String utente) {
 
         AdminDeleteUserRequest adminDeleteUserRequest = new AdminDeleteUserRequest().withUserPoolId(USERPOOLID).withUsername(utente);
-
         identityProvider.adminDeleteUser(adminDeleteUserRequest);
         return true;
     }

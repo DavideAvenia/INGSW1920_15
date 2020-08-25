@@ -58,6 +58,10 @@ public class LoginDesktopController {
 
         UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
 
+        if(userid.length() == 0){
+            mostraMessaggio("Login fallito","Devi inserire le credenziali per poter accedere!");
+            return false;
+        }
         Utente utente = utenteDao.getUtenteByUserID(userid);
 
         if(utenteDao.effettuaLogin(userid, password)){
