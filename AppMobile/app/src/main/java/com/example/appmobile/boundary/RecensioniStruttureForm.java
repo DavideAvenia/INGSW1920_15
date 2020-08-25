@@ -90,7 +90,7 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         //Click su scrivere recensione
         scrivereRecensioniLink.setOnClickListener(view -> {
             ScriviRecensioniController controller = ScriviRecensioniController.getScriviRecensioniController();
-            controller.mostraScrivereRecensioni(getApplicationContext());
+            controller.mostraScrivereRecensioni(getApplicationContext(), nomeStruttura, latitudine, longitudine);
 
         });
 

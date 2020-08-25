@@ -95,10 +95,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if (location != null) {
-                    System.out.println("Current location data da fusedLocation: " + location.toString());
+                if (location != null)
                     setCurrentLocation(location);
-                }
             }
         });
 
@@ -304,4 +302,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     }
 
     public static boolean getIsLogged(){return isLogged;}
+
+    public static String getUserIdLogged(){return userIdLogged;}
 }

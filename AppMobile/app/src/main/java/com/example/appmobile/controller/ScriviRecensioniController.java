@@ -22,6 +22,10 @@ import java.io.OutputStream;
 public class ScriviRecensioniController {
     private static ScriviRecensioniController recensioniController = null;
     private boolean isLogged = MainFrameForm.getIsLogged();
+    private String nomeStruttura;
+    private String latitudine;
+    private String longitudine;
+    private String userIdLogged = MainFrameForm.getUserIdLogged();
 
     private ScriviRecensioniController(){}
 
@@ -31,9 +35,12 @@ public class ScriviRecensioniController {
         return recensioniController;
     }
 
-    public void mostraScrivereRecensioni(Context context){
+    public void mostraScrivereRecensioni(Context context, String nomeS, String lat, String longi){
         if(isLogged) {
             context.startActivity(new Intent(context, ScriviRecensioniForm.class));
+            nomeStruttura = nomeS;
+            latitudine = lat;
+            longitudine = longi;
         }
         Toast.makeText(context, "Devi effettuare prima il login", Toast.LENGTH_SHORT).show();
     }
@@ -45,7 +52,6 @@ public class ScriviRecensioniController {
 
         RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service,context);
         UtenteDao utenteDao = DaoFactory.getUtenteDao(service,context);
-        StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
 
 
         //Mi servono che l'utente sia necessariamente loggato, quindi collegarmi a Cognito
