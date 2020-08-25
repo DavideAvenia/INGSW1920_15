@@ -28,9 +28,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.appmobile.Adapters.CustomInfoWindowAdapter;
+import com.example.appmobile.boundary.ScriviRecensioniForm;
 import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
+import com.example.appmobile.controller.ScriviRecensioniController;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,6 +63,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private ControllerLogin controllerLogin;
     private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
     private LeggereRecensioniController leggereRecensioniController;
+    private ScriviRecensioniController scriviRecensioniController;
 
 
     @Override
@@ -68,8 +71,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
 
@@ -92,8 +95,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location != null){
-                    System.out.println("Current location data da fusedLocation: "+location.toString());
+                if (location != null) {
+                    System.out.println("Current location data da fusedLocation: " + location.toString());
                     setCurrentLocation(location);
                 }
             }
@@ -101,7 +104,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     }
 
-    private void setCurrentLocation(Location location){
+    private void setCurrentLocation(Location location) {
         currentLocation = location;
     }
 
@@ -141,6 +144,17 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(true);
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this));
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -288,4 +302,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public static Location getCurrentLocation(){
         return currentLocation;
     }
+
+    public static boolean getIsLogged(){return isLogged;}
 }

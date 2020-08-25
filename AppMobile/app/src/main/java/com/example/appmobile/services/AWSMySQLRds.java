@@ -1,6 +1,7 @@
 package com.example.appmobile.services;
 
 import android.content.Context;
+import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.example.appmobile.Dao.RecensioniDao;
@@ -14,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,7 +225,10 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     }
 
     @Override
-    public boolean insertRecensioni(String nomeStruttura, float valutazione) {
+    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String testoRecensione, float valutazione, String urlImmagine) {
+        /*Costruzione body richiesta http api*/
+        OkHttpClient client = new OkHttpClient();
+        JSONObject jsonObject = new JSONObject();
 
         return false;
     }

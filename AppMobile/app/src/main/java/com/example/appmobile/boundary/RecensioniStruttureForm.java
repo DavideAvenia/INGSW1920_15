@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.appmobile.Adapters.RecyclerViewFotoRecensioniAdapter;
 import com.example.appmobile.Adapters.RecyclerViewRecensioniAdapter;
 import com.example.appmobile.R;
-import com.example.appmobile.controller.ScrivereRecensioniController;
+import com.example.appmobile.controller.ScriviRecensioniController;
 
 import java.util.List;
 
@@ -88,15 +88,10 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         recyclerViewFotoRecensioni.setAdapter(fotoAdapter);
 
         //Click su scrivere recensione
-        scrivereRecensioniLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ScrivereRecensioniController controller = ScrivereRecensioniController.getScrivereRecensioniController();
-                controller.mostraScrivereStrutture(getApplicationContext());
-                //non so se effettivamente questo getApplicationContext sia corretto chiamarlo o chiamare un altro context
-                //Ma penso sia giusto
-                //Davide
-            }
+        scrivereRecensioniLink.setOnClickListener(view -> {
+            ScriviRecensioniController controller = ScriviRecensioniController.getScriviRecensioniController();
+            controller.mostraScrivereRecensioni(getApplicationContext());
+
         });
 
     }

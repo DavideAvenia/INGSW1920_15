@@ -10,5 +10,5 @@ public interface RecensioniDao {
 
     public List<Recensioni> getRecensioniByNomeStrutturaPosizione(String nomeStruttura, String latitudine, String longitudine);
 
-    public boolean insertRecensioni(String nomeStruttura, float valutazione);
+    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String testoRecensione, float valutazione, String urlImmagine);
 }
