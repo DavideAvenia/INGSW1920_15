@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, List<Strutture>> {
 
-    private final String URLDB = "jdbc:mysql://ingswdatabase.czrrnx3ltups.eu-west-1.rds.amazonaws.com:3306/ingsw?user=admin&password=6x1li30di3IoU2Mgwaoy";
-
     @Override
     public List<Strutture> handleRequest(Map<String, String> requestBody, Context context) {
         List<Strutture> listaStrutture = new ArrayList<Strutture>();
@@ -26,7 +24,7 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
         String filtroOrarioApertura = requestBody.get("orarioApertura");
         String filtroCategoria = requestBody.get("categoria");
 
-        if(filtroNome.length() != 0){
+        if(filtroNome.length() != 0 && !filtroNome.contains("\"")){
             query = query+"nome=\""+filtroNome+"\" AND ";
         }
 
@@ -54,15 +52,15 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
 
             ResultSet resultSet = databaseConnection.eseguiQuery(query);
             while(resultSet.next()){
-                String nome = resultSet.getString(1);
-                String città = resultSet.getString(2);
-                float valutazioneMedia = resultSet.getFloat(3);
-                String maxPrezzo = resultSet.getString(4);
-                String orarioApertura = resultSet.getString(5);
-                String categoria = resultSet.getString(6);
-                String latitudine = resultSet.getString(7);
-                String longitudine = resultSet.getString(8);
-                String descrizione = resultSet.getString(9);
+                String nome = resultSet.getString("nome");
+                String città = resultSet.getString("città");
+                float valutazioneMedia = resultSet.getFloat("valutazioneMedia");
+                String maxPrezzo = resultSet.getString("maxPrezzo");
+                String orarioApertura = resultSet.getString("orarioApertura");
+                String categoria = resultSet.getString("categoria");
+                String latitudine = resultSet.getString("latitudine");
+                String longitudine = resultSet.getString("longitudine");
+                String descrizione = resultSet.getString("descrizione");
 
                 Strutture struttura = new Strutture(nome,città,valutazioneMedia,maxPrezzo,orarioApertura,categoria,latitudine,longitudine,descrizione);
                 listaStrutture.add(struttura);

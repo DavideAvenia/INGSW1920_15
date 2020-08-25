@@ -4,6 +4,7 @@ import Boundary.GestioneUtentiForm;
 import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
 import DAO.DAOfactory;
+import DAO.StatisticheUtentiDAO;
 import DAO.UtenteDao;
 import Entity.Utente;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ public class GestioneUtentiRegistratiController {
 
     private UtenteDao utenteDao;
     private DAOfactory daOfactory;
+    private StatisticheUtentiDAO statisticheUtentiDAO;
 
     private GestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
         this.paginaPrincipaleAdminForm = paginaPrincipaleAdminForm;
@@ -73,7 +75,29 @@ public class GestioneUtentiRegistratiController {
     }
 
     public boolean cancellaUtente(String username) {
-        return utenteDao.cancellaUtente(username);
+
+        String tokens[] = username.split(" ");
+        String userId = tokens[0];
+
+        if(utenteDao.cancellaUtente(userId)){
+            Thread thread = new Thread(() -> {
+                String service = "";
+
+                File file = new File("config.txt");
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader((file)));
+                    service = br.readLine();
+                } catch (IOException e) {
+                    System.out.println("Non è stato trovato il file di configurazione!");
+                }
+
+                statisticheUtentiDAO = DAOfactory.getStatisticheUtentiDAO(service);
+                statisticheUtentiDAO.deleteStatisticheUtente(userId);
+            });
+            thread.start();
+            return true;
+        }
+        return false;
     }
 
     public void aggiornaUtente(String userId, String nome, String cognome, String nickname, String cellulare, String email, boolean useNick, boolean isMod) {

@@ -100,4 +100,27 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
         return userstats;
 
     }
+
+    @Override
+    public void deleteStatisticheUtente(String userId) {
+
+        JSONObject tmp = new JSONObject();
+        try {
+            tmp.put("userId", userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+        Request req = new Request.Builder().url(APIDELETESTATISTICHEUTENTE).post(requestBody).build();
+
+        Response res = null;
+        try {
+            res = client.newCall(req).execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

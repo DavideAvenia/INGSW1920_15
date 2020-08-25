@@ -16,9 +16,9 @@ import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "";
-    private final String CLIENTID = "";
-    private final String SECRET = "";
+    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -41,16 +41,35 @@ public class AWSCognito implements UtenteDao {
         } else {
             for (UserType user : listUsersResult.getUsers()) {
                 List<AttributeType> attributiUtente = user.getAttributes();
-                switch (filtro) {
-                    case "Cognome":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(8).getValue());
-                        break;
-                    case "Email":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(10).getValue());
-                        break;
-                    case "Cellulare":
-                        listaUtenti.add(user.getUsername() + " " + attributiUtente.get(7).getValue());
-                        break;
+
+                /*A causa dell'ordine degli attributi non mantenuto tra i singoli utenti, risulta
+                * necessario controllare il nome di ogni attributo di ogni singolo utente*/
+                for(int i = 0; i < attributiUtente.size(); i++){
+                    String nomeAttributo = attributiUtente.get(i).getName();
+                    switch (filtro) {
+                        case "Cognome":
+                            if(nomeAttributo.equals("family_name")){
+                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                            }
+                            break;
+                        case "Email":
+                            if(nomeAttributo.equals("email")){
+                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                            }
+                            break;
+                        case "Cellulare":
+                            if(nomeAttributo.equals("phone_number")){
+                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                            }
+                            break;
+                        case "Moderatori":
+                            if(nomeAttributo.equals("custom:isMod")){
+                                if(Integer.parseInt(attributiUtente.get(i).getValue()) == 1){
+                                    listaUtenti.add(user.getUsername());
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -62,24 +81,46 @@ public class AWSCognito implements UtenteDao {
         String tokens[] = username.split(" ");
         String userId = tokens[0];
 
+        String nome = "", cognome = "", nickname = "", cellulare = "", email = "";
+        boolean isMod = false, useNick = false;
+
         AdminGetUserRequest adminGetUserRequest = new AdminGetUserRequest().withUserPoolId(USERPOOLID).withUsername(userId);
         AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
 
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
-        String nome = listaAttributiUtente.get(5).getValue();
-        String cognome = listaAttributiUtente.get(8).getValue();
-        String nickname = listaAttributiUtente.get(6).getValue();
-        String cellulare = listaAttributiUtente.get(7).getValue();
-        String email = listaAttributiUtente.get(10).getValue();
-        boolean isMod = false;
-        boolean useNick = false;
 
-        if (Integer.parseInt(listaAttributiUtente.get(4).getValue()) == 1) {
-            isMod = true;
+        /*In cognito l'ordine degli attributi degli utenti non è cosistente. Utenti diversi hanno gli attributi
+        * ordinati in maniera diversa: è necessario recuperare gli attributi per nome e non per indice*/
+        for(int i = 0; i < listaAttributiUtente.size(); i++){
+            switch (listaAttributiUtente.get(i).getName()){
+                case "name":
+                    nome = listaAttributiUtente.get(i).getValue();
+                    break;
+                case "family_name":
+                    cognome = listaAttributiUtente.get(i).getValue();
+                    break;
+                case "nickname":
+                    nickname = listaAttributiUtente.get(i).getValue();
+                    break;
+                case "phone_number":
+                    cellulare = listaAttributiUtente.get(i).getValue();
+                    break;
+                case "email":
+                    email = listaAttributiUtente.get(i).getValue();
+                    break;
+                case "custom:isMod":
+                    if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
+                        isMod = true;
+                    }
+                    break;
+                case "custom:useNick":
+                    if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
+                        useNick = true;
+                    }
+                    break;
+            }
         }
-        if (Integer.parseInt(listaAttributiUtente.get(9).getValue()) == 1) {
-            useNick = true;
-        }
+
         Utente utente = new Utente(userId, nome, cognome, nickname, cellulare, email, useNick, isMod);
 
         return utente;
@@ -143,7 +184,6 @@ public class AWSCognito implements UtenteDao {
     public boolean cancellaUtente(String utente) {
 
         AdminDeleteUserRequest adminDeleteUserRequest = new AdminDeleteUserRequest().withUserPoolId(USERPOOLID).withUsername(utente);
-
         identityProvider.adminDeleteUser(adminDeleteUserRequest);
         return true;
     }
