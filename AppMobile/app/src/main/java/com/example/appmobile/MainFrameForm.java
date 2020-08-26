@@ -33,6 +33,7 @@ import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.example.appmobile.controller.ScriviRecensioniController;
+import com.example.appmobile.entity.Utente;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -54,6 +55,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private Menu menu;
     private LocationManager locationManager = null;
     private static String userIdLogged = null;
+    private static Utente utente;
+
+
     private ProgressBar progressBar;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static Location currentLocation;
@@ -304,4 +308,12 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public static boolean getIsLogged(){return isLogged;}
 
     public static String getUserIdLogged(){return userIdLogged;}
+
+    public static Utente getUtente() {
+        return utente;
+    }
+
+    public static void setUtente(Utente utente) {
+        MainFrameForm.utente = utente;
+    }
 }
