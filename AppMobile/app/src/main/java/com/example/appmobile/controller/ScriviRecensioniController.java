@@ -11,6 +11,7 @@ import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
 import com.example.appmobile.boundary.ScriviRecensioniForm;
+import com.example.appmobile.entity.Utente;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,8 +54,17 @@ public class ScriviRecensioniController {
         RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service,context);
         UtenteDao utenteDao = DaoFactory.getUtenteDao(service,context);
 
+        Utente u = utenteDao.getUtenteByUserId(userIdLogged);
 
-        //Mi servono che l'utente sia necessariamente loggato, quindi collegarmi a Cognito
+        if(immagine == null){
+            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "Non è stata caricata un immagine");
+        }else{
+            //Inserimento dell'immagine in S3, prendi l'URL e chiami
+            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura,latitudine, longitudine, testoRecensione, valutazioneRecensione, "STRINGA TEMPORANEA");
+        }
+
+
+
         //Mi servono le recensioni per poterne aggiungere una in più al DB ma che non sia pubblicata, per essere pubblica deve essere necessariamente pending = FALSE
         return false;
     }

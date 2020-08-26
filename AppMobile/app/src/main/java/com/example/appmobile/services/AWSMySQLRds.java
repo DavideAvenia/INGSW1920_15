@@ -225,10 +225,24 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     }
 
     @Override
-    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String testoRecensione, float valutazione, String urlImmagine) {
+    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine) {
         /*Costruzione body richiesta http api*/
         OkHttpClient client = new OkHttpClient();
         JSONObject jsonObject = new JSONObject();
+
+        try{
+            jsonObject.put("nomeUtente",nomeUtente);
+            jsonObject.put("nomeStruttura", nomeStruttura);
+            jsonObject.put("latitudine", latitudine);
+            jsonObject.put("longitudine", longitudine);
+            jsonObject.put("testoRecensione", testoRecensione);
+            jsonObject.put("valutazione", valutazione);
+            jsonObject.put("urlImmagine", urlImmagine);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
 
         return false;
     }
