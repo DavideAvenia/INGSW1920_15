@@ -47,9 +47,14 @@ public class ScriviRecensioniForm extends AppCompatActivity {
     }
 
     public void apriGalleria() {
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        getIntent.setType("image/*");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"),1234);
 
+<<<<<<< HEAD
+        startActivityForResult(intent, 1234);
+=======
         Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
 
@@ -57,6 +62,7 @@ public class ScriviRecensioniForm extends AppCompatActivity {
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
         startActivityForResult(chooserIntent, 1);
+>>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

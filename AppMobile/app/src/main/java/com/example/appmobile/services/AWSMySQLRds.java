@@ -3,6 +3,13 @@ package com.example.appmobile.services;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
 import com.example.appmobile.entity.Recensioni;
@@ -12,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +33,16 @@ import okhttp3.Response;
 public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     private Context context;
+    private final String KEY = "AKIAILZV5RVDP23VUCEA";
+    private final String SECRET = "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";
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
+>>>>>>> Stashed changes
     public AWSMySQLRds(Context context) {
         this.context = context;
     }
@@ -239,8 +256,49 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
             e.printStackTrace();
         }
 
+        Request request = createRequest(jsonObject, URLAPIINSERTRECENSIONI);
 
+        Response response = null;
+        try{
+            response = client.newCall(request).execute();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    @Override
+    public String insertImmagineS3(File img){
+        BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
+        AmazonS3Client s3Client = new AmazonS3Client(credentials);
+
+        TransferUtility transferUtility =
+                TransferUtility.builder()
+                        .context(context)
+                        .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                        .s3Client(s3Client)
+                        .build();
+
+        TransferObserver uploadObserver =
+                transferUtility.upload("jsaS3/" + img.getName(), img);
+
+        if (TransferState.COMPLETED == uploadObserver.getState()) {
+            Toast.makeText(context, "Upload completato!", Toast.LENGTH_SHORT).show();
+        }
+
+        return s3Client.getUrl("progettoingswfedericoii", img.getName()).toString();
+=======
+=======
+>>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
+>>>>>>> Stashed changes
         return false;
+>>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
     }
 
     private Request createRequest(JSONObject jsonObject, final String API) {

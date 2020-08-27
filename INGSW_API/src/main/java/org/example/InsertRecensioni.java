@@ -19,9 +19,12 @@ public class InsertRecensioni implements RequestHandler<Map<String,String>,Boole
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
 
-        databaseConnection.updateEntries("insert into Recensioni values(\"" + nomeUtente +"\",\"" + nomeStruttura +"\",\""
-                + latitudine + "\",\"" + longitudine + "\",\"" + testoRecensione + "\",\"" + valutazione + "\",\"" + urlImmagine + "\",\"" + false + "\");");
+        //1 alla fine della query signifca "In attesa" sarebbe il parametro Pending
+        //vuol dire che è settato a True quindi rimane in attesa di conferma
 
-        return null;
+        databaseConnection.updateEntries("insert into Recensioni values(\"" + nomeUtente +"\",\"" + nomeStruttura +"\",\""
+                + latitudine + "\",\"" + longitudine + "\",\"" + testoRecensione + "\",\"" + urlImmagine + "\",\"" + valutazione + "\",\"" + "1" + "\");");
+
+        return true;
     }
 }
