@@ -1,21 +1,18 @@
 package com.example.appmobile.services;
 
 import android.content.Context;
-import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
 import com.example.appmobile.entity.Recensioni;
 import com.example.appmobile.entity.Strutture;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
