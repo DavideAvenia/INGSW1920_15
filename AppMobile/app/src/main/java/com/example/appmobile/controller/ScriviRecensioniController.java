@@ -48,19 +48,9 @@ public class ScriviRecensioniController {
         Toast.makeText(context, "Devi effettuare prima il login", Toast.LENGTH_SHORT).show();
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     public void inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, File immagine){
-=======
-=======
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
->>>>>>> Stashed changes
-    public boolean inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, File immagine) {
-        //Il controller dovrebbe ricevere testo della recensione, le stelline che gli si vengono date e le immagini
-        //quindi
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
+
         String service = context.getString(R.string.cloudService);
 
         RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service, context);
@@ -68,10 +58,6 @@ public class ScriviRecensioniController {
 
         Map<String, String> datiUtente = MainFrameForm.getAttributiUtenteLoggato();
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
         if(immagine == null)
             recensioniDao.insertRecensioni(datiUtente.get("name"), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "Non è stata caricata un immagine");
         else{
@@ -79,21 +65,6 @@ public class ScriviRecensioniController {
             String immagineURL = recensioniDao.insertImmagineS3(immagine);
             recensioniDao.insertRecensioni(datiUtente.get("name"), nomeStruttura,latitudine, longitudine, testoRecensione, valutazioneRecensione, immagineURL);
         }
-=======
-=======
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
->>>>>>> Stashed changes
-        if (immagine == null) {
-            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "Non è stata caricata un immagine");
-        } else {
-            //Inserimento dell'immagine in S3, prendi l'URL e chiami
-            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "STRINGA TEMPORANEA");
-        }
-
-
-        //Mi servono le recensioni per poterne aggiungere una in più al DB ma che non sia pubblicata, per essere pubblica deve essere necessariamente pending = FALSE
-        return false;
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
     }
 
     public File getImmagineFromInput(Context context, Intent data) throws IOException {

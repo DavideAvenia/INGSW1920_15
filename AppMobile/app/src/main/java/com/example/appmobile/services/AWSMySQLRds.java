@@ -36,13 +36,6 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     private final String KEY = "AKIAILZV5RVDP23VUCEA";
     private final String SECRET = "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";
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
->>>>>>> Stashed changes
     public AWSMySQLRds(Context context) {
         this.context = context;
     }
@@ -269,10 +262,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     @Override
     public String insertImmagineS3(File img){
         BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
@@ -293,12 +283,6 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         }
 
         return s3Client.getUrl("progettoingswfedericoii", img.getName()).toString();
-=======
-=======
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
->>>>>>> Stashed changes
-        return false;
->>>>>>> 56db97caf49dceab8d0b1e5d2410d50a47dc446f
     }
 
     private Request createRequest(JSONObject jsonObject, final String API) {
