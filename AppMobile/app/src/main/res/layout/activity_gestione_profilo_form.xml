@@ -53,42 +53,11 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="75dp"
-        android:layout_marginBottom="15dp"
         android:hint="Nome e Cognome"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nicknametext"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="202dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="191dp"
-        android:layout_marginBottom="14dp"
-        android:ems="10"
-        android:hint="Il tuo cellulare"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="185dp"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:hint="La tua @Mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/nuovoCelltext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/nicknametext" />
 
     <EditText
         android:id="@+id/nuovoCelltext"
@@ -173,10 +142,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="307dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:text="Cambia"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -191,5 +161,48 @@
         app:layout_constraintBottom_toTopOf="@+id/nuovaPasswordtext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="203dp"
+        android:layout_marginBottom="16dp"
+        android:text="Esci"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cambiapsw"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nuovapassword2text" />
+
+    <TextView
+        android:id="@+id/numCell"
+        android:layout_width="206dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="188dp"
+        android:layout_marginBottom="15dp"
+        android:text="NumCell"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeText" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="210dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="185dp"
+        android:layout_marginBottom="18dp"
+        android:text="EMAIL"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/nuovoCelltext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numCell" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

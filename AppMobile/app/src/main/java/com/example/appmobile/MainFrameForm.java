@@ -33,6 +33,7 @@ import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.example.appmobile.controller.ScriviRecensioniController;
+import com.example.appmobile.entity.Utente;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,15 +46,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallback {
 
     private static GoogleMap mMap;
-    private static boolean isLogged; //mantiene l'info sullo stato di login dell'utente
     private Menu menu;
     private LocationManager locationManager = null;
+
+    /*Nel mainFrame salviamo le principali info dell'utente loggto così da essere di rapido uso per altre activity*/
     private static String userIdLogged = null;
+    private static boolean isLogged;
+    private static Map<String,String> attributiUtenteLoggato = new HashMap<String,String>();
+
+
     private ProgressBar progressBar;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static Location currentLocation;
@@ -85,7 +93,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         StrictMode.setThreadPolicy(policy);
 
         isLogged = false;
-        controllerLogin = ControllerLogin.getControllerLogin();
         ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
         leggereRecensioniController = LeggereRecensioniController.getLeggereRecensioniController();
         progressBar = findViewById(R.id.progressBarMap);
@@ -143,15 +150,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         mMap = googleMap;
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
         mMap.setMyLocationEnabled(true);
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this));
@@ -216,6 +216,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.login:
+                controllerLogin = ControllerLogin.getControllerLogin();
                 if(isLogged == false){
                      controllerLogin.mostraLoginForm(this); //apre finestra di login
                 }else{
@@ -304,4 +305,12 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public static boolean getIsLogged(){return isLogged;}
 
     public static String getUserIdLogged(){return userIdLogged;}
+
+    public static void setAtributiUtenteLoggato(Map<String,String> attributiUtente){
+        attributiUtenteLoggato = attributiUtente;
+    }
+
+    public static Map<String, String> getAttributiUtenteLoggato() {
+        return attributiUtenteLoggato;
+    }
 }

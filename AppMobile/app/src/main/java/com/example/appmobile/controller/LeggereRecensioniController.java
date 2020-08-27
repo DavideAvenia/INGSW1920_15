@@ -2,9 +2,6 @@ package com.example.appmobile.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.RecensioniDao;
@@ -14,8 +11,6 @@ import com.example.appmobile.R;
 import com.example.appmobile.boundary.RecensioniStruttureForm;
 import com.example.appmobile.entity.Recensioni;
 import com.example.appmobile.entity.Strutture;
-import com.example.appmobile.entity.Utente;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +53,7 @@ public class LeggereRecensioniController {
         for(Recensioni r:listaRecensioni){
 
             /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
-            nomiRecensiori.add(getNickName(r,utenteDao));
+            //nomiRecensiori.add(getNickName(r,utenteDao));
             nomiRecensiori.add(r.getUserNameUtente());
             /***********************************************************************/
 
@@ -88,13 +83,8 @@ public class LeggereRecensioniController {
         context.startActivity(intent);
     }
 
-    private String getNickName(Recensioni recensione, UtenteDao utenteDao){
-        Utente utente = utenteDao.getUtenteByUserId(recensione.getUserNameUtente());
+    private String getNickName(Recensioni recensione){
 
-        if(utente.isUseNick()){
-            return utente.getNickname();
-        }else{
-            return utente.getUserId();
-        }
+        return null;
     }
 }

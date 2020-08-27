@@ -10,6 +10,10 @@ import com.example.appmobile.R;
 import com.example.appmobile.boundary.LoginForm;
 import com.example.appmobile.boundary.RegistrazioneForm;
 import com.example.appmobile.boundary.ResetPasswordForm;
+import com.example.appmobile.entity.Utente;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControllerLogin {
 
@@ -80,6 +84,18 @@ public class ControllerLogin {
         UtenteDao servizioUtente = DaoFactory.getUtenteDao(service,context);
 
         servizioUtente.signout(userId);
+    }
+
+    public void setIsLogged(){
+        MainFrameForm.setIsLogged(true);
+    }
+
+    public void setUserIdLogged(String userIdLogged){
+        MainFrameForm.setUserIdLogged(userIdLogged);
+    }
+
+    public void setUtenteLogged(Map<String, String> attributiUtenteLoggato){
+        MainFrameForm.setAtributiUtenteLoggato(attributiUtenteLoggato);
     }
 
 
