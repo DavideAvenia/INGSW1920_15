@@ -2,6 +2,8 @@ package com.example.appmobile.controller;
 
 import com.example.appmobile.MainFrameForm;
 
+import java.util.Map;
+
 public class GestioneProfiloController {
     private String userIdLogged = MainFrameForm.getUserIdLogged();
     private boolean isLogged = MainFrameForm.getIsLogged();
@@ -16,5 +18,9 @@ public class GestioneProfiloController {
         return gestioneProfiloController;
     }
 
-
+    public Map<String, String> trovaNomeUtente(){
+        Map<String,String> attributiUtente;
+        attributiUtente = MainFrameForm.getAttributiUtenteLoggato();
+        return attributiUtente;
+    }
 }
