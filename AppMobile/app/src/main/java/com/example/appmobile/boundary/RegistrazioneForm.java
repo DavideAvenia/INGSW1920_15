@@ -1,7 +1,5 @@
 package com.example.appmobile.boundary;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appmobile.R;
 import com.example.appmobile.controller.ControllerLogin;
@@ -48,14 +48,14 @@ public class RegistrazioneForm extends AppCompatActivity {
         bottoneRegistrazione = findViewById(R.id.bottoneRegistrazione);
 
         //Inizializzazione combobox contenenti i prefissi per i cellulari
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.prefissi,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.prefissi, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prefissiRegistrazione.setAdapter(spinnerAdapter);
 
 
     }
 
-    public void bottoneRegistrazioPremuto(View view){
+    public void bottoneRegistrazioPremuto(View view) {
 
         String userId = userIdReg.getText().toString();
         String nome = nomeResgistrazione.getText().toString();
@@ -64,36 +64,38 @@ public class RegistrazioneForm extends AppCompatActivity {
         String email = emailRegistrazione.getText().toString();
         String password = passwordRegistrazione.getText().toString();
 
-        if(userId == null || nome == null || cognome == null || cellulare == null || email == null || password == null){
+        if (userId == null || nome == null || cognome == null || cellulare == null || email == null || password == null) {
             showToast("Tutti i campi sono obbligatori!");
-        }else{
-            if(!checkEmail(email) || !checkPassword(password) || !checkUsername(userId)){
+        } else {
+            if (!checkEmail(email) || !checkPassword(password) || !checkUsername(userId)) {
                 showToast("Email e/o password non validi! Riprovare");
-            }else{
+            } else {
                 cellulare = prefissiRegistrazione.getSelectedItem().toString() + cellulare;
 
-                controllerLogin.registrazione(userId,nome,cognome,cellulare,email,password,this);
+                controllerLogin.registrazione(userId, nome, cognome, cellulare, email, password, this);
             }
         }
 
     }
 
-    public boolean checkEmail(String email){
+    public boolean checkEmail(String email) {
 
         String tokens[] = email.split("_");
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() || tokens[0].equals("admin")){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() || tokens[0].equals("admin")) {
             return false;
-        }return true;
+        }
+        return true;
     }
 
-    public boolean checkUsername(String username){
+    public boolean checkUsername(String username) {
         String tokens[] = username.split("_");
-        if(tokens[0].equals("admin")){
+        if (tokens[0].equals("admin")) {
             return false;
-        }return true;
+        }
+        return true;
     }
 
-    public boolean checkPassword(String password){
+    public boolean checkPassword(String password) {
         final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
                 "(?=.*[0-9])" +         //at least 1 digit
                 "(?=.*[a-z])" +         //at least 1 lower case letter
@@ -103,13 +105,14 @@ public class RegistrazioneForm extends AppCompatActivity {
                 ".{6,}" +               //at least 4 characters
                 "$");
 
-        if(PASSWORD_PATTERN.matcher(password).matches()){
+        if (PASSWORD_PATTERN.matcher(password).matches()) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
-    public void showToast(String messaggio){
-        Toast.makeText(this,messaggio,Toast.LENGTH_LONG).show();
+    public void showToast(String messaggio) {
+        Toast.makeText(this, messaggio, Toast.LENGTH_LONG).show();
     }
 
 

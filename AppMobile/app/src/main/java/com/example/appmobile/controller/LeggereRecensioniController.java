@@ -19,25 +19,26 @@ public class LeggereRecensioniController {
 
     private static LeggereRecensioniController leggereRecensioniController = null;
 
-    private LeggereRecensioniController(){}
+    private LeggereRecensioniController() {
+    }
 
-    public static LeggereRecensioniController getLeggereRecensioniController(){
+    public static LeggereRecensioniController getLeggereRecensioniController() {
 
-        if(leggereRecensioniController == null){
+        if (leggereRecensioniController == null) {
             return new LeggereRecensioniController();
-        }else{
+        } else {
             return leggereRecensioniController;
         }
     }
 
-    public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context){
+    public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context) {
 
         String service = context.getString(R.string.cloudService);
 
         /*Recupero dei dao necessari*/
-        RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service,context);
-        UtenteDao utenteDao = DaoFactory.getUtenteDao(service,context);
-        StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
+        RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service, context);
+        UtenteDao utenteDao = DaoFactory.getUtenteDao(service, context);
+        StruttureDao struttureDao = DaoFactory.getStruttureDao(service, context);
 
         /*Liste delle informazioni da passare all'activity RecensioniStruttureForm*/
         ArrayList<String> nomiRecensiori = new ArrayList<String>();
@@ -46,11 +47,11 @@ public class LeggereRecensioniController {
         String descrizione = null;
         float valutasione;
 
-        List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura,latitudine,longitudine);
+        List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura, latitudine, longitudine);
         float listaValutazioni[] = new float[listaRecensioni.size()];
 
-        int k=0;
-        for(Recensioni r:listaRecensioni){
+        int k = 0;
+        for (Recensioni r : listaRecensioni) {
 
             /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
             //nomiRecensiori.add(getNickName(r,utenteDao));
@@ -63,27 +64,27 @@ public class LeggereRecensioniController {
         }
 
         /*Recupero di tutte le informazioni della Struttra corrente*/
-        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura,latitudine,longitudine);
+        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura, latitudine, longitudine);
         descrizione = struttura.getDescrizione();
-        struttureDao.incrementaNumeroVisitatori(nomeStruttura,latitudine,longitudine);
+        struttureDao.incrementaNumeroVisitatori(nomeStruttura, latitudine, longitudine);
         valutasione = struttura.getValutazioneMedia();
 
         /*Creazione intent e passaggio tramite esso di tutte le informazioni raccolte della struttura corrente*/
         Intent intent = new Intent(context, RecensioniStruttureForm.class);
-        intent.putExtra("nomeStruttura",nomeStruttura);
-        intent.putExtra("latitudine",latitudine);
-        intent.putExtra("longitudine",longitudine);
-        intent.putExtra("valutazione",valutasione);
-        intent.putExtra("descrizione",descrizione);
-        intent.putExtra("nomiRecensori",nomiRecensiori);
-        intent.putExtra("listaUrlFoto",listaUrlFoto);
-        intent.putExtra("listaTestiRecensioni",listaTestiRecensioni);
-        intent.putExtra("listaValutazioni",listaValutazioni);
+        intent.putExtra("nomeStruttura", nomeStruttura);
+        intent.putExtra("latitudine", latitudine);
+        intent.putExtra("longitudine", longitudine);
+        intent.putExtra("valutazione", valutasione);
+        intent.putExtra("descrizione", descrizione);
+        intent.putExtra("nomiRecensori", nomiRecensiori);
+        intent.putExtra("listaUrlFoto", listaUrlFoto);
+        intent.putExtra("listaTestiRecensioni", listaTestiRecensioni);
+        intent.putExtra("listaValutazioni", listaValutazioni);
 
         context.startActivity(intent);
     }
 
-    private String getNickName(Recensioni recensione){
+    private String getNickName(Recensioni recensione) {
 
         return null;
     }

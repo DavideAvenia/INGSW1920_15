@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.RecensioniDao;
-import com.example.appmobile.Dao.StruttureDao;
 import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
@@ -28,16 +27,17 @@ public class ScriviRecensioniController {
     private String longitudine;
     private String userIdLogged = MainFrameForm.getUserIdLogged();
 
-    private ScriviRecensioniController(){}
+    private ScriviRecensioniController() {
+    }
 
-    public static ScriviRecensioniController getScriviRecensioniController(){
-        if(recensioniController == null)
+    public static ScriviRecensioniController getScriviRecensioniController() {
+        if (recensioniController == null)
             recensioniController = new ScriviRecensioniController();
         return recensioniController;
     }
 
-    public void mostraScrivereRecensioni(Context context, String nomeS, String lat, String longi){
-        if(isLogged) {
+    public void mostraScrivereRecensioni(Context context, String nomeS, String lat, String longi) {
+        if (isLogged) {
             context.startActivity(new Intent(context, ScriviRecensioniForm.class));
             nomeStruttura = nomeS;
             latitudine = lat;
@@ -46,30 +46,29 @@ public class ScriviRecensioniController {
         Toast.makeText(context, "Devi effettuare prima il login", Toast.LENGTH_SHORT).show();
     }
 
-    public boolean inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, File immagine){
+    public boolean inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, File immagine) {
         //Il controller dovrebbe ricevere testo della recensione, le stelline che gli si vengono date e le immagini
         //quindi
         String service = context.getString(R.string.cloudService);
 
-        RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service,context);
-        UtenteDao utenteDao = DaoFactory.getUtenteDao(service,context);
+        RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service, context);
+        UtenteDao utenteDao = DaoFactory.getUtenteDao(service, context);
 
         Utente u = utenteDao.getUtenteByUserId(userIdLogged);
 
-        if(immagine == null){
+        if (immagine == null) {
             recensioniDao.insertRecensioni(u.getNome(), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "Non è stata caricata un immagine");
-        }else{
+        } else {
             //Inserimento dell'immagine in S3, prendi l'URL e chiami
-            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura,latitudine, longitudine, testoRecensione, valutazioneRecensione, "STRINGA TEMPORANEA");
+            recensioniDao.insertRecensioni(u.getNome(), nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "STRINGA TEMPORANEA");
         }
-
 
 
         //Mi servono le recensioni per poterne aggiungere una in più al DB ma che non sia pubblicata, per essere pubblica deve essere necessariamente pending = FALSE
         return false;
     }
 
-    public File getImmagineFromInput(Context context, Intent data)throws IOException {
+    public File getImmagineFromInput(Context context, Intent data) throws IOException {
         InputStream inputStream = context.getContentResolver().openInputStream(data.getData());
         File file = new File(String.valueOf(inputStream));
         byte[] buffer = new byte[inputStream.available()];

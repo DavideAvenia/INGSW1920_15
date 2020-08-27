@@ -1,7 +1,5 @@
 package com.example.appmobile.entity;
 
-import com.google.android.gms.maps.model.LatLng;
-
 public class StatisticheStrutture {
 
     private String nomeStruttura;

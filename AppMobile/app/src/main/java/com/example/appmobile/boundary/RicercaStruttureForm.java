@@ -1,18 +1,16 @@
 package com.example.appmobile.boundary;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appmobile.R;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
@@ -59,27 +57,27 @@ public class RicercaStruttureForm extends AppCompatActivity {
 
         /**************Inizializzazione spinners***************/
         //spinner città
-        ArrayAdapter<CharSequence> spinnerCittà = ArrayAdapter.createFromResource(this,R.array.città,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerCittà = ArrayAdapter.createFromResource(this, R.array.città, android.R.layout.simple_spinner_item);
         spinnerCittà.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cittàRicerca.setAdapter(spinnerCittà);
 
         //spinner distanza
-        ArrayAdapter<CharSequence> spinnerDistanza = ArrayAdapter.createFromResource(this,R.array.distanzaDispositivo,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerDistanza = ArrayAdapter.createFromResource(this, R.array.distanzaDispositivo, android.R.layout.simple_spinner_item);
         spinnerDistanza.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         distanzaDaDispositivoRicerca.setAdapter(spinnerDistanza);
 
         //spinner rangePrezzo
-        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this,R.array.maxPrezzo,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this, R.array.maxPrezzo, android.R.layout.simple_spinner_item);
         spinnerPrezzo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rangePrezzoRicerca.setAdapter(spinnerPrezzo);
 
         //spinner categoria
-        ArrayAdapter<CharSequence> spinnerCategoria = ArrayAdapter.createFromResource(this,R.array.categoriaStruttura,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerCategoria = ArrayAdapter.createFromResource(this, R.array.categoriaStruttura, android.R.layout.simple_spinner_item);
         spinnerCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoriaRicerca.setAdapter(spinnerCategoria);
 
         //spinner orarioApertura
-        ArrayAdapter<CharSequence> spinnerApertura = ArrayAdapter.createFromResource(this,R.array.orarioApertura,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerApertura = ArrayAdapter.createFromResource(this, R.array.orarioApertura, android.R.layout.simple_spinner_item);
         spinnerApertura.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         orarioAperturaRicerca.setAdapter(spinnerApertura);
 
@@ -99,8 +97,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
     }
 
 
-
-    public void bottoneRicercaPremuto(View view){
+    public void bottoneRicercaPremuto(View view) {
         String nome = nomeStrutturaRicerca.getText().toString();
         String città = cittàRicerca.getSelectedItem().toString();
         String orarioApertura = orarioAperturaRicerca.getSelectedItem().toString();
@@ -110,7 +107,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         float valutazioneMedia = valutazioneMediaRicerca.getRating();
 
         progressBar.setVisibility(View.VISIBLE);
-        ricercaStruttureRicettiveController.cercaStrutture(nome,città,valutazioneMedia,distanza,orarioApertura,categoria,maxPrezzo,this);
+        ricercaStruttureRicettiveController.cercaStrutture(nome, città, valutazioneMedia, distanza, orarioApertura, categoria, maxPrezzo, this);
         progressBar.setVisibility(View.GONE);
         this.finish();
     }

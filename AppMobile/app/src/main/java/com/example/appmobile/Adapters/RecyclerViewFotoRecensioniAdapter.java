@@ -14,12 +14,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewFotoRecensioniAdapter extends RecyclerView.Adapter<RecyclerViewFotoRecensioniAdapter.FotoViewHolder>{
+public class RecyclerViewFotoRecensioniAdapter extends RecyclerView.Adapter<RecyclerViewFotoRecensioniAdapter.FotoViewHolder> {
 
-    private List<String> listaFoto;
     Context context;
+    private List<String> listaFoto;
 
-    public RecyclerViewFotoRecensioniAdapter(Context context, List<String> listaFoto){
+    public RecyclerViewFotoRecensioniAdapter(Context context, List<String> listaFoto) {
         this.context = context;
         this.listaFoto = listaFoto;
     }
@@ -28,14 +28,14 @@ public class RecyclerViewFotoRecensioniAdapter extends RecyclerView.Adapter<Recy
     @Override
     public FotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.foto_view_holder,parent,false);
+        View view = layoutInflater.inflate(R.layout.foto_view_holder, parent, false);
         return new FotoViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FotoViewHolder holder, int position) {
 
-        Picasso.get().load(listaFoto.get(position)).resize(175,151).into(holder.foto1);
+        Picasso.get().load(listaFoto.get(position)).resize(175, 151).into(holder.foto1);
     }
 
     @Override

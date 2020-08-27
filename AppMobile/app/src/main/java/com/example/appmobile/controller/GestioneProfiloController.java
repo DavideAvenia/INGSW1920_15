@@ -1,26 +1,57 @@
 package com.example.appmobile.controller;
 
+import android.content.Context;
+
+import com.example.appmobile.Dao.DaoFactory;
+import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.MainFrameForm;
+import com.example.appmobile.R;
 
 import java.util.Map;
 
 public class GestioneProfiloController {
+    private static GestioneProfiloController gestioneProfiloController = null;
     private String userIdLogged = MainFrameForm.getUserIdLogged();
     private boolean isLogged = MainFrameForm.getIsLogged();
-    private static GestioneProfiloController gestioneProfiloController = null;
 
-    private GestioneProfiloController(){};
+    private GestioneProfiloController() {
+    }
+
+    ;
 
     public static GestioneProfiloController getGestioneProfiloController() {
-        if(gestioneProfiloController == null){
+        if (gestioneProfiloController == null) {
             gestioneProfiloController = new GestioneProfiloController();
         }
         return gestioneProfiloController;
     }
 
-    public Map<String, String> trovaNomeUtente(){
-        Map<String,String> attributiUtente;
+    public Map<String, String> trovaAttributiUtente() {
+        Map<String, String> attributiUtente;
         attributiUtente = MainFrameForm.getAttributiUtenteLoggato();
         return attributiUtente;
     }
+
+    public void cambioPassword(String oldPsw, String psw, Context context) {
+        String service = context.getString(R.string.cloudService);
+        UtenteDao u = DaoFactory.getUtenteDao(service, context);
+        assert u != null;
+        u.cambioPassword(oldPsw,psw,userIdLogged,context);
+    }
+
+    public void cambioMail(String mail, Context context) {
+        String service = context.getString(R.string.cloudService);
+        UtenteDao u = DaoFactory.getUtenteDao(service, context);
+        assert u != null;
+        u.cambioEmail(mail,userIdLogged,context);
+    }
+
+    public void cambioCell(String numCell, Context context) {
+        String service = context.getString(R.string.cloudService);
+        UtenteDao u = DaoFactory.getUtenteDao(service, context);
+        assert u != null;
+        u.cambioCell(numCell,userIdLogged,context);
+    }
+
+
 }

@@ -1,15 +1,14 @@
 package com.example.appmobile.boundary;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmobile.Adapters.RecyclerViewFotoRecensioniAdapter;
 import com.example.appmobile.Adapters.RecyclerViewRecensioniAdapter;
@@ -57,11 +56,11 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         longitudine = i.getStringExtra("longitudine");
         nomeStruttura = i.getStringExtra("nomeStruttura");
 
-        List<String> listaTestiRecensioni  = i.getStringArrayListExtra("listaTestiRecensioni");
+        List<String> listaTestiRecensioni = i.getStringArrayListExtra("listaTestiRecensioni");
         List<String> listaUrlFoto = i.getStringArrayListExtra("listaUrlFoto");
         List<String> nomiRecensori = i.getStringArrayListExtra("nomiRecensori");
         String descrizione = i.getStringExtra("descrizione");
-        float valutazione = i.getFloatExtra("valutazione",0.0f);
+        float valutazione = i.getFloatExtra("valutazione", 0.0f);
         float listaValutazioni[] = i.getFloatArrayExtra("listaValutazioni");
 
         valutazioneLeggereRecensioni.setRating(valutazione);
@@ -77,14 +76,14 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewRecensioni.setLayoutManager(linearLayoutManager);
-        RecyclerViewRecensioniAdapter recensioniAdapter = new RecyclerViewRecensioniAdapter(this,nomiRecensori,listaTestiRecensioni,listaValutazioni);
+        RecyclerViewRecensioniAdapter recensioniAdapter = new RecyclerViewRecensioniAdapter(this, nomiRecensori, listaTestiRecensioni, listaValutazioni);
         recyclerViewRecensioni.setAdapter(recensioniAdapter);
 
         /*Inserimento foto*/
         LinearLayoutManager fotoManager = new LinearLayoutManager(this);
         fotoManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewFotoRecensioni.setLayoutManager(fotoManager);
-        RecyclerViewFotoRecensioniAdapter fotoAdapter = new RecyclerViewFotoRecensioniAdapter(this,listaUrlFoto);
+        RecyclerViewFotoRecensioniAdapter fotoAdapter = new RecyclerViewFotoRecensioniAdapter(this, listaUrlFoto);
         recyclerViewFotoRecensioni.setAdapter(fotoAdapter);
 
         //Click su scrivere recensione
@@ -95,7 +94,6 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         });
 
     }
-
 
 
 }

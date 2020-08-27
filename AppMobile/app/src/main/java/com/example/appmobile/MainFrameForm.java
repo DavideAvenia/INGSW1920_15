@@ -1,10 +1,5 @@
 package com.example.appmobile;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,25 +10,25 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.example.appmobile.Adapters.CustomInfoWindowAdapter;
-import com.example.appmobile.boundary.ScriviRecensioniForm;
 import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.example.appmobile.controller.ScriviRecensioniController;
-import com.example.appmobile.entity.Utente;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,7 +40,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,26 +47,95 @@ import java.util.Map;
 public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallback {
 
     private static GoogleMap mMap;
-    private Menu menu;
-    private LocationManager locationManager = null;
-
     /*Nel mainFrame salviamo le principali info dell'utente loggto così da essere di rapido uso per altre activity*/
     private static String userIdLogged = null;
     private static boolean isLogged;
-    private static Map<String,String> attributiUtenteLoggato = new HashMap<String,String>();
+    private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
+    private static Location currentLocation;
+    private final LocationListener LOCATION_LISTENER = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            LatLng currenLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        }
 
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
 
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+    private Menu menu;
+    private LocationManager locationManager = null;
     private ProgressBar progressBar;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private static Location currentLocation;
-
-
     //Controllers
     private ControllerLogin controllerLogin;
     private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
     private LeggereRecensioniController leggereRecensioniController;
     private ScriviRecensioniController scriviRecensioniController;
 
+    public static void aggiornaMappa(List<String> listaNomi, List<String> listaLatidutini, List<String> listaLongitudini, List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo) {
+        MarkerOptions marker = null;
+        String snippet = null;
+
+        mMap.clear();
+        for (int i = 0; i < listaNomi.size(); i++) {
+            snippet = "Città: " + listaCittà.get(i) + "\n" +
+                    "Orario apertura: " + listaOrariApertura.get(i) + "\n" +
+                    "Prezzo: " + listaRangePrezzo.get(i) + "€\n" +
+                    "Valutazione(1-5): " + listaValutazioni.get(i) + "\n" +
+                    listaLatidutini.get(i) + "\n" +
+                    listaLongitudini.get(i);
+            marker = new MarkerOptions().position(new LatLng(Float.parseFloat(listaLatidutini.get(i)), Float.parseFloat(listaLongitudini.get(i)))).title(listaNomi.get(i)).snippet(snippet);
+            mMap.addMarker(marker);
+
+        }
+    }
+
+    public static boolean isUserLogged() {
+        return isLogged;
+    }
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    private void setCurrentLocation(Location location) {
+        currentLocation = location;
+    }
+
+    public static boolean getIsLogged() {
+        return isLogged;
+    }
+
+    public static void setIsLogged(boolean value) {
+        isLogged = value;
+    }
+
+    public static String getUserIdLogged() {
+        return userIdLogged;
+    }
+
+    public static void setUserIdLogged(String userId) {
+        userIdLogged = userId;
+    }
+
+    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
+        attributiUtenteLoggato = attributiUtente;
+    }
+
+    public static Map<String, String> getAttributiUtenteLoggato() {
+        return attributiUtenteLoggato;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,33 +172,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     }
 
-    private void setCurrentLocation(Location location) {
-        currentLocation = location;
-    }
-
-    private final LocationListener LOCATION_LISTENER = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            LatLng currenLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -161,7 +197,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 String snippet = marker.getSnippet();
                 String title = marker.getTitle();
 
-                new AsyncTask<String,Boolean,Boolean>(){
+                new AsyncTask<String, Boolean, Boolean>() {
 
                     @Override
                     protected void onPreExecute() {
@@ -173,7 +209,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     protected Boolean doInBackground(String... strings) {
                         String snippet = strings[1];
                         String tokens[] = snippet.split("\n");
-                        leggereRecensioniController.mostraRecensioniStrutture(strings[0],tokens[4],tokens[5],MainFrameForm.this);
+                        leggereRecensioniController.mostraRecensioniStrutture(strings[0], tokens[4], tokens[5], MainFrameForm.this);
                         return true;
                     }
 
@@ -182,44 +218,44 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                         super.onPostExecute(aBoolean);
                         progressBar.setVisibility(View.INVISIBLE);
                     }
-                }.execute(title,snippet);
+                }.execute(title, snippet);
             }
         });
 
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //Controlla se il gps è abilitato
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             enableGpsMessage();
         }
 
-        LatLng defaultLocation = new LatLng(40.863,14.2767);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,10.0f));
+        LatLng defaultLocation = new LatLng(40.863, 14.2767);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10.0f));
 
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
 
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.login:
                 controllerLogin = ControllerLogin.getControllerLogin();
-                if(isLogged == false){
-                     controllerLogin.mostraLoginForm(this); //apre finestra di login
-                }else{
+                if (isLogged == false) {
+                    controllerLogin.mostraLoginForm(this); //apre finestra di login
+                } else {
                     //signout con dialog di avvertimento
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage("Effettuare il logout?").setCancelable(false)
@@ -237,7 +273,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                             });
                     final AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                }return true;
+                }
+                return true;
             case R.id.cerca:
                 ricercaStruttureRicettiveController.mostraRicercaStrutture(this);
                 return true;
@@ -245,7 +282,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         return super.onOptionsItemSelected(item);
     }
 
-    private void enableGpsMessage(){
+    private void enableGpsMessage() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare").setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -264,53 +301,9 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         alertDialog.show();
     }
 
-    public static void aggiornaMappa(List<String> listaNomi, List<String> listaLatidutini, List<String> listaLongitudini,List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo){
-        MarkerOptions marker = null;
-        String snippet = null;
-
-        mMap.clear();
-        for(int i = 0;i < listaNomi.size(); i++){
-            snippet = "Città: "+listaCittà.get(i)+ "\n"+
-                    "Orario apertura: "+listaOrariApertura.get(i)+"\n"+
-                    "Prezzo: "+listaRangePrezzo.get(i)+"€\n"+
-                    "Valutazione(1-5): "+listaValutazioni.get(i)+"\n"+
-                    listaLatidutini.get(i)+"\n"+
-                    listaLongitudini.get(i);
-            marker = new MarkerOptions().position(new LatLng(Float.parseFloat(listaLatidutini.get(i)),Float.parseFloat(listaLongitudini.get(i)))).title(listaNomi.get(i)).snippet(snippet);
-            mMap.addMarker(marker);
-
-        }
-    }
-
-    public static void setIsLogged(boolean value){
-        isLogged = value;
-    }
-
-    public static boolean isUserLogged(){ return isLogged;}
-
-    public static void setUserIdLogged(String userId){
-        userIdLogged = userId;
-    }
-
-    public void signout(){
-        Toast.makeText(this,"Logout effettuato per: "+userIdLogged,Toast.LENGTH_LONG).show();
+    public void signout() {
+        Toast.makeText(this, "Logout effettuato per: " + userIdLogged, Toast.LENGTH_LONG).show();
         setIsLogged(false);
-        controllerLogin.signout(this,userIdLogged);
-    }
-
-    public static Location getCurrentLocation(){
-        return currentLocation;
-    }
-
-    public static boolean getIsLogged(){return isLogged;}
-
-    public static String getUserIdLogged(){return userIdLogged;}
-
-    public static void setAtributiUtenteLoggato(Map<String,String> attributiUtente){
-        attributiUtenteLoggato = attributiUtente;
-    }
-
-    public static Map<String, String> getAttributiUtenteLoggato() {
-        return attributiUtenteLoggato;
+        controllerLogin.signout(this, userIdLogged);
     }
 }

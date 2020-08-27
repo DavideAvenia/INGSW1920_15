@@ -3,7 +3,6 @@ package com.example.appmobile.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.os.SystemClock;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.StruttureDao;
@@ -22,29 +21,29 @@ public class RicercaStruttureRicettiveController {
     private StruttureDao struttureDao;
 
     //metodo private
-    private RicercaStruttureRicettiveController(){
+    private RicercaStruttureRicettiveController() {
 
     }
 
-    public static RicercaStruttureRicettiveController getRicercaStruttureRicettiveController(){
-        if(ricercaStruttureRicettiveController == null){
+    public static RicercaStruttureRicettiveController getRicercaStruttureRicettiveController() {
+        if (ricercaStruttureRicettiveController == null) {
             return new RicercaStruttureRicettiveController();
         }
         return ricercaStruttureRicettiveController;
     }
 
 
-    public void mostraRicercaStrutture(Context context){
+    public void mostraRicercaStrutture(Context context) {
         context.startActivity(new Intent(context, RicercaStruttureForm.class));
     }
 
-    public void cercaStrutture(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String maxPrezzo, Context context){
+    public void cercaStrutture(String nome, String città, float valutazioneMedia, int distanzaDaDispositivo, String orarioApertura, String categoria, String maxPrezzo, Context context) {
 
         String service = context.getString(R.string.cloudService);
 
-        StruttureDao struttureDao = DaoFactory.getStruttureDao(service,context);
+        StruttureDao struttureDao = DaoFactory.getStruttureDao(service, context);
 
-        List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome,città,valutazioneMedia,distanzaDaDispositivo,orarioApertura,categoria,maxPrezzo);
+        List<Strutture> listaStrutture = struttureDao.getStruttureByFiltri(nome, città, valutazioneMedia, distanzaDaDispositivo, orarioApertura, categoria, maxPrezzo);
 
 
         //System.out.println("In teoria la query è stata fatta.");
@@ -57,12 +56,12 @@ public class RicercaStruttureRicettiveController {
         List<String> listaLogitudini = new ArrayList<String>();
 
         Location currentLocation = MainFrameForm.getCurrentLocation();
-        for(Strutture s:listaStrutture){
+        for (Strutture s : listaStrutture) {
             String latitudine = s.getLatitudine();
             String longitudine = s.getLongitudine();
             float distance = 0.0f;
 
-            if(currentLocation != null){
+            if (currentLocation != null) {
                 /*Calcolando distanza tra dispositivo e struttura corrente*/
                 Location markerLocation = new Location("");
                 markerLocation.setLatitude(Double.parseDouble(latitudine));
@@ -70,7 +69,7 @@ public class RicercaStruttureRicettiveController {
                 distance = currentLocation.distanceTo(markerLocation);
             }
             /*Se il GPS è disattivo la distanza sarà a 0 => tutte le strutture recuperate verranno visualizzate*/
-            if(distance <= distanzaDaDispositivo){
+            if (distance <= distanzaDaDispositivo) {
                 listaNomi.add(s.getNome());
                 listaCittà.add(s.getCittà());
                 listaOrariApertura.add(s.getOrarioApertura());
@@ -81,7 +80,7 @@ public class RicercaStruttureRicettiveController {
             }
         }
 
-        MainFrameForm.aggiornaMappa(listaNomi,listaLatitudini,listaLogitudini,listaCittà,listaValutazioni,listaOrariApertura,listaRangePrezzo);
+        MainFrameForm.aggiornaMappa(listaNomi, listaLatitudini, listaLogitudini, listaCittà, listaValutazioni, listaOrariApertura, listaRangePrezzo);
     }
 
 

@@ -16,12 +16,12 @@ import com.example.appmobile.R;
 import java.util.List;
 
 public class RecyclerViewRecensioniAdapter extends RecyclerView.Adapter<RecyclerViewRecensioniAdapter.ViewHolder> {
-    private List<String> nomiRecensori;
-    private List<String> testiRecensioni;
     float valutazioni[];
     Context context;
+    private List<String> nomiRecensori;
+    private List<String> testiRecensioni;
 
-    public RecyclerViewRecensioniAdapter(Context context, List<String> nomiRecensori, List<String> testiRecensioni, float valutazioni[]){
+    public RecyclerViewRecensioniAdapter(Context context, List<String> nomiRecensori, List<String> testiRecensioni, float valutazioni[]) {
         this.nomiRecensori = nomiRecensori;
         this.testiRecensioni = testiRecensioni;
         this.valutazioni = valutazioni;
@@ -32,7 +32,7 @@ public class RecyclerViewRecensioniAdapter extends RecyclerView.Adapter<Recycler
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.recyclerview_recensioni,parent,false);
+        View view = layoutInflater.inflate(R.layout.recyclerview_recensioni, parent, false);
         return new ViewHolder(view);
     }
 

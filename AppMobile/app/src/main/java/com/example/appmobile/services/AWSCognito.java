@@ -24,9 +24,12 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.ForgotPas
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAttributesHandler;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
+import com.amazonaws.services.cognitoidentityprovider.model.ChangePasswordRequest;
+import com.amazonaws.services.cognitoidentityprovider.model.ChangePasswordResult;
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
 import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
@@ -34,7 +37,6 @@ import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedExce
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException;
 import com.example.appmobile.Dao.UtenteDao;
-import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.entity.Utente;
 
 import org.json.JSONException;
@@ -42,6 +44,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -50,15 +53,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.example.appmobile.MainFrameForm.isUserLogged;
-import static com.example.appmobile.MainFrameForm.setIsLogged;
-import static com.example.appmobile.MainFrameForm.setUserIdLogged;
-
 public class AWSCognito implements UtenteDao {
 
-    private static AmazonCognitoIdentityProviderClient identityProviderClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), new ClientConfiguration());
     protected static CognitoUserPool userPool = null;
     protected static CognitoUser user = null;
+    private static AmazonCognitoIdentityProviderClient identityProviderClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), new ClientConfiguration());
     private static ForgotPasswordContinuation resultContinuation;
     private final String USER_POOL_ID = "";
     private final String CLIENT_ID = "";
@@ -67,9 +66,9 @@ public class AWSCognito implements UtenteDao {
     private Utente currentUser = null;
 
 
-    public AWSCognito(Context context){
+    public AWSCognito(Context context) {
         identityProviderClient.setRegion(Region.getRegion(Regions.EU_WEST_1));
-        userPool = new CognitoUserPool(context,USER_POOL_ID,CLIENT_ID,CLIENT_SECRET,identityProviderClient);
+        userPool = new CognitoUserPool(context, USER_POOL_ID, CLIENT_ID, CLIENT_SECRET, identityProviderClient);
         user = userPool.getUser();
     }
 
@@ -80,9 +79,9 @@ public class AWSCognito implements UtenteDao {
 
             @Override
             public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-                showToast(context,"Login effettuato");
+                showToast(context, "Login effettuato");
                 //chiude l'Activity Login
-                ((Activity)context).finish();
+                ((Activity) context).finish();
 
                 controllerLogin.setIsLogged();
                 controllerLogin.setUserIdLogged(usernameId);
@@ -127,8 +126,8 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void getMFACode(MultiFactorAuthenticationContinuation multiFactorAuthenticationContinuation) {
                 /*
-                * Non implementato il login a più fattori
-                * */
+                 * Non implementato il login a più fattori
+                 * */
             }
 
             @Override
@@ -139,19 +138,19 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onFailure(Exception exception) {
                 String errore = "";
-                if(exception instanceof NotAuthorizedException){
+                if (exception instanceof NotAuthorizedException) {
                     errore = "Nome utente o password errati!";
                 }
-                if(exception instanceof UserNotFoundException){
+                if (exception instanceof UserNotFoundException) {
                     errore = "Non esiste un utente con questo nome!";
                 }
-                if(exception instanceof UserNotConfirmedException) {
+                if (exception instanceof UserNotConfirmedException) {
                     errore = "Devi verificare la registrazione prima di poter accedere!";
                 }
-                if(exception instanceof InvalidParameterException){
+                if (exception instanceof InvalidParameterException) {
                     errore = "Assicurati di aver riempito tutti i campi!";
                 }
-                showToast(context,"Login fallito: "+errore);
+                showToast(context, "Login fallito: " + errore);
             }
         };
         user.getSessionInBackground(authenticationHandler);
@@ -161,32 +160,32 @@ public class AWSCognito implements UtenteDao {
     @Override
     public void registration(String userId, String nome, String cognome, String cellulare, String email, String password, final Context context) {
         CognitoUserAttributes userAttributes = new CognitoUserAttributes();
-        userAttributes.addAttribute("email",email);
-        userAttributes.addAttribute("name",nome);
-        userAttributes.addAttribute("family_name",cognome);
-        userAttributes.addAttribute("phone_number",cellulare);
-        userAttributes.addAttribute("nickname","no_nickname");
-        userAttributes.addAttribute("custom:numeroLogin","0");
-        userAttributes.addAttribute("custom:isMod","0");
-        userAttributes.addAttribute("custom:useNick","0");
+        userAttributes.addAttribute("email", email);
+        userAttributes.addAttribute("name", nome);
+        userAttributes.addAttribute("family_name", cognome);
+        userAttributes.addAttribute("phone_number", cellulare);
+        userAttributes.addAttribute("nickname", "no_nickname");
+        userAttributes.addAttribute("custom:numeroLogin", "0");
+        userAttributes.addAttribute("custom:isMod", "0");
+        userAttributes.addAttribute("custom:useNick", "0");
 
         GenericHandler confirmationCallback = new GenericHandler() {
             @Override
             public void onSuccess() {
-                Log.i("confCall","utente confermato");
+                Log.i("confCall", "utente confermato");
             }
 
             @Override
             public void onFailure(Exception exception) {
-                Log.i("confCallFail","utente non confermato");
+                Log.i("confCallFail", "utente non confermato");
             }
         };
 
         SignUpHandler signUpHandler = new SignUpHandler() {
             @Override
             public void onSuccess(CognitoUser user, SignUpResult signUpResult) {
-                showToast(context,"Registrazione effettuata!");
-                ((Activity)context).finish();
+                showToast(context, "Registrazione effettuata!");
+                ((Activity) context).finish();
 
                 //collegamento api creazione statistiche per l'utente utente
                 OkHttpClient client = new OkHttpClient();
@@ -212,23 +211,23 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onFailure(Exception exception) {
                 String errore = "";
-                if(exception instanceof UsernameExistsException){
+                if (exception instanceof UsernameExistsException) {
                     errore = "Esiste già un utente con questo nome!";
-                }else{
+                } else {
                     errore = exception.toString();
                 }
-                showToast(context,"Registrazione fallita!: "+errore);
+                showToast(context, "Registrazione fallita!: " + errore);
                 System.out.println(exception);
             }
         };
 
-        userPool.signUpInBackground(userId,password,userAttributes,null,signUpHandler);
+        userPool.signUpInBackground(userId, password, userAttributes, null, signUpHandler);
     }
 
 
     @Override
     public void showToast(Context context, String messaggio) {
-        Toast.makeText(context,messaggio,Toast.LENGTH_LONG).show();
+        Toast.makeText(context, messaggio, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -239,14 +238,14 @@ public class AWSCognito implements UtenteDao {
         ForgotPasswordHandler forgotPasswordHandler = new ForgotPasswordHandler() {
             @Override
             public void onSuccess() {
-                showToast(context,"Password cambiata con successo!");
-                ((Activity)context).finish();
+                showToast(context, "Password cambiata con successo!");
+                ((Activity) context).finish();
             }
 
             @Override
             public void getResetCode(ForgotPasswordContinuation continuation) {
                 CognitoUserCodeDeliveryDetails codeSentHere = continuation.getParameters();
-                showToast(context, "Il codice è stato spedito a "+codeSentHere.getDestination());
+                showToast(context, "Il codice è stato spedito a " + codeSentHere.getDestination());
 
 
                 resultContinuation = continuation;
@@ -255,10 +254,10 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onFailure(Exception exception) {
                 String errore = "";
-                if(exception instanceof InvalidParameterException){
+                if (exception instanceof InvalidParameterException) {
                     errore = "Parametri non validi. Assicurati di aver riempito i campi opportuni!";
                 }
-                showToast(context,"Fallimento reset password: "+errore);
+                showToast(context, "Fallimento reset password: " + errore);
             }
         };
 
@@ -267,10 +266,10 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public void resetPassword(String code, String password,Context context) {
-        if(resultContinuation == null){
-            showToast(context,"Bisogna prima richiedere un codice di verifica!");
-        }else{
+    public void resetPassword(String code, String password, Context context) {
+        if (resultContinuation == null) {
+            showToast(context, "Bisogna prima richiedere un codice di verifica!");
+        } else {
             resultContinuation.setPassword(password);
             resultContinuation.setVerificationCode(code);
             resultContinuation.continueTask();
@@ -307,16 +306,16 @@ public class AWSCognito implements UtenteDao {
         user.getDetailsInBackground(new GetDetailsHandler() {
             @Override
             public void onSuccess(CognitoUserDetails cognitoUserDetails) {
-                Map<String,String> attributes = cognitoUserDetails.getAttributes().getAttributes();
+                Map<String, String> attributes = cognitoUserDetails.getAttributes().getAttributes();
 
-                Map<String,String> attributiUtenteLoggato = new HashMap<String,String>();
-                attributiUtenteLoggato.put("name",attributes.get("name"));
-                attributiUtenteLoggato.put("family_name",attributes.get("family_name"));
-                attributiUtenteLoggato.put("nickname",attributes.get("nickname"));
-                attributiUtenteLoggato.put("email",attributes.get("email"));
-                attributiUtenteLoggato.put("phone_number",attributes.get("phone_number"));
-                attributiUtenteLoggato.put("custom:isMod",attributes.get("custom:isMod"));
-                attributiUtenteLoggato.put("custom:useNick",attributes.get("custom:useNick"));
+                Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
+                attributiUtenteLoggato.put("name", attributes.get("name"));
+                attributiUtenteLoggato.put("family_name", attributes.get("family_name"));
+                attributiUtenteLoggato.put("nickname", attributes.get("nickname"));
+                attributiUtenteLoggato.put("email", attributes.get("email"));
+                attributiUtenteLoggato.put("phone_number", attributes.get("phone_number"));
+                attributiUtenteLoggato.put("custom:isMod", attributes.get("custom:isMod"));
+                attributiUtenteLoggato.put("custom:useNick", attributes.get("custom:useNick"));
 
                 controllerLogin.setUtenteLogged(attributiUtenteLoggato);
             }
@@ -324,6 +323,57 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onFailure(Exception exception) {
                 //Se il login è andato a buon fine, questa richiesta a cognito non può fallire
+            }
+        });
+    }
+
+    public void cambioPassword(String oldPsw, String psw, String userID, Context context) {
+        CognitoUser user = userPool.getUser(userID);
+        final GenericHandler handler = new GenericHandler() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(context, "Password cambiata con successo", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(context, "Errore nel cambio della password\n" +
+                        "controlla di aver scritto correttamente la vecchia Password", Toast.LENGTH_LONG).show();
+            }
+        };
+        user.changePasswordInBackground(oldPsw,psw,handler);
+    }
+
+    public void cambioEmail(String email, String userID, Context context) {
+        CognitoUser user = userPool.getUser(userID);
+        CognitoUserAttributes userAttributes = new CognitoUserAttributes();
+        userAttributes.addAttribute("email",email);
+        user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+            @Override
+            public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+                Toast.makeText(context, "Email cambiata con successo in" + email, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(context, "Errore nel cambio della email", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void cambioCell(String numCell, String userID, Context context) {
+        CognitoUser user = userPool.getUser(userID);
+        CognitoUserAttributes userAttributes = new CognitoUserAttributes();
+        userAttributes.addAttribute("phone_number",numCell);
+        user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+            @Override
+            public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+                Toast.makeText(context, "Numero di Cellulare cambiato con successo in" + numCell, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(context, "Errore nel cambio del numero di Cellulare", Toast.LENGTH_LONG).show();
             }
         });
     }

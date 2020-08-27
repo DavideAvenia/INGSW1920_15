@@ -10,6 +10,7 @@
         android:id="@+id/nomeStrutturaRicerca"
         android:layout_width="350dp"
         android:layout_height="50dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="Nome struttura"
         android:inputType="textPersonName"
@@ -18,8 +19,7 @@
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.639" />
 
     <Spinner
         android:id="@+id/cittàRicerca"

@@ -1,15 +1,14 @@
 package com.example.appmobile.Dao;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.appmobile.services.AWSCognito;
 import com.example.appmobile.services.AWSMySQLRds;
 
 public abstract class DaoFactory {
 
-    public static UtenteDao getUtenteDao(String service, Context context){
-        switch(service){
+    public static UtenteDao getUtenteDao(String service, Context context) {
+        switch (service) {
             case "AWS":
                 return new AWSCognito(context);
             default:
@@ -18,8 +17,8 @@ public abstract class DaoFactory {
         }
     }
 
-    public static StruttureDao getStruttureDao(String service, Context context){
-        switch(service){
+    public static StruttureDao getStruttureDao(String service, Context context) {
+        switch (service) {
             case "AWS":
                 return new AWSMySQLRds(context);
             default:
@@ -28,9 +27,9 @@ public abstract class DaoFactory {
         }
     }
 
-    public static RecensioniDao getRecensioniDao(String service, Context context){
+    public static RecensioniDao getRecensioniDao(String service, Context context) {
 
-        switch(service){
+        switch (service) {
             case "AWS":
                 return new AWSMySQLRds(context);
             default:

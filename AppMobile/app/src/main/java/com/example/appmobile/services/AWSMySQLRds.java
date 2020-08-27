@@ -26,7 +26,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     private Context context;
 
-    public AWSMySQLRds(Context context){
+    public AWSMySQLRds(Context context) {
         this.context = context;
     }
 
@@ -39,21 +39,21 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
         /*Creazione body richiesta*/
         try {
-            if(nome.length()!=0){
-                jsonObject.put("nome",nome);
-            }else{
-                jsonObject.put("nome","");
+            if (nome.length() != 0) {
+                jsonObject.put("nome", nome);
+            } else {
+                jsonObject.put("nome", "");
             }
-            jsonObject.put("città",città);
-            jsonObject.put("valutazioneMedia",valutazioneMedia);
-            jsonObject.put("orarioApertura",orarioApertura);
-            jsonObject.put("categoria",categoria);
-            jsonObject.put("maxPrezzo",maxPrezzo);
+            jsonObject.put("città", città);
+            jsonObject.put("valutazioneMedia", valutazioneMedia);
+            jsonObject.put("orarioApertura", orarioApertura);
+            jsonObject.put("categoria", categoria);
+            jsonObject.put("maxPrezzo", maxPrezzo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         /*Invio richiesta http*/
-        Request request = createRequest(jsonObject,URLAPIGETSTRUTTUREBYFILTRI);
+        Request request = createRequest(jsonObject, URLAPIGETSTRUTTUREBYFILTRI);
 
         Response response = null;
         try {
@@ -62,7 +62,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
             e.printStackTrace();
         }
 
-        if(response.isSuccessful()) {
+        if (response.isSuccessful()) {
             try {
                 JSONArray jsonArray = new JSONArray(response.body().string());
 
@@ -85,8 +85,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
             } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
-        }else{
-            Toast.makeText(this.context,"Errore recupero dati!\n",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this.context, "Errore recupero dati!\n", Toast.LENGTH_LONG).show();
         }
         return listaStrutture;
     }
@@ -98,26 +98,26 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         JSONObject jsonObject = new JSONObject();
 
         /*Creazione body richiesta*/
-        try{
-            jsonObject.put("nomeStruttura",nome);
-            jsonObject.put("latitudine",latitudine);
-            jsonObject.put("longitudine",longitudine);
+        try {
+            jsonObject.put("nomeStruttura", nome);
+            jsonObject.put("latitudine", latitudine);
+            jsonObject.put("longitudine", longitudine);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         /*Invio richiesta http*/
-        Request request = createRequest(jsonObject,URLAPIGETSTRUTTURABYNOMEPOSIZIONE);
+        Request request = createRequest(jsonObject, URLAPIGETSTRUTTURABYNOMEPOSIZIONE);
 
         Response response = null;
-        try{
+        try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        if(response.isSuccessful()){
-            try{
+        if (response.isSuccessful()) {
+            try {
                 /*Parsing struttura*/
                 JSONObject struttura = new JSONObject(response.body().string());
 
@@ -147,19 +147,19 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         JSONObject jsonObject = new JSONObject();
 
         /*Creazione body richiesta*/
-        try{
-            jsonObject.put("nomeStruttura",nome);
-            jsonObject.put("latitudine",latitudine);
-            jsonObject.put("longitudine",longitudine);
+        try {
+            jsonObject.put("nomeStruttura", nome);
+            jsonObject.put("latitudine", latitudine);
+            jsonObject.put("longitudine", longitudine);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         /*Invio richiesta http*/
-        Request request = createRequest(jsonObject,URLAPIINCREMENTANUMEROVISITATORI);
+        Request request = createRequest(jsonObject, URLAPIINCREMENTANUMEROVISITATORI);
 
         Response response = null;
-        try{
+        try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,39 +178,39 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         /*Creazione body richiesta*/
         Double lat = Double.parseDouble(latitudine);
         Double lon = Double.parseDouble(longitudine);
-        try{
-            jsonObject.put("nomeStruttura",nomeStruttura);
-            jsonObject.put("latitudine",latitudine);
-            jsonObject.put("longitudine",longitudine);
+        try {
+            jsonObject.put("nomeStruttura", nomeStruttura);
+            jsonObject.put("latitudine", latitudine);
+            jsonObject.put("longitudine", longitudine);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         /*Invio richiesta http*/
-        Request request = createRequest(jsonObject,URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE);
+        Request request = createRequest(jsonObject, URLAPIGETRECENSIONIBYNOMESTRUTTURAPOSIZIONE);
 
         Response response = null;
-        try{
+        try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        if(response.isSuccessful()){
+        if (response.isSuccessful()) {
             /*Parsing recensioni*/
-            try{
+            try {
                 JSONArray jsonArray = new JSONArray(response.body().string());
 
                 for (int i = 0; i < jsonArray.length(); i++) {
-                   JSONObject recensioneJSON = jsonArray.getJSONObject(i);
+                    JSONObject recensioneJSON = jsonArray.getJSONObject(i);
 
                     String testoRecensione = recensioneJSON.get("testoRecensione").toString();
                     String urlImmagine = recensioneJSON.get("urlImmagine").toString();
                     Float valutazione = Float.parseFloat(recensioneJSON.get("valutazione").toString());
                     String usernameUtente = recensioneJSON.get("userNameUtente").toString();
 
-                    Recensioni recensione = new Recensioni(testoRecensione,urlImmagine,valutazione,usernameUtente,nomeStruttura,lat,lon);
+                    Recensioni recensione = new Recensioni(testoRecensione, urlImmagine, valutazione, usernameUtente, nomeStruttura, lat, lon);
                     listaRecensioni.add(recensione);
                 }
             } catch (JSONException | IOException e) {
@@ -227,8 +227,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         OkHttpClient client = new OkHttpClient();
         JSONObject jsonObject = new JSONObject();
 
-        try{
-            jsonObject.put("nomeUtente",nomeUtente);
+        try {
+            jsonObject.put("nomeUtente", nomeUtente);
             jsonObject.put("nomeStruttura", nomeStruttura);
             jsonObject.put("latitudine", latitudine);
             jsonObject.put("longitudine", longitudine);
@@ -240,16 +240,14 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         }
 
 
-
         return false;
     }
 
-    private Request createRequest(JSONObject jsonObject, final String API){
+    private Request createRequest(JSONObject jsonObject, final String API) {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(JSON,jsonObject.toString());
+        RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());
         return new Request.Builder().url(API).post(requestBody).build();
     }
-
 
 
 }
