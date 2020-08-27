@@ -34,12 +34,14 @@ import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedExce
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotFoundException;
 import com.amazonaws.services.cognitoidentityprovider.model.UsernameExistsException;
 import com.example.appmobile.Dao.UtenteDao;
+import com.example.appmobile.controller.ControllerLogin;
 import com.example.appmobile.entity.Utente;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -58,9 +60,9 @@ public class AWSCognito implements UtenteDao {
     protected static CognitoUserPool userPool = null;
     protected static CognitoUser user = null;
     private static ForgotPasswordContinuation resultContinuation;
-    private final String USER_POOL_ID = "";
-    private final String CLIENT_ID = "";
-    private final String CLIENT_SECRET = "";
+    private final String USER_POOL_ID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENT_ID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String CLIENT_SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
 
     private Utente currentUser = null;
 
@@ -69,7 +71,6 @@ public class AWSCognito implements UtenteDao {
         identityProviderClient.setRegion(Region.getRegion(Regions.EU_WEST_1));
         userPool = new CognitoUserPool(context,USER_POOL_ID,CLIENT_ID,CLIENT_SECRET,identityProviderClient);
         user = userPool.getUser();
-
     }
 
     @Override
@@ -80,11 +81,15 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
                 showToast(context,"Login effettuato");
-                setIsLogged(true);
-                setUserIdLogged(usernameId);
-
                 //chiude l'Activity Login
                 ((Activity)context).finish();
+
+                controllerLogin.setIsLogged();
+                controllerLogin.setUserIdLogged(usernameId);
+
+                //recupero di tutti gli attributi dell'utente appena loggato
+                getUtenteLoggatoByUserId(usernameId);
+
 
                 //Continua collegamento api incremento numero login utente in background
                 OkHttpClient client = new OkHttpClient();
@@ -279,16 +284,13 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public Utente getUtenteByUserId(String userId) {
-
-        /*DA COMPLETARE*/
+    public void recuperaNicknameUtente(String userId) {
         CognitoUser user = userPool.getUser(userId);
 
-        user.getDetails(new GetDetailsHandler() {
+        user.getDetailsInBackground(new GetDetailsHandler() {
             @Override
             public void onSuccess(CognitoUserDetails cognitoUserDetails) {
-                Map<String,String> attributes = cognitoUserDetails.getAttributes().getAttributes();
-                System.out.println(attributes.get("nickname"));
+
             }
 
             @Override
@@ -296,7 +298,34 @@ public class AWSCognito implements UtenteDao {
 
             }
         });
-        return null;
+    }
+
+    private void getUtenteLoggatoByUserId(String userId) {
+
+        CognitoUser user = userPool.getUser(userId);
+
+        user.getDetailsInBackground(new GetDetailsHandler() {
+            @Override
+            public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+                Map<String,String> attributes = cognitoUserDetails.getAttributes().getAttributes();
+
+                Map<String,String> attributiUtenteLoggato = new HashMap<String,String>();
+                attributiUtenteLoggato.put("name",attributes.get("name"));
+                attributiUtenteLoggato.put("family_name",attributes.get("family_name"));
+                attributiUtenteLoggato.put("nickname",attributes.get("nickname"));
+                attributiUtenteLoggato.put("email",attributes.get("email"));
+                attributiUtenteLoggato.put("phone_number",attributes.get("phone_number"));
+                attributiUtenteLoggato.put("custom:isMod",attributes.get("custom:isMod"));
+                attributiUtenteLoggato.put("custom:useNick",attributes.get("custom:useNick"));
+
+                controllerLogin.setUtenteLogged(attributiUtenteLoggato);
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                //Se il login è andato a buon fine, questa richiesta a cognito non può fallire
+            }
+        });
     }
 
 }
