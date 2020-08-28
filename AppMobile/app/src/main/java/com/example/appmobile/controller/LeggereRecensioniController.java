@@ -7,6 +7,7 @@ import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
 import com.example.appmobile.Dao.UtenteDao;
+import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
 import com.example.appmobile.boundary.RecensioniStruttureForm;
 import com.example.appmobile.entity.Recensioni;
@@ -18,6 +19,13 @@ import java.util.List;
 public class LeggereRecensioniController {
 
     private static LeggereRecensioniController leggereRecensioniController = null;
+    private StruttureDao struttureDao;
+    private UtenteDao utenteDao;
+    private RecensioniDao recensioniDao;
+
+    private RecensioniStruttureForm recensioniStruttureForm;
+    private MainFrameForm mainFrameForm;
+    
 
     private LeggereRecensioniController() {
     }
@@ -25,10 +33,8 @@ public class LeggereRecensioniController {
     public static LeggereRecensioniController getLeggereRecensioniController() {
 
         if (leggereRecensioniController == null) {
-            return new LeggereRecensioniController();
-        } else {
-            return leggereRecensioniController;
-        }
+            leggereRecensioniController = new LeggereRecensioniController();
+        }return leggereRecensioniController;
     }
 
     public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context, String userIdLogged) {
@@ -36,9 +42,9 @@ public class LeggereRecensioniController {
         String service = context.getString(R.string.cloudService);
 
         /*Recupero dei dao necessari*/
-        RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service, context);
-        UtenteDao utenteDao = DaoFactory.getUtenteDao(service, context);
-        StruttureDao struttureDao = DaoFactory.getStruttureDao(service, context);
+        recensioniDao = DaoFactory.getRecensioniDao(service, context);
+        utenteDao = DaoFactory.getUtenteDao(service, context);
+        struttureDao = DaoFactory.getStruttureDao(service, context);
 
         /*Liste delle informazioni da passare all'activity RecensioniStruttureForm*/
         ArrayList<String> nomiRecensiori = new ArrayList<String>();
@@ -50,24 +56,26 @@ public class LeggereRecensioniController {
         List<Recensioni> listaRecensioni = recensioniDao.getRecensioniByNomeStrutturaPosizione(nomeStruttura, latitudine, longitudine);
         float listaValutazioni[] = new float[listaRecensioni.size()];
 
+        /*Recupero di tutte le informazioni della Struttra corrente*/
+        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura, latitudine, longitudine);
+        descrizione = struttura.getDescrizione();
+        struttureDao.incrementaNumeroVisitatori(nomeStruttura, latitudine, longitudine);
+        valutasione = struttura.getValutazioneMedia();
+
         int k = 0;
         for (Recensioni r : listaRecensioni) {
+            String userId = r.getUserNameUtente();
 
-            /*****************Siccome per i test non esistono gli utenti delle recensioni, per adesso non recuperiamo il nickname*********************/
-            //nomiRecensiori.add(getNickName(r,utenteDao));
-            nomiRecensiori.add(r.getUserNameUtente());
-            /***********************************************************************/
+            nomiRecensiori.add(userId);
+            utenteDao.recuperaNameToShowUtente(userId,k);
+
 
             listaUrlFoto.add(r.getUrlImmagine());
             listaTestiRecensioni.add(r.getTestoRecensione());
             listaValutazioni[k++] = r.getValutazione();
         }
 
-        /*Recupero di tutte le informazioni della Struttra corrente*/
-        Strutture struttura = struttureDao.getStrutturaByNomePosizione(nomeStruttura, latitudine, longitudine);
-        descrizione = struttura.getDescrizione();
-        struttureDao.incrementaNumeroVisitatori(nomeStruttura, latitudine, longitudine);
-        valutasione = struttura.getValutazioneMedia();
+
 
         /*Creazione intent e passaggio tramite esso di tutte le informazioni raccolte della struttura corrente*/
         Intent intent = new Intent(context, RecensioniStruttureForm.class);
@@ -85,8 +93,8 @@ public class LeggereRecensioniController {
         context.startActivity(intent);
     }
 
-    private String getNickName(Recensioni recensione) {
 
-        return null;
+    public void notifyNameToShow(String nameToShow, int position){
+        RecensioniStruttureForm.updateAdapter(nameToShow,position);
     }
 }

@@ -3,10 +3,12 @@ package com.example.appmobile.Dao;
 import android.content.Context;
 
 import com.example.appmobile.controller.ControllerLogin;
+import com.example.appmobile.controller.LeggereRecensioniController;
 
 public interface UtenteDao {
 
     ControllerLogin controllerLogin = ControllerLogin.getControllerLogin();
+    LeggereRecensioniController leggereRecensioniController = LeggereRecensioniController.getLeggereRecensioniController();
 
     /***************OPERAZIONI DI LOGIN*****************/
     //le richieste al cloud vengono tutte gestite tramite callback che non ritornano valori.
@@ -21,7 +23,7 @@ public interface UtenteDao {
 
     public void signout(String userId);
 
-    public void recuperaNicknameUtente(String userId);
+    public void recuperaNameToShowUtente(String userId, int position);
 
     public void cambioPassword(String oldPsw, String psw, String userId, Context context);
 

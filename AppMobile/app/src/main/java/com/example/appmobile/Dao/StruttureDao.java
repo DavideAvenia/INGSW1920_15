@@ -1,10 +1,13 @@
 package com.example.appmobile.Dao;
 
+import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.entity.Strutture;
 
 import java.util.List;
 
 public interface StruttureDao {
+
+    LeggereRecensioniController leggereRecensioniController = LeggereRecensioniController.getLeggereRecensioniController();
 
     String URLAPIGETSTRUTTUREBYFILTRI = "https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha/getstrutturebyfiltri";
     String URLAPIGETSTRUTTURABYNOMEPOSIZIONE = "https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha/getstrutturebynomeposizione";

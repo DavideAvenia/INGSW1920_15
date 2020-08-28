@@ -43,6 +43,11 @@ public class RecyclerViewRecensioniAdapter extends RecyclerView.Adapter<Recycler
         holder.testoRecensione.setText(testiRecensioni.get(position));
     }
 
+    public void setNameToShow(String nameToShow, int position){
+        nomiRecensori.set(position,nameToShow);
+
+    }
+
     @Override
     public int getItemCount() {
         return testiRecensioni.size();
@@ -64,5 +69,6 @@ public class RecyclerViewRecensioniAdapter extends RecyclerView.Adapter<Recycler
             recensione = itemView.findViewById(R.id.recyclerViewTestoRecensione);
             testoRecensione = itemView.findViewById(R.id.testoRecensioneAdapter);
         }
+
     }
 }

@@ -155,27 +155,33 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     @Override
     public void incrementaNumeroVisitatori(String nome, String latitudine, String longitudine) {
 
-        OkHttpClient client = new OkHttpClient();
-        JSONObject jsonObject = new JSONObject();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                JSONObject jsonObject = new JSONObject();
 
-        /*Creazione body richiesta*/
-        try {
-            jsonObject.put("nomeStruttura", nome);
-            jsonObject.put("latitudine", latitudine);
-            jsonObject.put("longitudine", longitudine);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                /*Creazione body richiesta*/
+                try {
+                    jsonObject.put("nomeStruttura", nome);
+                    jsonObject.put("latitudine", latitudine);
+                    jsonObject.put("longitudine", longitudine);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        /*Invio richiesta http*/
-        Request request = createRequest(jsonObject, URLAPIINCREMENTANUMEROVISITATORI);
+                /*Invio richiesta http*/
+                Request request = createRequest(jsonObject, URLAPIINCREMENTANUMEROVISITATORI);
 
-        Response response = null;
-        try {
-            response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                Response response = null;
+                try {
+                    response = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
     @Override

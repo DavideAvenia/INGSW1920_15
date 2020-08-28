@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appmobile.Adapters.RecyclerViewFotoRecensioniAdapter;
 import com.example.appmobile.Adapters.RecyclerViewRecensioniAdapter;
 import com.example.appmobile.R;
+import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.ScriviRecensioniController;
+import com.example.appmobile.entity.Recensioni;
 
 import java.util.List;
 
@@ -28,6 +30,10 @@ public class RecensioniStruttureForm extends AppCompatActivity {
     private RecyclerView recyclerViewRecensioni;
     private RatingBar valutazioneLeggereRecensioni;
 
+    private static RecyclerViewRecensioniAdapter recensioniAdapter = null;
+
+    private LeggereRecensioniController leggereRecensioniController = null;
+
     //Struttura corrente
     private String latitudine;
     private String longitudine;
@@ -37,6 +43,8 @@ public class RecensioniStruttureForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recensioni_strutture_form);
+
+        leggereRecensioniController = LeggereRecensioniController.getLeggereRecensioniController();
 
         //Inizializzazione widget
         nomeStrutturaLeggereRecensioni = findViewById(R.id.nomeStrutturaLeggereRecensioni);
@@ -76,7 +84,7 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewRecensioni.setLayoutManager(linearLayoutManager);
-        RecyclerViewRecensioniAdapter recensioniAdapter = new RecyclerViewRecensioniAdapter(this, nomiRecensori, listaTestiRecensioni, listaValutazioni);
+        recensioniAdapter = new RecyclerViewRecensioniAdapter(this, nomiRecensori, listaTestiRecensioni, listaValutazioni);
         recyclerViewRecensioni.setAdapter(recensioniAdapter);
 
         /*Inserimento foto*/
@@ -95,6 +103,20 @@ public class RecensioniStruttureForm extends AppCompatActivity {
 
         });
 
+    }
+
+    public static void updateAdapter(String nameToShow, int position){
+        /*In attesa passiva, il thread aspetta che si crei l'adapter prima di aggiornarlo*/
+        while(recensioniAdapter == null){
+            System.out.println("L'adapter deve ancora essere creato!");
+            try {
+                Thread.currentThread().wait(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        recensioniAdapter.setNameToShow(nameToShow,position);
+        recensioniAdapter.notifyItemChanged(position);
     }
 
 

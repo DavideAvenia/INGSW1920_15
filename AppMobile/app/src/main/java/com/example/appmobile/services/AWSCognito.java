@@ -282,18 +282,28 @@ public class AWSCognito implements UtenteDao {
     }
 
     @Override
-    public void recuperaNicknameUtente(String userId) {
+    public void recuperaNameToShowUtente(String userId, int position) {
         CognitoUser user = userPool.getUser(userId);
 
         user.getDetailsInBackground(new GetDetailsHandler() {
             @Override
             public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+                String nameToShow = userId;
 
+                CognitoUserAttributes cognitoAttributes = cognitoUserDetails.getAttributes();
+                Map<String,String> attributes = cognitoAttributes.getAttributes();
+
+                if(Integer.parseInt(attributes.get("custom:useNick")) == 0){
+                    nameToShow = nameToShow+"\n"+attributes.get("name") + " "+ attributes.get("family_name");
+                }else{
+                    nameToShow = nameToShow+"\n"+attributes.get("nickname");
+                }
+                leggereRecensioniController.notifyNameToShow(nameToShow,position);
             }
 
             @Override
             public void onFailure(Exception exception) {
-
+                //niente da notificare
             }
         });
     }
