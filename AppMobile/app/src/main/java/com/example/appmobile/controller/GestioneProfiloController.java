@@ -1,11 +1,13 @@
 package com.example.appmobile.controller;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.UtenteDao;
 import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
+import com.example.appmobile.boundary.GestioneProfiloForm;
 
 import java.util.Map;
 
@@ -53,5 +55,7 @@ public class GestioneProfiloController {
         u.cambioCell(numCell,userIdLogged,context);
     }
 
-
+    public void mostraGestioneProfilo(Context context){
+        context.startActivity( new Intent(context,GestioneProfiloForm.class));
+    }
 }

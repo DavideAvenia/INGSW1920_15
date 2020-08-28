@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.appmobile.Adapters.CustomInfoWindowAdapter;
 import com.example.appmobile.controller.ControllerLogin;
+import com.example.appmobile.controller.GestioneProfiloController;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.example.appmobile.controller.ScriviRecensioniController;
@@ -80,6 +81,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     //Controllers
     private ControllerLogin controllerLogin;
     private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
+    private GestioneProfiloController gestioneProfiloController;
     private LeggereRecensioniController leggereRecensioniController;
     private ScriviRecensioniController scriviRecensioniController;
 
@@ -277,6 +279,14 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 return true;
             case R.id.cerca:
                 ricercaStruttureRicettiveController.mostraRicercaStrutture(this);
+                return true;
+            case R.id.gestioneProfilo:
+                if(isLogged==false){
+                    Toast.makeText(this,"Devi essere loggato per gestire il tuo profilo!",Toast.LENGTH_LONG).show();
+                } else {
+                    gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
+                    gestioneProfiloController.mostraGestioneProfilo(this);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
