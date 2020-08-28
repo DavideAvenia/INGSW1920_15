@@ -50,7 +50,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private static GoogleMap mMap;
     /*Nel mainFrame salviamo le principali info dell'utente loggto così da essere di rapido uso per altre activity*/
     private static String userIdLogged = null;
-    private static boolean isLogged;
+    private static boolean isLogged = false;
     private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
     private static Location currentLocation;
     private final LocationListener LOCATION_LISTENER = new LocationListener() {
@@ -211,7 +211,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     protected Boolean doInBackground(String... strings) {
                         String snippet = strings[1];
                         String tokens[] = snippet.split("\n");
-                        leggereRecensioniController.mostraRecensioniStrutture(strings[0], tokens[4], tokens[5], MainFrameForm.this);
+                        leggereRecensioniController.mostraRecensioniStrutture(strings[0], tokens[4], tokens[5], MainFrameForm.this,userIdLogged);
                         return true;
                     }
 
@@ -314,6 +314,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     public void signout() {
         Toast.makeText(this, "Logout effettuato per: " + userIdLogged, Toast.LENGTH_LONG).show();
         setIsLogged(false);
+        attributiUtenteLoggato = null;
+        userIdLogged = null;
         controllerLogin.signout(this, userIdLogged);
     }
 }

@@ -2,6 +2,7 @@ package com.example.appmobile.boundary;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appmobile.R;
 import com.example.appmobile.controller.ScriviRecensioniController;
 
-import java.io.File;
-import java.io.IOException;
-
 public class ScriviRecensioniForm extends AppCompatActivity {
 
     private ImageButton inserisciMedia;
@@ -24,7 +22,7 @@ public class ScriviRecensioniForm extends AppCompatActivity {
     private RatingBar recensioneRatingBar;
     private EditText testoRecensione;
     private ScriviRecensioniController scriviRecensioniController;
-    private File immagine;
+    private Uri immagine = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +40,24 @@ public class ScriviRecensioniForm extends AppCompatActivity {
 
         inviaRecensione.setOnClickListener(view -> {
             //DEVE PASSARE UNA SOLA IMMAGINE
-            scriviRecensioniController.inserisciRecensione(getApplicationContext(), testoRecensione.getText().toString(), new Float(recensioneRatingBar.getRating()), immagine);
+            scriviRecensioniController.inserisciRecensione(this, testoRecensione.getText().toString(), new Float(recensioneRatingBar.getRating()), immagine);
         });
     }
 
     public void apriGalleria() {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"),1234);
-        startActivityForResult(intent, 1234);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1234 && resultCode == Activity.RESULT_OK) {
             if (data == null) {
                 Toast.makeText(getApplicationContext(), "Errore: i dati sono nulli.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            try {
-                immagine = scriviRecensioniController.getImmagineFromInput(getApplicationContext(), data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            immagine = data.getData();
         }
     }
 }

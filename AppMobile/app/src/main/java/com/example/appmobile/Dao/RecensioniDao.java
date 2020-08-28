@@ -1,8 +1,8 @@
 package com.example.appmobile.Dao;
 
-import com.example.appmobile.entity.Recensioni;
+import android.net.Uri;
 
-import java.io.File;
+import com.example.appmobile.entity.Recensioni;
 import java.util.List;
 
 public interface RecensioniDao {
@@ -14,5 +14,5 @@ public interface RecensioniDao {
 
     public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine);
 
-    public String insertImmagineS3(File file);
+    public String insertImmagineS3(Uri file);
 }

@@ -31,6 +31,8 @@ public class GestioneProfiloController {
     public Map<String, String> trovaAttributiUtente() {
         Map<String, String> attributiUtente;
         attributiUtente = MainFrameForm.getAttributiUtenteLoggato();
+
+        System.out.println(MainFrameForm.getAttributiUtenteLoggato());
         return attributiUtente;
     }
 

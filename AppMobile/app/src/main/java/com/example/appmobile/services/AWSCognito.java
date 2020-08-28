@@ -89,7 +89,6 @@ public class AWSCognito implements UtenteDao {
                 //recupero di tutti gli attributi dell'utente appena loggato
                 getUtenteLoggatoByUserId(usernameId);
 
-
                 //Continua collegamento api incremento numero login utente in background
                 OkHttpClient client = new OkHttpClient();
                 JSONObject tmp = new JSONObject();
@@ -368,12 +367,12 @@ public class AWSCognito implements UtenteDao {
         user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
             @Override
             public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
-                Toast.makeText(context, "Numero di Cellulare cambiato con successo in" + numCell, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Numero di Cellulare cambiato con successo in " + numCell, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Exception exception) {
-                Toast.makeText(context, "Errore nel cambio del numero di Cellulare", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Errore nel cambio del numero di Cellulare!", Toast.LENGTH_LONG).show();
             }
         });
     }

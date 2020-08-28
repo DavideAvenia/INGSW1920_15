@@ -86,10 +86,12 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         RecyclerViewFotoRecensioniAdapter fotoAdapter = new RecyclerViewFotoRecensioniAdapter(this, listaUrlFoto);
         recyclerViewFotoRecensioni.setAdapter(fotoAdapter);
 
+        Intent intent = getIntent();
+
         //Click su scrivere recensione
         scrivereRecensioniLink.setOnClickListener(view -> {
             ScriviRecensioniController controller = ScriviRecensioniController.getScriviRecensioniController();
-            controller.mostraScrivereRecensioni(getApplicationContext(), nomeStruttura, latitudine, longitudine);
+            controller.mostraScrivereRecensioni(this, nomeStruttura, latitudine, longitudine,intent.getStringExtra("userIdLogged"));
 
         });
 

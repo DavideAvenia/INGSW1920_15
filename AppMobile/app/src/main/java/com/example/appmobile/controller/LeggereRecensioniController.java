@@ -31,7 +31,7 @@ public class LeggereRecensioniController {
         }
     }
 
-    public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context) {
+    public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context, String userIdLogged) {
 
         String service = context.getString(R.string.cloudService);
 
@@ -80,6 +80,7 @@ public class LeggereRecensioniController {
         intent.putExtra("listaUrlFoto", listaUrlFoto);
         intent.putExtra("listaTestiRecensioni", listaTestiRecensioni);
         intent.putExtra("listaValutazioni", listaValutazioni);
+        intent.putExtra("userIdLogged",userIdLogged);
 
         context.startActivity(intent);
     }

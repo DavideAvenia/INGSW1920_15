@@ -52,12 +52,12 @@ public class GestioneProfiloForm extends AppCompatActivity {
         email = findViewById(R.id.email);
         vecchiaPsw = findViewById(R.id.vecchiaPsw);
 
+        gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
+
         nomeText.setText(trovaNomeUtente());
         numCell.setText(trovaCellUtente());
         email.setText(trovaEmailUtente());
         nicknameText.setText(trovaNickUtente());
-
-        gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
 
         cambiaCell.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,44 +90,40 @@ public class GestioneProfiloForm extends AppCompatActivity {
                 if (nuovaPSW.equals(confermaPSW)) {
                     if (checkPassword(nuovaPSW)) {
                         gestioneProfiloController.cambioPassword(oldPsw, nuovaPSW, GestioneProfiloForm.this);
+                    }else{
+                        Toast.makeText(GestioneProfiloForm.this, "La password deve avere almeno un numero, un minuscolo, un maiuscolo \n" +
+                                "un carattere speciale, niente spazi ed almeno 4 caratteri", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(GestioneProfiloForm.this, "La password deve avere almeno un numero, un minuscolo, un maiuscolo \n" +
-                            "un carattere speciale, niente spazi ed almeno 4 caratteri", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(GestioneProfiloForm.this, "Le password non coincidono!!!", Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(GestioneProfiloForm.this, "Le password non coincidono!!!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private String trovaNickUtente() {
-        Map<String, String> map;
-        map = gestioneProfiloController.trovaAttributiUtente();
-        String nick = map.get("nickname").toString();
-        return nick;
+        Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
+        return map.get("nickname");
+
     }
 
     private String trovaEmailUtente() {
-        Map<String, String> map;
-        map = gestioneProfiloController.trovaAttributiUtente();
-        String email = map.get("email").toString();
-        return email;
+        Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
+        return map.get("email");
     }
 
-    private int trovaCellUtente() {
-        int numCell = 0;
-        Map<String, String> map;
-        map = gestioneProfiloController.trovaAttributiUtente();
-        numCell = Integer.parseInt(map.get("phone_number"));
-        return numCell;
+    private String trovaCellUtente() {
+        Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
+        return map.get("phone_number");
     }
 
     public String trovaNomeUtente() {
-        Map<String, String> map;
-        String nome;
-        String cognome;
-        map = gestioneProfiloController.trovaAttributiUtente();
-        nome = map.get("nome").toString();
-        cognome = map.get("family_name").toString();
+        Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
+        String nome = "";
+        String cognome = "";
+
+        nome = map.get("name");
+        cognome = map.get("family_name");
         String nomeCompleto = nome + " " + cognome;
         return nomeCompleto;
     }

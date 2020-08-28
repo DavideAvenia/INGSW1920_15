@@ -1,6 +1,7 @@
 package com.example.appmobile.services;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -35,6 +36,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     private Context context;
     private final String KEY = "AKIAILZV5RVDP23VUCEA";
     private final String SECRET = "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";
+    private final String BUCKET_NAME = "progettoingswfedericoii";
 
     public AWSMySQLRds(Context context) {
         this.context = context;
@@ -238,7 +240,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("nomeUtente", nomeUtente);
+            jsonObject.put("userId", nomeUtente);
             jsonObject.put("nomeStruttura", nomeStruttura);
             jsonObject.put("latitudine", latitudine);
             jsonObject.put("longitudine", longitudine);
@@ -264,7 +266,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
 
     @Override
-    public String insertImmagineS3(File img){
+    public String insertImmagineS3(Uri img){
         BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
@@ -275,14 +277,14 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                         .s3Client(s3Client)
                         .build();
 
-        TransferObserver uploadObserver =
-                transferUtility.upload("jsaS3/" + img.getName(), img);
+        String key = img.getPath()+".png";
+        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME,key,new File(img.getPath()));
 
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             Toast.makeText(context, "Upload completato!", Toast.LENGTH_SHORT).show();
         }
 
-        return s3Client.getUrl("progettoingswfedericoii", img.getName()).toString();
+        return s3Client.getUrl(BUCKET_NAME, key).toString();
     }
 
     private Request createRequest(JSONObject jsonObject, final String API) {
