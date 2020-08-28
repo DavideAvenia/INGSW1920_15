@@ -34,8 +34,8 @@ import okhttp3.Response;
 public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     private Context context;
-    private final String KEY = "AKIAILZV5RVDP23VUCEA";
-    private final String SECRET = "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";
+    private final String KEY = "";
+    private final String SECRET = "";
     private final String BUCKET_NAME = "progettoingswfedericoii";
 
     public AWSMySQLRds(Context context) {

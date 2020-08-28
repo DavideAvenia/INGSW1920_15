@@ -25,7 +25,7 @@ public class GetRecensioniByNomeStrutturaPosizione implements RequestHandler<Map
             ResultSet res = databaseConnection.eseguiQuery("select * from Recensioni where nomeStruttura=\""+nomeStruttura+"\" AND latitudine=\""+latitudine+"\" AND longitudine=\""+longitudine+"\";");
 
             while(res.next()){
-                if(res.getInt("pending") == 1){
+                if(res.getInt("pending") == 0){
                     String usernameUtente = res.getString("usernameUtente");
                     String testoRecensione = res.getString("testoRecensione");
                     String urlFoto = res.getString("urlFoto");
