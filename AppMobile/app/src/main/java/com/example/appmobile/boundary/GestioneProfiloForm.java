@@ -3,6 +3,7 @@ package com.example.appmobile.boundary;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +17,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class GestioneProfiloForm extends AppCompatActivity {
+    private CheckBox checkBox;
     private TextView labelProfilotext;
-    private TextView nicknameText;
+    private EditText nicknameText;
     private TextView nomeText;
     private TextView numCell;
     private TextView email;
@@ -39,7 +41,7 @@ public class GestioneProfiloForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gestione_profilo_form);
         labelProfilotext = findViewById(R.id.labelProfilotext);
-        nicknameText = findViewById(R.id.nicknameText);
+        nicknameText = findViewById(R.id.nickname);
         nomeText = findViewById(R.id.nomeText);
         nuovoCellText = findViewById(R.id.nuovoCelltext);
         cambiaCell = findViewById(R.id.cambiacell);
@@ -57,8 +59,14 @@ public class GestioneProfiloForm extends AppCompatActivity {
         nomeText.setText(trovaNomeUtente());
         numCell.setText(trovaCellUtente());
         email.setText(trovaEmailUtente());
-        nicknameText.setText(trovaNickUtente());
+      //  nicknameText.setText(trovaNickUtente());
 
+        checkBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
         cambiaCell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +112,6 @@ public class GestioneProfiloForm extends AppCompatActivity {
     private String trovaNickUtente() {
         Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
         return map.get("nickname");
-
     }
 
     private String trovaEmailUtente() {
@@ -114,7 +121,9 @@ public class GestioneProfiloForm extends AppCompatActivity {
 
     private String trovaCellUtente() {
         Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
-        return map.get("phone_number");
+        String cellPhone = map.get("phone_number");
+        nuovoCellText.setHint(cellPhone);
+        return map.get(cellPhone);
     }
 
     public String trovaNomeUtente() {

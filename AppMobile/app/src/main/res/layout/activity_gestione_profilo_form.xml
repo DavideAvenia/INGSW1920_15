@@ -23,12 +23,13 @@
         android:id="@+id/nomeText"
         android:layout_width="318dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="17dp"
         android:layout_marginEnd="76dp"
         android:hint="Nome e Cognome"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nicknameText" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="116dp" />
 
     <EditText
         android:id="@+id/nuovoCelltext"
@@ -38,7 +39,7 @@
         android:layout_marginBottom="21dp"
         android:ems="10"
         android:hint="Inserire nuovo Cellulare"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|phone"
         app:layout_constraintBottom_toTopOf="@+id/nuovaMailtext"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -65,7 +66,7 @@
         android:layout_marginBottom="28dp"
         android:ems="10"
         android:hint="Inserire nuova @Mail"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/aggiornaPasswordlabel"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -91,7 +92,7 @@
         android:layout_marginBottom="13dp"
         android:ems="10"
         android:hint="Inserire nuova Password"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textPassword"
         app:layout_constraintBottom_toTopOf="@+id/nuovapassword2text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -104,7 +105,7 @@
         android:layout_marginEnd="89dp"
         android:ems="10"
         android:hint="Inserire ancora la nuova Password"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textPassword"
         app:layout_constraintBottom_toTopOf="@+id/cambiapsw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -156,8 +157,10 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="188dp"
+        android:layout_marginBottom="5dp"
         android:hint="NumCell"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -178,18 +181,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numCell" />
 
-    <TextView
-        android:id="@+id/nicknameText"
-        android:layout_width="236dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="27dp"
-        android:hint="Nickname"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toTopOf="@+id/nomeText"
-        app:layout_constraintTop_toBottomOf="@+id/labelProfilotext"
-        tools:layout_editor_absoluteX="18dp" />
-
     <EditText
         android:id="@+id/vecchiaPsw"
         android:layout_width="247dp"
@@ -200,11 +191,41 @@
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="Inserire vecchia Password"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textPassword"
         app:layout_constraintBottom_toTopOf="@+id/nuovaPasswordtext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aggiornaPasswordlabel"
         app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginBottom="11dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Nickname"
+        app:layout_constraintBottom_toTopOf="@+id/nomeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelProfilotext" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="21dp"
+        android:text="Attiva/Disattiva"
+        app:layout_constraintBottom_toTopOf="@+id/nomeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@+id/labelProfilotext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
