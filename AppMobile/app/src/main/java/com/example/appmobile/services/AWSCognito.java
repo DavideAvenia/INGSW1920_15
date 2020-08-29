@@ -28,8 +28,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAtt
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
-import com.amazonaws.services.cognitoidentityprovider.model.ChangePasswordRequest;
-import com.amazonaws.services.cognitoidentityprovider.model.ChangePasswordResult;
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
 import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
@@ -291,14 +289,14 @@ public class AWSCognito implements UtenteDao {
                 String nameToShow = userId;
 
                 CognitoUserAttributes cognitoAttributes = cognitoUserDetails.getAttributes();
-                Map<String,String> attributes = cognitoAttributes.getAttributes();
+                Map<String, String> attributes = cognitoAttributes.getAttributes();
 
-                if(Integer.parseInt(attributes.get("custom:useNick")) == 0){
-                    nameToShow = nameToShow+"\n"+attributes.get("name") + " "+ attributes.get("family_name");
-                }else{
-                    nameToShow = nameToShow+"\n"+attributes.get("nickname");
+                if (Integer.parseInt(attributes.get("custom:useNick")) == 0) {
+                    nameToShow = nameToShow + "\n" + attributes.get("name") + " " + attributes.get("family_name");
+                } else {
+                    nameToShow = nameToShow + "\n" + attributes.get("nickname");
                 }
-                leggereRecensioniController.notifyNameToShow(nameToShow,position);
+                leggereRecensioniController.notifyNameToShow(nameToShow, position);
             }
 
             @Override
@@ -350,13 +348,13 @@ public class AWSCognito implements UtenteDao {
                         "controlla di aver scritto correttamente la vecchia Password", Toast.LENGTH_LONG).show();
             }
         };
-        user.changePasswordInBackground(oldPsw,psw,handler);
+        user.changePasswordInBackground(oldPsw, psw, handler);
     }
 
     public void cambioEmail(String email, String userID, Context context) {
         CognitoUser user = userPool.getUser(userID);
         CognitoUserAttributes userAttributes = new CognitoUserAttributes();
-        userAttributes.addAttribute("email",email);
+        userAttributes.addAttribute("email", email);
         user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
             @Override
             public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
@@ -373,7 +371,7 @@ public class AWSCognito implements UtenteDao {
     public void cambioCell(String numCell, String userID, Context context) {
         CognitoUser user = userPool.getUser(userID);
         CognitoUserAttributes userAttributes = new CognitoUserAttributes();
-        userAttributes.addAttribute("phone_number",numCell);
+        userAttributes.addAttribute("phone_number", numCell);
         user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
             @Override
             public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
@@ -383,6 +381,48 @@ public class AWSCognito implements UtenteDao {
             @Override
             public void onFailure(Exception exception) {
                 Toast.makeText(context, "Errore nel cambio del numero di Cellulare!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void cambioNick(Context context, String nuovoNick, String userID) {
+        CognitoUser user = userPool.getUser(userID);
+        CognitoUserAttributes userAttributes = new CognitoUserAttributes();
+        userAttributes.addAttribute("nickname", nuovoNick);
+        user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+            @Override
+            public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+                Toast.makeText(context, "Nickname cambiato con successo in " + nuovoNick, Toast.LENGTH_LONG).show();
+                userAttributes.addAttribute("custom:useNick", String.valueOf(1));
+                user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+                    @Override
+                    public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+                    }
+
+                    @Override
+                    public void onFailure(Exception exception) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(context, "Impossibile cambiare Nickname al momento...", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void setUseNickFalse(Context context, String userID){
+        CognitoUser user = userPool.getUser(userID);
+        CognitoUserAttributes userAttributes = new CognitoUserAttributes();
+        userAttributes.addAttribute("custom:useNick", String.valueOf(0));
+        user.updateAttributesInBackground(userAttributes, new UpdateAttributesHandler() {
+            @Override
+            public void onSuccess(List<CognitoUserCodeDeliveryDetails> attributesVerificationList) {
+            }
+
+            @Override
+            public void onFailure(Exception exception) {
             }
         });
     }

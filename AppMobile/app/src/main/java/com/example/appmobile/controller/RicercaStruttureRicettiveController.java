@@ -21,11 +21,12 @@ public class RicercaStruttureRicettiveController {
     private RicercaStruttureForm ricercaStruttureForm;
     private StruttureDao struttureDao;
 
-    private RicercaStruttureRicettiveController() {}
+    private RicercaStruttureRicettiveController() {
+    }
 
     public static RicercaStruttureRicettiveController getRicercaStruttureRicettiveController() {
         if (ricercaStruttureRicettiveController == null) {
-            ricercaStruttureRicettiveController =  new RicercaStruttureRicettiveController();
+            ricercaStruttureRicettiveController = new RicercaStruttureRicettiveController();
         }
         return ricercaStruttureRicettiveController;
     }

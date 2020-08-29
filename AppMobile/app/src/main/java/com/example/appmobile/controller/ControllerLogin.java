@@ -10,7 +10,6 @@ import com.example.appmobile.R;
 import com.example.appmobile.boundary.LoginForm;
 import com.example.appmobile.boundary.RegistrazioneForm;
 import com.example.appmobile.boundary.ResetPasswordForm;
-import com.example.appmobile.entity.Utente;
 
 import java.util.Map;
 

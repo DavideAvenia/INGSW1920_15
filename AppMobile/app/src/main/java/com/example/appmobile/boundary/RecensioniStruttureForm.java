@@ -15,12 +15,12 @@ import com.example.appmobile.Adapters.RecyclerViewRecensioniAdapter;
 import com.example.appmobile.R;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.ScriviRecensioniController;
-import com.example.appmobile.entity.Recensioni;
 
 import java.util.List;
 
 public class RecensioniStruttureForm extends AppCompatActivity {
 
+    private static RecyclerViewRecensioniAdapter recensioniAdapter = null;
     private TextView nomeStrutturaLeggereRecensioni;
     private TextView valutazioneLeggereRecensioniText;
     private TextView descrizioneText;
@@ -29,15 +29,26 @@ public class RecensioniStruttureForm extends AppCompatActivity {
     private ScrollView scrollViewDescrizioneLeggereRecensione;
     private RecyclerView recyclerViewRecensioni;
     private RatingBar valutazioneLeggereRecensioni;
-
-    private static RecyclerViewRecensioniAdapter recensioniAdapter = null;
-
     private LeggereRecensioniController leggereRecensioniController = null;
 
     //Struttura corrente
     private String latitudine;
     private String longitudine;
     private String nomeStruttura;
+
+    public static void updateAdapter(String nameToShow, int position) {
+        /*In attesa passiva, il thread aspetta che si crei l'adapter prima di aggiornarlo*/
+        while (recensioniAdapter == null) {
+            System.out.println("L'adapter deve ancora essere creato!");
+            try {
+                Thread.currentThread().wait(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        recensioniAdapter.setNameToShow(nameToShow, position);
+        recensioniAdapter.notifyItemChanged(position);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,24 +110,10 @@ public class RecensioniStruttureForm extends AppCompatActivity {
         //Click su scrivere recensione
         scrivereRecensioniLink.setOnClickListener(view -> {
             ScriviRecensioniController controller = ScriviRecensioniController.getScriviRecensioniController();
-            controller.mostraScrivereRecensioni(this, nomeStruttura, latitudine, longitudine,intent.getStringExtra("userIdLogged"));
+            controller.mostraScrivereRecensioni(this, nomeStruttura, latitudine, longitudine, intent.getStringExtra("userIdLogged"));
 
         });
 
-    }
-
-    public static void updateAdapter(String nameToShow, int position){
-        /*In attesa passiva, il thread aspetta che si crei l'adapter prima di aggiornarlo*/
-        while(recensioniAdapter == null){
-            System.out.println("L'adapter deve ancora essere creato!");
-            try {
-                Thread.currentThread().wait(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        recensioniAdapter.setNameToShow(nameToShow,position);
-        recensioniAdapter.notifyItemChanged(position);
     }
 
 

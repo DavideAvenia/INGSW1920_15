@@ -1,7 +1,6 @@
 package com.example.appmobile.boundary;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,7 +31,6 @@ public class GestioneProfiloForm extends AppCompatActivity {
     private EditText vecchiaPsw;
     private Button cambiaPsw;
     private TextView aggiornaPasswordLabel;
-    private Button logout;
     private GestioneProfiloController gestioneProfiloController;
 
 
@@ -53,60 +51,66 @@ public class GestioneProfiloForm extends AppCompatActivity {
         numCell = findViewById(R.id.numCell);
         email = findViewById(R.id.email);
         vecchiaPsw = findViewById(R.id.vecchiaPsw);
+        checkBox = findViewById(R.id.checkbox);
 
         gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
 
         nomeText.setText(trovaNomeUtente());
         numCell.setText(trovaCellUtente());
         email.setText(trovaEmailUtente());
-      //  nicknameText.setText(trovaNickUtente());
+        nicknameText.setText(trovaNickUtente());
+        checkBox.setChecked(trovaUseNick());
 
-        checkBox.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
-        cambiaCell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String nuovoCell = nuovoCellText.getText().toString();
-                if (nuovoCell == null) {
-                    Toast.makeText(GestioneProfiloForm.this, "Non hai inserito un numero valido...", Toast.LENGTH_LONG).show();
+        checkBox.setOnClickListener(view -> {
+            String nickname = nicknameText.getText().toString();
+            if (checkBox.isChecked()) {
+                if (!nickname.equals(trovaNickUtente())) {
+                    gestioneProfiloController.cambioNickname(GestioneProfiloForm.this,nickname);
                 }
-                gestioneProfiloController.cambioCell(nuovoCell, GestioneProfiloForm.this);
-                numCell.setText(trovaCellUtente());
+            } else {
+                gestioneProfiloController.setUseNickFalse(GestioneProfiloForm.this);
             }
         });
-        cambiaMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String nuovaMail = nuovaMailText.getText().toString();
-                if (nuovaMail == null) {
-                    Toast.makeText(GestioneProfiloForm.this, "Non hai inserito una Mail valida...", Toast.LENGTH_LONG).show();
+        cambiaCell.setOnClickListener(view -> {
+            String nuovoCell = nuovoCellText.getText().toString();
+            if (nuovoCell == null) {
+                Toast.makeText(GestioneProfiloForm.this, "Non hai inserito un numero valido...", Toast.LENGTH_LONG).show();
+            }
+            gestioneProfiloController.cambioCell(nuovoCell, GestioneProfiloForm.this);
+            numCell.setText(trovaCellUtente());
+        });
+        cambiaMail.setOnClickListener(view -> {
+            String nuovaMail = nuovaMailText.getText().toString();
+            if (nuovaMail == null) {
+                Toast.makeText(GestioneProfiloForm.this, "Non hai inserito una Mail valida...", Toast.LENGTH_LONG).show();
+            }
+            gestioneProfiloController.cambioMail(nuovaMail, GestioneProfiloForm.this);
+            email.setText(trovaEmailUtente());
+        });
+        cambiaPsw.setOnClickListener(view -> {
+            String oldPsw = vecchiaPsw.getText().toString();
+            String nuovaPSW = nuovaPasswordText.getText().toString();
+            String confermaPSW = nuovaPassword2Text.getText().toString();
+            if (nuovaPSW.equals(confermaPSW)) {
+                if (checkPassword(nuovaPSW)) {
+                    gestioneProfiloController.cambioPassword(oldPsw, nuovaPSW, GestioneProfiloForm.this);
+                } else {
+                    Toast.makeText(GestioneProfiloForm.this, "La password deve avere almeno un numero, un minuscolo, un maiuscolo \n" +
+                            "un carattere speciale, niente spazi ed almeno 4 caratteri", Toast.LENGTH_LONG).show();
                 }
-                gestioneProfiloController.cambioMail(nuovaMail, GestioneProfiloForm.this);
-                email.setText(trovaEmailUtente());
+            } else {
+                Toast.makeText(GestioneProfiloForm.this, "Le password non coincidono!!!", Toast.LENGTH_LONG).show();
             }
         });
-        cambiaPsw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String oldPsw = vecchiaPsw.getText().toString();
-                String nuovaPSW = nuovaPasswordText.getText().toString();
-                String confermaPSW = nuovaPassword2Text.getText().toString();
-                if (nuovaPSW.equals(confermaPSW)) {
-                    if (checkPassword(nuovaPSW)) {
-                        gestioneProfiloController.cambioPassword(oldPsw, nuovaPSW, GestioneProfiloForm.this);
-                    }else{
-                        Toast.makeText(GestioneProfiloForm.this, "La password deve avere almeno un numero, un minuscolo, un maiuscolo \n" +
-                                "un carattere speciale, niente spazi ed almeno 4 caratteri", Toast.LENGTH_LONG).show();
-                    }
-                }else{
-                    Toast.makeText(GestioneProfiloForm.this, "Le password non coincidono!!!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+    }
+
+    private Boolean trovaUseNick(){
+        Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
+        int hasnickname = Integer.parseInt(map.get("custom:useNick"));
+        if (hasnickname == 1) {
+            return true;
+        }
+        return false;
     }
 
     private String trovaNickUtente() {

@@ -27,9 +27,13 @@ public interface UtenteDao {
 
     public void cambioPassword(String oldPsw, String psw, String userId, Context context);
 
-    public void cambioEmail(String email, String userId,  Context context);
+    public void cambioEmail(String email, String userId, Context context);
 
-    public void cambioCell(String numCell, String userId,  Context context);
+    public void cambioCell(String numCell, String userId, Context context);
+
+    public void cambioNick(Context context, String nuovoNick, String userID);
+
+    public void setUseNickFalse(Context context, String userID);
 
     //Operazioni di utilità
     public void showToast(Context context, String messaggio);

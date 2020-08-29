@@ -43,8 +43,8 @@ public class RecyclerViewRecensioniAdapter extends RecyclerView.Adapter<Recycler
         holder.testoRecensione.setText(testiRecensioni.get(position));
     }
 
-    public void setNameToShow(String nameToShow, int position){
-        nomiRecensori.set(position,nameToShow);
+    public void setNameToShow(String nameToShow, int position) {
+        nomiRecensori.set(position, nameToShow);
 
     }
 

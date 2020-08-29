@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
@@ -33,10 +32,10 @@ import okhttp3.Response;
 
 public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
-    private Context context;
     private final String KEY = "";
     private final String SECRET = "";
     private final String BUCKET_NAME = "progettoingswfedericoii";
+    private Context context;
 
     public AWSMySQLRds(Context context) {
         this.context = context;
@@ -260,7 +259,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         Request request = createRequest(jsonObject, URLAPIINSERTRECENSIONI);
 
         Response response = null;
-        try{
+        try {
             response = client.newCall(request).execute();
             return true;
         } catch (IOException e) {
@@ -272,7 +271,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
 
     @Override
-    public String insertImmagineS3(Uri img){
+    public String insertImmagineS3(Uri img) {
         BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
@@ -283,8 +282,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                         .s3Client(s3Client)
                         .build();
 
-        String key = img.getPath()+".png";
-        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME,key,new File(img.getPath()));
+        String key = img.getPath() + ".png";
+        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, new File(img.getPath()));
 
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             Toast.makeText(context, "Upload completato!", Toast.LENGTH_SHORT).show();

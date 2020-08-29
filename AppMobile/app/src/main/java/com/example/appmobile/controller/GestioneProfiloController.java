@@ -12,6 +12,7 @@ import com.example.appmobile.boundary.GestioneProfiloForm;
 import java.util.Map;
 
 public class GestioneProfiloController {
+    private GestioneProfiloForm gestioneProfiloForm;
     private static GestioneProfiloController gestioneProfiloController = null;
     private String userIdLogged = MainFrameForm.getUserIdLogged();
     private boolean isLogged = MainFrameForm.getIsLogged();
@@ -40,24 +41,38 @@ public class GestioneProfiloController {
         String service = context.getString(R.string.cloudService);
         UtenteDao u = DaoFactory.getUtenteDao(service, context);
         assert u != null;
-        u.cambioPassword(oldPsw,psw,userIdLogged,context);
+        u.cambioPassword(oldPsw, psw, userIdLogged, context);
     }
 
     public void cambioMail(String mail, Context context) {
         String service = context.getString(R.string.cloudService);
         UtenteDao u = DaoFactory.getUtenteDao(service, context);
         assert u != null;
-        u.cambioEmail(mail,userIdLogged,context);
+        u.cambioEmail(mail, userIdLogged, context);
     }
 
     public void cambioCell(String numCell, Context context) {
         String service = context.getString(R.string.cloudService);
         UtenteDao u = DaoFactory.getUtenteDao(service, context);
         assert u != null;
-        u.cambioCell(numCell,userIdLogged,context);
+        u.cambioCell(numCell, userIdLogged, context);
     }
 
-    public void mostraGestioneProfilo(Context context){
-        context.startActivity( new Intent(context,GestioneProfiloForm.class));
+    public void mostraGestioneProfilo(Context context) {
+        context.startActivity(new Intent(context, GestioneProfiloForm.class));
+    }
+
+    public void cambioNickname(Context context, String nuovoNick) {
+        String service = context.getString(R.string.cloudService);
+        UtenteDao u = DaoFactory.getUtenteDao(service, context);
+        assert u != null;
+        u.cambioNick(context,nuovoNick,userIdLogged);
+    }
+
+    public void setUseNickFalse(Context context){
+        String service = context.getString(R.string.cloudService);
+        UtenteDao u = DaoFactory.getUtenteDao(service,context);
+        assert  u != null;
+        u.setUseNickFalse(context,userIdLogged);
     }
 }

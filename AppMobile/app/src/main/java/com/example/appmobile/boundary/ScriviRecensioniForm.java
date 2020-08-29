@@ -47,7 +47,7 @@ public class ScriviRecensioniForm extends AppCompatActivity {
     public void apriGalleria() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Select Image"),1234);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), 1234);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,22 +49,20 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private static GoogleMap mMap;
 
     private static Location currentLocation;
+    /*Nel mainFrame salviamo le principali info dell'utente loggato così da essere di rapido uso per altre activity*/
+    private static String userIdLogged = null;
+    private static boolean isLogged = false;
+    private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
     private Menu menu;
     private LocationManager locationManager = null;
     private ProgressBar progressBar;
     private FusedLocationProviderClient fusedLocationProviderClient;
-
     //Controllers
     private ControllerLogin controllerLogin;
     private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
     private GestioneProfiloController gestioneProfiloController;
     private LeggereRecensioniController leggereRecensioniController;
     private ScriviRecensioniController scriviRecensioniController;
-
-    /*Nel mainFrame salviamo le principali info dell'utente loggato così da essere di rapido uso per altre activity*/
-    private static String userIdLogged = null;
-    private static boolean isLogged = false;
-    private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
 
     public static void aggiornaMappa(List<String> listaNomi, List<String> listaLatidutini, List<String> listaLongitudini, List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo) {
         MarkerOptions marker = null;
@@ -84,8 +81,41 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
         }
     }
+
     public static Map<String, String> getAttributiUtenteLoggato() {
         return attributiUtenteLoggato;
+    }
+
+    public static boolean isUserLogged() {
+        return isLogged;
+    }
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    private void setCurrentLocation(Location location) {
+        currentLocation = location;
+    }
+
+    public static boolean getIsLogged() {
+        return isLogged;
+    }
+
+    public static void setIsLogged(boolean value) {
+        isLogged = value;
+    }
+
+    public static String getUserIdLogged() {
+        return userIdLogged;
+    }
+
+    public static void setUserIdLogged(String userId) {
+        userIdLogged = userId;
+    }
+
+    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
+        attributiUtenteLoggato = attributiUtente;
     }
 
     @Override
@@ -160,7 +190,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     protected Boolean doInBackground(String... strings) {
                         String snippet = strings[1];
                         String tokens[] = snippet.split("\n");
-                        leggereRecensioniController.mostraRecensioniStrutture(strings[0], tokens[4], tokens[5], MainFrameForm.this,userIdLogged);
+                        leggereRecensioniController.mostraRecensioniStrutture(strings[0], tokens[4], tokens[5], MainFrameForm.this, userIdLogged);
                         return true;
                     }
 
@@ -230,8 +260,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 ricercaStruttureRicettiveController.mostraRicercaStrutture(this);
                 return true;
             case R.id.gestioneProfilo:
-                if(isLogged==false){
-                    Toast.makeText(this,"Devi essere loggato per gestire il tuo profilo!",Toast.LENGTH_LONG).show();
+                if (isLogged == false) {
+                    Toast.makeText(this, "Devi essere loggato per gestire il tuo profilo!", Toast.LENGTH_LONG).show();
                 } else {
                     gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
                     gestioneProfiloController.mostraGestioneProfilo(this);
@@ -259,39 +289,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-    public static boolean isUserLogged() {
-        return isLogged;
-    }
-
-    public static Location getCurrentLocation() {
-        return currentLocation;
-    }
-
-    private void setCurrentLocation(Location location) {
-        currentLocation = location;
-    }
-
-    public static boolean getIsLogged() {
-        return isLogged;
-    }
-
-    public static void setIsLogged(boolean value) {
-        isLogged = value;
-    }
-
-    public static String getUserIdLogged() {
-        return userIdLogged;
-    }
-
-    public static void setUserIdLogged(String userId) {
-        userIdLogged = userId;
-    }
-
-    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
-        attributiUtenteLoggato = attributiUtente;
-    }
-
 
     public void signout() {
         Toast.makeText(this, "Logout effettuato per: " + userIdLogged, Toast.LENGTH_LONG).show();

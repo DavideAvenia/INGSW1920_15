@@ -25,7 +25,7 @@ public class LeggereRecensioniController {
 
     private RecensioniStruttureForm recensioniStruttureForm;
     private MainFrameForm mainFrameForm;
-    
+
 
     private LeggereRecensioniController() {
     }
@@ -34,7 +34,8 @@ public class LeggereRecensioniController {
 
         if (leggereRecensioniController == null) {
             leggereRecensioniController = new LeggereRecensioniController();
-        }return leggereRecensioniController;
+        }
+        return leggereRecensioniController;
     }
 
     public void mostraRecensioniStrutture(String nomeStruttura, String latitudine, String longitudine, Context context, String userIdLogged) {
@@ -67,7 +68,7 @@ public class LeggereRecensioniController {
             String userId = r.getUserNameUtente();
 
             nomiRecensiori.add(userId);
-            utenteDao.recuperaNameToShowUtente(userId,k);
+            utenteDao.recuperaNameToShowUtente(userId, k);
 
 
             listaUrlFoto.add(r.getUrlImmagine());
@@ -88,13 +89,13 @@ public class LeggereRecensioniController {
         intent.putExtra("listaUrlFoto", listaUrlFoto);
         intent.putExtra("listaTestiRecensioni", listaTestiRecensioni);
         intent.putExtra("listaValutazioni", listaValutazioni);
-        intent.putExtra("userIdLogged",userIdLogged);
+        intent.putExtra("userIdLogged", userIdLogged);
 
         context.startActivity(intent);
     }
 
 
-    public void notifyNameToShow(String nameToShow, int position){
-        RecensioniStruttureForm.updateAdapter(nameToShow,position);
+    public void notifyNameToShow(String nameToShow, int position) {
+        RecensioniStruttureForm.updateAdapter(nameToShow, position);
     }
 }
