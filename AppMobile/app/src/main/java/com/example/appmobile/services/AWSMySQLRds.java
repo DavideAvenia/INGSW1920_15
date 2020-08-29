@@ -282,7 +282,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                         .s3Client(s3Client)
                         .build();
 
-        String key = img.getName() + ".png";
+        String key = img.getName();
         TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, img);
 
         if (TransferState.COMPLETED == uploadObserver.getState()) {
