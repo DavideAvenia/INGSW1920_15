@@ -49,6 +49,8 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     @FXML
     private Button logout;
 
+    private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
+    private StatisticheStruttureController controller;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -59,12 +61,12 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     }
 
     public void bottoneGestioneAccountPremuto(ActionEvent actionEvent) throws IOException {
-        GestioneUtentiRegistratiController gestioneUtentiRegistratiController = GestioneUtentiRegistratiController.gestioneUtentiRegistratiController(this);
+        gestioneUtentiRegistratiController = GestioneUtentiRegistratiController.gestioneUtentiRegistratiController(this);
         gestioneUtentiRegistratiController.mostraGestioneUtentiForm();
     }
 
     public void bottoneStrutturePremuto(ActionEvent actionEvent) throws Exception {
-        StatisticheStruttureController controller = StatisticheStruttureController.getStatisticheStruttureController();
+        controller = StatisticheStruttureController.getStatisticheStruttureController();
         controller.mostra();
     }
 

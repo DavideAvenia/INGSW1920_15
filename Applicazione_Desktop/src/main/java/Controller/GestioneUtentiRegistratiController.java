@@ -3,6 +3,7 @@ package Controller;
 import Boundary.GestioneUtentiForm;
 import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
+import Boundary.PaginaPrincipaleModForm;
 import DAO.DAOfactory;
 import DAO.StatisticheUtentiDAO;
 import DAO.UtenteDao;
@@ -24,10 +25,11 @@ public class GestioneUtentiRegistratiController {
     private static GestioneUtentiForm gestioneUtentiForm;
     /*Forms*/
     private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
+    private PaginaPrincipaleModForm paginaPrincipaleModForm;
     private Messaggio messaggio;
 
     private UtenteDao utenteDao;
-    private DAOfactory daOfactory;
+    private DAOfactory daoFactory;
     private StatisticheUtentiDAO statisticheUtentiDAO;
 
     private GestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
@@ -38,16 +40,13 @@ public class GestioneUtentiRegistratiController {
     public static GestioneUtentiRegistratiController gestioneUtentiRegistratiController(PaginaPrincipaleAdminForm paginaPrincipaleAdminForm) {
         if (gestioneUtentiRegistratiController == null) {
             gestioneUtentiRegistratiController = new GestioneUtentiRegistratiController(paginaPrincipaleAdminForm);
-            return gestioneUtentiRegistratiController;
         }
         return gestioneUtentiRegistratiController;
     }
 
     public void mostraGestioneUtentiForm() throws IOException {
-        GestioneUtentiForm gestioneUtentiForm = new GestioneUtentiForm();
-        this.gestioneUtentiForm = gestioneUtentiForm;
+        gestioneUtentiForm = new GestioneUtentiForm();
         gestioneUtentiForm.start(new Stage());
-
     }
 
     public List<String> aggiornaLista(String filtro) {
@@ -145,5 +144,7 @@ public class GestioneUtentiRegistratiController {
             e.printStackTrace();
         }
     }
+
+
 
 }

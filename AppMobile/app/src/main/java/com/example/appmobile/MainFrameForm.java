@@ -48,42 +48,24 @@ import java.util.Map;
 public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallback {
 
     private static GoogleMap mMap;
-    /*Nel mainFrame salviamo le principali info dell'utente loggto così da essere di rapido uso per altre activity*/
-    private static String userIdLogged = null;
-    private static boolean isLogged = false;
-    private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
+
     private static Location currentLocation;
-    private final LocationListener LOCATION_LISTENER = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            LatLng currenLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
     private Menu menu;
     private LocationManager locationManager = null;
     private ProgressBar progressBar;
     private FusedLocationProviderClient fusedLocationProviderClient;
+
     //Controllers
     private ControllerLogin controllerLogin;
     private RicercaStruttureRicettiveController ricercaStruttureRicettiveController;
     private GestioneProfiloController gestioneProfiloController;
     private LeggereRecensioniController leggereRecensioniController;
     private ScriviRecensioniController scriviRecensioniController;
+
+    /*Nel mainFrame salviamo le principali info dell'utente loggato così da essere di rapido uso per altre activity*/
+    private static String userIdLogged = null;
+    private static boolean isLogged = false;
+    private static Map<String, String> attributiUtenteLoggato = new HashMap<String, String>();
 
     public static void aggiornaMappa(List<String> listaNomi, List<String> listaLatidutini, List<String> listaLongitudini, List<String> listaCittà, List<Float> listaValutazioni, List<String> listaOrariApertura, List<String> listaRangePrezzo) {
         MarkerOptions marker = null;
@@ -102,39 +84,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
         }
     }
-
-    public static boolean isUserLogged() {
-        return isLogged;
-    }
-
-    public static Location getCurrentLocation() {
-        return currentLocation;
-    }
-
-    private void setCurrentLocation(Location location) {
-        currentLocation = location;
-    }
-
-    public static boolean getIsLogged() {
-        return isLogged;
-    }
-
-    public static void setIsLogged(boolean value) {
-        isLogged = value;
-    }
-
-    public static String getUserIdLogged() {
-        return userIdLogged;
-    }
-
-    public static void setUserIdLogged(String userId) {
-        userIdLogged = userId;
-    }
-
-    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
-        attributiUtenteLoggato = attributiUtente;
-    }
-
     public static Map<String, String> getAttributiUtenteLoggato() {
         return attributiUtenteLoggato;
     }
@@ -310,6 +259,39 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    public static boolean isUserLogged() {
+        return isLogged;
+    }
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    private void setCurrentLocation(Location location) {
+        currentLocation = location;
+    }
+
+    public static boolean getIsLogged() {
+        return isLogged;
+    }
+
+    public static void setIsLogged(boolean value) {
+        isLogged = value;
+    }
+
+    public static String getUserIdLogged() {
+        return userIdLogged;
+    }
+
+    public static void setUserIdLogged(String userId) {
+        userIdLogged = userId;
+    }
+
+    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
+        attributiUtenteLoggato = attributiUtente;
+    }
+
 
     public void signout() {
         Toast.makeText(this, "Logout effettuato per: " + userIdLogged, Toast.LENGTH_LONG).show();

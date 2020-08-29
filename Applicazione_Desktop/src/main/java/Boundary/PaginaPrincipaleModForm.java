@@ -1,5 +1,6 @@
 package Boundary;
 
+import Controller.GestioneUtentiRegistratiController;
 import Controller.LoginDesktopController;
 import Controller.StatisticheStruttureController;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ public class PaginaPrincipaleModForm extends Application {
     private Button logout;
     @FXML
     private Label label;
+
 
 
     public void moderaPremuto(ActionEvent actionEvent) {

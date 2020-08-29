@@ -10,6 +10,7 @@ import com.example.appmobile.R;
 import com.example.appmobile.boundary.LoginForm;
 import com.example.appmobile.boundary.RegistrazioneForm;
 import com.example.appmobile.boundary.ResetPasswordForm;
+import com.example.appmobile.entity.Utente;
 
 import java.util.Map;
 
@@ -19,6 +20,8 @@ public class ControllerLogin {
     private MainFrameForm mainFrameForm;
     private LoginForm loginForm;
     private RegistrazioneForm registrazioneForm;
+    private ResetPasswordForm resetPasswordForm;
+    private UtenteDao servizioUtente;
 
     private ControllerLogin() {
 
@@ -54,7 +57,7 @@ public class ControllerLogin {
     public void registrazione(String userId, String nome, String cognome, String cellulare, String email, String password, Context context) {
         String service = context.getString(R.string.cloudService);
 
-        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service, context);
+        servizioUtente = DaoFactory.getUtenteDao(service, context);
 
         servizioUtente.registration(userId, nome, cognome, cellulare, email, password, context);
     }
@@ -62,7 +65,7 @@ public class ControllerLogin {
     public void richiediCodiceResetPassword(Context context, String userId) {
         String service = context.getString(R.string.cloudService);
 
-        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service, context);
+        servizioUtente = DaoFactory.getUtenteDao(service, context);
 
         servizioUtente.recuperaCodiceResetPassword(context, userId);
     }
@@ -70,7 +73,7 @@ public class ControllerLogin {
     public void resetPassword(Context context, String code, String password) {
         String service = context.getString(R.string.cloudService);
 
-        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service, context);
+        servizioUtente = DaoFactory.getUtenteDao(service, context);
 
         servizioUtente.resetPassword(code, password, context);
     }
@@ -78,7 +81,7 @@ public class ControllerLogin {
     public void signout(Context context, String userId) {
         String service = context.getString(R.string.cloudService);
 
-        UtenteDao servizioUtente = DaoFactory.getUtenteDao(service, context);
+        servizioUtente = DaoFactory.getUtenteDao(service, context);
 
         servizioUtente.signout(userId);
     }
