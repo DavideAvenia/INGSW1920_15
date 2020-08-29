@@ -3,6 +3,7 @@ package com.example.appmobile.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.widget.Toast;
 
 import com.example.appmobile.Dao.DaoFactory;
@@ -10,6 +11,13 @@ import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.MainFrameForm;
 import com.example.appmobile.R;
 import com.example.appmobile.boundary.ScriviRecensioniForm;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ScriviRecensioniController {
     private static ScriviRecensioniController recensioniController = null;
@@ -42,7 +50,7 @@ public class ScriviRecensioniController {
     }
 
 
-    public void inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, Uri immagine) {
+    public void inserisciRecensione(Context context, String testoRecensione, float valutazioneRecensione, File immagine) {
 
         String service = context.getString(R.string.cloudService);
 
@@ -54,6 +62,17 @@ public class ScriviRecensioniController {
             //Inserimento dell'immagine in S3, prendi l'URL e chiami
             String immagineURL = recensioniDao.insertImmagineS3(immagine);
             recensioniDao.insertRecensioni(userIdLogged, nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, immagineURL);
+
+        }
+    }
+
+
+
+    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
         }
     }
 }

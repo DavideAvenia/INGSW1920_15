@@ -261,6 +261,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
         Response response = null;
         try {
             response = client.newCall(request).execute();
+            Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -269,9 +270,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
     }
 
-
     @Override
-    public String insertImmagineS3(Uri img) {
+    public String insertImmagineS3(File img) {
         BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
@@ -282,8 +282,8 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                         .s3Client(s3Client)
                         .build();
 
-        String key = img.getPath() + ".png";
-        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, new File(img.getPath()));
+        String key = img.getName() + ".png";
+        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, img);
 
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             Toast.makeText(context, "Upload completato!", Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.entity.Recensioni;
 
+import java.io.File;
 import java.util.List;
 
 public interface RecensioniDao {
@@ -18,5 +19,5 @@ public interface RecensioniDao {
 
     boolean insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine);
 
-    String insertImmagineS3(Uri file);
+    String insertImmagineS3(File file);
 }
