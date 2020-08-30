@@ -55,9 +55,9 @@ public class GestioneProfiloForm extends AppCompatActivity {
 
         gestioneProfiloController = GestioneProfiloController.getGestioneProfiloController();
 
-        nomeText.setText(trovaNomeUtente());
-        numCell.setText(trovaCellUtente());
-        email.setText(trovaEmailUtente());
+        nomeText.setText("Nome e Cognome : " + trovaNomeUtente());
+        numCell.setText("Cellulare : " + trovaCellUtente());
+        email.setText("Email : " + trovaEmailUtente());
         nicknameText.setText(trovaNickUtente());
         checkBox.setChecked(trovaUseNick());
 
@@ -127,7 +127,7 @@ public class GestioneProfiloForm extends AppCompatActivity {
         Map<String, String> map = gestioneProfiloController.trovaAttributiUtente();
         String cellPhone = map.get("phone_number");
         nuovoCellText.setHint(cellPhone);
-        return map.get(cellPhone);
+        return cellPhone;
     }
 
     public String trovaNomeUtente() {
