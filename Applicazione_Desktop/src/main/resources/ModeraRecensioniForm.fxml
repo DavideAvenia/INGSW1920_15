@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="titoloRecensione" prefHeight="515.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.ModeraRecensioniForm">
+   <children>
+      <ListView fx:id="listaAnteprimaRecensioni" layoutX="14.0" layoutY="47.0" prefHeight="427.0" prefWidth="199.0" />
+      <ComboBox fx:id="comboModeraRecensioni" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="123.0" />
+      <Label layoutX="241.0" layoutY="70.0" text="Recensione">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="testoRecensione" layoutX="241.0" layoutY="117.0" text="Testo della recensione" />
+      <Label fx:id="connotatiUtente" layoutX="373.0" layoutY="12.0" text="Nome, cognome e Nickname dell'utente">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="158.0" fitWidth="260.0" layoutX="241.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="580.0" layoutY="258.0" text="Valutazione">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="numeroValutazione" layoutX="578.0" layoutY="300.0" text="Numero valutazione" />
+
+      <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" text="Indietro" onAction="#indietroButtonPremuto"/>
+      <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" text="Disapprova" onAction="#disapprovaButtonPremuto"/>
+      <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" text="Approva" onAction="#approvaButtonPremuto"/>
+   </children>
+</AnchorPane>

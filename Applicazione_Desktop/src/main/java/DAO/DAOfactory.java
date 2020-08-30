@@ -21,6 +21,14 @@ public abstract class DAOfactory {
         return null;
     }
 
+    public static RecensioniDAO getRecensioniDAO(String service) {
+        switch (service) {
+            case "AWS":
+                return new AWSMySQLRDS();
+        }
+        return null;
+    }
+
     public static UtenteDao getUtenteDao(String service) {
         switch (service) {
             case "AWS":

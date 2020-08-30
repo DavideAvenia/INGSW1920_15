@@ -1,9 +1,6 @@
 package Boundary;
 
-import Controller.GestioneUtentiRegistratiController;
-import Controller.LoginDesktopController;
-import Controller.StatisticheStruttureController;
-import Controller.VisualizzaStatisticheUtentiController;
+import Controller.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +49,7 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
 
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
     private StatisticheStruttureController controller;
+    private ModeraRecensioniController moderaRecensioniController;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -68,6 +67,11 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     public void bottoneStrutturePremuto(ActionEvent actionEvent) throws Exception {
         controller = StatisticheStruttureController.getStatisticheStruttureController();
         controller.mostra();
+    }
+
+    public void bottoneModeraRecensioniPremuto(ActionEvent event) throws Exception{
+        moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
+        moderaRecensioniController.mostraModeraRecensioniForm();
     }
 
 

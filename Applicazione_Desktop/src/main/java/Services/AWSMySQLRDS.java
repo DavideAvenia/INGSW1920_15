@@ -1,7 +1,9 @@
 package Services;
 
+import DAO.RecensioniDAO;
 import DAO.StatisticheStruttureDAO;
 import DAO.StatisticheUtentiDAO;
+import Entity.Recensioni;
 import Entity.StatisticheStrutture;
 import Entity.StatisticheUtenti;
 import okhttp3.*;
@@ -13,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDAO {
+public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDAO, RecensioniDAO {
 
     @Override
     public List<StatisticheStrutture> getAllStatisticheStrutture() {
@@ -122,5 +124,10 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Recensioni> getAllRecensioniByPending(){
+
+        return null;
     }
 }

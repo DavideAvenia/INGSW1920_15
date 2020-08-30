@@ -2,6 +2,7 @@ package Boundary;
 
 import Controller.GestioneUtentiRegistratiController;
 import Controller.LoginDesktopController;
+import Controller.ModeraRecensioniController;
 import Controller.StatisticheStruttureController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -26,10 +27,10 @@ public class PaginaPrincipaleModForm extends Application {
     @FXML
     private Label label;
 
+    public ModeraRecensioniController moderaRecensioniController;
 
-
-    public void moderaPremuto(ActionEvent actionEvent) {
-        // Inserire codice per moderare le recensioni, come sotto.
+    public void moderaPremuto(ActionEvent actionEvent) throws Exception {
+        moderaRecensioniController.mostraModeraRecensioniForm();
     }
 
     public void StrutturePremuto(ActionEvent actionEvent) throws IOException {
