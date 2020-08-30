@@ -10,6 +10,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.example.appmobile.Dao.RecensioniDao;
 import com.example.appmobile.Dao.StruttureDao;
 import com.example.appmobile.entity.Recensioni;
@@ -239,51 +240,49 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     }
 
     @Override
-    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine) {
+    public void insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine) {
         /*Costruzione body richiesta http api*/
-        OkHttpClient client = new OkHttpClient();
-        JSONObject jsonObject = new JSONObject();
 
-        try {
-            jsonObject.put("userId", nomeUtente);
-            jsonObject.put("nomeStruttura", nomeStruttura);
-            jsonObject.put("latitudine", latitudine);
-            jsonObject.put("longitudine", longitudine);
-            jsonObject.put("testoRecensione", testoRecensione);
-            jsonObject.put("valutazione", valutazione);
-            jsonObject.put("urlImmagine", urlImmagine);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            OkHttpClient client = new OkHttpClient();
+            JSONObject jsonObject = new JSONObject();
+
+            try {
+                jsonObject.put("userId", nomeUtente);
+                jsonObject.put("nomeStruttura", nomeStruttura);
+                jsonObject.put("latitudine", latitudine);
+                jsonObject.put("longitudine", longitudine);
+                jsonObject.put("testoRecensione", testoRecensione);
+                jsonObject.put("valutazione", valutazione);
+                jsonObject.put("urlImmagine", urlImmagine);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Request request = createRequest(jsonObject, URLAPIINSERTRECENSIONI);
+
+            Response response = null;
+
+            try {
+                response = client.newCall(request).execute();
+                Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        Request request = createRequest(jsonObject, URLAPIINSERTRECENSIONI);
-
-        Response response = null;
-        try {
-            response = client.newCall(request).execute();
-            Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
 
     @Override
     public String insertImmagineS3(File img) {
         BasicAWSCredentials credentials = new BasicAWSCredentials(KEY, SECRET);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
-        TransferUtility transferUtility =
-                TransferUtility.builder()
+        TransferUtility transferUtility = TransferUtility.builder()
                         .context(context)
                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                         .s3Client(s3Client)
                         .build();
 
         String key = img.getName();
-        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, img);
+        TransferObserver uploadObserver = transferUtility.upload(BUCKET_NAME, key, img, CannedAccessControlList.PublicReadWrite);
 
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             Toast.makeText(context, "Upload completato!", Toast.LENGTH_SHORT).show();

@@ -62,7 +62,6 @@ public class ScriviRecensioniController {
             //Inserimento dell'immagine in S3, prendi l'URL e chiami
             String immagineURL = recensioniDao.insertImmagineS3(immagine);
             recensioniDao.insertRecensioni(userIdLogged, nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, immagineURL);
-
         }
     }
 
