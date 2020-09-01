@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.ModeraRecensioniController;
+import Entity.Recensioni;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,22 +15,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
+import java.util.List;
 
 public class ModeraRecensioniForm extends Application{
 
+    //Pezzi da visuallizzare a sinistra della form
     @FXML ComboBox<String> comboModeraRecensioni;
     @FXML ListView<String> listaAnteprimaRecensioni;
 
+    //Componenti della recensione
     @FXML Label testoRecensione;
     @FXML Label numeroValutazione;
     @FXML Label connotatiUtente;
+    @FXML ImageView immagineRecensione;
 
+    //Bottoni
     @FXML Button indietroButton;
     @FXML Button approvaButton;
     @FXML Button disapprovaButton;
 
-    public ModeraRecensioniController moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
+    private ModeraRecensioniController moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,10 +52,19 @@ public class ModeraRecensioniForm extends Application{
         stage.close();
     }
 
-
-    public void disapprovaButtonPremuto(ActionEvent actionEvent) {
+    public void visuallizzaRecensioniListView(List<Recensioni> listaRecensioni){
+        //Prenderà le recensioni nella firma
+        //Prenderà il testo della recensione e ne visualizzerà solo una parte
+        //Servono gli observer, credo
     }
 
-    public void approvaButtonPremuto(ActionEvent actionEvent) {
+
+    //Devono controllare che la recensione si stata cliccata
+    public void disapprovaButtonPremuto(ActionEvent actionEvent) throws Exception {
+        moderaRecensioniController.disapprovaRecensione();
+    }
+
+    public void approvaButtonPremuto(ActionEvent actionEvent) throws Exception {
+        moderaRecensioniController.approvaRecensione();
     }
 }

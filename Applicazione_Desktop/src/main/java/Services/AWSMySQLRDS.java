@@ -126,6 +126,17 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
         }
     }
 
+    @Override
+    public boolean approvaRecensione() {
+        return false;
+    }
+
+    @Override
+    public boolean disapprovaRecensione() {
+        return false;
+    }
+
+    @Override
     public List<Recensioni> getAllRecensioniByPending(){
 
         return null;
