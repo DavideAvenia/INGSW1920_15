@@ -28,8 +28,8 @@
       </Label>
       <Label fx:id="numeroValutazione" layoutX="578.0" layoutY="300.0" text="Numero valutazione" />
 
-      <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" text="Indietro" onAction="#indietroButtonPremuto"/>
-      <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" text="Disapprova" onAction="#disapprovaButtonPremuto"/>
-      <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" text="Approva" onAction="#approvaButtonPremuto"/>
+      <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" onAction="#indietroButtonPremuto" text="Indietro" />
+      <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" onAction="#disapprovaButtonPremuto" text="Disapprova" />
+      <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" onAction="#approvaButtonPremuto" text="Approva" />
    </children>
 </AnchorPane>

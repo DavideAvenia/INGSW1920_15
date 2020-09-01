@@ -127,6 +127,55 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
     }
 
     @Override
+    public List<Recensioni> getAllRecensioniByPending(){
+        List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
+
+        JSONObject tmp = new JSONObject();
+        try {
+            tmp.put("temp", "temp");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+        Request req = new Request.Builder().url(APIGETALLRECENSIONIBYPENDING).post(requestBody).build();
+        Response res = null;
+        try {
+            res = client.newCall(req).execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (res.isSuccessful()) {
+            try{
+                JSONArray arrayRecensioni = new JSONArray(res.body().string());
+                for (int i = 0; i < arrayRecensioni.length(); i++) {
+                    JSONObject obRecensione = arrayRecensioni.getJSONObject(i);
+                    String testoRecensione = obRecensione.getString("testoRecensione");
+                    String urlImmagine = obRecensione.getString("urlFoto");
+                    float valutazione = obRecensione.getFloat("valutazione");
+                    String usernameUtente = obRecensione.getString("usernameUtente");
+                    String nomeStruttura = obRecensione.getString("nomeStruttura");
+                    double latitudine = obRecensione.getFloat("latitudine");
+                    double longitudine = obRecensione.getFloat("longitudine");
+                    Recensioni r = new Recensioni(testoRecensione, urlImmagine, valutazione, usernameUtente, nomeStruttura, latitudine, longitudine, true);
+                    listaRecensioni.add(r);
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return listaRecensioni;
+    }
+
+    //Faranno un Update in sql
+    //Mi servono le chiavi per accedere alla recensione
+    @Override
     public boolean approvaRecensione() {
         return false;
     }
@@ -134,11 +183,5 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
     @Override
     public boolean disapprovaRecensione() {
         return false;
-    }
-
-    @Override
-    public List<Recensioni> getAllRecensioniByPending(){
-
-        return null;
     }
 }

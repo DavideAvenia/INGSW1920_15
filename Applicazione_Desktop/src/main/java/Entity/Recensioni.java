@@ -9,12 +9,12 @@ public class Recensioni {
 
     /*Nel database costituiscono una chiave secondaria alla struttura corrispondente*/
     private String nomeStruttura;
-    private Double latitudine;
-    private Double longitudine;
+    private double latitudine;
+    private double longitudine;
 
     private boolean pending;//Deve verificare se la recensione è stata pubblicata o meno
 
-    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, Double latitudine, Double longitudine, boolean pending) {
+    public Recensioni(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura, double latitudine, double longitudine, boolean pending) {
         this.testoRecensione = testoRecensione;
         this.urlImmagine = urlImmagine;
         this.valutazione = valutazione;

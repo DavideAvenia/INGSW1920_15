@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeraRecensioniController {
@@ -18,6 +19,8 @@ public class ModeraRecensioniController {
     private static ModeraRecensioniController controller = null;
     private ModeraRecensioniForm moderaRecensioniForm;
     private Messaggio messaggio;
+    private List<String> listaAnteprime = new ArrayList<String>();
+    private List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
 
     private ModeraRecensioniController(){}
 
@@ -40,7 +43,7 @@ public class ModeraRecensioniController {
     //Prima prendo le recensioni, le visualizzo a schermo
     //Ricordati di permettere di cliccare approva e disapprova SOLO SE è stata cliccata una recensione
 
-    public List<Recensioni> getAllRecensioniByPending(){
+    public boolean getAllRecensioniByPending(){
         String service = "";
 
         File file = new File("config.txt");
@@ -52,8 +55,16 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
+        listaRecensioni = recensioniDAO.getAllRecensioniByPending();
 
-        return recensioniDAO.getAllRecensioniByPending();
+        return true;
+    }
+
+    public List<String> getListaAnteprime(){
+        for(Recensioni r: listaRecensioni){
+            listaAnteprime.add(r.getTestoRecensione());
+        }
+        return listaAnteprime;
     }
 
     public void approvaRecensione() throws Exception {
@@ -68,6 +79,8 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
+
+        recensioniDAO.approvaRecensione();
 
         mostraMessaggio("Approvazione", "La recensione è stata approvata e adesso sarà visibile sull'app");
     }
@@ -85,6 +98,8 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
+
+        recensioniDAO.disapprovaRecensione();
 
         mostraMessaggio("Disapprovazione", "La recensione è stata disapprovata e cancellata");
     }
