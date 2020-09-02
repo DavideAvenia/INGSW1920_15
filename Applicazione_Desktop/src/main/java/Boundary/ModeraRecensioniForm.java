@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.ModeraRecensioniController;
+import Entity.Recensioni;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +51,6 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         stage.setTitle("Modera Recensioni");
         stage.setScene(new Scene(root));
         stage.show();
-
     }
 
     @Override

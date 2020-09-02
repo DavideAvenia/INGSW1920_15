@@ -43,7 +43,7 @@ public class ModeraRecensioniController {
     //Prima prendo le recensioni, le visualizzo a schermo
     //Ricordati di permettere di cliccare approva e disapprova SOLO SE è stata cliccata una recensione
 
-    public boolean getAllRecensioniByPending(){
+    public List<Recensioni> getAllRecensioniByPending(){
         String service = "";
 
         File file = new File("config.txt");
@@ -57,7 +57,7 @@ public class ModeraRecensioniController {
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
         listaRecensioni = recensioniDAO.getAllRecensioniByPending();
 
-        return true;
+        return listaRecensioni;
     }
 
     public List<String> getListaAnteprime(){

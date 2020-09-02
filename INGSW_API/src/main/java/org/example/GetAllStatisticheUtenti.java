@@ -2,7 +2,6 @@ package org.example;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import org.example.DatabaseConnection;
 import org.example.Entity.StatisticheUtenti;
 
 import java.sql.ResultSet;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class GetAllStatisticheUtenti implements RequestHandler<Map<String,String>,List<StatisticheUtenti>> {
-
 
     @Override
     public List<StatisticheUtenti> handleRequest(Map<String, String> stringStringMap, Context context) {
