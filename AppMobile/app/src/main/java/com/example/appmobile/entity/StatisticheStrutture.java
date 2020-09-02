@@ -1,58 +1,71 @@
 package com.example.appmobile.entity;
 
 public class StatisticheStrutture {
+    private int numVisitatori;
+    private int numReviews;
+    private int numClienti;
+    private String nome;
+    private String longitudine;
+    private String latitudine;
 
-    private String nomeStruttura;
-    private float latitudine;
-    private float longitudine;
-    private int numeroVisitatori;
-    private double valutazioneMedia;
-
-    public StatisticheStrutture(String nomeStruttura, float latitudine, float longitudine, int numeroVisitatori, double valutazioneMedia) {
-        this.nomeStruttura = nomeStruttura;
-        this.latitudine = latitudine;
+    public StatisticheStrutture(int numVisitatori, int numReviews, int numClienti, String nome, String longitudine, String latitudine) {
+        this.numVisitatori = numVisitatori;
+        this.numReviews = numReviews;
+        this.numClienti = numClienti;
+        this.nome = nome;
         this.longitudine = longitudine;
-        this.numeroVisitatori = numeroVisitatori;
-        this.valutazioneMedia = valutazioneMedia;
-    }
-
-    public String getNomeStruttura() {
-        return nomeStruttura;
-    }
-
-    public void setNomeStruttura(String nomeStruttura) {
-        this.nomeStruttura = nomeStruttura;
-    }
-
-    public int getNumeroVisitatori() {
-        return numeroVisitatori;
-    }
-
-    public void setNumeroVisitatori(int numeroVisitatori) {
-        this.numeroVisitatori = numeroVisitatori;
-    }
-
-    public double getValutazioneMedia() {
-        return valutazioneMedia;
-    }
-
-    public void setValutazioneMedia(double valutazioneMedia) {
-        this.valutazioneMedia = valutazioneMedia;
-    }
-
-    public float getLatitudine() {
-        return latitudine;
-    }
-
-    public void setLatitudine(float latitudine) {
         this.latitudine = latitudine;
     }
 
-    public float getLongitudine() {
+    public StatisticheStrutture() {
+
+    }
+
+    public int getNumVisitatori() {
+        return numVisitatori;
+    }
+
+    public void setNumVisitatori(int numVisitatori) {
+        this.numVisitatori = numVisitatori;
+    }
+
+    public int getNumReviews() {
+        return numReviews;
+    }
+
+    public void setNumReviews(int numReviews) {
+        this.numReviews = numReviews;
+    }
+
+    public int getNumClienti() {
+        return numClienti;
+    }
+
+    public void setNumClienti(int numClienti) {
+        this.numClienti = numClienti;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getLongitudine() {
         return longitudine;
     }
 
-    public void setLongitudine(float longitudine) {
+    public void setLongitudine(String longitudine) {
         this.longitudine = longitudine;
+    }
+
+    public String getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(String latitudine) {
+        this.latitudine = latitudine;
     }
 }
