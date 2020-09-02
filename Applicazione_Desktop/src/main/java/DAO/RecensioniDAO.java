@@ -11,6 +11,7 @@ public interface RecensioniDAO {
 
     public List<Recensioni> getAllRecensioniByPending();
     //Serve una chiave per poter prendere la recensione dal database da mettere nella firma
+    //String usernameUtente, String nomeStruttura, double latitudine, double longitudine
     public boolean approvaRecensione();
     public boolean disapprovaRecensione();
 

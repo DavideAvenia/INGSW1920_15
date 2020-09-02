@@ -30,7 +30,7 @@ public class LoginForm extends Application {
         stage.show();
     }
 
-    public void loginPremuto(ActionEvent actionEvent) throws IOException {
+    public void loginPremuto(ActionEvent actionEvent) {
         boolean islogged;
         LoginDesktopController controller = LoginDesktopController.getInstanzaLoginDesktopController();
         try {

@@ -15,14 +15,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ModeraRecensioniForm extends Application implements Initializable {
+
 
     //Pezzi da visuallizzare a sinistra della form
     @FXML ComboBox<String> comboModeraRecensioni;
@@ -32,7 +34,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     @FXML Label testoRecensione;
     @FXML Label numeroValutazione;
     @FXML Label connotatiUtente;
-    @FXML ImageView immagineRecensione;
+    @FXML ImageView imageViewRecensione;
 
     //Bottoni
     @FXML Button indietroButton;
@@ -40,6 +42,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     @FXML Button disapprovaButton;
 
     private ModeraRecensioniController moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
+    private List<String> listaAnteprime;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -47,13 +50,20 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         stage.setTitle("Modera Recensioni");
         stage.setScene(new Scene(root));
         stage.show();
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        listaAnteprimaRecensioni = new ListView<String>();
         listaAnteprimaRecensioni.setEditable(false);
-        ObservableList<String> listaAnteprimeRecensioniObs = FXCollections.observableArrayList("String");
-        listaAnteprimaRecensioni.setItems(listaAnteprimeRecensioniObs);
+
+        //Deve fare per forza prima getAllRecensioniByPending e poi getListaAnteprime, altrimenti da nullPointer, da correggere
+        moderaRecensioniController.getAllRecensioniByPending();
+        listaAnteprime = new ArrayList<String>(moderaRecensioniController.getListaAnteprime());
+
+        //inserire gli elementi
+        //Ricordati di mettere le credenziali qui e in awscognito
     }
 
     public void indietroButtonPremuto(ActionEvent actionEvent) {

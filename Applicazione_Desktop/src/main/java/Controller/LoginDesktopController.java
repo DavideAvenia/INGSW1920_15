@@ -36,9 +36,9 @@ public class LoginDesktopController {
     }
 
     public void mostraPaginaLogin() {
-        LoginForm login = new LoginForm();
+        loginForm = new LoginForm();
         try {
-            login.start(new Stage());
+            loginForm.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,8 +66,8 @@ public class LoginDesktopController {
 
         if(utenteDao.effettuaLogin(userid, password)){
             if (this.isAdmin(userid)) {
-                PaginaPrincipaleAdminForm p = new PaginaPrincipaleAdminForm();
-                p.start(new Stage());
+                PaginaPrincipaleAdminForm adminp = new PaginaPrincipaleAdminForm();
+                adminp.start(new Stage());
                 return true;
             } else if (this.isMod(userid)) {
                 PaginaPrincipaleModForm modp = new PaginaPrincipaleModForm();
