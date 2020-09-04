@@ -155,9 +155,9 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
                 for (int i = 0; i < arrayRecensioni.length(); i++) {
                     JSONObject obRecensione = arrayRecensioni.getJSONObject(i);
                     String testoRecensione = obRecensione.getString("testoRecensione");
-                    String urlImmagine = obRecensione.getString("urlFoto");
+                    String urlImmagine = obRecensione.getString("urlImmagine");
                     float valutazione = obRecensione.getFloat("valutazione");
-                    String usernameUtente = obRecensione.getString("usernameUtente");
+                    String usernameUtente = obRecensione.getString("userNameUtente");
                     String nomeStruttura = obRecensione.getString("nomeStruttura");
                     double latitudine = obRecensione.getFloat("latitudine");
                     double longitudine = obRecensione.getFloat("longitudine");

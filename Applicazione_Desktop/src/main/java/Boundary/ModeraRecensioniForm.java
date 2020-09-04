@@ -1,7 +1,6 @@
 package Boundary;
 
 import Controller.ModeraRecensioniController;
-import Entity.Recensioni;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,11 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,6 +35,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     @FXML Label numeroValutazione;
     @FXML Label connotatiUtente;
     @FXML ImageView imageViewRecensione;
+    @FXML Label nomeStruttura;
 
     //Bottoni
     @FXML Button indietroButton;
@@ -55,14 +55,21 @@ public class ModeraRecensioniForm extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        listaAnteprimaRecensioni = new ListView<String>();
-        listaAnteprimaRecensioni.setEditable(false);
 
         //Deve fare per forza prima getAllRecensioniByPending e poi getListaAnteprime, altrimenti da nullPointer, da correggere
         moderaRecensioniController.getAllRecensioniByPending();
-        listaAnteprime = new ArrayList<String>(moderaRecensioniController.getListaAnteprime());
+        listaAnteprime = moderaRecensioniController.getListaAnteprime();
 
-        //inserire gli elementi
+        //inserimento oggeti
+        listaAnteprimaRecensioni.setEditable(false);
+        ObservableList<String> recensioniObs = FXCollections.observableArrayList(listaAnteprime);
+        listaAnteprimaRecensioni.setItems(recensioniObs);
+        recensioniObs.addAll(listaAnteprime);
+
+        //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
+        listaAnteprimaRecensioni.getSelectionModel().selectFirst();
+        moderaRecensioniController.mostraRecensione(1);
+
         //Ricordati di mettere le credenziali qui e in awscognito
     }
 
@@ -81,6 +88,13 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         moderaRecensioniController.approvaRecensione();
     }
 
-
+    public void mostraRecensione(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura){
+        this.testoRecensione.setText(testoRecensione);
+        this.connotatiUtente.setText(userNameUtente);
+        this.numeroValutazione.setText(Float.toString(valutazione));
+        this.nomeStruttura.setText(nomeStruttura);
+        Image image = new Image(urlImmagine);
+        imageViewRecensione.setImage(image);
+    }
 
 }

@@ -1,6 +1,7 @@
 package Boundary;
 
 import Controller.*;
+import Entity.Recensioni;
 import javafx.application.Application;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -24,6 +25,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaginaPrincipaleAdminForm extends Application implements Initializable {

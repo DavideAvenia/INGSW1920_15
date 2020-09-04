@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface RecensioniDAO {
 
-    final String APIGETALLRECENSIONIBYPENDING = "https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha";
+    final String APIGETALLRECENSIONIBYPENDING = "https://5ecbygudm4.execute-api.eu-west-1.amazonaws.com/API_Alpha/getallrecensionibypending";
     final String APIAPPROVARECENSIONE = "";
     final String APIDISAPPROVARECENSIONE = "";
 

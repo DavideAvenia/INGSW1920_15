@@ -24,10 +24,10 @@ public class GetAllRecensioniByPending implements RequestHandler<Map<String, Str
                 float latitudine = res.getFloat("latitudine");
                 float longitudine = res.getFloat("longitudine");
                 String testoRecensione = res.getString("testoRecensione");
-                String urlFoto = res.getString("urlFoto");
+                String urlImmagine = res.getString("urlFoto");
                 float valutazione = res.getFloat("valutazione");
 
-                Recensioni r = new Recensioni(testoRecensione, urlFoto, valutazione, usernameUtente, nomeStruttura, latitudine, longitudine);
+                Recensioni r = new Recensioni(testoRecensione, urlImmagine, valutazione, usernameUtente, nomeStruttura, latitudine, longitudine);
                 listaRecensioni.add(r);
             }
         } catch (SQLException throwables) {

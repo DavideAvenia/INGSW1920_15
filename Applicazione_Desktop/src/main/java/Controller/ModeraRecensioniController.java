@@ -43,7 +43,7 @@ public class ModeraRecensioniController {
     //Prima prendo le recensioni, le visualizzo a schermo
     //Ricordati di permettere di cliccare approva e disapprova SOLO SE è stata cliccata una recensione
 
-    public List<Recensioni> getAllRecensioniByPending(){
+    public boolean getAllRecensioniByPending(){
         String service = "";
 
         File file = new File("config.txt");
@@ -56,15 +56,21 @@ public class ModeraRecensioniController {
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
         listaRecensioni = recensioniDAO.getAllRecensioniByPending();
-
-        return listaRecensioni;
-    }
-
-    public List<String> getListaAnteprime(){
         for(Recensioni r: listaRecensioni){
             listaAnteprime.add(r.getTestoRecensione());
         }
+
+        return true;
+    }
+
+    public List<String> getListaAnteprime(){
         return listaAnteprime;
+    }
+
+    public void mostraRecensione(int i){
+        Recensioni r = listaRecensioni.get(i);
+
+        moderaRecensioniForm.mostraRecensione(r.getTestoRecensione(), r.getUrlImmagine(), r.getValutazione(), r.getUserNameUtente(), r.getNomeStruttura());
     }
 
     public void approvaRecensione() throws Exception {
@@ -79,7 +85,6 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
-
         recensioniDAO.approvaRecensione();
 
         mostraMessaggio("Approvazione", "La recensione è stata approvata e adesso sarà visibile sull'app");
