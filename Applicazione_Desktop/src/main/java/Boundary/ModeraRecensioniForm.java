@@ -68,7 +68,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
 
         //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
         listaAnteprimaRecensioni.getSelectionModel().selectFirst();
-        moderaRecensioniController.mostraRecensione(1);
+        moderaRecensioniController.mostraRecensione(0);
 
         //Ricordati di mettere le credenziali qui e in awscognito
     }
@@ -89,12 +89,22 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     }
 
     public void mostraRecensione(String testoRecensione, String urlImmagine, float valutazione, String userNameUtente, String nomeStruttura){
+        //Devo fare le new perché da nullPointer se provo ad impostare il testo senza instanza
+        this.testoRecensione = new Label(testoRecensione);
         this.testoRecensione.setText(testoRecensione);
+
+        this.connotatiUtente = new Label(userNameUtente);
         this.connotatiUtente.setText(userNameUtente);
+
+        this.numeroValutazione = new Label(Float.toString(valutazione));
         this.numeroValutazione.setText(Float.toString(valutazione));
+
+        this.nomeStruttura = new Label(nomeStruttura);
         this.nomeStruttura.setText(nomeStruttura);
-        Image image = new Image(urlImmagine);
-        imageViewRecensione.setImage(image);
+
+        /*Image image = new Image(urlImmagine);
+        imageViewRecensione = new ImageView(image);
+        imageViewRecensione.setImage(image);*/
     }
 
 }

@@ -69,7 +69,6 @@ public class ModeraRecensioniController {
 
     public void mostraRecensione(int i){
         Recensioni r = listaRecensioni.get(i);
-
         moderaRecensioniForm.mostraRecensione(r.getTestoRecensione(), r.getUrlImmagine(), r.getValutazione(), r.getUserNameUtente(), r.getNomeStruttura());
     }
 

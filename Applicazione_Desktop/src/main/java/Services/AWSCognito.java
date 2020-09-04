@@ -30,7 +30,7 @@ public class AWSCognito implements UtenteDao {
     @Override
     public List<String> getAllUtenti(String filtro) {
         List<String> listaUtenti = new ArrayList<String>();
-
+    
         ListUsersRequest listUsersRequest = new ListUsersRequest().withUserPoolId(USERPOOLID);
         ListUsersResult listUsersResult = identityProvider.listUsers(listUsersRequest);
 
