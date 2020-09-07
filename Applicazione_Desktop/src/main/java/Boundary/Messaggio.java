@@ -42,7 +42,6 @@ public class Messaggio extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         messaggioLabel.setText(messaggio);
     }
 

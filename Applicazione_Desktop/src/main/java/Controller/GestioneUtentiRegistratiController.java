@@ -25,7 +25,6 @@ public class GestioneUtentiRegistratiController {
     private static GestioneUtentiForm gestioneUtentiForm;
     /*Forms*/
     private PaginaPrincipaleAdminForm paginaPrincipaleAdminForm;
-    private PaginaPrincipaleModForm paginaPrincipaleModForm;
     private Messaggio messaggio;
 
     private UtenteDao utenteDao;

@@ -87,12 +87,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         valutazioneMediaRicerca.setNumStars(5);
         valutazioneMediaRicerca.setRating(3);
 
-        bottoneRicerca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottoneRicercaPremuto(v);
-            }
-        });
+        bottoneRicerca.setOnClickListener(v -> bottoneRicercaPremuto(v));
 
     }
 

@@ -1,7 +1,6 @@
 package Boundary;
 
 import Controller.*;
-import Entity.Recensioni;
 import javafx.application.Application;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,8 +24,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaginaPrincipaleAdminForm extends Application implements Initializable {
@@ -81,14 +78,14 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     public void initialize(URL url, ResourceBundle resourceBundle) {
         VisualizzaStatisticheUtentiController controller = VisualizzaStatisticheUtentiController.getVisualizzaStatisticheUtentiController();
         try {
-            ObservableList<tabellaUtenti> oblisto = controller.mostraStatisticheUtenti();
+            ObservableList<TabellaUtenti> oblisto = controller.mostraStatisticheUtenti();
             userid.setCellValueFactory(new PropertyValueFactory<>("userID"));
             livello.setCellValueFactory(new PropertyValueFactory<>("livello"));
             avgscore.setCellValueFactory(new PropertyValueFactory<>("avgScore"));
             logincount.setCellValueFactory(new PropertyValueFactory<>("loginCounter"));
             nreview.setCellValueFactory(new PropertyValueFactory<>("numTotReviews"));
             statsutenti.setItems(oblisto);
-            FilteredList<PaginaPrincipaleAdminForm.tabellaUtenti> filtro = new FilteredList<>(oblisto, p -> true);
+            FilteredList<TabellaUtenti> filtro = new FilteredList<>(oblisto, p -> true);
             statsutenti.setItems(filtro);
             cercausername.setPromptText("Scrivi qui!");
             cercausername.setOnKeyReleased(keyEvent ->
@@ -123,14 +120,14 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
         nuovostage.show();
     }
 
-    public static class tabellaUtenti {
+    public static class TabellaUtenti {
         private SimpleStringProperty userID;
         private SimpleIntegerProperty livello;
         private SimpleFloatProperty avgScore;
         private SimpleIntegerProperty loginCounter;
         private SimpleIntegerProperty numTotReviews;
 
-        public tabellaUtenti(String userID, Integer livello, Float avgScore, Integer loginCounter, Integer numTotReviews) {
+        public TabellaUtenti(String userID, Integer livello, Float avgScore, Integer loginCounter, Integer numTotReviews) {
             this.userID = new SimpleStringProperty(userID);
             this.livello = new SimpleIntegerProperty(livello);
             this.avgScore = new SimpleFloatProperty(avgScore);

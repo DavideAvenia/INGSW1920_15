@@ -28,15 +28,15 @@ public class VisualizzaStatisticheUtentiController {
         return visualizzaStatisticheUtentiController;
     }
 
-    public ObservableList<PaginaPrincipaleAdminForm.tabellaUtenti> mostraStatisticheUtenti() throws IOException {
+    public ObservableList<PaginaPrincipaleAdminForm.TabellaUtenti> mostraStatisticheUtenti() throws IOException {
         File file = new File("config.txt");
         BufferedReader br = new BufferedReader(new FileReader((file)));
         String file1 = br.readLine();
         StatisticheUtentiDAO sdao = DAOfactory.getStatisticheUtentiDAO(file1);
         List<StatisticheUtenti> userstats = sdao.getStats();
-        ObservableList<PaginaPrincipaleAdminForm.tabellaUtenti> oblist = FXCollections.observableArrayList();
+        ObservableList<PaginaPrincipaleAdminForm.TabellaUtenti> oblist = FXCollections.observableArrayList();
         for (StatisticheUtenti value : userstats) {
-            PaginaPrincipaleAdminForm.tabellaUtenti og = new PaginaPrincipaleAdminForm.tabellaUtenti(
+            PaginaPrincipaleAdminForm.TabellaUtenti og = new PaginaPrincipaleAdminForm.TabellaUtenti(
                     value.getUserID(),
                     value.getLivello(),
                     value.getAvgScore(),

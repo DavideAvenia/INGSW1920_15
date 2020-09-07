@@ -39,7 +39,7 @@ public class RecensioniStruttureForm extends AppCompatActivity {
     public static void updateAdapter(String nameToShow, int position) {
         /*In attesa passiva, il thread aspetta che si crei l'adapter prima di aggiornarlo*/
         while (recensioniAdapter == null) {
-            System.out.println("L'adapter deve ancora essere creato!");
+            System.out.println("L'adapter deve ancora essere inizializzato!");
             try {
                 Thread.currentThread().wait(4000);
             } catch (InterruptedException e) {

@@ -20,8 +20,6 @@ public class GestioneProfiloController {
     private GestioneProfiloController() {
     }
 
-    ;
-
     public static GestioneProfiloController getGestioneProfiloController() {
         if (gestioneProfiloController == null) {
             gestioneProfiloController = new GestioneProfiloController();
