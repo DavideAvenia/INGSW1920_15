@@ -70,19 +70,20 @@ public class ModeraRecensioniController {
     }
 
     public Map<String, String> mostraRecensione(int i){
-        Recensioni r = listaRecensioni.get(i);
         Map<String,String> mapInit = new HashMap<String, String>();
-
-        mapInit.put("testoRecensione",r.getTestoRecensione());
-        mapInit.put("urlImmagine",r.getUrlImmagine());
-        mapInit.put("valutazione", Float.toString(r.getValutazione()));
-        mapInit.put("connotatiUtente", r.getUserNameUtente());
-        mapInit.put("nomeStruttura", r.getNomeStruttura());
+        if(!listaRecensioni.isEmpty()){
+            Recensioni r = listaRecensioni.get(i);
+            mapInit.put("testoRecensione",r.getTestoRecensione());
+            mapInit.put("urlImmagine",r.getUrlImmagine());
+            mapInit.put("valutazione", Float.toString(r.getValutazione()));
+            mapInit.put("connotatiUtente", r.getUserNameUtente());
+            mapInit.put("nomeStruttura", r.getNomeStruttura());
+        }
 
         return mapInit;
     }
 
-    public void approvaRecensione() throws Exception {
+    public void approvaRecensione(int i) throws Exception {
         String service = "";
 
         File file = new File("config.txt");
@@ -94,13 +95,13 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
-        recensioniDAO.approvaRecensione();
-
-        mostraMessaggio("Approvazione", "La recensione è stata approvata e adesso sarà visibile sull'app");
+        Recensioni r = listaRecensioni.get(i);
+        if(recensioniDAO.approvaRecensione(r))
+            mostraMessaggio("Approvazione", "La recensione è stata approvata e adesso sarà visibile sull'app");
     }
 
 
-    public void disapprovaRecensione() throws Exception {
+    public void disapprovaRecensione(int i) throws Exception {
         String service = "";
 
         File file = new File("config.txt");
@@ -112,9 +113,9 @@ public class ModeraRecensioniController {
         }
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
+        Recensioni r = listaRecensioni.get(i);
+        if(recensioniDAO.disapprovaRecensione(r))
+            mostraMessaggio("Disapprovazione", "La recensione è stata disapprovata e cancellata");
 
-        recensioniDAO.disapprovaRecensione();
-
-        mostraMessaggio("Disapprovazione", "La recensione è stata disapprovata e cancellata");
     }
 }

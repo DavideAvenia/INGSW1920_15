@@ -47,7 +47,6 @@ public class LoginDesktopController {
     //Controlla le credenziali se sono presenti (SOLO ADMIN E MOD)
     public boolean controllaCredenzialiPerLogin(String userid, String password) throws Exception {
         String service = "";
-
         File file = new File("config.txt");
         try {
             BufferedReader br = new BufferedReader(new FileReader((file)));
@@ -81,6 +80,7 @@ public class LoginDesktopController {
         }
         return false;
     }
+
     private boolean isMod(String userid) {
         String service = "";
         File file = new File("config.txt");
@@ -97,6 +97,7 @@ public class LoginDesktopController {
         }
         return false;
     }
+
     public boolean isAdmin (String userid){
         String tokens[] = userid.split("_");
         tokens[0].toLowerCase();

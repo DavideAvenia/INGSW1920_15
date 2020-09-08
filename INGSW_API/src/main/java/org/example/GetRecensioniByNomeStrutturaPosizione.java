@@ -31,7 +31,7 @@ public class GetRecensioniByNomeStrutturaPosizione implements RequestHandler<Map
                     String urlFoto = res.getString("urlFoto");
                     Float valutazione = Float.parseFloat(res.getString("valutazione"));
 
-                    Recensioni recensione = new Recensioni(testoRecensione,urlFoto,valutazione,usernameUtente,nomeStruttura,Float.parseFloat(latitudine),Float.parseFloat(longitudine));
+                    Recensioni recensione = new Recensioni(testoRecensione,urlFoto,valutazione,usernameUtente,nomeStruttura,latitudine,longitudine);
                     listaRecensioni.add(recensione);
                 }
             }

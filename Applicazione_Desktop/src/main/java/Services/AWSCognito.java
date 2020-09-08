@@ -8,17 +8,20 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.amazonaws.util.StringUtils;
+import okhttp3.*;
+import org.json.JSONObject;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "";
-    private final String CLIENTID = "";
-    private final String SECRET = "";
+    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -182,7 +185,6 @@ public class AWSCognito implements UtenteDao {
 
     @Override
     public boolean cancellaUtente(String utente) {
-
         AdminDeleteUserRequest adminDeleteUserRequest = new AdminDeleteUserRequest().withUserPoolId(USERPOOLID).withUsername(utente);
         identityProvider.adminDeleteUser(adminDeleteUserRequest);
         return true;
@@ -224,11 +226,35 @@ public class AWSCognito implements UtenteDao {
 
         try {
             AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
+            incrementaLoginCounter(email);
             return true;
         } catch (NotAuthorizedException ex){
             return false;
         } catch (UserNotFoundException ex){
             return false;
         }
+    }
+
+    public void incrementaLoginCounter(String email){
+        Thread tIncrement = new Thread(() -> {
+            JSONObject tmp = new JSONObject();
+            tmp.put("username", email);
+
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+            Request request = new Request.Builder().url(APIINCREMENTALOGINCOUNTER).post(requestBody).build();
+            Response res = null;
+
+            try {
+                res = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Thread finito");
+        });
+
+        tIncrement.start();
     }
 }

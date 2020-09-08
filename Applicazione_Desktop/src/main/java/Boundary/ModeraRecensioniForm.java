@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -48,13 +49,25 @@ public class ModeraRecensioniForm extends Application implements Initializable {
 
     private ModeraRecensioniController moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
     private List<String> listaAnteprime;
+    private int indiceSelezionato;
 
     @Override
     public void start(Stage stage) throws Exception {
+        startGui(stage);
+    }
+
+    public void startGui(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/ModeraRecensioniForm.fxml"));
         stage.setTitle("Modera Recensioni");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void aggiornaPagina(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        startGui(new Stage());
     }
 
     @Override
@@ -71,17 +84,19 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
         listaAnteprimaRecensioni.getSelectionModel().selectFirst();
         Map<String,String> mapInit = moderaRecensioniController.mostraRecensione(0);
-
-        testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
-        connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
-        numeroValutazioneLabel.setText(mapInit.get("valutazione"));
-        nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
-        /*Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
-        imageViewRecensione.setImage(immagineRecensione);*/
+        indiceSelezionato = 0;
+        if(!mapInit.isEmpty()) {
+            testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
+            connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
+            numeroValutazioneLabel.setText(mapInit.get("valutazione"));
+            nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
+            /*Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+            imageViewRecensione.setImage(immagineRecensione);*/
+        }
 
         listaAnteprimaRecensioni.setOnMouseClicked(mouseEvent -> {
-            System.out.println(listaAnteprimaRecensioni.getSelectionModel().getSelectedIndex());
-            Map<String,String> mapToHandle = moderaRecensioniController.mostraRecensione(listaAnteprimaRecensioni.getSelectionModel().getSelectedIndex());
+            indiceSelezionato = listaAnteprimaRecensioni.getSelectionModel().getSelectedIndex();
+            Map<String,String> mapToHandle = moderaRecensioniController.mostraRecensione(indiceSelezionato);
             testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
             numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
@@ -98,14 +113,17 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         stage.close();
     }
 
-    //Devono controllare che la recensione si stata cliccata
-    //Tramite l'indice, che verrà preso dal controller, si potrà eseguire l'operazione
     public void disapprovaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.disapprovaRecensione();
+        moderaRecensioniController.disapprovaRecensione(indiceSelezionato);
+        listaAnteprime.clear();
+        aggiornaPagina(actionEvent);
     }
 
     public void approvaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.approvaRecensione();
+        moderaRecensioniController.approvaRecensione(indiceSelezionato);
+        listaAnteprime.clear();
+        aggiornaPagina(actionEvent);
+
     }
 
 }

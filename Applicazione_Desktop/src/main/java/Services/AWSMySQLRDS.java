@@ -159,8 +159,8 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
                     float valutazione = obRecensione.getFloat("valutazione");
                     String usernameUtente = obRecensione.getString("userNameUtente");
                     String nomeStruttura = obRecensione.getString("nomeStruttura");
-                    double latitudine = obRecensione.getFloat("latitudine");
-                    double longitudine = obRecensione.getFloat("longitudine");
+                    String latitudine = obRecensione.getString("latitudine");
+                    String longitudine = obRecensione.getString("longitudine");
                     Recensioni r = new Recensioni(testoRecensione, urlImmagine, valutazione, usernameUtente, nomeStruttura, latitudine, longitudine, true);
                     listaRecensioni.add(r);
                 }
@@ -173,15 +173,54 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
         return listaRecensioni;
     }
 
-    //Faranno un Update in sql
-    //Mi servono le chiavi per accedere alla recensione
     @Override
-    public boolean approvaRecensione() {
-        return false;
+    public boolean approvaRecensione(Recensioni r) {
+        JSONObject tmp = new JSONObject();
+
+        tmp.put("usernameUtente", r.getUserNameUtente());
+        tmp.put("nomeStruttura", r.getNomeStruttura());
+        tmp.put("latitudine", r.getLatitudine());
+        tmp.put("longitudine", r.getLongitudine());
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+        Request request = new Request.Builder().url(APIAPPROVARECENSIONE).post(requestBody).build();
+        Response res = null;
+
+        try {
+            res = client.newCall(request).execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     @Override
-    public boolean disapprovaRecensione() {
-        return false;
+    public boolean disapprovaRecensione(Recensioni r) {
+        JSONObject tmp = new JSONObject();
+
+        tmp.put("usernameUtente", r.getUserNameUtente());
+        tmp.put("nomeStruttura", r.getNomeStruttura());
+        tmp.put("latitudine", r.getLatitudine());
+        tmp.put("longitudine", r.getLongitudine());
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(JSON, tmp.toString());
+        Request request = new Request.Builder().url(APIDISAPPROVARECENSIONE).post(requestBody).build();
+        Response res = null;
+
+        try {
+            res = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

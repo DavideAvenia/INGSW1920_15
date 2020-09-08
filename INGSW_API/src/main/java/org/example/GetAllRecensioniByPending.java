@@ -21,8 +21,8 @@ public class GetAllRecensioniByPending implements RequestHandler<Map<String, Str
             while (res.next()){
                 String usernameUtente = res.getString("usernameUtente");
                 String nomeStruttura = res.getString("nomeStruttura");
-                float latitudine = res.getFloat("latitudine");
-                float longitudine = res.getFloat("longitudine");
+                String latitudine = res.getString("latitudine");
+                String longitudine = res.getString("longitudine");
                 String testoRecensione = res.getString("testoRecensione");
                 String urlImmagine = res.getString("urlFoto");
                 float valutazione = res.getFloat("valutazione");
