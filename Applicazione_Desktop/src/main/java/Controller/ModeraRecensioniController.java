@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModeraRecensioniController {
 
@@ -67,9 +69,17 @@ public class ModeraRecensioniController {
         return listaAnteprime;
     }
 
-    public void mostraRecensione(int i){
+    public Map<String, String> mostraRecensione(int i){
         Recensioni r = listaRecensioni.get(i);
-        moderaRecensioniForm.mostraRecensione(r.getTestoRecensione(), r.getUrlImmagine(), r.getValutazione(), r.getUserNameUtente(), r.getNomeStruttura());
+        Map<String,String> mapInit = new HashMap<String, String>();
+
+        mapInit.put("testoRecensione",r.getTestoRecensione());
+        mapInit.put("urlImmagine",r.getUrlImmagine());
+        mapInit.put("valutazione", Float.toString(r.getValutazione()));
+        mapInit.put("connotatiUtente", r.getUserNameUtente());
+        mapInit.put("nomeStruttura", r.getNomeStruttura());
+
+        return mapInit;
     }
 
     public void approvaRecensione() throws Exception {

@@ -9,13 +9,13 @@
    <children>
       <ListView fx:id="listaAnteprimaRecensioni" layoutX="14.0" layoutY="47.0" prefHeight="427.0" prefWidth="199.0" />
       <ComboBox fx:id="comboModeraRecensioni" layoutX="14.0" layoutY="14.0" prefHeight="24.0" prefWidth="123.0" />
-      <Label fx:id="nomeStruttura" layoutX="241.0" layoutY="70.0" text="Nome della struttura">
+      <Label fx:id="nomeStrutturaLabel" layoutX="241.0" layoutY="70.0" text="Nome della struttura">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="testoRecensione" layoutX="241.0" layoutY="117.0" text="Testo della recensione" />
-      <Label fx:id="connotatiUtente" layoutX="373.0" layoutY="12.0" text="Nome, cognome e Nickname dell'utente">
+      <Label fx:id="testoRecensioneLabel" layoutX="241.0" layoutY="117.0" text="Testo della recensione" />
+      <Label fx:id="connotatiUtenteLabel" layoutX="373.0" layoutY="12.0" text="Nome, cognome e Nickname dell'utente">
          <font>
             <Font size="20.0" />
          </font>
@@ -26,7 +26,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="numeroValutazione" layoutX="578.0" layoutY="300.0" text="Numero valutazione" />
+      <Label fx:id="numeroValutazioneLabel" layoutX="578.0" layoutY="300.0" text="Numero valutazione" />
 
       <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" onAction="#indietroButtonPremuto" text="Indietro" />
       <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" onAction="#disapprovaButtonPremuto" text="Disapprova" />
