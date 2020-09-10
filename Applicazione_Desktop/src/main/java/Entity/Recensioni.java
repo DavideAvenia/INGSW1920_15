@@ -81,7 +81,11 @@ public class Recensioni {
         this.longitudine = longitudine;
     }
 
-    public boolean getPending(){return this.pending;}
+    public boolean getPending() {
+        return this.pending;
+    }
 
-    public void setPending(boolean pending){this.pending = pending;}
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
 }

@@ -57,13 +57,13 @@ public class LoginDesktopController {
 
         UtenteDao utenteDao = DAOfactory.getUtenteDao(service);
 
-        if(userid.length() == 0){
-            mostraMessaggio("Login fallito","Devi inserire le credenziali per poter accedere!");
+        if (userid.length() == 0) {
+            mostraMessaggio("Login fallito", "Devi inserire le credenziali per poter accedere!");
             return false;
         }
         Utente utente = utenteDao.getUtenteByUserID(userid);
 
-        if(utenteDao.effettuaLogin(userid, password)){
+        if (utenteDao.effettuaLogin(userid, password)) {
             if (this.isAdmin(userid)) {
                 PaginaPrincipaleAdminForm adminp = new PaginaPrincipaleAdminForm();
                 adminp.start(new Stage());
@@ -75,8 +75,8 @@ public class LoginDesktopController {
             } else {
                 mostraMessaggio("Login fallito", "Non sei un mod/admin, non puoi accedere");
             }
-        }else{
-            mostraMessaggio("Login Fallito","UserId/Email oppure password incorretti");
+        } else {
+            mostraMessaggio("Login Fallito", "UserId/Email oppure password incorretti");
         }
         return false;
     }
@@ -98,7 +98,7 @@ public class LoginDesktopController {
         return false;
     }
 
-    public boolean isAdmin (String userid){
+    public boolean isAdmin(String userid) {
         String tokens[] = userid.split("_");
         tokens[0].toLowerCase();
         if (tokens[0].equals("admin"))

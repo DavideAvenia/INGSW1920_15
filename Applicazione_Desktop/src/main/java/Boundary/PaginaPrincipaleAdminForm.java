@@ -68,7 +68,7 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
         controller.mostra();
     }
 
-    public void bottoneModeraRecensioniPremuto(ActionEvent event) throws Exception{
+    public void bottoneModeraRecensioniPremuto(ActionEvent event) throws Exception {
         moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
         moderaRecensioniController.mostraModeraRecensioniForm();
     }

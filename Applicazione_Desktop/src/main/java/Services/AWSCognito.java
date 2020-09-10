@@ -19,9 +19,9 @@ import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "";
-    private final String CLIENTID = "";
-    private final String SECRET = "";
+    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
@@ -33,7 +33,7 @@ public class AWSCognito implements UtenteDao {
     @Override
     public List<String> getAllUtenti(String filtro) {
         List<String> listaUtenti = new ArrayList<String>();
-    
+
         ListUsersRequest listUsersRequest = new ListUsersRequest().withUserPoolId(USERPOOLID);
         ListUsersResult listUsersResult = identityProvider.listUsers(listUsersRequest);
 
@@ -46,28 +46,28 @@ public class AWSCognito implements UtenteDao {
                 List<AttributeType> attributiUtente = user.getAttributes();
 
                 /*A causa dell'ordine degli attributi non mantenuto tra i singoli utenti, risulta
-                * necessario controllare il nome di ogni attributo di ogni singolo utente*/
-                for(int i = 0; i < attributiUtente.size(); i++){
+                 * necessario controllare il nome di ogni attributo di ogni singolo utente*/
+                for (int i = 0; i < attributiUtente.size(); i++) {
                     String nomeAttributo = attributiUtente.get(i).getName();
                     switch (filtro) {
                         case "Cognome":
-                            if(nomeAttributo.equals("family_name")){
+                            if (nomeAttributo.equals("family_name")) {
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Email":
-                            if(nomeAttributo.equals("email")){
+                            if (nomeAttributo.equals("email")) {
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Cellulare":
-                            if(nomeAttributo.equals("phone_number")){
+                            if (nomeAttributo.equals("phone_number")) {
                                 listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Moderatori":
-                            if(nomeAttributo.equals("custom:isMod")){
-                                if(Integer.parseInt(attributiUtente.get(i).getValue()) == 1){
+                            if (nomeAttributo.equals("custom:isMod")) {
+                                if (Integer.parseInt(attributiUtente.get(i).getValue()) == 1) {
                                     listaUtenti.add(user.getUsername());
                                 }
                             }
@@ -93,9 +93,9 @@ public class AWSCognito implements UtenteDao {
         List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
 
         /*In cognito l'ordine degli attributi degli utenti non è cosistente. Utenti diversi hanno gli attributi
-        * ordinati in maniera diversa: è necessario recuperare gli attributi per nome e non per indice*/
-        for(int i = 0; i < listaAttributiUtente.size(); i++){
-            switch (listaAttributiUtente.get(i).getName()){
+         * ordinati in maniera diversa: è necessario recuperare gli attributi per nome e non per indice*/
+        for (int i = 0; i < listaAttributiUtente.size(); i++) {
+            switch (listaAttributiUtente.get(i).getName()) {
                 case "name":
                     nome = listaAttributiUtente.get(i).getValue();
                     break;
@@ -175,9 +175,9 @@ public class AWSCognito implements UtenteDao {
 
         AdminUpdateUserAttributesRequest request = new AdminUpdateUserAttributesRequest().withUsername(utente.getUserId()).withUserPoolId(USERPOOLID).withUserAttributes(attributiUtente);
 
-        try{
+        try {
             identityProvider.adminUpdateUserAttributes(request);
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -228,14 +228,14 @@ public class AWSCognito implements UtenteDao {
             AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
             incrementaLoginCounter(email);
             return true;
-        } catch (NotAuthorizedException ex){
+        } catch (NotAuthorizedException ex) {
             return false;
-        } catch (UserNotFoundException ex){
+        } catch (UserNotFoundException ex) {
             return false;
         }
     }
 
-    public void incrementaLoginCounter(String email){
+    public void incrementaLoginCounter(String email) {
         Thread tIncrement = new Thread(() -> {
             JSONObject tmp = new JSONObject();
             tmp.put("username", email);

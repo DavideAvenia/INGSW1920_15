@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,20 +28,30 @@ import java.util.ResourceBundle;
 public class ModeraRecensioniForm extends Application implements Initializable {
 
     //Pezzi da visuallizzare a sinistra della form
-    @FXML ComboBox<String> comboModeraRecensioni;
-    @FXML ListView<String> listaAnteprimaRecensioni;
+    @FXML
+    ComboBox<String> comboModeraRecensioni;
+    @FXML
+    ListView<String> listaAnteprimaRecensioni;
 
     //Componenti della recensione
-    @FXML Label testoRecensioneLabel;
-    @FXML Label numeroValutazioneLabel;
-    @FXML Label connotatiUtenteLabel;
-    @FXML ImageView imageViewRecensione;
-    @FXML Label nomeStrutturaLabel;
+    @FXML
+    Label testoRecensioneLabel;
+    @FXML
+    Label numeroValutazioneLabel;
+    @FXML
+    Label connotatiUtenteLabel;
+    @FXML
+    ImageView imageViewRecensione;
+    @FXML
+    Label nomeStrutturaLabel;
 
     //Bottoni
-    @FXML Button indietroButton;
-    @FXML Button approvaButton;
-    @FXML Button disapprovaButton;
+    @FXML
+    Button indietroButton;
+    @FXML
+    Button approvaButton;
+    @FXML
+    Button disapprovaButton;
 
     private ModeraRecensioniController moderaRecensioniController = ModeraRecensioniController.getModeraRecensioniController();
     private List<String> listaAnteprime;
@@ -83,9 +89,9 @@ public class ModeraRecensioniForm extends Application implements Initializable {
 
         //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
         listaAnteprimaRecensioni.getSelectionModel().selectFirst();
-        Map<String,String> mapInit = moderaRecensioniController.mostraRecensione(0);
+        Map<String, String> mapInit = moderaRecensioniController.mostraRecensione(0);
         indiceSelezionato = 0;
-        if(!mapInit.isEmpty()) {
+        if (!mapInit.isEmpty()) {
             testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
             numeroValutazioneLabel.setText(mapInit.get("valutazione"));
@@ -96,7 +102,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
 
         listaAnteprimaRecensioni.setOnMouseClicked(mouseEvent -> {
             indiceSelezionato = listaAnteprimaRecensioni.getSelectionModel().getSelectedIndex();
-            Map<String,String> mapToHandle = moderaRecensioniController.mostraRecensione(indiceSelezionato);
+            Map<String, String> mapToHandle = moderaRecensioniController.mostraRecensione(indiceSelezionato);
             testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
             numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));

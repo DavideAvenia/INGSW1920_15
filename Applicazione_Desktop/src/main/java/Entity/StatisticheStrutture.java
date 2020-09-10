@@ -1,6 +1,5 @@
 package Entity;
 
-
 public class StatisticheStrutture {
     private int numVisitatori;
     private int numReviews;
@@ -8,18 +7,22 @@ public class StatisticheStrutture {
     private String nome;
     private String longitudine;
     private String latitudine;
+    private String città;
+    private String orarioApertura;
+    private String valutazioneMedia;
+    private String categoria;
 
-    public StatisticheStrutture(int numVisitatori, int numReviews, int numClienti, String nome, String longitudine, String latitudine) {
+    public StatisticheStrutture(int numVisitatori, int numReviews, int numClienti, String nome, String longitudine, String latitudine, String categoria, String valutazioneMedia, String orarioApertura, String città) {
         this.numVisitatori = numVisitatori;
         this.numReviews = numReviews;
         this.numClienti = numClienti;
         this.nome = nome;
         this.longitudine = longitudine;
         this.latitudine = latitudine;
-    }
-
-    public StatisticheStrutture() {
-
+        this.categoria = categoria;
+        this.città = città;
+        this.valutazioneMedia = valutazioneMedia;
+        this.orarioApertura = orarioApertura;
     }
 
     public int getNumVisitatori() {
@@ -69,5 +72,36 @@ public class StatisticheStrutture {
     public void setLatitudine(String latitudine) {
         this.latitudine = latitudine;
     }
-}
 
+    public String getCittà() {
+        return città;
+    }
+
+    public void setCittà(String città) {
+        this.città = città;
+    }
+
+    public String getOrarioApertura() {
+        return orarioApertura;
+    }
+
+    public void setOrarioApertura(String orarioApertura) {
+        this.orarioApertura = orarioApertura;
+    }
+
+    public String getValutazioneMedia() {
+        return valutazioneMedia;
+    }
+
+    public void setValutazioneMedia(String valutazioneMedia) {
+        this.valutazioneMedia = valutazioneMedia;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+}

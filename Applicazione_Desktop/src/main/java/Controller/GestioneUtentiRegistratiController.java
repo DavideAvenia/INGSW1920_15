@@ -3,7 +3,6 @@ package Controller;
 import Boundary.GestioneUtentiForm;
 import Boundary.Messaggio;
 import Boundary.PaginaPrincipaleAdminForm;
-import Boundary.PaginaPrincipaleModForm;
 import DAO.DAOfactory;
 import DAO.StatisticheUtentiDAO;
 import DAO.UtenteDao;
@@ -77,7 +76,7 @@ public class GestioneUtentiRegistratiController {
         String tokens[] = username.split(" ");
         String userId = tokens[0];
 
-        if(utenteDao.cancellaUtente(userId)){
+        if (utenteDao.cancellaUtente(userId)) {
             Thread thread = new Thread(() -> {
                 String service = "";
 
@@ -103,9 +102,9 @@ public class GestioneUtentiRegistratiController {
         if (checkCellulare(cellulare) && checkEmail(email)) {
 
             Utente utente = new Utente(userId, nome, cognome, nickname, cellulare, email, useNick, isMod);
-            if(!utenteDao.aggiornaUtente(utente)){
+            if (!utenteDao.aggiornaUtente(utente)) {
                 mostraMessaggio("Errore", "Non è stato possibile modificare l'utente!");
-            }else{
+            } else {
                 mostraMessaggio("Successo", "Le informazioni dell'utente sono state aggiornate!");
             }
 
@@ -135,15 +134,14 @@ public class GestioneUtentiRegistratiController {
         return matcher.matches();
     }
 
-    private void mostraMessaggio(String title, String mess){
-        Messaggio messaggio = new Messaggio(title,mess);
+    private void mostraMessaggio(String title, String mess) {
+        Messaggio messaggio = new Messaggio(title, mess);
         try {
             messaggio.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

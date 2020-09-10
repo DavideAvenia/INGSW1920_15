@@ -21,6 +21,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StatisticheStruttureForm extends Application implements Initializable {
+
+
     @FXML
     private Label label;
     @FXML
@@ -46,6 +48,16 @@ public class StatisticheStruttureForm extends Application implements Initializab
     @FXML
     private TableColumn<OggettoTabella, Integer> nstar;
     @FXML
+    private TableColumn<OggettoTabella, String> categoria;
+    @FXML
+    private TableColumn<OggettoTabella, String> orarioApertura;
+    @FXML
+    private TableColumn<OggettoTabella, String> valutazioneMedia;
+    @FXML
+    private TableColumn<OggettoTabella, String> città;
+    @FXML
+    private ComboBox comboFiltri;
+    @FXML
     private AnchorPane pane;
 
     @Override
@@ -53,7 +65,7 @@ public class StatisticheStruttureForm extends Application implements Initializab
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatsStructuresForm.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Nome_Software");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root, 742, 522));
         primaryStage.show();
     }
 
@@ -74,6 +86,10 @@ public class StatisticheStruttureForm extends Application implements Initializab
         return cercabox;
     }
 
+    public ComboBox getComboFiltri() {
+        return comboFiltri;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         StatisticheStruttureController statisticheStruttureController = StatisticheStruttureController.getStatisticheStruttureController();
@@ -83,6 +99,11 @@ public class StatisticheStruttureForm extends Application implements Initializab
             nospiti.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numVisitatori"));
             nclient.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numClienti"));
             nreview.setCellValueFactory(new PropertyValueFactory<OggettoTabella, Integer>("numReviews"));
+            categoria.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("categoria"));
+            orarioApertura.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("orarioApertura"));
+            valutazioneMedia.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("valutazioneMedia"));
+            città.setCellValueFactory(new PropertyValueFactory<OggettoTabella, String>("città"));
+
             statisticheStruttureController.mostraStatistiche();
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,17 +116,76 @@ public class StatisticheStruttureForm extends Application implements Initializab
         stage.close();
     }
 
+    public void selectFiltri(ActionEvent event) {
+    }
+
     public static class OggettoTabella {
         private SimpleIntegerProperty numVisitatori;
         private SimpleIntegerProperty numClienti;
         private SimpleIntegerProperty numReviews;
         private SimpleStringProperty nomeStruttura;
+        private SimpleStringProperty categoria;
+        private SimpleStringProperty valutazioneMedia;
+        private SimpleStringProperty orarioApertura;
+        private SimpleStringProperty città;
 
-        public OggettoTabella(String nomeStruttura, int numVisitatori, int numClienti, int numReviews) {
+        public OggettoTabella(String nomeStruttura, int numVisitatori, int numClienti, int numReviews, String categoria, String valutazioneMedia, String orarioApertura, String città) {
             this.numVisitatori = new SimpleIntegerProperty(numVisitatori);
             this.numClienti = new SimpleIntegerProperty(numClienti);
             this.numReviews = new SimpleIntegerProperty(numReviews);
             this.nomeStruttura = new SimpleStringProperty(nomeStruttura);
+            this.categoria = new SimpleStringProperty(categoria);
+            this.valutazioneMedia = new SimpleStringProperty(valutazioneMedia);
+            this.orarioApertura = new SimpleStringProperty(orarioApertura);
+            this.città = new SimpleStringProperty(città);
+        }
+
+        public String getCategoria() {
+            return categoria.get();
+        }
+
+        public void setCategoria(String categoria) {
+            this.categoria.set(categoria);
+        }
+
+        public SimpleStringProperty categoriaProperty() {
+            return categoria;
+        }
+
+        public String getValutazioneMedia() {
+            return valutazioneMedia.get();
+        }
+
+        public void setValutazioneMedia(String valutazioneMedia) {
+            this.valutazioneMedia.set(valutazioneMedia);
+        }
+
+        public SimpleStringProperty valutazioneMediaProperty() {
+            return valutazioneMedia;
+        }
+
+        public String getOrarioApertura() {
+            return orarioApertura.get();
+        }
+
+        public void setOrarioApertura(String orarioApertura) {
+            this.orarioApertura.set(orarioApertura);
+        }
+
+        public SimpleStringProperty orarioAperturaProperty() {
+            return orarioApertura;
+        }
+
+        public String getCittà() {
+            return città.get();
+        }
+
+        public void setCittà(String città) {
+            this.città.set(città);
+        }
+
+        public SimpleStringProperty cittàProperty() {
+            return città;
         }
 
         public String getNomeStruttura() {

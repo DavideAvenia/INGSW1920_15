@@ -5,28 +5,35 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="517.0" prefWidth="462.0"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" prefHeight="530.0" prefWidth="732.0"
           vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
           fx:controller="Boundary.StatisticheStruttureForm">
     <children>
-        <AnchorPane fx:id="pane" prefHeight="493.0" prefWidth="448.0">
+        <AnchorPane fx:id="pane" prefHeight="524.0" prefWidth="712.0">
             <children>
-                <Button fx:id="indietro" layoutX="390.0" layoutY="467.0" mnemonicParsing="false"
+                <Button fx:id="indietro" layoutX="634.0" layoutY="480.0" mnemonicParsing="false"
                         onAction="#indietroPremuto" text="Indietro"/>
-                <TableView fx:id="statistiche" layoutX="7.0" layoutY="49.0" prefHeight="392.0" prefWidth="429.0">
+                <TableView fx:id="statistiche" layoutX="7.0" layoutY="49.0" prefHeight="422.0" prefWidth="691.0">
                     <columns>
-                        <TableColumn fx:id="nome" prefWidth="190.0" text="Struttura"/>
+                        <TableColumn fx:id="nome" prefWidth="163.0" text="Struttura"/>
                         <TableColumn fx:id="nreview" minWidth="0.0" prefWidth="84.0" text="N. Recensioni"/>
-                        <TableColumn fx:id="nclient" prefWidth="67.0" text="N. Clienti"/>
-                        <TableColumn fx:id="nospiti" prefWidth="79.0" text="N. Visitatori"/>
+                        <TableColumn fx:id="nclient" prefWidth="70.0" text="N. Clienti"/>
+                        <TableColumn fx:id="nospiti" prefWidth="75.0" text="N. Visitatori"/>
+                        <TableColumn fx:id="categoria" prefWidth="87.0" text="Categoria"/>
+                        <TableColumn fx:id="orarioApertura" prefWidth="72.0" text="Orario"/>
+                        <TableColumn fx:id="valutazioneMedia" prefWidth="72.0" text="Valutazione"/>
+                        <TableColumn fx:id="città" prefWidth="67.0" text="Città"/>
                     </columns>
                 </TableView>
-                <Button fx:id="aggiorna" layoutX="312.0" layoutY="467.0" mnemonicParsing="false"
+                <Button fx:id="aggiorna" layoutX="558.0" layoutY="480.0" mnemonicParsing="false"
                         onAction="#aggiornaPremuto" text="Aggiorna"/>
-                <TextField fx:id="cercabox" layoutX="141.0" layoutY="14.0" prefHeight="25.0" prefWidth="295.0"/>
+                <TextField fx:id="cercabox" layoutX="133.0" layoutY="14.0" prefHeight="25.0" prefWidth="295.0"/>
                 <Label fx:id="label" layoutX="8.0" layoutY="16.0" prefHeight="17.0" prefWidth="125.0"
                        text="Ricerca per Struttura :">
                 </Label>
+                <ComboBox fx:id="comboFiltri" layoutX="542.0" layoutY="14.0" onAction="#selectFiltri"
+                          prefWidth="150.0"/>
+                <Label layoutX="448.0" layoutY="18.0" text="Seleziona il filtro"/>
             </children>
         </AnchorPane>
     </children>

@@ -12,11 +12,11 @@ import java.util.Map;
 
 public class GetAllStatisticheStrutture implements RequestHandler<Map<String, String>, List<StatisticheStrutture>> {
     @Override
-    public List<StatisticheStrutture> handleRequest(Map<String, String> stringStringMap, Context context) {
+    public List<StatisticheStrutture> handleRequest(Map<String, String> request, Context context) {
         List<StatisticheStrutture> Lista1 = new ArrayList<StatisticheStrutture>();
         DatabaseConnection DB = new DatabaseConnection();
         try {
-            ResultSet res = DB.eseguiQuery("select * from StatisticheStrutture");
+            ResultSet res = DB.eseguiQuery("SELECT * FROM StatisticheStrutture as ST inner join Strutture AS S ON ST.nomeStruttura = S.nome;");
             while (res.next()){
              String nomeStruttura = res.getString(1);
              String latitudine = res.getString(2);
@@ -24,7 +24,12 @@ public class GetAllStatisticheStrutture implements RequestHandler<Map<String, St
              int numeroReviews = res.getInt(4);
              int numClienti = res.getInt(5);
              int numVisitatori = res.getInt(6);
-             StatisticheStrutture S = new StatisticheStrutture(numVisitatori,numeroReviews,numClienti,nomeStruttura,longitudine,latitudine);
+             String città = res.getString("città");
+             String valutazioneMedia = res.getString("valutazioneMedia");
+             String orarioApertura = res.getString("orarioApertura");
+             String categoria = res.getString("categoria");
+
+             StatisticheStrutture S = new StatisticheStrutture(numVisitatori,numeroReviews,numClienti,nomeStruttura,longitudine,latitudine,categoria,valutazioneMedia,orarioApertura,città);
              Lista1.add(S);
             }
         } catch (SQLException throwables) {

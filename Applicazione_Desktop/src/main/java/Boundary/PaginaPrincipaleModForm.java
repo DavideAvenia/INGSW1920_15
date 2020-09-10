@@ -1,6 +1,5 @@
 package Boundary;
 
-import Controller.GestioneUtentiRegistratiController;
 import Controller.LoginDesktopController;
 import Controller.ModeraRecensioniController;
 import Controller.StatisticheStruttureController;
@@ -18,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PaginaPrincipaleModForm extends Application {
+    public ModeraRecensioniController moderaRecensioniController;
     @FXML
     private Button review;
     @FXML
@@ -26,8 +26,6 @@ public class PaginaPrincipaleModForm extends Application {
     private Button logout;
     @FXML
     private Label label;
-
-    public ModeraRecensioniController moderaRecensioniController;
 
     public void moderaPremuto(ActionEvent actionEvent) throws Exception {
         moderaRecensioniController.mostraModeraRecensioniForm();

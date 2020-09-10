@@ -24,10 +24,11 @@ public class ModeraRecensioniController {
     private List<String> listaAnteprime = new ArrayList<String>();
     private List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
 
-    private ModeraRecensioniController(){}
+    private ModeraRecensioniController() {
+    }
 
     public static ModeraRecensioniController getModeraRecensioniController() {
-        if(controller == null)
+        if (controller == null)
             controller = new ModeraRecensioniController();
         return controller;
     }
@@ -45,7 +46,7 @@ public class ModeraRecensioniController {
     //Prima prendo le recensioni, le visualizzo a schermo
     //Ricordati di permettere di cliccare approva e disapprova SOLO SE è stata cliccata una recensione
 
-    public boolean getAllRecensioniByPending(){
+    public boolean getAllRecensioniByPending() {
         String service = "";
 
         File file = new File("config.txt");
@@ -58,23 +59,23 @@ public class ModeraRecensioniController {
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
         listaRecensioni = recensioniDAO.getAllRecensioniByPending();
-        for(Recensioni r: listaRecensioni){
+        for (Recensioni r : listaRecensioni) {
             listaAnteprime.add(r.getTestoRecensione());
         }
 
         return true;
     }
 
-    public List<String> getListaAnteprime(){
+    public List<String> getListaAnteprime() {
         return listaAnteprime;
     }
 
-    public Map<String, String> mostraRecensione(int i){
-        Map<String,String> mapInit = new HashMap<String, String>();
-        if(!listaRecensioni.isEmpty()){
+    public Map<String, String> mostraRecensione(int i) {
+        Map<String, String> mapInit = new HashMap<String, String>();
+        if (!listaRecensioni.isEmpty()) {
             Recensioni r = listaRecensioni.get(i);
-            mapInit.put("testoRecensione",r.getTestoRecensione());
-            mapInit.put("urlImmagine",r.getUrlImmagine());
+            mapInit.put("testoRecensione", r.getTestoRecensione());
+            mapInit.put("urlImmagine", r.getUrlImmagine());
             mapInit.put("valutazione", Float.toString(r.getValutazione()));
             mapInit.put("connotatiUtente", r.getUserNameUtente());
             mapInit.put("nomeStruttura", r.getNomeStruttura());
@@ -96,7 +97,7 @@ public class ModeraRecensioniController {
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
         Recensioni r = listaRecensioni.get(i);
-        if(recensioniDAO.approvaRecensione(r))
+        if (recensioniDAO.approvaRecensione(r))
             mostraMessaggio("Approvazione", "La recensione è stata approvata e adesso sarà visibile sull'app");
     }
 
@@ -114,7 +115,7 @@ public class ModeraRecensioniController {
 
         RecensioniDAO recensioniDAO = DAOfactory.getRecensioniDAO(service);
         Recensioni r = listaRecensioni.get(i);
-        if(recensioniDAO.disapprovaRecensione(r))
+        if (recensioniDAO.disapprovaRecensione(r))
             mostraMessaggio("Disapprovazione", "La recensione è stata disapprovata e cancellata");
 
     }

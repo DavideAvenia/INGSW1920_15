@@ -50,7 +50,13 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
                     int numeroReviews = Integer.parseInt(ob1.get("numReviews").toString());
                     int numClient = Integer.parseInt(ob1.get("numClienti").toString());
                     int numVisitatori = Integer.parseInt(ob1.get("numVisitatori").toString());
-                    StatisticheStrutture S1 = new StatisticheStrutture(numVisitatori, numeroReviews, numClient, nomeStruttura, longitudine, latitudine);
+                    String categoria = ob1.get("categoria").toString();
+                    String orarioApertura = ob1.get("orarioApertura").toString();
+                    String valutazioneMedia = ob1.get("valutazioneMedia").toString();
+                    String città = ob1.get("città").toString();
+
+                    StatisticheStrutture S1 = new StatisticheStrutture(numVisitatori, numeroReviews, numClient, nomeStruttura, longitudine, latitudine,
+                            categoria, valutazioneMedia, orarioApertura, città);
                     L1.add(S1);
                 }
             } catch (IOException e) {
@@ -127,7 +133,7 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
     }
 
     @Override
-    public List<Recensioni> getAllRecensioniByPending(){
+    public List<Recensioni> getAllRecensioniByPending() {
         List<Recensioni> listaRecensioni = new ArrayList<Recensioni>();
 
         JSONObject tmp = new JSONObject();
@@ -150,7 +156,7 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
         }
 
         if (res.isSuccessful()) {
-            try{
+            try {
                 JSONArray arrayRecensioni = new JSONArray(res.body().string());
                 for (int i = 0; i < arrayRecensioni.length(); i++) {
                     JSONObject obRecensione = arrayRecensioni.getJSONObject(i);
@@ -165,7 +171,7 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
                     listaRecensioni.add(r);
                 }
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
