@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/coloreBackgroundActivities"
     tools:context=".boundary.RicercaStruttureForm">
 
     <EditText
@@ -11,24 +12,27 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:autofillHints=""
+        android:backgroundTint="@color/textColor"
         android:ems="10"
         android:hint="Nome struttura"
         android:inputType="textPersonName"
+        android:textColorHint="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/cittàRicerca"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.352" />
 
     <Spinner
         android:id="@+id/cittàRicerca"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/valutazioneText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RatingBar
@@ -36,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:progressBackgroundTint="@color/ratingBarInactiveStartsColor"
+        android:progressTint="@color/ratingBarActiveStarsColor"
         app:layout_constraintBottom_toTopOf="@+id/distanzaText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.169"
@@ -46,9 +52,10 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginBottom="44dp"
+        android:backgroundTint="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
         app:layout_constraintEnd_toStartOf="@+id/orarioAperturaRicerca"
-        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -57,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/valutazione_text"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/valutazioneMediaRicerca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
@@ -68,17 +76,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/distanza_da_dispositivo_text"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/distanzaDaDispositivoRicerca"
         app:layout_constraintEnd_toStartOf="@+id/orarioAperturaText"
-        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/orarioAperturaRicerca"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="44dp"
+        android:backgroundTint="@color/textColor"
+        android:foregroundTint="@color/textColor"
+        android:popupBackground="@color/ratingBarInactiveStartsColor"
         app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -86,18 +98,20 @@
         android:id="@+id/orarioAperturaText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/orario_apertura_text"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/orarioAperturaRicerca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/valutazioneMediaRicerca"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <Spinner
         android:id="@+id/rangePrezzoRicerca"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="44dp"
+        android:backgroundTint="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/categoriaRicerca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.475"
@@ -108,6 +122,9 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/textColor"
+        android:hint="Categoria"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/bottoneRicerca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.475"
@@ -117,7 +134,8 @@
         android:id="@+id/bottoneRicerca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/coloreBackgroundActivities"
         android:contentDescription="Ricerca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,21 +148,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Max prezzo €"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/rangePrezzoRicerca"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/distanzaDaDispositivoRicerca"
         app:layout_constraintVertical_bias="0.72" />
 
-    <ProgressBar
-        android:id="@+id/progressBarRicercaStrutture"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/categoriaRicercaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoria"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toTopOf="@+id/categoriaRicerca"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rangePrezzoRicerca"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <TextView
+        android:id="@+id/textCitta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Città"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toTopOf="@+id/cittàRicerca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeStrutturaRicerca"
+        app:layout_constraintVertical_bias="0.756" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

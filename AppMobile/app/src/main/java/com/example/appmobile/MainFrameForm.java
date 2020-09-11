@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -229,7 +230,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                     controllerLogin.mostraLoginForm(this); //apre finestra di login
                 } else {
                     //signout con dialog di avvertimento
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.dialogTheme);
                     builder.setMessage("Effettuare il logout?").setCancelable(false)
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
@@ -263,8 +264,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     }
 
     private void enableGpsMessage() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare").setCancelable(false)
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.dialogTheme);
+        builder.setMessage(Html.fromHtml("<font color='#d4d4d4'>Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare</font>")).setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

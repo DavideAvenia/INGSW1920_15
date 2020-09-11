@@ -27,7 +27,6 @@ public class RicercaStruttureForm extends AppCompatActivity {
     private Spinner categoriaRicerca;
     private RatingBar valutazioneMediaRicerca;
     private ImageButton bottoneRicerca;
-    private ProgressBar progressBar;
     private TextView valutazioneText;
     private TextView distanzaText;
     private TextView orarioAperturaText;
@@ -51,34 +50,33 @@ public class RicercaStruttureForm extends AppCompatActivity {
         distanzaText = findViewById(R.id.distanzaText);
         orarioAperturaText = findViewById(R.id.orarioAperturaText);
         maxPrezzoText = findViewById(R.id.maxPrezzoText);
-        progressBar = findViewById(R.id.progressBarRicercaStrutture);
 
         ricercaStruttureRicettiveController = RicercaStruttureRicettiveController.getRicercaStruttureRicettiveController();
 
         /**************Inizializzazione spinners***************/
         //spinner città
-        ArrayAdapter<CharSequence> spinnerCittà = ArrayAdapter.createFromResource(this, R.array.città, android.R.layout.simple_spinner_item);
-        spinnerCittà.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinnerCittà = ArrayAdapter.createFromResource(this, R.array.città, R.layout.spinner_item);
+        spinnerCittà.setDropDownViewResource(R.layout.spinner_drop_down_item);
         cittàRicerca.setAdapter(spinnerCittà);
 
         //spinner distanza
-        ArrayAdapter<CharSequence> spinnerDistanza = ArrayAdapter.createFromResource(this, R.array.distanzaDispositivo, android.R.layout.simple_spinner_item);
-        spinnerDistanza.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinnerDistanza = ArrayAdapter.createFromResource(this, R.array.distanzaDispositivo, R.layout.spinner_item);
+        spinnerDistanza.setDropDownViewResource(R.layout.spinner_drop_down_item);
         distanzaDaDispositivoRicerca.setAdapter(spinnerDistanza);
 
         //spinner rangePrezzo
-        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this, R.array.maxPrezzo, android.R.layout.simple_spinner_item);
-        spinnerPrezzo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinnerPrezzo = ArrayAdapter.createFromResource(this, R.array.maxPrezzo, R.layout.spinner_item);
+        spinnerPrezzo.setDropDownViewResource(R.layout.spinner_drop_down_item);
         rangePrezzoRicerca.setAdapter(spinnerPrezzo);
 
         //spinner categoria
-        ArrayAdapter<CharSequence> spinnerCategoria = ArrayAdapter.createFromResource(this, R.array.categoriaStruttura, android.R.layout.simple_spinner_item);
-        spinnerCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinnerCategoria = ArrayAdapter.createFromResource(this, R.array.categoriaStruttura, R.layout.spinner_item);
+        spinnerCategoria.setDropDownViewResource(R.layout.spinner_drop_down_item);
         categoriaRicerca.setAdapter(spinnerCategoria);
 
         //spinner orarioApertura
-        ArrayAdapter<CharSequence> spinnerApertura = ArrayAdapter.createFromResource(this, R.array.orarioApertura, android.R.layout.simple_spinner_item);
-        spinnerApertura.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> spinnerApertura = ArrayAdapter.createFromResource(this, R.array.orarioApertura, R.layout.spinner_item);
+        spinnerApertura.setDropDownViewResource(R.layout.spinner_drop_down_item);
         orarioAperturaRicerca.setAdapter(spinnerApertura);
 
         /*******************************************************/
@@ -101,9 +99,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
         int distanza = Integer.parseInt(distanzaDaDispositivoRicerca.getSelectedItem().toString());
         float valutazioneMedia = valutazioneMediaRicerca.getRating();
 
-        progressBar.setVisibility(View.VISIBLE);
         ricercaStruttureRicettiveController.cercaStrutture(nome, città, valutazioneMedia, distanza, orarioApertura, categoria, maxPrezzo, this);
-        progressBar.setVisibility(View.GONE);
         this.finish();
     }
 
