@@ -63,12 +63,12 @@ public class LoginDesktopController {
         }
         Utente utente = utenteDao.getUtenteByUserID(userid);
 
-        if (utenteDao.effettuaLogin(userid, password)) {
-            if (this.isAdmin(userid)) {
+        if(utenteDao.effettuaLogin(userid, password)) {
+            if(isAdmin(userid)) {
                 PaginaPrincipaleAdminForm adminp = new PaginaPrincipaleAdminForm();
                 adminp.start(new Stage());
                 return true;
-            } else if (this.isMod(userid)) {
+            } else if(isMod(userid)) {
                 PaginaPrincipaleModForm modp = new PaginaPrincipaleModForm();
                 modp.start(new Stage());
                 return true;
