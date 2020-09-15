@@ -92,7 +92,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
         listaAnteprimaRecensioni.getSelectionModel().selectFirst();
         Map<String, String> mapInit = moderaRecensioniController.mostraRecensione(0);
-        indiceSelezionato = 0;
+        indiceSelezionato = -1;
         if (!mapInit.isEmpty()) {
             testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
@@ -101,6 +101,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
             System.out.println(mapInit.get("urlImmagine"));
             Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
             imageViewRecensione.setImage(immagineRecensione);
+            indiceSelezionato = 0;
         }
 
         listaAnteprimaRecensioni.setOnMouseClicked(mouseEvent -> {
@@ -134,15 +135,23 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     }
 
     public void disapprovaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.disapprovaRecensione(indiceSelezionato);
-        listaAnteprime.clear();
-        aggiornaPagina(actionEvent);
+        if(indiceSelezionato != -1){
+            moderaRecensioniController.disapprovaRecensione(indiceSelezionato);
+            listaAnteprime.clear();
+            aggiornaPagina(actionEvent);
+        }else
+            moderaRecensioniController.mostraMessaggio("Errore","Non puoi cliccare Disapprova");
+
     }
 
     public void approvaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.approvaRecensione(indiceSelezionato);
-        listaAnteprime.clear();
-        aggiornaPagina(actionEvent);
+        if(indiceSelezionato != -1){
+            moderaRecensioniController.approvaRecensione(indiceSelezionato);
+            listaAnteprime.clear();
+            aggiornaPagina(actionEvent);
+        }else
+            moderaRecensioniController.mostraMessaggio("Errore","Non puoi cliccare Approva");
+
 
     }
 
