@@ -88,45 +88,47 @@ public class AWSCognito implements UtenteDao {
         boolean isMod = false, useNick = false;
 
         AdminGetUserRequest adminGetUserRequest = new AdminGetUserRequest().withUserPoolId(USERPOOLID).withUsername(userId);
-        AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
+        try {
+            AdminGetUserResult userResult = identityProvider.adminGetUser(adminGetUserRequest);
+            List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
 
-        List<AttributeType> listaAttributiUtente = userResult.getUserAttributes();
-
-        /*In cognito l'ordine degli attributi degli utenti non è cosistente. Utenti diversi hanno gli attributi
-         * ordinati in maniera diversa: è necessario recuperare gli attributi per nome e non per indice*/
-        for (int i = 0; i < listaAttributiUtente.size(); i++) {
-            switch (listaAttributiUtente.get(i).getName()) {
-                case "name":
-                    nome = listaAttributiUtente.get(i).getValue();
-                    break;
-                case "family_name":
-                    cognome = listaAttributiUtente.get(i).getValue();
-                    break;
-                case "nickname":
-                    nickname = listaAttributiUtente.get(i).getValue();
-                    break;
-                case "phone_number":
-                    cellulare = listaAttributiUtente.get(i).getValue();
-                    break;
-                case "email":
-                    email = listaAttributiUtente.get(i).getValue();
-                    break;
-                case "custom:isMod":
-                    if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
-                        isMod = true;
-                    }
-                    break;
-                case "custom:useNick":
-                    if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
-                        useNick = true;
-                    }
-                    break;
+            /*In cognito l'ordine degli attributi degli utenti non è cosistente. Utenti diversi hanno gli attributi
+             * ordinati in maniera diversa: è necessario recuperare gli attributi per nome e non per indice*/
+            for (int i = 0; i < listaAttributiUtente.size(); i++) {
+                switch (listaAttributiUtente.get(i).getName()) {
+                    case "name":
+                        nome = listaAttributiUtente.get(i).getValue();
+                        break;
+                    case "family_name":
+                        cognome = listaAttributiUtente.get(i).getValue();
+                        break;
+                    case "nickname":
+                        nickname = listaAttributiUtente.get(i).getValue();
+                        break;
+                    case "phone_number":
+                        cellulare = listaAttributiUtente.get(i).getValue();
+                        break;
+                    case "email":
+                        email = listaAttributiUtente.get(i).getValue();
+                        break;
+                    case "custom:isMod":
+                        if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
+                            isMod = true;
+                        }
+                        break;
+                    case "custom:useNick":
+                        if (Integer.parseInt(listaAttributiUtente.get(i).getValue()) == 1) {
+                            useNick = true;
+                        }
+                        break;
+                }
             }
+
+            Utente utente = new Utente(userId, nome, cognome, nickname, cellulare, email, useNick, isMod);
+            return utente;
+        }catch(UserNotFoundException e){
+            return null;
         }
-
-        Utente utente = new Utente(userId, nome, cognome, nickname, cellulare, email, useNick, isMod);
-
-        return utente;
     }
 
     @Override
@@ -228,9 +230,7 @@ public class AWSCognito implements UtenteDao {
             AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
             incrementaLoginCounter(email);
             return true;
-        } catch (NotAuthorizedException ex) {
-            return false;
-        } catch (UserNotFoundException ex) {
+        } catch (NotAuthorizedException ex1) {
             return false;
         }
     }
