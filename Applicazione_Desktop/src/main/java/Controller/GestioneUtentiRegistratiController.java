@@ -134,7 +134,7 @@ public class GestioneUtentiRegistratiController {
         return matcher.matches();
     }
 
-    private void mostraMessaggio(String title, String mess) {
+    public void mostraMessaggio(String title, String mess) {
         Messaggio messaggio = new Messaggio(title, mess);
         try {
             messaggio.start(new Stage());

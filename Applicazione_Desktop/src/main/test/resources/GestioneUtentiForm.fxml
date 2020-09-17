@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="815.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.GestioneUtentiForm">
+    <children>
+        <ListView fx:id="listaNomiUtenti" layoutX="14.0" layoutY="57.0" onMouseClicked="#nomeListaCliccato"
+                  prefHeight="418.0" prefWidth="163.0"/>
+        <ComboBox fx:id="filtri" layoutX="14.0" layoutY="14.0" onAction="#filtroCambiato" prefHeight="30.0"
+                  prefWidth="163.0"/>
+        <Button fx:id="cancellaUtente" layoutX="190.0" layoutY="447.0" mnemonicParsing="false"
+                onAction="#bottoneCancellaCliccato" text="Cancella"/>
+        <Button fx:id="aggiornaUtente" layoutX="668.0" layoutY="447.0" mnemonicParsing="false"
+                onAction="#bottoneApplicaCliccato" text="Applica"/>
+        <Button fx:id="indietro" layoutX="741.0" layoutY="447.0" mnemonicParsing="false"
+                onAction="#bottoneIndietroPremuto" text="Indietro"/>
+        <TableView fx:id="infoUtente" layoutX="190.0" layoutY="128.0" prefHeight="94.0" prefWidth="615.0">
+            <columns>
+                <TableColumn fx:id="colonnaNome" prefWidth="75.0" text="Nome" onEditCommit="#nomeEdited"/>
+                <TableColumn fx:id="colonnaCognome" prefWidth="75.0" text="Cognome" onEditCommit="#cognomeEdited"/>
+                <TableColumn fx:id="colonnaNickname" prefWidth="84.0" text="Nickname" onEditCommit="#nicknameEdited"/>
+                <TableColumn fx:id="colonnaEmail" prefWidth="169.0" text="Email" onEditCommit="#emailEdited"/>
+                <TableColumn fx:id="colonnaCellulare" prefWidth="102.0" text="Cellulare"
+                             onEditCommit="#cellulareEdited"/>
+                <TableColumn fx:id="colonnaMod" prefWidth="55.0" text="Mod" onEditCommit="#isModEdited"/>
+                <TableColumn fx:id="colonnaUseNick" prefWidth="54.0" text="useNick" onEditCommit="#useNickEdited"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
