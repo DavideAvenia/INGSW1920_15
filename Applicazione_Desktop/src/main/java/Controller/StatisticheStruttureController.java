@@ -3,7 +3,7 @@ package Controller;
 import Boundary.StatisticheStruttureForm;
 import DAO.DAOfactory;
 import DAO.StatisticheStruttureDAO;
-import Entity.StatisticheStrutture;
+import Entity.ModelloStatisticheEStrutture;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -46,7 +46,7 @@ public class StatisticheStruttureController {
         String file1 = br.readLine();
         StatisticheStruttureDAO S = DAOfactory.getStatisticheStruttureDAO(file1);
         assert S != null;
-        List<StatisticheStrutture> L2 = S.getAllStatisticheStrutture();
+        List<ModelloStatisticheEStrutture> L2 = S.getAllStatisticheStrutture();
         List<Integer> numVisitatori = new ArrayList<>();
         List<Integer> numClienti = new ArrayList<>();
         List<Integer> numReviews = new ArrayList<>();
@@ -55,7 +55,7 @@ public class StatisticheStruttureController {
         List<String> orarioApertura = new ArrayList<>();
         List<String> valutazioneMedia = new ArrayList<>();
         List<String> città = new ArrayList<>();
-        for (StatisticheStrutture value : L2) {
+        for (ModelloStatisticheEStrutture value : L2) {
             numVisitatori.add(value.getNumVisitatori());
             numClienti.add(value.getNumClienti());
             numReviews.add(value.getNumReviews());

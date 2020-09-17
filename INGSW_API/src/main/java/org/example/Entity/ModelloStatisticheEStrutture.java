@@ -1,7 +1,7 @@
 package org.example.Entity;
 
 
-public class StatisticheStrutture {
+public class ModelloStatisticheEStrutture {
     private int numVisitatori;
     private int numReviews;
     private int numClienti;
@@ -13,7 +13,7 @@ public class StatisticheStrutture {
     private String valutazioneMedia;
     private String categoria;
 
-    public StatisticheStrutture(int numVisitatori, int numReviews, int numClienti, String nome, String longitudine, String latitudine, String categoria, String valutazioneMedia, String orarioApertura, String città) {
+    public ModelloStatisticheEStrutture(int numVisitatori, int numReviews, int numClienti, String nome, String longitudine, String latitudine, String categoria, String valutazioneMedia, String orarioApertura, String città) {
         this.numVisitatori = numVisitatori;
         this.numReviews = numReviews;
         this.numClienti = numClienti;

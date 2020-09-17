@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="titoloRecensione" prefHeight="515.0" prefWidth="746.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.ModeraRecensioniForm">
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="titoloRecensione" prefHeight="515.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.ModeraRecensioniForm">
     <children>
-        <ListView fx:id="listaAnteprimaRecensioni" layoutX="14.0" layoutY="12.0" prefHeight="492.0" prefWidth="199.0"/>
-        <Label fx:id="nomeStrutturaLabel" layoutX="241.0" layoutY="70.0" text="Nome della struttura">
+        <ListView fx:id="listaAnteprimaRecensioni" layoutX="14.0" layoutY="12.0" prefHeight="492.0" prefWidth="199.0" />
+        <Label fx:id="nomeStrutturaLabel" layoutX="241.0" layoutY="70.0">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="testoRecensioneLabel" layoutX="241.0" layoutY="117.0" text="Testo della recensione"/>
-        <Label fx:id="connotatiUtenteLabel" layoutX="373.0" layoutY="12.0" text="Nome, cognome e Nickname dell'utente">
+        <Label fx:id="testoRecensioneLabel" layoutX="241.0" layoutY="117.0" />
+        <Label fx:id="connotatiUtenteLabel" layoutX="373.0" layoutY="12.0">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <ImageView fx:id="imageViewRecensione" fitHeight="158.0" fitWidth="260.0" layoutX="241.0" layoutY="261.0"
-                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="imageViewRecensione" fitHeight="158.0" fitWidth="260.0" layoutX="241.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true" />
         <Label layoutX="580.0" layoutY="258.0" text="Valutazione">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="numeroValutazioneLabel" layoutX="578.0" layoutY="300.0" text="Numero valutazione"/>
+        <Label fx:id="numeroValutazioneLabel" layoutX="578.0" layoutY="300.0" />
 
-        <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false"
-                onAction="#indietroButtonPremuto" text="Indietro"/>
-        <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false"
-                onAction="#disapprovaButtonPremuto" text="Disapprova"/>
-        <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false"
-                onAction="#approvaButtonPremuto" text="Approva"/>
+        <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" onAction="#indietroButtonPremuto" text="Indietro" />
+        <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" onAction="#disapprovaButtonPremuto" text="Disapprova" />
+        <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" onAction="#approvaButtonPremuto" text="Approva" />
     </children>
 </AnchorPane>

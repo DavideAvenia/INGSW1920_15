@@ -4,7 +4,7 @@ import DAO.RecensioniDAO;
 import DAO.StatisticheStruttureDAO;
 import DAO.StatisticheUtentiDAO;
 import Entity.Recensioni;
-import Entity.StatisticheStrutture;
+import Entity.ModelloStatisticheEStrutture;
 import Entity.StatisticheUtenti;
 import okhttp3.*;
 import org.json.JSONArray;
@@ -18,8 +18,8 @@ import java.util.List;
 public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDAO, RecensioniDAO {
 
     @Override
-    public List<StatisticheStrutture> getAllStatisticheStrutture() {
-        List<StatisticheStrutture> L1 = new ArrayList<>();
+    public List<ModelloStatisticheEStrutture> getAllStatisticheStrutture() {
+        List<ModelloStatisticheEStrutture> L1 = new ArrayList<>();
 
         JSONObject tmp = new JSONObject();
         try {
@@ -55,7 +55,7 @@ public class AWSMySQLRDS implements StatisticheStruttureDAO, StatisticheUtentiDA
                     String valutazioneMedia = ob1.get("valutazioneMedia").toString();
                     String città = ob1.get("città").toString();
 
-                    StatisticheStrutture S1 = new StatisticheStrutture(numVisitatori, numeroReviews, numClient, nomeStruttura, longitudine, latitudine,
+                    ModelloStatisticheEStrutture S1 = new ModelloStatisticheEStrutture(numVisitatori, numeroReviews, numClient, nomeStruttura, longitudine, latitudine,
                             categoria, valutazioneMedia, orarioApertura, città);
                     L1.add(S1);
                 }

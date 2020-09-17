@@ -2,7 +2,7 @@ package org.example;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import org.example.Entity.StatisticheStrutture;
+import org.example.Entity.ModelloStatisticheEStrutture;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GetAllStatisticheStrutture implements RequestHandler<Map<String, String>, List<StatisticheStrutture>> {
+public class GetAllStatisticheStrutture implements RequestHandler<Map<String, String>, List<ModelloStatisticheEStrutture>> {
     @Override
-    public List<StatisticheStrutture> handleRequest(Map<String, String> request, Context context) {
-        List<StatisticheStrutture> Lista1 = new ArrayList<StatisticheStrutture>();
+    public List<ModelloStatisticheEStrutture> handleRequest(Map<String, String> request, Context context) {
+        List<ModelloStatisticheEStrutture> Lista1 = new ArrayList<ModelloStatisticheEStrutture>();
         DatabaseConnection DB = new DatabaseConnection();
         try {
             ResultSet res = DB.eseguiQuery("SELECT * FROM StatisticheStrutture as ST inner join Strutture AS S ON ST.nomeStruttura = S.nome;");
@@ -29,7 +29,7 @@ public class GetAllStatisticheStrutture implements RequestHandler<Map<String, St
              String orarioApertura = res.getString("orarioApertura");
              String categoria = res.getString("categoria");
 
-             StatisticheStrutture S = new StatisticheStrutture(numVisitatori,numeroReviews,numClienti,nomeStruttura,longitudine,latitudine,categoria,valutazioneMedia,orarioApertura,città);
+             ModelloStatisticheEStrutture S = new ModelloStatisticheEStrutture(numVisitatori,numeroReviews,numClienti,nomeStruttura,longitudine,latitudine,categoria,valutazioneMedia,orarioApertura,città);
              Lista1.add(S);
             }
         } catch (SQLException throwables) {

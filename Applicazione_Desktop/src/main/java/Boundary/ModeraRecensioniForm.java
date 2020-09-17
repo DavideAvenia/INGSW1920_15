@@ -15,9 +15,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -90,25 +92,38 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         //Devo selezionare il primo oggetto e inizializzare gli elementi all'interno delle label
         listaAnteprimaRecensioni.getSelectionModel().selectFirst();
         Map<String, String> mapInit = moderaRecensioniController.mostraRecensione(0);
-        indiceSelezionato = 0;
+        indiceSelezionato = -1;
         if (!mapInit.isEmpty()) {
             testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
             numeroValutazioneLabel.setText(mapInit.get("valutazione"));
             nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
-            /*Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
-            imageViewRecensione.setImage(immagineRecensione);*/
+            System.out.println(mapInit.get("urlImmagine"));
+            Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+            imageViewRecensione.setImage(immagineRecensione);
+            indiceSelezionato = 0;
         }
 
         listaAnteprimaRecensioni.setOnMouseClicked(mouseEvent -> {
             indiceSelezionato = listaAnteprimaRecensioni.getSelectionModel().getSelectedIndex();
             Map<String, String> mapToHandle = moderaRecensioniController.mostraRecensione(indiceSelezionato);
-            testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
-            connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
-            numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
-            nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
-            /*Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
-            imageViewRecensione.setImage(immagineRecensione);*/
+            if(!mapToHandle.isEmpty()){
+                testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
+                connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
+                numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
+                nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
+                System.out.println(mapInit.get("urlImmagine"));
+                Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+                imageViewRecensione.setImage(immagineRecensione);
+            }else{
+                try{
+                    moderaRecensioniController.mostraMessaggio("Messaggio","Non ci sono recensioni!");
+                }catch(NullPointerException e){
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -120,15 +135,23 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     }
 
     public void disapprovaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.disapprovaRecensione(indiceSelezionato);
-        listaAnteprime.clear();
-        aggiornaPagina(actionEvent);
+        if(indiceSelezionato != -1){
+            moderaRecensioniController.disapprovaRecensione(indiceSelezionato);
+            listaAnteprime.clear();
+            aggiornaPagina(actionEvent);
+        }else
+            moderaRecensioniController.mostraMessaggio("Errore","Non puoi cliccare Disapprova");
+
     }
 
     public void approvaButtonPremuto(ActionEvent actionEvent) throws Exception {
-        moderaRecensioniController.approvaRecensione(indiceSelezionato);
-        listaAnteprime.clear();
-        aggiornaPagina(actionEvent);
+        if(indiceSelezionato != -1){
+            moderaRecensioniController.approvaRecensione(indiceSelezionato);
+            listaAnteprime.clear();
+            aggiornaPagina(actionEvent);
+        }else
+            moderaRecensioniController.mostraMessaggio("Errore","Non puoi cliccare Approva");
+
 
     }
 
