@@ -64,7 +64,7 @@
 											"top": 44,
 											"width": 781.18701171875,
 											"height": 13,
-											"text": "StatisticheStrutture"
+											"text": "ModelloStatisticheEStrutture"
 										},
 										{
 											"_type": "LabelView",
@@ -396,7 +396,7 @@
 											"top": 75,
 											"width": 781.18701171875,
 											"height": 13,
-											"text": "+getStatisticheStrutture(id: int): StatisticheStrutture",
+											"text": "+getStatisticheStrutture(id: int): ModelloStatisticheEStrutture",
 											"horizontalAlignment": 0
 										},
 										{
@@ -413,7 +413,7 @@
 											"top": 229,
 											"width": 781.18701171875,
 											"height": 13,
-											"text": "+StatisticheStrutture(numCol: int, numVisitatori: int, numRevies: int, numClienti: int, idStruttura: int): StatisticheStrutture",
+											"text": "+StatisticheStrutture(numCol: int, numVisitatori: int, numRevies: int, numClienti: int, idStruttura: int): ModelloStatisticheEStrutture",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1164,7 +1164,7 @@
 											"top": 447,
 											"width": 423,
 											"height": 13,
-											"text": "+getAllStatisticheStrutture(): List<StatisticheStrutture>",
+											"text": "+getAllStatisticheStrutture(): List<ModelloStatisticheEStrutture>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2176,7 +2176,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1280,
+											"left": -1344,
 											"top": -496,
 											"height": 13
 										},
@@ -2187,9 +2187,9 @@
 												"$ref": "AAAAAAFxq4FjZr0oa+Q="
 											},
 											"font": "Arial;13;1",
-											"left": 125,
+											"left": 93,
 											"top": 655,
-											"width": 311.060546875,
+											"width": 365.2568359375,
 											"height": 13,
 											"text": "AWSMySQLRDS"
 										},
@@ -2201,7 +2201,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1280,
+											"left": -1344,
 											"top": -496,
 											"width": 73.67724609375,
 											"height": 13,
@@ -2215,16 +2215,16 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1280,
+											"left": -1344,
 											"top": -496,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 120,
+									"left": 88,
 									"top": 648,
-									"width": 321.060546875,
+									"width": 375.2568359375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFxq4FjZr0pmkA="
@@ -2249,9 +2249,9 @@
 										"$ref": "AAAAAAFxq4FjZr0ls34="
 									},
 									"font": "Arial;13;0",
-									"left": 120,
+									"left": 88,
 									"top": 673,
-									"width": 321.060546875,
+									"width": 375.2568359375,
 									"height": 10
 								},
 								{
@@ -2274,18 +2274,18 @@
 												"$ref": "AAAAAAFz8bI3MnXf9kQ="
 											},
 											"font": "Arial;13;0",
-											"left": 125,
+											"left": 93,
 											"top": 688,
-											"width": 311.060546875,
+											"width": 365.2568359375,
 											"height": 13,
-											"text": "+getAllStatisticheStrutture(): List<StatisticheStrutture>",
+											"text": "+getAllStatisticheStrutture(): List<ModelloStatisticheEStrutture>",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 120,
+									"left": 88,
 									"top": 683,
-									"width": 321.060546875,
+									"width": 375.2568359375,
 									"height": 23
 								},
 								{
@@ -2299,7 +2299,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -640,
+									"left": -672,
 									"top": -248,
 									"width": 10,
 									"height": 10
@@ -2315,7 +2315,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -640,
+									"left": -672,
 									"top": -248,
 									"width": 10,
 									"height": 10
@@ -2323,9 +2323,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 120,
+							"left": 88,
 							"top": 648,
-							"width": 321.060546875,
+							"width": 375.2568359375,
 							"height": 58,
 							"nameCompartment": {
 								"$ref": "AAAAAAFxq4FjZr0oa+Q="
@@ -2363,7 +2363,7 @@
 										"$ref": "AAAAAAFxq4GgIr19Cm4="
 									},
 									"font": "Arial;13;0",
-									"left": 499,
+									"left": 510,
 									"top": 680,
 									"width": 43.72265625,
 									"height": 13,
@@ -2386,7 +2386,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 520,
+									"left": 531,
 									"top": 695,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2407,7 +2407,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 519,
+									"left": 530,
 									"top": 651,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -2426,7 +2426,7 @@
 								"$ref": "AAAAAAFxpnCkmny/48I="
 							},
 							"lineStyle": 1,
-							"points": "599:671;441:674",
+							"points": "599:671;463:673",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFxq4GgI72AxKg="
@@ -2458,8 +2458,8 @@
 										"$ref": "AAAAAAFxq4UUI78QADg="
 									},
 									"font": "Arial;13;0",
-									"left": 236,
-									"top": 549,
+									"left": 233,
+									"top": 548,
 									"width": 74.05810546875,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2481,8 +2481,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 258,
-									"top": 548,
+									"left": 255,
+									"top": 547,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -2502,8 +2502,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 302,
-									"top": 550,
+									"left": 299,
+									"top": 551,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -2521,7 +2521,7 @@
 								"$ref": "AAAAAAFxq4FjZr0nBAw="
 							},
 							"lineStyle": 1,
-							"points": "282:647;294:465",
+							"points": "277:647;293:465",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFxq4UUI78TZJs="
@@ -3470,7 +3470,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "StatisticheStrutture",
+					"name": "ModelloStatisticheEStrutture",
 					"stereotype": "entity",
 					"attributes": [
 						{
@@ -4297,7 +4297,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFyAyrUCMJ/O3o="
 									},
-									"type": "List<StatisticheStrutture>",
+									"type": "List<ModelloStatisticheEStrutture>",
 									"direction": "return"
 								}
 							]
@@ -4878,7 +4878,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFz8bI3MnXf9kQ="
 									},
-									"type": "List<StatisticheStrutture>",
+									"type": "List<ModelloStatisticheEStrutture>",
 									"direction": "return"
 								}
 							]
