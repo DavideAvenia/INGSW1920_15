@@ -6,6 +6,7 @@ import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
+import com.amazonaws.services.cognitoidp.model.UserNotFoundException;
 import com.amazonaws.services.cognitoidp.model.*;
 import com.amazonaws.util.StringUtils;
 import okhttp3.*;
@@ -228,11 +229,13 @@ public class AWSCognito implements UtenteDao {
             AdminInitiateAuthResult result = identityProvider.adminInitiateAuth(authRequest);
             incrementaLoginCounter(email);
             return true;
-        } catch (NotAuthorizedException ex) {
+        } catch (UserNotFoundException e) {
+            System.out.println("Siamo nel catch");
             return false;
-        } catch (UserNotFoundException ex) {
+        } catch (NotAuthorizedException e){
             return false;
         }
+
     }
 
     public void incrementaLoginCounter(String email) {

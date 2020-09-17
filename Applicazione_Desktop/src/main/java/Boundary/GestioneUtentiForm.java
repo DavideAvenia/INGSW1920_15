@@ -67,6 +67,10 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void bottoneCancellaCliccato(ActionEvent actionEvent) {
         String userId = listaNomiUtenti.getSelectionModel().getSelectedItem();
 
+        if(userId == null){
+            gestioneUtentiRegistratiController.mostraMessaggio("Errore","Bisogna prima selezionare un utente!");
+            return;
+        }
         boolean result = gestioneUtentiRegistratiController.cancellaUtente(userId);
 
         if (result == true) {
@@ -98,6 +102,10 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void bottoneApplicaCliccato(ActionEvent actionEvent) {
 
         String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
+        if(username == null){
+            gestioneUtentiRegistratiController.mostraMessaggio("Errore","Bisogna prima selezionare un utente!");
+            return;
+        }
         String tokens[] = username.split(" ");
         String userId = tokens[0];
         UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();

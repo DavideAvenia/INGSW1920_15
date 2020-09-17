@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="188.0" prefWidth="348.0"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="Boundary.Messaggio">
+    <children>
+        <Button layoutX="147.0" layoutY="142.0" mnemonicParsing="false" onAction="#bottoneChiudiPremuto" text="Chiudi"/>
+        <Label fx:id="messaggioLabel" layoutX="55.0" layoutY="69.0" prefHeight="17.0" prefWidth="280.0" text="Label"/>
+    </children>
+</AnchorPane>

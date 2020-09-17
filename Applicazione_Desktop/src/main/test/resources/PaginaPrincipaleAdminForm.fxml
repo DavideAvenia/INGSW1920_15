@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.PaginaPrincipaleAdminForm">
+    <children>
+        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneGestioneAccountPremuto"
+                text="Gestione utenti registrati"/>
+        <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Modera recensioni"
+                onAction="#bottoneModeraRecensioniPremuto"/>
+        <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneStrutturePremuto"
+                text="Strutture"/>
+        <TableView fx:id="statsutenti" layoutX="14.0" layoutY="78.0" prefHeight="308.0" prefWidth="474.0">
+            <columns>
+                <TableColumn fx:id="userid" prefWidth="88.0" text="Username"/>
+                <TableColumn fx:id="livello" prefWidth="84.0" text="Livello"/>
+                <TableColumn fx:id="avgscore" prefWidth="83.0" text="Score Medio"/>
+                <TableColumn fx:id="logincount" prefWidth="87.0" text="Login Count"/>
+                <TableColumn fx:id="nreview" prefWidth="131.0" text="N. Recensioni"/>
+            </columns>
+        </TableView>
+        <Button fx:id="ricarica" layoutX="524.0" layoutY="325.0" mnemonicParsing="false" onAction="#ricaricaPremuto"
+                text="Ricarica"/>
+        <Button fx:id="logout" layoutX="524.0" layoutY="361.0" mnemonicParsing="false" onAction="#logoutPremuto"
+                prefHeight="25.0" prefWidth="57.0" text="Logout"/>
+        <Label fx:id="label2" layoutX="14.0" layoutY="54.0" prefHeight="17.0" prefWidth="121.0"
+               text="Cerca per Username :">
+        </Label>
+        <TextField fx:id="cercausername" layoutX="135.0" layoutY="50.0"/>
+    </children>
+</AnchorPane>
