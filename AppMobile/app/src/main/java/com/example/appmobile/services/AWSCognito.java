@@ -28,7 +28,10 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAtt
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
+import com.amazonaws.services.cognitoidentityprovider.model.CodeMismatchException;
+import com.amazonaws.services.cognitoidentityprovider.model.ExpiredCodeException;
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidParameterException;
+import com.amazonaws.services.cognitoidentityprovider.model.LimitExceededException;
 import com.amazonaws.services.cognitoidentityprovider.model.NotAuthorizedException;
 import com.amazonaws.services.cognitoidentityprovider.model.SignUpResult;
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException;
@@ -57,9 +60,9 @@ public class AWSCognito implements UtenteDao {
     protected static CognitoUser user = null;
     private static AmazonCognitoIdentityProviderClient identityProviderClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), new ClientConfiguration());
     private static ForgotPasswordContinuation resultContinuation;
-    private final String USER_POOL_ID = "";
-    private final String CLIENT_ID = "";
-    private final String CLIENT_SECRET = "";
+    private final String USER_POOL_ID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENT_ID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String CLIENT_SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
 
     private Utente currentUser = null;
 
@@ -136,10 +139,7 @@ public class AWSCognito implements UtenteDao {
             public void onFailure(Exception exception) {
                 String errore = "";
                 if (exception instanceof NotAuthorizedException) {
-                    errore = "Nome utente o password errati!";
-                }
-                if (exception instanceof UserNotFoundException) {
-                    errore = "Non esiste un utente con questo nome!";
+                    errore = "Nome utente e/o password errati!";
                 }
                 if (exception instanceof UserNotConfirmedException) {
                     errore = "Devi verificare la registrazione prima di poter accedere!";
@@ -209,7 +209,7 @@ public class AWSCognito implements UtenteDao {
             public void onFailure(Exception exception) {
                 String errore = "";
                 if (exception instanceof UsernameExistsException) {
-                    errore = "Esiste già un utente con questo nome!";
+                    errore = "Esiste già un utente con questo username!";
                 } else {
                     errore = exception.toString();
                 }
@@ -253,6 +253,18 @@ public class AWSCognito implements UtenteDao {
                 String errore = "";
                 if (exception instanceof InvalidParameterException) {
                     errore = "Parametri non validi. Assicurati di aver riempito i campi opportuni!";
+                }
+                if(exception instanceof CodeMismatchException){
+                    errore = "Il codice inserito è errato!";
+                }
+                if(exception instanceof ExpiredCodeException){
+                    errore = "Il codice inserito non è valido!";
+                }
+                if(exception instanceof LimitExceededException){
+                    errore = "Hai effettuato troppe richieste. Riprova più tardi";
+                }
+                if(exception instanceof UserNotFoundException){
+                    errore = "Utente inesistente";
                 }
                 showToast(context, "Fallimento reset password: " + errore);
             }

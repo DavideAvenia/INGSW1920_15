@@ -231,7 +231,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 } else {
                     //signout con dialog di avvertimento
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.dialogTheme);
-                    builder.setMessage("Effettuare il logout?").setCancelable(false)
+                    builder.setMessage(Html.fromHtml("<font color='#d4d4d4'>Effettuare il logout?</font>")).setCancelable(false)
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

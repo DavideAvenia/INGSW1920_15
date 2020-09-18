@@ -64,7 +64,7 @@ public class RegistrazioneForm extends AppCompatActivity {
         String email = emailRegistrazione.getText().toString();
         String password = passwordRegistrazione.getText().toString();
 
-        if (userId == null || nome == null || cognome == null || cellulare == null || email == null || password == null) {
+        if (userId.equals("") || nome.equals("") || cognome.equals("") || cellulare.equals("") || email.equals("") || password.equals("")) {
             showToast("Tutti i campi sono obbligatori!");
         } else {
             if (!checkEmail(email) || !checkPassword(password) || !checkUsername(userId)) {
@@ -102,7 +102,7 @@ public class RegistrazioneForm extends AppCompatActivity {
                 "(?=.*[A-Z])" +         //at least 1 upper case letter
                 "(?=.*[a-zA-Z])" +      //at least 1 special character
                 "(?=\\S+$)" +           //no white spaces
-                ".{6,}" +               //at least 4 characters
+                ".{6,}" +               //at least 6 characters
                 "$");
 
         if (PASSWORD_PATTERN.matcher(password).matches()) {
