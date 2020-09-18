@@ -27,6 +27,8 @@ public class LoginDesktopControllerTest extends ApplicationTest {
     public void setUp(){
         controller = LoginDesktopController.getInstanzaLoginDesktopController();
     }
+
+    /***** Testing black box testControllaCredenzialiLogin *****/
     @Test
     public void testControllaCredenzialiPerLoginAdminSuccesso1() throws Exception {
         Platform.runLater(new Runnable() {
@@ -62,7 +64,7 @@ public class LoginDesktopControllerTest extends ApplicationTest {
             @Override
             public void run() {
                 try{
-                    assertTrue(controller.controllaCredenzialiPerLogin("utente","Prova12345"));
+                    assertTrue(!controller.controllaCredenzialiPerLogin("utente","Prova12345"));
                 } catch (Exception e){
                     assertTrue(false);
                 }
@@ -122,6 +124,92 @@ public class LoginDesktopControllerTest extends ApplicationTest {
             public void run() {
                 try{
                     assertTrue(!controller.controllaCredenzialiPerLogin("marechiaro","PasswordErrata"));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    @Test
+    public void testControllaCredenzialiPerLoginCampiVuoti() throws Exception {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(!controller.controllaCredenzialiPerLogin("",""));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    /***** Testing White Box branch coverage *****/
+
+    @Test
+    public void testControllaCredenzialiPerLogin_1_3(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(!controller.controllaCredenzialiPerLogin("",""));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    @Test
+    public void testControllaCredenzialiPerLogin_1_2_5_11(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(!controller.controllaCredenzialiPerLogin("utenteInesistente","pa$o4da[!a_>"));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    @Test
+    public void testControllaCredenzialiPerLogin_1_2_4_7(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(controller.controllaCredenzialiPerLogin("admin_guido","Prova12345"));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    @Test
+    public void testControllaCredenzialiPerLogin_1_2_4_6_10_11(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(!controller.controllaCredenzialiPerLogin("XspartanTT","Guido123"));
+                }catch (Exception e){
+                    assertTrue(false);
+                }
+            }
+        });
+    }
+
+    @Test
+    public void testControllaCredenzialiPerLogin_1_2_4_6_9(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    assertTrue(controller.controllaCredenzialiPerLogin("Marechiaro","Ferrary2001"));
                 }catch (Exception e){
                     assertTrue(false);
                 }

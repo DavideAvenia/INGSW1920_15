@@ -194,9 +194,6 @@ public class AWSCognito implements UtenteDao {
 
     @Override
     public boolean effettuaLogin(String email, String password) {
-        AuthenticationResultType authenticationResult = null;
-        AdminInitiateAuthRequest request = new AdminInitiateAuthRequest();
-
         SecretKeySpec signingKey = new SecretKeySpec(
                 SECRET.getBytes(StandardCharsets.UTF_8),
                 "HmacSHA256");
@@ -232,6 +229,8 @@ public class AWSCognito implements UtenteDao {
             return true;
         } catch (NotAuthorizedException ex1) {
             return false;
+        } catch (InvalidParameterException e){
+            return false;
         }
     }
 
@@ -251,8 +250,6 @@ public class AWSCognito implements UtenteDao {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("Thread finito");
         });
 
         tIncrement.start();

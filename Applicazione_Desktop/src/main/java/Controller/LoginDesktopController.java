@@ -68,12 +68,14 @@ public class LoginDesktopController {
                 PaginaPrincipaleAdminForm adminp = new PaginaPrincipaleAdminForm();
                 adminp.start(new Stage());
                 return true;
-            } else if(isMod(userid)) {
-                PaginaPrincipaleModForm modp = new PaginaPrincipaleModForm();
-                modp.start(new Stage());
-                return true;
             } else {
-                mostraMessaggio("Login fallito", "Non sei un mod/admin, non puoi accedere");
+                if(isMod(userid)) {
+                    PaginaPrincipaleModForm modp = new PaginaPrincipaleModForm();
+                    modp.start(new Stage());
+                    return true;
+                } else {
+                    mostraMessaggio("Login fallito", "Non sei un mod/admin, non puoi accedere");
+                }
             }
         } else {
             mostraMessaggio("Login Fallito", "UserId/Email oppure password incorretti");
