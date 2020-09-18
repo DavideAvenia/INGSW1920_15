@@ -60,9 +60,9 @@ public class AWSCognito implements UtenteDao {
     protected static CognitoUser user = null;
     private static AmazonCognitoIdentityProviderClient identityProviderClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), new ClientConfiguration());
     private static ForgotPasswordContinuation resultContinuation;
-    private final String USER_POOL_ID = "eu-west-1_KWhWZTu1x";
-    private final String CLIENT_ID = "66eho5mi1f4ift40cjtmvo03id";
-    private final String CLIENT_SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
+    private final String USER_POOL_ID = "";
+    private final String CLIENT_ID = "";
+    private final String CLIENT_SECRET = "";
 
     private Utente currentUser = null;
 
