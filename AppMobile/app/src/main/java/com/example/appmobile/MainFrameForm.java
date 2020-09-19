@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.text.Html;
@@ -31,6 +32,9 @@ import com.example.appmobile.controller.LeggereRecensioniController;
 import com.example.appmobile.controller.RicercaStruttureRicettiveController;
 import com.example.appmobile.controller.ScriviRecensioniController;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,6 +54,8 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
     private static GoogleMap mMap;
 
     private static Location currentLocation;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
     /*Nel mainFrame salviamo le principali info dell'utente loggato così da essere di rapido uso per altre activity*/
     private static String userIdLogged = null;
     private static boolean isLogged = false;
@@ -83,42 +89,6 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    public static Map<String, String> getAttributiUtenteLoggato() {
-        return attributiUtenteLoggato;
-    }
-
-    public static boolean isUserLogged() {
-        return isLogged;
-    }
-
-    public static Location getCurrentLocation() {
-        return currentLocation;
-    }
-
-    private void setCurrentLocation(Location location) {
-        currentLocation = location;
-    }
-
-    public static boolean getIsLogged() {
-        return isLogged;
-    }
-
-    public static void setIsLogged(boolean value) {
-        isLogged = value;
-    }
-
-    public static String getUserIdLogged() {
-        return userIdLogged;
-    }
-
-    public static void setUserIdLogged(String userId) {
-        userIdLogged = userId;
-    }
-
-    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
-        attributiUtenteLoggato = attributiUtente;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,14 +113,15 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         progressBar = findViewById(R.id.progressBarMap);
         progressBar.setVisibility(View.INVISIBLE);
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        locationRequest = createLocationRequest();
+        locationCallback = new LocationCallback(){
             @Override
-            public void onSuccess(Location location) {
-                if (location != null)
-                    setCurrentLocation(location);
+            public void onLocationResult(LocationResult locationResult){
+                if(locationResult != null){
+                    setCurrentLocation(locationResult.getLastLocation());
+                }
             }
-        });
+        };
 
     }
 
@@ -205,7 +176,11 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             enableGpsMessage();
         }
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> {
+            if (location != null)
+                setCurrentLocation(location);
+        });
         LatLng defaultLocation = new LatLng(40.863, 14.2767);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 10.0f));
 
@@ -282,6 +257,20 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         alertDialog.show();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(fusedLocationProviderClient != null){
+            refreshCurrentLocation();
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
+
     public void signout() {
         Toast.makeText(this, "Logout effettuato per: " + userIdLogged, Toast.LENGTH_LONG).show();
         setIsLogged(false);
@@ -289,4 +278,58 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
         userIdLogged = null;
         controllerLogin.signout(this, userIdLogged);
     }
+
+    public static Map<String, String> getAttributiUtenteLoggato() {
+        return attributiUtenteLoggato;
+    }
+
+    public static boolean isUserLogged() {
+        return isLogged;
+    }
+
+    public static Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    private void setCurrentLocation(Location location) {
+
+        currentLocation = location;
+    }
+
+    public static boolean getIsLogged() {
+        return isLogged;
+    }
+
+    public static void setIsLogged(boolean value) {
+        isLogged = value;
+    }
+
+    public static String getUserIdLogged() {
+        return userIdLogged;
+    }
+
+    public static void setUserIdLogged(String userId) {
+        userIdLogged = userId;
+    }
+
+    public static void setAtributiUtenteLoggato(Map<String, String> attributiUtente) {
+        attributiUtenteLoggato = attributiUtente;
+    }
+
+    private LocationRequest createLocationRequest(){
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        return locationRequest;
+    }
+
+    public void refreshCurrentLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest,locationCallback,Looper.getMainLooper());
+    }
+
 }

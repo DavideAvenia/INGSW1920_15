@@ -33,7 +33,7 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
         }
 
         if(!filtroMaxPrezzo.equals("Qualunque")){
-            query = query+"maxPrezzo<=\""+filtroMaxPrezzo+"\" AND ";
+            query = query+"maxPrezzo<="+filtroMaxPrezzo+" AND ";
         }
 
         if(!filtroOrarioApertura.equals("Qualunque")){
@@ -43,8 +43,7 @@ public class GetStruttureByFiltri implements RequestHandler<Map<String,String>, 
         if(!filtroCategoria.equals("Qualunque")){
             query = query +"categoria=\""+filtroCategoria+"\" AND ";
         }
-        query = query+"valutazioneMedia>=\""+filtroValutazione+"\";";
-
+        query = query+"valutazioneMedia>="+filtroValutazione+";";
 
         /*Recupero delle struttre*/
         DatabaseConnection databaseConnection = new DatabaseConnection();

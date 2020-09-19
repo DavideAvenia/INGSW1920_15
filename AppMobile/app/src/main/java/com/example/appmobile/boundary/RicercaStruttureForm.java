@@ -83,7 +83,7 @@ public class RicercaStruttureForm extends AppCompatActivity {
 
         //Inizializzazione RatingBar
         valutazioneMediaRicerca.setNumStars(5);
-        valutazioneMediaRicerca.setRating(3);
+        valutazioneMediaRicerca.setRating(0);
 
         bottoneRicerca.setOnClickListener(v -> bottoneRicercaPremuto(v));
 
