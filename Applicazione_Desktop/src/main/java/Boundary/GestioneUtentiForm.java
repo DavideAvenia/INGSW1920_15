@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class GestioneUtentiForm extends Application implements Initializable {
@@ -29,7 +30,11 @@ public class GestioneUtentiForm extends Application implements Initializable {
 
     private static String lastFiltro = "Username";
     @FXML
-    private ListView<String> listaNomiUtenti;
+    private TableView<UtenteListaModel> listaUtentiTableView;
+    @FXML
+    private TableColumn<UtenteListaModel,String> usernameColumnTableView;
+    @FXML
+    private TableColumn<UtenteListaModel,String> attributoColumnTableView;
     @FXML
     private ComboBox<String> filtri;
     @FXML
@@ -60,17 +65,18 @@ public class GestioneUtentiForm extends Application implements Initializable {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/GestioneUtentiForm.fxml"));
         primaryStage.setTitle("Gestione Utenti");
-        primaryStage.setScene(new Scene(root, 815, 488));
+        primaryStage.setScene(new Scene(root, 1023, 522));
         primaryStage.show();
     }
 
     public void bottoneCancellaCliccato(ActionEvent actionEvent) {
-        String userId = listaNomiUtenti.getSelectionModel().getSelectedItem();
-
-        if(userId == null){
+        UtenteListaModel utente = listaUtentiTableView.getSelectionModel().getSelectedItem();
+        if(utente == null){
             gestioneUtentiRegistratiController.mostraMessaggio("Errore","Bisogna prima selezionare un utente!");
             return;
         }
+        String userId = utente.getUsername();
+
         boolean result = gestioneUtentiRegistratiController.cancellaUtente(userId);
 
         if (result == true) {
@@ -100,17 +106,16 @@ public class GestioneUtentiForm extends Application implements Initializable {
     }
 
     public void bottoneApplicaCliccato(ActionEvent actionEvent) {
-
-        String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
-        if(username == null){
+        UtenteListaModel utenteSelected = listaUtentiTableView.getSelectionModel().getSelectedItem();
+        if(utenteSelected == null){
             gestioneUtentiRegistratiController.mostraMessaggio("Errore","Bisogna prima selezionare un utente!");
             return;
         }
-        String tokens[] = username.split(" ");
-        String userId = tokens[0];
+        String username = utenteSelected.getUsername();
+
         UtenteModel utente = infoUtente.getSelectionModel().getSelectedItem();
 
-        gestioneUtentiRegistratiController.aggiornaUtente(userId, utente.getNome(), utente.getCognome(), utente.getNickname(), utente.getCellulare(), utente.getEmail(), Boolean.parseBoolean(utente.getUseNick()), Boolean.parseBoolean(utente.getIsMod()));
+        gestioneUtentiRegistratiController.aggiornaUtente(username, utente.getNome(), utente.getCognome(), utente.getNickname(), utente.getCellulare(), utente.getEmail(), Boolean.parseBoolean(utente.getUseNick()), Boolean.parseBoolean(utente.getIsMod()));
     }
 
 
@@ -121,9 +126,6 @@ public class GestioneUtentiForm extends Application implements Initializable {
         ObservableList<String> listaFiltri = FXCollections.observableArrayList("Username", "Cognome", "Email", "Cellulare", "Moderatori");
         filtri.setItems(listaFiltri);
         filtri.getSelectionModel().select(lastFiltro);
-
-        ObservableList<String> listaUsername = FXCollections.observableArrayList(gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem()));
-        listaNomiUtenti.setItems(listaUsername);
 
         /*Inizializzazione colonne tableView*/
         infoUtente.setEditable(true);
@@ -150,16 +152,23 @@ public class GestioneUtentiForm extends Application implements Initializable {
         colonnaUseNick.setEditable(true);
         colonnaUseNick.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        usernameColumnTableView.setCellValueFactory(new PropertyValueFactory<UtenteListaModel,String>("username"));
+        attributoColumnTableView.setCellValueFactory(new PropertyValueFactory<UtenteListaModel,String>("attributo"));
+
+        List<String> listaUtenti = gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem());
+        listaUtentiTableView.setItems(createObservableListUtenteListaModel(listaUtenti));
     }
 
     public void filtroCambiato(ActionEvent actionEvent) {
-        ObservableList<String> listaUsername = FXCollections.observableArrayList(gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem()));
-        listaNomiUtenti.setItems(listaUsername);
+        List<String> listaUtenti = gestioneUtentiRegistratiController.aggiornaLista(filtri.getSelectionModel().getSelectedItem());
+        listaUtentiTableView.setItems(createObservableListUtenteListaModel(listaUtenti));
     }
 
     public void nomeListaCliccato(MouseEvent mouseEvent) {
-        String username = listaNomiUtenti.getSelectionModel().getSelectedItem();
-        gestioneUtentiRegistratiController.mostraInfoUtente(username, filtri.getSelectionModel().getSelectedItem());
+        UtenteListaModel utente = listaUtentiTableView.getSelectionModel().getSelectedItem();
+        int lastSelectedUser = listaUtentiTableView.getSelectionModel().getSelectedIndex();
+        String username = utente.getUsername();
+        gestioneUtentiRegistratiController.mostraInfoUtente(username, filtri.getSelectionModel().getSelectedItem(),lastSelectedUser);
 
 
         /*Chiusura UI*/
@@ -168,7 +177,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
         stage.close();
     }
 
-    public void aggiornaTabella(String username, String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick, String filtro) {
+    public void aggiornaTabella(String nome, String cognome, String cellulare, String email, String nickname, boolean isMod, boolean useNick, String filtro,int lastSelectedUtente) {
 
         /*Aggiornamento UI*/
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GestioneUtentiForm.fxml"));
@@ -184,7 +193,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
             ObservableList<UtenteModel> observableList = FXCollections.observableArrayList(listaUtenteModel);
 
             gestioneUtentiForm.infoUtente.setItems(observableList);
-            gestioneUtentiForm.listaNomiUtenti.getSelectionModel().select(username);
+            gestioneUtentiForm.listaUtentiTableView.getSelectionModel().select(lastSelectedUtente);
             gestioneUtentiForm.filtri.getSelectionModel().select(filtro);
 
 
@@ -196,6 +205,15 @@ public class GestioneUtentiForm extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private ObservableList<UtenteListaModel> createObservableListUtenteListaModel(List<String> listaUtenti){
+        List<UtenteListaModel> listaUtentiModel = new ArrayList<UtenteListaModel>();
+        for(String utente: listaUtenti){
+            String token[] = utente.split("\u0000");
+            listaUtentiModel.add(new UtenteListaModel(token[0],token[1]));
+        }
+        return FXCollections.observableArrayList(listaUtentiModel);
     }
 
     public void nomeEdited(TableColumn.CellEditEvent<UtenteModel, String> cellEdited) {
@@ -305,6 +323,32 @@ public class GestioneUtentiForm extends Application implements Initializable {
         public void setUseNick(String useNick) {
             this.useNick = new SimpleStringProperty(useNick);
             ;
+        }
+    }
+
+    public class UtenteListaModel{
+        private SimpleStringProperty username;
+        private SimpleStringProperty attributo;
+
+        public UtenteListaModel(String username, String attributo){
+            this.username = new SimpleStringProperty(username);
+            this.attributo = new SimpleStringProperty(attributo);
+        }
+
+        public String getUsername(){
+            return username.get();
+        }
+
+        public void setUsername(String username){
+            this.username = new SimpleStringProperty(username);
+        }
+
+        public String getAttributo(){
+            return attributo.get();
+        }
+
+        public void setAttributo(String attributo){
+            this.attributo = new SimpleStringProperty(attributo);
         }
     }
 }

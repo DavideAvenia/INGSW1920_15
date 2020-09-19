@@ -63,20 +63,18 @@ public class GestioneUtentiRegistratiController {
         return utenteDao.getAllUtenti(filtro);
     }
 
-    public void mostraInfoUtente(String username, String filtro) {
+    public void mostraInfoUtente(String username, String filtro, int lastUtenteSelected) {
         Utente utente = utenteDao.getUtenteByUserID(username);
 
         if (gestioneUtentiForm != null) {
-            gestioneUtentiForm.aggiornaTabella(username, utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick(), filtro);
+            gestioneUtentiForm.aggiornaTabella(utente.getNome(), utente.getCognome(), utente.getCellulare(), utente.getEmail(), utente.getNickname(), utente.isMod(), utente.isUseNick(), filtro,lastUtenteSelected);
         }
     }
 
     public boolean cancellaUtente(String username) {
 
-        String tokens[] = username.split(" ");
-        String userId = tokens[0];
 
-        if (utenteDao.cancellaUtente(userId)) {
+        if (utenteDao.cancellaUtente(username)) {
             Thread thread = new Thread(() -> {
                 String service = "";
 
@@ -89,7 +87,7 @@ public class GestioneUtentiRegistratiController {
                 }
 
                 statisticheUtentiDAO = DAOfactory.getStatisticheUtentiDAO(service);
-                statisticheUtentiDAO.deleteStatisticheUtente(userId);
+                statisticheUtentiDAO.deleteStatisticheUtente(username);
             });
             thread.start();
             return true;

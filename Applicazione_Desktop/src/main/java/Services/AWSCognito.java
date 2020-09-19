@@ -39,7 +39,7 @@ public class AWSCognito implements UtenteDao {
 
         if (filtro.equals("Username")) {
             for (UserType user : listUsersResult.getUsers()) {
-                listaUtenti.add(user.getUsername());
+                listaUtenti.add(user.getUsername()+"\0 ");
             }
         } else {
             for (UserType user : listUsersResult.getUsers()) {
@@ -52,23 +52,23 @@ public class AWSCognito implements UtenteDao {
                     switch (filtro) {
                         case "Cognome":
                             if (nomeAttributo.equals("family_name")) {
-                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                                listaUtenti.add(user.getUsername() + "\0" + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Email":
                             if (nomeAttributo.equals("email")) {
-                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                                listaUtenti.add(user.getUsername() + "\0" + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Cellulare":
                             if (nomeAttributo.equals("phone_number")) {
-                                listaUtenti.add(user.getUsername() + " " + attributiUtente.get(i).getValue());
+                                listaUtenti.add(user.getUsername() + "\0" + attributiUtente.get(i).getValue());
                             }
                             break;
                         case "Moderatori":
                             if (nomeAttributo.equals("custom:isMod")) {
                                 if (Integer.parseInt(attributiUtente.get(i).getValue()) == 1) {
-                                    listaUtenti.add(user.getUsername());
+                                    listaUtenti.add(user.getUsername()+"\0 ");
                                 }
                             }
                             break;
