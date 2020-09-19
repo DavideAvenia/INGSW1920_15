@@ -19,9 +19,9 @@ import java.util.*;
 
 public class AWSCognito implements UtenteDao {
 
-    private final String USERPOOLID = "";
-    private final String CLIENTID = "";
-    private final String SECRET = "";
+    private final String USERPOOLID = "eu-west-1_KWhWZTu1x";
+    private final String CLIENTID = "66eho5mi1f4ift40cjtmvo03id";
+    private final String SECRET = "1e002tkp4rqratmgrlht6jvecsip96836j2e49tbph7j3lqfgi7s";
     private AWSCognitoIdentityProvider identityProvider;
 
     public AWSCognito() {
