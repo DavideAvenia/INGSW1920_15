@@ -2,10 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="188.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.Messaggio">
     <children>
-        <Button layoutX="147.0" layoutY="142.0" mnemonicParsing="false" onAction="#bottoneChiudiPremuto" text="Chiudi" />
-        <Label fx:id="messaggioLabel" layoutX="34.0" layoutY="68.0" prefHeight="52.0" prefWidth="280.0" text="Label" />
+        <Button layoutX="147.0" layoutY="142.0" mnemonicParsing="false" onAction="#bottoneChiudiPremuto" text="Chiudi">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <Label fx:id="messaggioLabel" layoutX="34.0" layoutY="68.0" prefHeight="52.0" prefWidth="280.0" text="Label">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

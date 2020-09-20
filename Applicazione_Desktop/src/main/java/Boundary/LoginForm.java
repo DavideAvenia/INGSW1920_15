@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class LoginForm extends Application {
@@ -23,6 +24,8 @@ public class LoginForm extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginForm.fxml"));
+        Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+        stage.getIcons().add(iconaStage);
         stage.setTitle("Login");
         stage.setScene(new Scene(root, 765.0,500.0));
         stage.show();

@@ -3,12 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="522.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.GestioneUtentiForm">
     <children>
         <ComboBox fx:id="filtri" layoutX="14.0" layoutY="14.0" onAction="#filtroCambiato" prefHeight="30.0" prefWidth="147.0" />
-        <Button fx:id="cancellaUtente" layoutX="314.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneCancellaCliccato" text="Cancella" />
-        <Button fx:id="aggiornaUtente" layoutX="875.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneApplicaCliccato" text="Applica" />
-        <Button fx:id="indietro" layoutX="949.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneIndietroPremuto" text="Indietro" />
+        <Button fx:id="cancellaUtente" layoutX="314.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneCancellaCliccato" text="Cancella" >
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <Button fx:id="aggiornaUtente" layoutX="875.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneApplicaCliccato" text="Applica" >
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <Button fx:id="indietro" layoutX="949.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneIndietroPremuto" text="Indietro">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
         <TableView fx:id="infoUtente" layoutX="314.0" layoutY="188.0" prefHeight="52.0" prefWidth="702.0">
             <columns>
                 <TableColumn fx:id="colonnaNome" onEditCommit="#nomeEdited" prefWidth="90.0" text="Nome" />
