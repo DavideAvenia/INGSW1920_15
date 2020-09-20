@@ -67,7 +67,7 @@ public class RegistrazioneForm extends AppCompatActivity {
         if (userId.equals("") || nome.equals("") || cognome.equals("") || cellulare.equals("") || email.equals("") || password.equals("")) {
             showToast("Tutti i campi sono obbligatori!");
         } else {
-            if (!checkEmail(email) || !checkPassword(password) || !checkUsername(userId)) {
+            if (!controllerLogin.checkEmail(email) || !controllerLogin.checkPassword(password) || !controllerLogin.checkUsername(userId)) {
                 showToast("Email e/o password non validi! Riprovare");
             } else {
                 cellulare = prefissiRegistrazione.getSelectedItem().toString() + cellulare;
@@ -76,39 +76,6 @@ public class RegistrazioneForm extends AppCompatActivity {
             }
         }
 
-    }
-
-    public boolean checkEmail(String email) {
-
-        String tokens[] = email.split("_");
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() || tokens[0].equals("admin")) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkUsername(String username) {
-        String tokens[] = username.split("_");
-        if (tokens[0].equals("admin")) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkPassword(String password) {
-        final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
-                "(?=.*[0-9])" +         //at least 1 digit
-                "(?=.*[a-z])" +         //at least 1 lower case letter
-                "(?=.*[A-Z])" +         //at least 1 upper case letter
-                "(?=.*[a-zA-Z])" +      //at least 1 special character
-                "(?=\\S+$)" +           //no white spaces
-                ".{6,}" +               //at least 6 characters
-                "$");
-
-        if (PASSWORD_PATTERN.matcher(password).matches()) {
-            return true;
-        }
-        return false;
     }
 
     public void showToast(String messaggio) {

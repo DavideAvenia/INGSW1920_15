@@ -4,66 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/coloreBackgroundActivities"
     tools:context=".boundary.LoginForm">
 
     <EditText
         android:id="@+id/userId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/textColor"
+        android:drawableLeft="@drawable/icona_username"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/passwordLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <EditText
         android:id="@+id/passwordLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/textColor"
+        android:drawableLeft="@drawable/icona_password_lock"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/registratiLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/registratiLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="28dp"
         android:onClick="registratiPremuto"
-        android:text="Non sei registrato? Registrati!"
+        android:text="@string/registrati"
         android:textColor="@color/hyperlinkColor"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/recuperaPasswordLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bottoneLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="188dp"
+        android:background="@drawable/buttonshape"
         android:onClick="bottoneLoginPremuto"
         android:text="Login"
+        android:textColor="@color/buttonTextColor"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/recuperaPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="96dp"
         android:onClick="recuperaPasswordPremuto"
         android:text="Recupera password"
         android:textColor="@color/hyperlinkColor"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/bottoneLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/testoNonSeiReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non sei registrato?"
+        android:textColor="@color/hyperlinkColor"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/recuperaPasswordLogin"
+        app:layout_constraintEnd_toStartOf="@+id/registratiLogin"
+        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordLogin"
+        app:layout_constraintVertical_bias="0.681" />
 </androidx.constraintlayout.widget.ConstraintLayout>

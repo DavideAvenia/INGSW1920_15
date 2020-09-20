@@ -33,7 +33,9 @@ public class VisualizzaStatisticheUtentiController {
         BufferedReader br = new BufferedReader(new FileReader((file)));
         String file1 = br.readLine();
         StatisticheUtentiDAO sdao = DAOfactory.getStatisticheUtentiDAO(file1);
+
         List<StatisticheUtenti> userstats = sdao.getStats();
+
         ObservableList<PaginaPrincipaleAdminForm.TabellaUtenti> oblist = FXCollections.observableArrayList();
         for (StatisticheUtenti value : userstats) {
             PaginaPrincipaleAdminForm.TabellaUtenti og = new PaginaPrincipaleAdminForm.TabellaUtenti(

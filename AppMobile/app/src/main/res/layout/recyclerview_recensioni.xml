@@ -4,7 +4,8 @@
     android:layout_width="380dp"
     android:layout_height="194dp"
     android:layout_margin="10dp"
-    android:background="@color/nonTroppoBianco">
+    android:background="@color/coloreBottoni"
+    android:elevation="2dp">
 
 
     <TextView
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewTestoRecensione"
         app:layout_constraintEnd_toStartOf="@+id/recyclerViewRatingBar"
         app:layout_constraintHorizontal_bias="0.13"
@@ -33,7 +35,8 @@
         <TextView
             android:id="@+id/testoRecensioneAdapter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:textColor="@color/textColor"/>
 
     </ScrollView>
 
@@ -46,5 +49,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewTestoRecensione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.166"
+        android:progressBackgroundTint="@color/ratingBarInactiveStartsColor"
+        android:progressTint="@color/coloreBackgroundActivities"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

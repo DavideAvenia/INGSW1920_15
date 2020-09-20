@@ -12,12 +12,13 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:autofillHints=""
-        android:backgroundTint="@color/textColor"
         android:ems="10"
         android:hint="Nome struttura"
         android:inputType="textPersonName"
         android:textColorHint="@color/textColor"
         android:textColor="@color/textColor"
+        android:backgroundTint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/cittàRicerca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.459"
@@ -136,13 +137,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:background="@color/coloreBackgroundActivities"
+        android:background="@drawable/buttonshape"
         android:contentDescription="Ricerca"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_search_black_24dp" />
+        app:srcCompat="@drawable/ic_search_black_24dp"
+        android:outlineSpotShadowColor="@color/gray"
+        android:elevation="5dp"/>
 
     <TextView
         android:id="@+id/maxPrezzoText"

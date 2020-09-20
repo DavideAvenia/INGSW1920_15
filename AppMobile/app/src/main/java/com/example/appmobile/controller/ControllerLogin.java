@@ -2,6 +2,7 @@ package com.example.appmobile.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Patterns;
 
 import com.example.appmobile.Dao.DaoFactory;
 import com.example.appmobile.Dao.UtenteDao;
@@ -12,6 +13,7 @@ import com.example.appmobile.boundary.RegistrazioneForm;
 import com.example.appmobile.boundary.ResetPasswordForm;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class ControllerLogin {
 
@@ -95,6 +97,39 @@ public class ControllerLogin {
 
     public void setUtenteLogged(Map<String, String> attributiUtenteLoggato) {
         MainFrameForm.setAtributiUtenteLoggato(attributiUtenteLoggato);
+    }
+
+    public static boolean checkEmail(String email) {
+
+        String tokens[] = email.split("_");
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches() || tokens[0].equals("admin")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkUsername(String username) {
+        String tokens[] = username.split("_");
+        if (tokens[0].equals("admin")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkPassword(String password) {
+        final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
+                "(?=.*[0-9])" +         //at least 1 digit
+                "(?=.*[a-z])" +         //at least 1 lower case letter
+                "(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //at least 1 special character
+                "(?=\\S+$)" +           //no white spaces
+                ".{6,}" +               //at least 6 characters
+                "$");
+
+        if (PASSWORD_PATTERN.matcher(password).matches()) {
+            return true;
+        }
+        return false;
     }
 
 

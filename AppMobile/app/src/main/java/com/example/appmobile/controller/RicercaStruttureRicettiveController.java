@@ -79,6 +79,4 @@ public class RicercaStruttureRicettiveController {
 
         MainFrameForm.aggiornaMappa(listaNomi, listaLatitudini, listaLogitudini, listaCittà, listaValutazioni, listaOrariApertura, listaRangePrezzo);
     }
-
-
 }

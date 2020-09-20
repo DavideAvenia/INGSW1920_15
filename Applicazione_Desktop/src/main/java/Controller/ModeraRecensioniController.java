@@ -80,7 +80,6 @@ public class ModeraRecensioniController {
             mapInit.put("connotatiUtente", r.getUserNameUtente());
             mapInit.put("nomeStruttura", r.getNomeStruttura());
         }
-
         return mapInit;
     }
 
