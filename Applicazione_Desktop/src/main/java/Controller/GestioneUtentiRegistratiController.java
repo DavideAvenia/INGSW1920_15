@@ -72,8 +72,6 @@ public class GestioneUtentiRegistratiController {
     }
 
     public boolean cancellaUtente(String username) {
-
-
         if (utenteDao.cancellaUtente(username)) {
             Thread thread = new Thread(() -> {
                 String service = "";

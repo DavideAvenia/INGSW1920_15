@@ -1,6 +1,6 @@
 package DAO;
 
-import Entity.ModelloStatisticheEStrutture;
+import Boundary.ModelloStatisticheEStrutture;
 
 import java.util.List;
 

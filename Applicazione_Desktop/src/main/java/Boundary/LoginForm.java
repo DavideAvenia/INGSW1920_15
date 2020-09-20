@@ -24,7 +24,7 @@ public class LoginForm extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginForm.fxml"));
         stage.setTitle("Login");
-        stage.setScene(new Scene(root, 1024, 576));
+        stage.setScene(new Scene(root, 765.0,500.0));
         stage.show();
     }
 

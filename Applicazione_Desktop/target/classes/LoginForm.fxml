@@ -6,14 +6,14 @@
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.LoginForm">
     <children>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="765.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="765.0">
             <children>
-                <Text layoutX="356.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.bottomAnchor="399.0" />
-                <TextField fx:id="username" layoutX="308.0" layoutY="189.0" AnchorPane.bottomAnchor="362.0" />
-                <Text layoutX="359.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.bottomAnchor="335.0" />
-                <PasswordField fx:id="password" layoutX="309.0" layoutY="249.0" AnchorPane.bottomAnchor="302.0" />
-                <Button layoutX="360.0" layoutY="288.0" mnemonicParsing="false" onAction="#loginPremuto" text="Login" />
-            <Label layoutX="276.0" layoutY="103.0" text="Consiglia Viaggi">
+                <Text layoutX="357.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.bottomAnchor="306.0" />
+                <TextField fx:id="username" layoutX="308.0" layoutY="176.0" AnchorPane.bottomAnchor="274.0" />
+                <Text layoutX="358.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" AnchorPane.bottomAnchor="245.98828125" />
+                <PasswordField fx:id="password" layoutX="309.0" layoutY="238.0" AnchorPane.bottomAnchor="212.0" />
+                <Button layoutX="360.0" layoutY="214.0" mnemonicParsing="false" onAction="#loginPremuto" text="Login" />
+            <Label layoutX="277.0" layoutY="14.0" text="Consiglia Viaggi">
                <font>
                   <Font size="30.0" />
                </font>

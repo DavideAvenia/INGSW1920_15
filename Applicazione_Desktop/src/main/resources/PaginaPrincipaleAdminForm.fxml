@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="Boundary.PaginaPrincipaleAdminForm">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.PaginaPrincipaleAdminForm">
     <children>
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneGestioneAccountPremuto"
-                text="Gestione utenti registrati"/>
-        <Button layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Modera recensioni"
-                onAction="#bottoneModeraRecensioniPremuto"/>
-        <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#bottoneStrutturePremuto"
-                text="Strutture"/>
-        <TableView fx:id="statsutenti" layoutX="14.0" layoutY="78.0" prefHeight="308.0" prefWidth="474.0">
+        <Button layoutX="318.0" layoutY="21.0" mnemonicParsing="false" onAction="#bottoneGestioneAccountPremuto" text="Gestione utenti registrati">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutX="486.0" layoutY="150.0" mnemonicParsing="false" onAction="#bottoneModeraRecensioniPremuto" text="Modera recensioni">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutX="489.0" layoutY="178.0" mnemonicParsing="false" onAction="#bottoneStrutturePremuto" text="Ricerca Strutture">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </Button>
+        <TableView fx:id="statsutenti" layoutX="14.0" layoutY="53.0" prefHeight="336.0" prefWidth="461.0">
             <columns>
-                <TableColumn fx:id="userid" prefWidth="88.0" text="Username"/>
-                <TableColumn fx:id="livello" prefWidth="84.0" text="Livello"/>
-                <TableColumn fx:id="avgscore" prefWidth="83.0" text="Score Medio"/>
-                <TableColumn fx:id="logincount" prefWidth="87.0" text="Login Count"/>
-                <TableColumn fx:id="nreview" prefWidth="131.0" text="N. Recensioni"/>
+                <TableColumn fx:id="userid" prefWidth="88.0" text="Username" />
+                <TableColumn fx:id="livello" prefWidth="84.0" text="Livello" />
+                <TableColumn fx:id="avgscore" prefWidth="83.0" text="Score Medio" />
+                <TableColumn fx:id="logincount" prefWidth="87.0" text="Login Count" />
+                <TableColumn fx:id="nreview" prefWidth="131.0" text="N. Recensioni" />
             </columns>
         </TableView>
-        <Button fx:id="ricarica" layoutX="524.0" layoutY="325.0" mnemonicParsing="false" onAction="#ricaricaPremuto"
-                text="Ricarica"/>
-        <Button fx:id="logout" layoutX="524.0" layoutY="361.0" mnemonicParsing="false" onAction="#logoutPremuto"
-                prefHeight="25.0" prefWidth="57.0" text="Logout"/>
-        <Label fx:id="label2" layoutX="14.0" layoutY="54.0" prefHeight="17.0" prefWidth="121.0"
-               text="Cerca per Username :">
+        <Button fx:id="ricarica" layoutX="515.0" layoutY="325.0" mnemonicParsing="false" onAction="#ricaricaPremuto" text="Ricarica">
+        </Button>
+        <Button fx:id="logout" layoutX="515.0" layoutY="361.0" mnemonicParsing="false" onAction="#logoutPremuto" prefHeight="25.0" prefWidth="57.0" text="Logout">
+        </Button>
+        <Label fx:id="label2" layoutX="14.0" layoutY="23.0" prefHeight="17.0" prefWidth="121.0" text="Cerca per Username :">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
         </Label>
-        <TextField fx:id="cercausername" layoutX="135.0" layoutY="50.0"/>
+        <TextField fx:id="cercausername" layoutX="135.0" layoutY="21.0">
+            <font>
+                <Font name="Gill Sans MT" size="12.0" />
+            </font>
+        </TextField>
     </children>
 </AnchorPane>

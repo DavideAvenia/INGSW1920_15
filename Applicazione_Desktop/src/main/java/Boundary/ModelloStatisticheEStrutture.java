@@ -1,4 +1,4 @@
-package Entity;
+package Boundary;
 
 public class ModelloStatisticheEStrutture {
     private int numVisitatori;

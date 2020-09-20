@@ -46,6 +46,8 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     ImageView imageViewRecensione;
     @FXML
     Label nomeStrutturaLabel;
+    @FXML
+    Label valutazione;
 
     //Bottoni
     @FXML
@@ -99,6 +101,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
             numeroValutazioneLabel.setText(mapInit.get("valutazione"));
             nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
             System.out.println(mapInit.get("urlImmagine"));
+            valutazione.setText("Valutazione");
             Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
             imageViewRecensione.setImage(immagineRecensione);
             indiceSelezionato = 0;
@@ -112,6 +115,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
                 connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
                 numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
                 nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
+                valutazione.setText("Valutazione");
                 System.out.println(mapInit.get("urlImmagine"));
                 Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
                 imageViewRecensione.setImage(immagineRecensione);

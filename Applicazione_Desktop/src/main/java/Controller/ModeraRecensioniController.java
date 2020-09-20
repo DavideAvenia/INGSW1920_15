@@ -117,6 +117,5 @@ public class ModeraRecensioniController {
         Recensioni r = listaRecensioni.get(i);
         if (recensioniDAO.disapprovaRecensione(r))
             mostraMessaggio("Disapprovazione", "La recensione è stata disapprovata e cancellata");
-
     }
 }

@@ -4,7 +4,7 @@ import DAO.RecensioniDAO;
 import DAO.StatisticheStruttureDAO;
 import DAO.StatisticheUtentiDAO;
 import Entity.Recensioni;
-import Entity.ModelloStatisticheEStrutture;
+import Boundary.ModelloStatisticheEStrutture;
 import Entity.StatisticheUtenti;
 import okhttp3.*;
 import org.json.JSONArray;
