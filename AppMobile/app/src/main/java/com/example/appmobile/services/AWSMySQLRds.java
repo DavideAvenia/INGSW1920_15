@@ -1,7 +1,6 @@
 package com.example.appmobile.services;
 
 import android.content.Context;
-import android.net.Uri;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -240,7 +239,7 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
     }
 
     @Override
-    public void insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine) {
+    public boolean insertRecensioni(String nomeUtente, String nomeStruttura, String latitudine, String longitudine, String testoRecensione, float valutazione, String urlImmagine) {
         /*Costruzione body richiesta http api*/
 
             OkHttpClient client = new OkHttpClient();
@@ -265,8 +264,11 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
             try {
                 response = client.newCall(request).execute();
                 Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(context, "La recensione non è stata inserita, riprova", Toast.LENGTH_LONG).show();
+                return false;
             }
         }
 

@@ -57,7 +57,7 @@ public class ScriviRecensioniController {
         RecensioniDao recensioniDao = DaoFactory.getRecensioniDao(service, context);
 
         if (immagine == null)
-            recensioniDao.insertRecensioni(userIdLogged, nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "");
+            recensioniDao.insertRecensioni(userIdLogged, nomeStruttura, latitudine, longitudine, testoRecensione, valutazioneRecensione, "Non è stata inserita nessun immagine");
         else {
             //Inserimento dell'immagine in S3, prendi l'URL e chiami
             String immagineURL = recensioniDao.insertImmagineS3(immagine);

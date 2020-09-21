@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -64,6 +65,8 @@ public class GestioneUtentiForm extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/GestioneUtentiForm.fxml"));
+        Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+        primaryStage.getIcons().add(iconaStage);
         primaryStage.setTitle("Gestione Utenti");
         primaryStage.setScene(new Scene(root, 1023, 522));
         primaryStage.show();
