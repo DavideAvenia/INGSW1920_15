@@ -206,7 +206,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
                 } else {
                     //signout con dialog di avvertimento
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.dialogTheme);
-                    builder.setMessage(Html.fromHtml("<font color='#d4d4d4'>Effettuare il logout?</font>")).setCancelable(false)
+                    builder.setMessage(Html.fromHtml("<font color='#18192F'>Effettuare il logout?</font>")).setCancelable(false)
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -240,7 +240,7 @@ public class MainFrameForm extends AppCompatActivity implements OnMapReadyCallba
 
     private void enableGpsMessage() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.dialogTheme);
-        builder.setMessage(Html.fromHtml("<font color='#d4d4d4'>Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare</font>")).setCancelable(false)
+        builder.setMessage(Html.fromHtml("<font color='#18192F'>Il gps non è abilitato, vuoi abilitarlo?\nCol GPS disattivo l'applicazione potrebbe non funzionare</font>")).setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
