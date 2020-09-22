@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/coloreBackgroundActivities"
     tools:context=".boundary.RecensioniStruttureForm">
 
     <TextView
@@ -11,7 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome struttura"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
         android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewRecensioni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -24,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:text="@string/valutazione_text"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/valutazioneLeggereRecensioni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
@@ -34,10 +39,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:progressBackgroundTint="@color/ratingBarInactiveStartsColor"
+        android:progressTint="@color/ratingBarActiveStarsColor"
         app:layout_constraintBottom_toTopOf="@+id/descrizioneText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:isIndicator="true"/>
 
     <TextView
         android:id="@+id/descrizioneText"
@@ -45,6 +53,7 @@
         android:layout_height="22dp"
         android:layout_marginBottom="8dp"
         android:text="Descrizione"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/scrollViewDescrizioneLeggereRecensioni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
@@ -59,7 +68,9 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewFotoRecensioni"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"></ScrollView>
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/lightGray"
+        android:elevation="2dp"></ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRecensioni"
@@ -92,5 +103,6 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/scrivereRecensioneLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="2dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

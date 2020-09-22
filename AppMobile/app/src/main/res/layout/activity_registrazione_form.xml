@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".boundary.RegistrazioneForm"
+    android:background="@color/coloreBackgroundActivities"
     tools:visibility="visible">
 
     <Button
@@ -14,17 +15,25 @@
         android:layout_marginBottom="136dp"
         android:onClick="bottoneRegistrazioPremuto"
         android:text="Registrati"
+        android:textColor="@color/buttonTextColor"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:background="@drawable/buttonshape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/userIdReg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:drawableLeft="@drawable/icona_username"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/nomeRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,75 +42,94 @@
 
     <EditText
         android:id="@+id/nomeRegistrazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/icona_family_name"
         android:ems="10"
         android:hint="Nome"
         android:inputType="textPersonName"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/cognomeRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/cognomeRegistrazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Cognome"
         android:inputType="textPersonName"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/cellulareRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/cellulareRegistrazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/icona_phone"
         android:ems="10"
         android:hint="Cellulare"
         android:inputType="phone"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/emailRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintHorizontal_bias="0.761"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/emailRegistrazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/icona_email"
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/passwordRegistrazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="68dp"
+        android:drawableLeft="@drawable/icona_password_lock"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/bottoneRegistrazione"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/prefissiRegistrazione"
-        android:layout_width="122dp"
+        android:layout_width="100dp"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cellulareRegistrazione"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.412" />
 </androidx.constraintlayout.widget.ConstraintLayout>

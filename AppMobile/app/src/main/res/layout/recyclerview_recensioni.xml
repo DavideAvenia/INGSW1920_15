@@ -4,8 +4,8 @@
     android:layout_width="380dp"
     android:layout_height="194dp"
     android:layout_margin="10dp"
-    android:background="@color/coloreBottoni"
-    android:elevation="2dp">
+    android:background="@color/lightGray"
+    android:elevation="10dp">
 
 
     <TextView
@@ -30,7 +30,9 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/lightGray"
+        android:elevation="2dp">
 
         <TextView
             android:id="@+id/testoRecensioneAdapter"
@@ -51,5 +53,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.166"
         android:progressBackgroundTint="@color/ratingBarInactiveStartsColor"
-        android:progressTint="@color/coloreBackgroundActivities"/>
+        android:progressTint="@color/ratingBarActiveStarsColor"
+        android:outlineSpotShadowColor="@color/ratingBarActiveStarsColor"
+        android:outlineAmbientShadowColor="@color/ratingBarActiveStarsColor"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

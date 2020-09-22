@@ -30,13 +30,13 @@
                app to run.
         -->
 
-        <activity android:name=".boundary.ScriviRecensioniForm" />
-        <activity android:name=".boundary.GestioneProfiloForm" />
-        <activity android:name=".boundary.RecensioniStruttureForm" />
-        <activity android:name=".boundary.RicercaStruttureForm" />
-        <activity android:name=".boundary.ResetPasswordForm" />
-        <activity android:name=".boundary.RegistrazioneForm" />
-        <activity android:name=".boundary.LoginForm" />
+        <activity android:name=".boundary.ScriviRecensioniForm" android:screenOrientation="portrait" />
+        <activity android:name=".boundary.GestioneProfiloForm" android:screenOrientation="portrait"/>
+        <activity android:name=".boundary.RecensioniStruttureForm" android:screenOrientation="portrait"/>
+        <activity android:name=".boundary.RicercaStruttureForm" android:screenOrientation="portrait"/>
+        <activity android:name=".boundary.ResetPasswordForm" android:screenOrientation="portrait"/>
+        <activity android:name=".boundary.RegistrazioneForm" android:screenOrientation="portrait"/>
+        <activity android:name=".boundary.LoginForm" android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -55,7 +55,8 @@
 
         <activity
             android:name=".MainFrameForm"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
