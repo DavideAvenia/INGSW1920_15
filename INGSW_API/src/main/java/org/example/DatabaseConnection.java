@@ -21,14 +21,9 @@ public class DatabaseConnection {
         }
 
     }
-    public ResultSet eseguiQuery(String query){
+    public ResultSet eseguiQuery(String query) throws SQLException{
         ResultSet resultSet = null;
-        try {
-            resultSet = stmt.executeQuery(query);
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        resultSet = stmt.executeQuery(query);
         return resultSet;
     }
 

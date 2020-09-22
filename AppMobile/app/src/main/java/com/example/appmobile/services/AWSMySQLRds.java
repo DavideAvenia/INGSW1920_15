@@ -263,14 +263,23 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
 
             try {
                 response = client.newCall(request).execute();
-                Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
-                return true;
+                if(response.isSuccessful()) {
+                    String risposta = response.body().string();
+                    if (risposta == "true") {
+                        Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
+                        return true;
+                    } else {
+                        Toast.makeText(context, "La recensione non è stata inserita, riprova", Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "La recensione non è stata inserita, riprova", Toast.LENGTH_LONG).show();
                 return false;
             }
-        }
+        return false;
+    }
 
     @Override
     public String insertImmagineS3(File img) {
