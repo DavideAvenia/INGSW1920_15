@@ -163,6 +163,7 @@
 											"model": {
 												"$ref": "AAAAAAF0IW/w/4v7FII="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 317,
 											"top": 348,
@@ -182,10 +183,27 @@
 											},
 											"font": "Arial;13;0",
 											"left": 317,
-											"top": 363,
+											"top": 348,
 											"width": 367,
 											"height": 13,
 											"text": "+Mostra(): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF0t2sDKqwWDM8=",
+											"_parent": {
+												"$ref": "AAAAAAFxF9aTzVU9oEc="
+											},
+											"model": {
+												"$ref": "AAAAAAF0t2sDE6wTpKw="
+											},
+											"font": "Arial;13;0",
+											"left": 317,
+											"top": 363,
+											"width": 367,
+											"height": 13,
+											"text": "+aggiorna(): List<StatisticheUtenti>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -561,13 +579,30 @@
 											"height": 13,
 											"text": "+calcolaPercentageNumReviews(): int",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF0t2XKpauyc84=",
+											"_parent": {
+												"$ref": "AAAAAAFxF9cHzVVrQqU="
+											},
+											"model": {
+												"$ref": "AAAAAAF0t2XKgquvSB8="
+											},
+											"font": "Arial;13;0",
+											"left": 357,
+											"top": 600,
+											"width": 285.04150390625,
+											"height": 13,
+											"text": "+getStats(): List<StatisticheUtenti>",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 352,
 									"top": 593,
 									"width": 295.04150390625,
-									"height": 10
+									"height": 25
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -607,7 +642,7 @@
 							"left": 352,
 							"top": 472,
 							"width": 295.04150390625,
-							"height": 131,
+							"height": 146,
 							"nameCompartment": {
 								"$ref": "AAAAAAFxF9cHzFVlRk8="
 							},
@@ -1517,6 +1552,25 @@
 									"direction": "return"
 								}
 							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF0t2sDE6wTpKw=",
+							"_parent": {
+								"$ref": "AAAAAAFxF9aTy1U04bw="
+							},
+							"name": "aggiorna",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF0t2s6laxER2A=",
+									"_parent": {
+										"$ref": "AAAAAAF0t2sDE6wTpKw="
+									},
+									"type": "List<StatisticheUtenti>",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -1796,6 +1850,25 @@
 										"$ref": "AAAAAAFxSy+rHFgTzoA="
 									},
 									"type": "int",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF0t2XKgquvSB8=",
+							"_parent": {
+								"$ref": "AAAAAAFxF9cHzFVi36g="
+							},
+							"name": "getStats",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF0t2XS8qvUxvA=",
+									"_parent": {
+										"$ref": "AAAAAAF0t2XKgquvSB8="
+									},
+									"type": "List<StatisticheUtenti>",
 									"direction": "return"
 								}
 							]

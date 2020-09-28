@@ -1412,13 +1412,30 @@
 											"height": 13,
 											"text": "+Recensioni(testoRecensione : String, utente : Utente, struttura : Struttura, valutazione : int, media: ArrayList): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF0t1/wVa175W8=",
+											"_parent": {
+												"$ref": "AAAAAAFw/i86syWaVJI="
+											},
+											"model": {
+												"$ref": "AAAAAAF0t1/wSK1yp84="
+											},
+											"font": "Arial;13;0",
+											"left": 357,
+											"top": 758,
+											"width": 660.07373046875,
+											"height": 13,
+											"text": "+insertRecensione(recensione: Recensioni): void",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 352,
 									"top": 738,
 									"width": 670.07373046875,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -3657,6 +3674,36 @@
 									},
 									"name": "media",
 									"type": "ArrayList"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF0t1/wSK1yp84=",
+							"_parent": {
+								"$ref": "AAAAAAFw/i86syWRXG8="
+							},
+							"name": "insertRecensione",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF0t2Aux63iGqw=",
+									"_parent": {
+										"$ref": "AAAAAAF0t1/wSK1yp84="
+									},
+									"name": "recensione",
+									"type": {
+										"$ref": "AAAAAAFw/i86syWRXG8="
+									}
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF0t2Aux63jPOw=",
+									"_parent": {
+										"$ref": "AAAAAAF0t1/wSK1yp84="
+									},
+									"type": "void",
+									"direction": "return"
 								}
 							]
 						}
