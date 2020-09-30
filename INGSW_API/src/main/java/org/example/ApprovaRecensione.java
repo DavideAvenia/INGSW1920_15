@@ -31,6 +31,7 @@ public class ApprovaRecensione implements RequestHandler<Map<String,String>,Bool
                 String valutazioneMedia = result.getString("Somma");
                 valutazioneMedia = valutazioneMedia.substring(0,3);
                 db.updateEntries("UPDATE Strutture SET valutazioneMedia = \"" + valutazioneMedia + "\" Where nome = \""+ nomeStruttura +"\";");
+                db.updateEntries("UPDATE StatisticheStrutture SET numReviews = numReviews + 1 Where nomeStruttura = \""+ nomeStruttura +"\";");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

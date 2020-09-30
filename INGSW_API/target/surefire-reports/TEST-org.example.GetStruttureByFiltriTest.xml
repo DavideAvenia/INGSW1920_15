@@ -1,64 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.example.GetStruttureByFiltriTest" time="0.048" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.example.GetStruttureByFiltriTest" time="0.038" tests="1" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="windows"/>
-    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
-    <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="java.specification.version" value="1.8"/>
-    <property name="sun.cpu.isalist" value=""/>
+    <property name="java.specification.version" value="14"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API\target\test-classes;C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API\target\classes;C:\Users\Davide\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Davide\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Davide\.m2\repository\com\amazonaws\aws-lambda-java-core\1.2.0\aws-lambda-java-core-1.2.0.jar;C:\Users\Davide\.m2\repository\com\amazonaws\aws-lambda-java-events\2.2.7\aws-lambda-java-events-2.2.7.jar;C:\Users\Davide\.m2\repository\joda-time\joda-time\2.6\joda-time-2.6.jar;C:\Users\Davide\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar;C:\Users\Davide\.m2\repository\com\google\protobuf\protobuf-java\3.6.1\protobuf-java-3.6.1.jar;"/>
+    <property name="java.class.path" value="C:\Coding\Git\INGSW_API\target\test-classes;C:\Coding\Git\INGSW_API\target\classes;C:\Users\guido\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\guido\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\guido\.m2\repository\com\amazonaws\aws-lambda-java-core\1.2.0\aws-lambda-java-core-1.2.0.jar;C:\Users\guido\.m2\repository\com\amazonaws\aws-lambda-java-events\2.2.7\aws-lambda-java-events-2.2.7.jar;C:\Users\guido\.m2\repository\joda-time\joda-time\2.6\joda-time-2.6.jar;C:\Users\guido\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar;C:\Users\guido\.m2\repository\com\google\protobuf\protobuf-java\3.6.1\protobuf-java-3.6.1.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="sun.arch.data.model" value="32"/>
+    <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="http://java.oracle.com/"/>
-    <property name="user.timezone" value="Europe/Berlin"/>
-    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Europe/Rome"/>
     <property name="os.name" value="Windows 10"/>
-    <property name="user.country" value="IT"/>
+    <property name="java.vm.specification.version" value="14"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\Davide\AppData\Local\Temp\surefire9173809432236161818\surefirebooter5431199028072470876.jar C:\Users\Davide\AppData\Local\Temp\surefire9173809432236161818 2020-09-21T13-25-59_431-jvmRun1 surefire7004503730642389121tmp surefire_06498374185433335904tmp"/>
-    <property name="surefire.test.class.path" value="C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API\target\test-classes;C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API\target\classes;C:\Users\Davide\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Davide\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Davide\.m2\repository\com\amazonaws\aws-lambda-java-core\1.2.0\aws-lambda-java-core-1.2.0.jar;C:\Users\Davide\.m2\repository\com\amazonaws\aws-lambda-java-events\2.2.7\aws-lambda-java-events-2.2.7.jar;C:\Users\Davide\.m2\repository\joda-time\joda-time\2.6\joda-time-2.6.jar;C:\Users\Davide\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar;C:\Users\Davide\.m2\repository\com\google\protobuf\protobuf-java\3.6.1\protobuf-java-3.6.1.jar;"/>
+    <property name="user.country" value="IT"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-14.0.1\bin"/>
+    <property name="sun.java.command" value="C:\Users\guido\AppData\Local\Temp\surefire16064826667120637913\surefirebooter987750625253690529.jar C:\Users\guido\AppData\Local\Temp\surefire16064826667120637913 2020-10-01T00-53-36_401-jvmRun1 surefire1784929167747003722tmp surefire_02402300239514166160tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Coding\Git\INGSW_API\target\test-classes;C:\Coding\Git\INGSW_API\target\classes;C:\Users\guido\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\guido\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\guido\.m2\repository\com\amazonaws\aws-lambda-java-core\1.2.0\aws-lambda-java-core-1.2.0.jar;C:\Users\guido\.m2\repository\com\amazonaws\aws-lambda-java-events\2.2.7\aws-lambda-java-events-2.2.7.jar;C:\Users\guido\.m2\repository\joda-time\joda-time\2.6\joda-time-2.6.jar;C:\Users\guido\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar;C:\Users\guido\.m2\repository\com\google\protobuf\protobuf-java\3.6.1\protobuf-java-3.6.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\Davide"/>
+    <property name="user.home" value="C:\Users\guido"/>
     <property name="user.language" value="it"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.home" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre"/>
-    <property name="basedir" value="C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API"/>
+    <property name="java.version.date" value="2020-04-14"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-14.0.1"/>
     <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Coding\Git\INGSW_API"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Davide\AppData\Local\Temp\surefire9173809432236161818\surefirebooter5431199028072470876.jar"/>
-    <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\rt.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_181\jre\classes"/>
+    <property name="surefire.real.class.path" value="C:\Users\guido\AppData\Local\Temp\surefire16064826667120637913\surefirebooter987750625253690529.jar"/>
     <property name="user.script" value=""/>
-    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
-    <property name="java.runtime.version" value="1.8.0_181-b13"/>
-    <property name="user.name" value="Davide"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="14.0.1+7"/>
+    <property name="user.name" value="guido"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.endorsed.dirs" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\endorsed"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="Cp1252"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
-    <property name="localRepository" value="C:\Users\Davide\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\Davide\AppData\Local\Temp\"/>
-    <property name="java.version" value="1.8.0_181"/>
-    <property name="user.dir" value="C:\Users\Davide\Desktop\Studio e Lavoro\Studio esami\IngSw\Repository Git\INGSW1920_15\INGSW_API"/>
-    <property name="os.arch" value="x86"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\guido\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\guido\AppData\Local\Temp\"/>
+    <property name="java.version" value="14.0.1"/>
+    <property name="user.dir" value="C:\Coding\Git\INGSW_API"/>
+    <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\Java\jdk1.8.0_181\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Davide\Desktop\C;C:\MinGW\bin;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Davide\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk-12.0.1\bin;C:\MinGW\bin;C:\Users\Davide\AppData\Local\GitHubDesktop\bin;C:\Users\Davide\apache-maven-3.6.3\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2020.2\bin;;C:\Users\Davide\AppData\Local\Programs\Microsoft VS Code\bin;."/>
-    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-14.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\program files (x86)\common files\oracle\java\javapath;c:\oraclexe\app\oracle\product\11.2.0\server\bin;c:\program files (x86)\razer chroma sdk\bin;c:\program files\razer chroma sdk\bin;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\users\guido\appdata\local\microsoft\windowsapps;c:\program files (x86)\windows kits\10\windows performance toolkit\;c:\program files (x86)\windows kits\10\microsoft application virtualization\sequencer\;c:\program files\git\cmd;c:\program files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;c:\mingw\bin;c:\mingw\include;c:\mingw;c:\program files (x86)\intel\intel(r) management engine components\dal;c:\program files\intel\intel(r) management engine components\dal;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\windows\system32\openssh\;c:\program files\git\cmd;c:\program files\dotnet\;c:\coding\apache-maven-3.6.3\bin;c:\program files\java\jdk-14.0.1;c:\program files\java\jdk-14.0.1\bin;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Crucial\Crucial Storage Executive;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\guido\AppData\Local\Microsoft\WindowsApps;C:\Users\guido\AppData\Local\GitHubDesktop\bin;C:\Users\guido\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\CLion 2019.3.4\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.1\bin;C:\MinGW\bin;C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;C:\Program Files\LLVM\bin;C:\MinGW\bin\include;C:\MinGW;C:\Users\guido\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2020.2\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="25.181-b13"/>
-    <property name="java.ext.dirs" value="C:\Program Files (x86)\Java\jdk1.8.0_181\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="java.vm.version" value="14.0.1+7"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="52.0"/>
+    <property name="java.class.version" value="58.0"/>
   </properties>
   <testcase name="shouldAnswerWithTrue" classname="org.example.GetStruttureByFiltriTest" time="0.002"/>
 </testsuite>
