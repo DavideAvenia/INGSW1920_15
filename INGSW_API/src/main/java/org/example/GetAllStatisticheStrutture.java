@@ -21,7 +21,6 @@ public class GetAllStatisticheStrutture implements RequestHandler<Map<String, St
              String nomeStruttura = res.getString(1);
              String latitudine = res.getString(2);
              String longitudine = res.getString(3);
-             int numeroReviews = res.getInt(4);
              int numClienti = res.getInt(5);
              int numVisitatori = res.getInt(6);
              String città = res.getString("città");
@@ -29,12 +28,18 @@ public class GetAllStatisticheStrutture implements RequestHandler<Map<String, St
              String orarioApertura = res.getString("orarioApertura");
              String categoria = res.getString("categoria");
 
+             ResultSet res2 = DB.eseguiQuery("SELECT count(usernameUtente) as righe\n" +
+                        "FROM Recensioni\n" +
+                        "WHERE pending = 0 and nomeStruttura = \""+ nomeStruttura +"\";");
+
+             int numeroReviews = res2.getInt(1);
              ModelloStatisticheEStrutture S = new ModelloStatisticheEStrutture(numVisitatori,numeroReviews,numClienti,nomeStruttura,longitudine,latitudine,categoria,valutazioneMedia,orarioApertura,città);
              Lista1.add(S);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return Lista1;
     }
 }

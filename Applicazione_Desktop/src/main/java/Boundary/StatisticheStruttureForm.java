@@ -64,7 +64,7 @@ public class StatisticheStruttureForm extends Application implements Initializab
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatsStructuresForm.fxml"));
         Parent root = loader.load();
-        primaryStage.setTitle("Nome_Software");
+        primaryStage.setTitle("Statistiche Strutture");
         primaryStage.setScene(new Scene(root, 742, 522));
         primaryStage.show();
     }

@@ -100,10 +100,11 @@ public class ModeraRecensioniForm extends Application implements Initializable {
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
             numeroValutazioneLabel.setText(mapInit.get("valutazione"));
             nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
-            System.out.println(mapInit.get("urlImmagine"));
             valutazione.setText("Valutazione");
-            Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
-            imageViewRecensione.setImage(immagineRecensione);
+            if(mapInit.get("urlImmagine") != "Non è stata inserita un immagine") {
+                Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+                imageViewRecensione.setImage(immagineRecensione);
+            }
             indiceSelezionato = 0;
         }
 
@@ -116,9 +117,11 @@ public class ModeraRecensioniForm extends Application implements Initializable {
                 numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
                 nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
                 valutazione.setText("Valutazione");
-                System.out.println(mapInit.get("urlImmagine"));
-                Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
-                imageViewRecensione.setImage(immagineRecensione);
+                if(mapInit.get("urlImmagine") != "Non è stata inserita un immagine"){
+                    Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+                    imageViewRecensione.setImage(immagineRecensione);
+                }
+
             }else{
                 try{
                     moderaRecensioniController.mostraMessaggio("Messaggio","Non ci sono recensioni!");
