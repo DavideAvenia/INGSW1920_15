@@ -33,6 +33,17 @@ public class ApprovaRecensione implements RequestHandler<Map<String,String>,Bool
                 db.updateEntries("UPDATE Strutture SET valutazioneMedia = \"" + valutazioneMedia + "\" Where nome = \""+ nomeStruttura +"\";");
                 db.updateEntries("UPDATE StatisticheStrutture SET numReviews = numReviews + 1 Where nomeStruttura = \""+ nomeStruttura +"\";");
             }
+            result.close();
+
+            db.updateEntries("Update StatisticheUtenti SET numTotaleReviews = numTotaleReviews + 1 Where userID = \""+usernameUtente+"\";");
+            ResultSet result2 = db.eseguiQuery("Select avg(valutazione) as Val from Recensioni Where usernameUtente = \""+usernameUtente+"\";");
+            if(result2.next()){
+                String valutazioneMediaUtente = result2.getString("Val");
+                db.updateEntries("update StatisticheUtenti set avgScore = \""+valutazioneMediaUtente+"\" where userID = \""+usernameUtente+"\";");
+            }
+            result2.close();
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
