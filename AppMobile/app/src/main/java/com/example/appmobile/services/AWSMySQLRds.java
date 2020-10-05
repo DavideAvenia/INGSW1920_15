@@ -265,17 +265,17 @@ public class AWSMySQLRds implements StruttureDao, RecensioniDao {
                 response = client.newCall(request).execute();
                 if(response.isSuccessful()) {
                     String risposta = response.body().string();
-                    if (risposta == "true") {
-                        Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione", Toast.LENGTH_LONG).show();
+                    if (risposta.equals("true")) {
+                        Toast.makeText(context, "La recensione è stata inserita ed è in attesa di approvazione!", Toast.LENGTH_LONG).show();
                         return true;
                     } else {
-                        Toast.makeText(context, "La recensione non è stata inserita, riprova", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "La recensione non è stata inserita, riprova!", Toast.LENGTH_LONG).show();
                         return false;
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context, "La recensione non è stata inserita, riprova", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Qualcosa è andato storto, riprova!", Toast.LENGTH_LONG).show();
                 return false;
             }
         return false;

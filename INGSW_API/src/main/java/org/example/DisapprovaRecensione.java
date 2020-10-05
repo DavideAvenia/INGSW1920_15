@@ -3,6 +3,7 @@ package org.example;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 public class DisapprovaRecensione implements RequestHandler<Map<String,String>,Boolean> {
@@ -14,9 +15,13 @@ public class DisapprovaRecensione implements RequestHandler<Map<String,String>,B
             String latitudine = requestyBody.get("latitudine");
             String longitudine = requestyBody.get("longitudine");
 
-            db.updateEntries("DELETE FROM Recensioni " +
-                    "Where usernameUtente =\""+ usernameUtente +"\" AND nomeStruttura = \"" + nomeStruttura + "\" " +
-                    "AND latitudine = \"" + latitudine + "\" AND longitudine = \"" + longitudine + "\";");
+            try{
+                db.updateEntries("DELETE FROM Recensioni " +
+                        "Where usernameUtente =\""+ usernameUtente +"\" AND nomeStruttura = \"" + nomeStruttura + "\" " +
+                        "AND latitudine = \"" + latitudine + "\" AND longitudine = \"" + longitudine + "\";");
+            }catch (SQLException e){
+                return false;
+            }
 
             return true;
     }

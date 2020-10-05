@@ -27,13 +27,7 @@ public class DatabaseConnection {
         return resultSet;
     }
 
-    public int updateEntries(String query){
-        int result = 0;
-        try {
-            result = stmt.executeUpdate(query);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return result;
+    public int updateEntries(String query) throws SQLException{
+        return stmt.executeUpdate(query);
     }
 }

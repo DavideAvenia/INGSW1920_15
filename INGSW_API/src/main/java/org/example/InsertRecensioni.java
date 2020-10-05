@@ -25,7 +25,7 @@ public class InsertRecensioni implements RequestHandler<Map<String,String>,Boole
         //vuol dire che è settato a True quindi rimane in attesa di conferma
 
         try {
-            databaseConnection.eseguiQuery("insert into Recensioni values(\"" + userId + "\",\"" + nomeStruttura + "\",\""
+            databaseConnection.updateEntries("insert into Recensioni values(\"" + userId + "\",\"" + nomeStruttura + "\",\""
                     + latitudine + "\",\"" + longitudine + "\",\"" + testoRecensione + "\",\"" + urlImmagine + "\",\"" + valutazione + "\",\"" + "1" + "\");");
         }catch(SQLIntegrityConstraintViolationException e){
             return false;
