@@ -62,6 +62,7 @@ public class GestioneUtentiForm extends Application implements Initializable {
     private TableColumn<UtenteModel, String> colonnaUseNick;
 
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
+
     private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
 
     @Override

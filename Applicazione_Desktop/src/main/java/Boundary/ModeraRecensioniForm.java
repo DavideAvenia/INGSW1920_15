@@ -99,7 +99,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         if (!mapInit.isEmpty()) {
             testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
-            numeroValutazioneLabel.setText("Valutazione:" + mapInit.get("valutazione"));
+            numeroValutazioneLabel.setText("Valutazione: " + mapInit.get("valutazione"));
             nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
             if(!mapInit.get("urlImmagine").equals("Non è stata inserita nessun immagine")) {
                 Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
@@ -115,7 +115,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
             if(!mapToHandle.isEmpty()){
                 testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
                 connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
-                numeroValutazioneLabel.setText(mapToHandle.get("Valutazione:" + "valutazione"));
+                numeroValutazioneLabel.setText("Valutazione: " + mapToHandle.get("valutazione"));
                 nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
                 if(!mapToHandle.get("urlImmagine").equals("Non è stata inserita nessun immagine")){
                     Image immagineRecensione = new Image(mapToHandle.get("urlImmagine"));
