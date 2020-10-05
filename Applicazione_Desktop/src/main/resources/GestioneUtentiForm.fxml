@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="522.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.GestioneUtentiForm">
     <children>
         <ComboBox fx:id="filtri" layoutX="14.0" layoutY="14.0" onAction="#filtroCambiato" prefHeight="30.0" prefWidth="147.0" />
-        <Button fx:id="cancellaUtente" layoutX="314.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneCancellaCliccato" text="Cancella">
+        <Button fx:id="cancellaUtente" layoutX="314.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneCancellaCliccato" style="-fx-background-color: #4a5bea;" text="Cancella" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="aggiornaUtente" layoutX="875.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneApplicaCliccato" text="Applica">
+        <Button fx:id="aggiornaUtente" layoutX="875.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneApplicaCliccato" style="-fx-background-color: #4a5bea;" text="Applica" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="indietro" layoutX="949.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneIndietroPremuto" text="Indietro">
+        <Button fx:id="indietro" layoutX="949.0" layoutY="480.0" mnemonicParsing="false" onAction="#bottoneIndietroPremuto" style="-fx-background-color: #4a5bea;" text="Indietro" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>

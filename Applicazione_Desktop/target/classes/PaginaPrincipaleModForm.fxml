@@ -6,15 +6,15 @@
 
 <AnchorPane prefHeight="302.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.PaginaPrincipaleModForm">
     <children>
-        <Button fx:id="review" layoutX="125.0" layoutY="94.0" mnemonicParsing="false" onAction="#moderaPremuto" text="Modera Recensioni Utente">
+        <Button fx:id="review" layoutX="125.0" layoutY="94.0" mnemonicParsing="false" onAction="#moderaPremuto" style="-fx-background-color: #4a5bea;" text="Modera Recensioni Utente" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="12.0" />
          </font></Button>
-        <Button fx:id="strutture" layoutX="117.0" layoutY="151.0" mnemonicParsing="false" onAction="#StrutturePremuto" text="Visualizza Statistiche Strutture">
+        <Button fx:id="strutture" layoutX="117.0" layoutY="151.0" mnemonicParsing="false" onAction="#StrutturePremuto" style="-fx-background-color: #4a5bea;" text="Visualizza Statistiche Strutture" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="12.0" />
          </font></Button>
-        <Button fx:id="logout" layoutX="328.0" layoutY="263.0" mnemonicParsing="false" onAction="#logoutPremuto" text="Logout">
+        <Button fx:id="logout" layoutX="328.0" layoutY="263.0" mnemonicParsing="false" onAction="#logoutPremuto" style="-fx-background-color: #4a5bea;" text="Logout" textFill="WHITE">
          <font>
             <Font name="Gill Sans MT" size="12.0" />
          </font></Button>

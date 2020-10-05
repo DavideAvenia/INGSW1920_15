@@ -60,14 +60,15 @@ public class GestioneUtentiForm extends Application implements Initializable {
     private TableColumn<UtenteModel, String> colonnaMod;
     @FXML
     private TableColumn<UtenteModel, String> colonnaUseNick;
+
     private GestioneUtentiRegistratiController gestioneUtentiRegistratiController;
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/GestioneUtentiForm.fxml"));
-        Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
-        primaryStage.getIcons().add(iconaStage);
         primaryStage.setTitle("Gestione Utenti");
+        primaryStage.getIcons().add(iconaStage);
         primaryStage.setScene(new Scene(root, 1023, 522));
         primaryStage.show();
     }

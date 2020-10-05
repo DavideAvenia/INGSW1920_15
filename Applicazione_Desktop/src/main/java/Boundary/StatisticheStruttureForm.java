@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -60,10 +61,13 @@ public class StatisticheStruttureForm extends Application implements Initializab
     @FXML
     private AnchorPane pane;
 
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatsStructuresForm.fxml"));
         Parent root = loader.load();
+        primaryStage.getIcons().add(iconaStage);
         primaryStage.setTitle("Statistiche Strutture");
         primaryStage.setScene(new Scene(root, 742, 522));
         primaryStage.show();

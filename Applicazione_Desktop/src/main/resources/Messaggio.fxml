@@ -6,12 +6,12 @@
 
 <AnchorPane prefHeight="188.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.Messaggio">
     <children>
-        <Button layoutX="147.0" layoutY="142.0" mnemonicParsing="false" onAction="#bottoneChiudiPremuto" text="Chiudi">
+        <Button layoutX="147.0" layoutY="142.0" mnemonicParsing="false" onAction="#bottoneChiudiPremuto" style="-fx-background-color: #4a5bea;" text="Chiudi" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Button>
-        <Label fx:id="messaggioLabel" layoutX="34.0" layoutY="42.0" prefHeight="52.0" prefWidth="280.0" text="Label">
+        <Label fx:id="messaggioLabel" alignment="CENTER" layoutX="34.0" layoutY="42.0" prefHeight="52.0" prefWidth="280.0" text="Label" textAlignment="CENTER">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>

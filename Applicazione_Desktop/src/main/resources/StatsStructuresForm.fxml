@@ -2,13 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="center" hgap="10" prefHeight="530.0" prefWidth="732.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.StatisticheStruttureForm">
     <children>
-        <AnchorPane fx:id="pane" prefHeight="524.0" prefWidth="712.0">
+        <AnchorPane fx:id="pane" prefHeight="524.0" prefWidth="719.0">
             <children>
-                <Button fx:id="indietro" layoutX="634.0" layoutY="480.0" mnemonicParsing="false" onAction="#indietroPremuto" text="Indietro">
-                </Button>
+                <Button fx:id="indietro" layoutX="637.0" layoutY="491.0" mnemonicParsing="false" onAction="#indietroPremuto" style="-fx-background-color: #4a5bea;" text="Indietro" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font></Button>
                 <TableView fx:id="statistiche" layoutX="7.0" layoutY="49.0" prefHeight="422.0" prefWidth="691.0">
                     <columns>
                         <TableColumn fx:id="nome" prefWidth="163.0" text="Struttura">
@@ -29,12 +32,20 @@
                         </TableColumn>
                     </columns>
                 </TableView>
-                <Button fx:id="aggiorna" layoutX="558.0" layoutY="480.0" mnemonicParsing="false" onAction="#aggiornaPremuto" text="Aggiorna" />
+                <Button fx:id="aggiorna" layoutX="564.0" layoutY="491.0" mnemonicParsing="false" onAction="#aggiornaPremuto" style="-fx-background-color: #4a5bea;" text="Aggiorna" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font></Button>
                 <TextField fx:id="cercabox" layoutX="133.0" layoutY="14.0" prefHeight="25.0" prefWidth="295.0" />
-                <Label fx:id="label" layoutX="8.0" layoutY="16.0" prefHeight="17.0" prefWidth="125.0" text="Ricerca per Struttura :">
-                </Label>
+                <Label fx:id="label" layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="125.0" text="Ricerca per Struttura:">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font></Label>
                 <ComboBox fx:id="comboFiltri" layoutX="542.0" layoutY="14.0" onAction="#selectFiltri" prefWidth="150.0" />
-                <Label layoutX="448.0" layoutY="18.0" text="Seleziona il filtro" />
+                <Label layoutX="453.0" layoutY="20.0" text="Seleziona il filtro">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font></Label>
             </children>
         </AnchorPane>
     </children>

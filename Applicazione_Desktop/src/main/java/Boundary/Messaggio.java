@@ -20,6 +20,8 @@ public class Messaggio extends Application implements Initializable {
     private static String title;
     private static String messaggio;
 
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+
     @FXML
     public Label messaggioLabel;
 
@@ -36,7 +38,6 @@ public class Messaggio extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Messaggio.fxml"));
-        Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
         stage.getIcons().add(iconaStage);
         stage.setTitle(title);
         stage.setScene(new Scene(root, 348, 188));

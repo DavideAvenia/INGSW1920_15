@@ -12,13 +12,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginForm extends Application {
+public class LoginForm extends Application implements Initializable {
+
+    @FXML
+    private ImageView iconaLogin = new ImageView();
 
     @FXML
     private TextField username;
@@ -26,15 +32,15 @@ public class LoginForm extends Application {
     @FXML
     private TextField password;
 
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+
 
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/LoginForm.fxml"));
         Scene scene = new Scene(root, 765.0,500.0);
-        Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
         stage.getIcons().add(iconaStage);
         stage.setTitle("Login");
-
         stage.setScene(scene);
         stage.show();
     }
@@ -54,5 +60,10 @@ public class LoginForm extends Application {
         }
 
 
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        iconaLogin.setImage(new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png"));
     }
 }

@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -50,10 +51,13 @@ public class PaginaPrincipaleAdminForm extends Application implements Initializa
     private StatisticheStruttureController controller;
     private ModeraRecensioniController moderaRecensioniController;
 
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/PaginaPrincipaleAdminForm.fxml"));
         primaryStage.setTitle("Pagina Principale");
+        primaryStage.getIcons().add(iconaStage);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

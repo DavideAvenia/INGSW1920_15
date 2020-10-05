@@ -46,8 +46,6 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     ImageView imageViewRecensione;
     @FXML
     Label nomeStrutturaLabel;
-    @FXML
-    Label valutazione;
 
     //Bottoni
     @FXML
@@ -61,6 +59,8 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     private List<String> listaAnteprime;
     private int indiceSelezionato;
 
+    private Image iconaStage = new Image("https://progettoingswfedericoii.s3-eu-west-1.amazonaws.com/iconaAppDesktop.png");
+
     @Override
     public void start(Stage stage) throws Exception {
         startGui(stage);
@@ -69,6 +69,7 @@ public class ModeraRecensioniForm extends Application implements Initializable {
     public void startGui(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/ModeraRecensioniForm.fxml"));
         stage.setTitle("Modera Recensioni");
+        stage.getIcons().add(iconaStage);
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -98,13 +99,13 @@ public class ModeraRecensioniForm extends Application implements Initializable {
         if (!mapInit.isEmpty()) {
             testoRecensioneLabel.setText(mapInit.get("testoRecensione"));
             connotatiUtenteLabel.setText(mapInit.get("connotatiUtente"));
-            numeroValutazioneLabel.setText(mapInit.get("valutazione"));
+            numeroValutazioneLabel.setText("Valutazione:" + mapInit.get("valutazione"));
             nomeStrutturaLabel.setText(mapInit.get("nomeStruttura"));
-            valutazione.setText("Valutazione");
-            if(mapInit.get("urlImmagine") != "Non è stata inserita un immagine") {
+            if(!mapInit.get("urlImmagine").equals("Non è stata inserita nessun immagine")) {
                 Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
                 imageViewRecensione.setImage(immagineRecensione);
-            }
+            }else
+              imageViewRecensione.setImage(new Image("https://via.placeholder.com/128x128.png?text=NessunImmagine"));
             indiceSelezionato = 0;
         }
 
@@ -114,13 +115,13 @@ public class ModeraRecensioniForm extends Application implements Initializable {
             if(!mapToHandle.isEmpty()){
                 testoRecensioneLabel.setText(mapToHandle.get("testoRecensione"));
                 connotatiUtenteLabel.setText(mapToHandle.get("connotatiUtente"));
-                numeroValutazioneLabel.setText(mapToHandle.get("valutazione"));
+                numeroValutazioneLabel.setText(mapToHandle.get("Valutazione:" + "valutazione"));
                 nomeStrutturaLabel.setText(mapToHandle.get("nomeStruttura"));
-                valutazione.setText("Valutazione");
-                if(mapInit.get("urlImmagine") != "Non è stata inserita un immagine"){
-                    Image immagineRecensione = new Image(mapInit.get("urlImmagine"));
+                if(!mapToHandle.get("urlImmagine").equals("Non è stata inserita nessun immagine")){
+                    Image immagineRecensione = new Image(mapToHandle.get("urlImmagine"));
                     imageViewRecensione.setImage(immagineRecensione);
-                }
+                }else
+                   imageViewRecensione.setImage(new Image("https://via.placeholder.com/256x128.png?text=NessunImmagine"));
 
             }else{
                 try{

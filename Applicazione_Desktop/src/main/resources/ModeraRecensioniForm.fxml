@@ -8,43 +8,38 @@
 <AnchorPane fx:id="titoloRecensione" prefHeight="515.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Boundary.ModeraRecensioniForm">
     <children>
         <ListView fx:id="listaAnteprimaRecensioni" layoutX="14.0" layoutY="12.0" prefHeight="492.0" prefWidth="199.0" />
-        <Label fx:id="nomeStrutturaLabel" layoutX="241.0" layoutY="70.0">
+        <Label fx:id="nomeStrutturaLabel" layoutX="228.0" layoutY="152.0" prefHeight="24.0" prefWidth="252.0">
             <font>
                 <Font name="Gill Sans MT" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="testoRecensioneLabel" layoutX="241.0" layoutY="117.0">
+        <Label fx:id="testoRecensioneLabel" layoutX="228.0" layoutY="187.0">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Label>
-        <Label fx:id="connotatiUtenteLabel" layoutX="373.0" layoutY="12.0">
+        <Label fx:id="connotatiUtenteLabel" layoutX="228.0" layoutY="91.0" textAlignment="CENTER">
             <font>
                 <Font name="Gill Sans MT" size="20.0" />
             </font>
         </Label>
-        <ImageView fx:id="imageViewRecensione" fitHeight="158.0" fitWidth="260.0" layoutX="241.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="valutazione" layoutX="580.0" layoutY="258.0">
+        <ImageView fx:id="imageViewRecensione" fitHeight="158.0" fitWidth="252.0" layoutX="481.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="numeroValutazioneLabel" layoutX="228.0" layoutY="222.0">
             <font>
                 <Font name="Gill Sans MT" size="20.0" />
             </font>
         </Label>
-        <Label fx:id="numeroValutazioneLabel" layoutX="578.0" layoutY="300.0">
-            <font>
-                <Font name="Gill Sans MT" size="12.0" />
-            </font>
-        </Label>
-        <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" onAction="#indietroButtonPremuto" text="Indietro">
+        <Button fx:id="indietroButton" layoutX="680.0" layoutY="476.0" mnemonicParsing="false" onAction="#indietroButtonPremuto" style="-fx-background-color: #4a5bea;" text="Indietro" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="disapprovaButton" layoutX="580.0" layoutY="476.0" mnemonicParsing="false" onAction="#disapprovaButtonPremuto" text="Disapprova">
+        <Button fx:id="disapprovaButton" layoutX="571.0" layoutY="476.0" mnemonicParsing="false" onAction="#disapprovaButtonPremuto" style="-fx-background-color: #4a5bea;" text="Disapprova" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" onAction="#approvaButtonPremuto" text="Approva">
+        <Button fx:id="approvaButton" layoutX="507.0" layoutY="476.0" mnemonicParsing="false" onAction="#approvaButtonPremuto" style="-fx-background-color: #4a5bea;" text="Approva" textFill="WHITE">
             <font>
                 <Font name="Gill Sans MT" size="12.0" />
             </font>
